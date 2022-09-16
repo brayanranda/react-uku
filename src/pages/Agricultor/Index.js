@@ -1,62 +1,54 @@
 import React, { useState } from "react";
 import { Button, Col, Row } from "reactstrap";
-import FormAgricultor from "../../UI/organism/Modals/FormAgricultor";
+import { AgricultorProvider } from "../../context/AgricultorContext";
 import ListAgricultor from "../ListaAgricultor/Index";
-// import { useParams } from "react-router-dom";
-// import AgricultorContext from "../../context/agricultorContext";
+import FormPut from "./FormPut";
+import { useParams } from "react-router-dom";
 
 const Index = () => {
-  const [modal_large, setmodal_large] = useState(false);
+  const [isFormPut, setIsFormPut] = useState(false);
+  const [data, setData] = useState([]);
+  let { id } = useParams();
 
-  // let { id } = useParams();
-  // const [data, setData] = useState({});
+  const handleSave = () => {
+    // await postData(data);
+    // await getAgricultores();
+    // clearForm();
+    console.log("Guardado");
+  };
 
-  // const { getAgricultores, agricultores, setAgricultores, postData } =
-  //   useContext(AgricultorContext);
-
-  // const handleSave = async () => {
-  //   await postData(data);
-  //   await getAgricultores();
-  //   clearForm();
-  // };
-
-  // const clearForm = () => {
-  //   setData({
-  //     customer_id: id,
-  //     date_call_note: "",
-  //     note: "",
-  //     subject: "",
-  //     type: "FACE TO FACE",
-  //   });
-  // };
+  const toggleFormPut = () => {
+    setIsFormPut(!isFormPut);
+    console.log("modal");
+  };
 
   return (
     <div className="col-10 fixed top-0 right-0 mt-24 p-5">
-      <FormAgricultor
-        modal_large={modal_large}
-        setmodal_large={setmodal_large}
+      <FormPut
+        isFormPut={isFormPut}
+        setIsFormPut={setIsFormPut}
+        data={data}
+        setData={setData}
+        onSubmit={handleSave}
       />
-      {/* <FormAgricultor data={data} setData={setData} onSubmit={handleSave} /> */}
       <Row>
         <Col className="col-uku">
           <div className="flex items-center mb-4 justify-between w-100">
             <div className="flex items-center">
               <p className="text-2xl mr-2">Inicio</p>
               <p className="text-2xl">/</p>
-              <p className="text-2xl ml-2 text-green-700">
-                Lista Abonos organicos
-              </p>
+              <p className="text-2xl ml-2 text-green-700">Lista Agricultor</p>
             </div>
-            <Button
-              color="success"
-              data-toggle="modal"
-              data-target="#exampleModalCenter"
-            >
+            <Button onClick={() => {
+              toggleFormPut()
+            }} color="success">
               Agregar
             </Button>
           </div>
           <div className="rounded-2xl bg-white shadow-sm">
-            <ListAgricultor />
+            <AgricultorProvider>
+              <ListAgricultor />
+            </AgricultorProvider>
           </div>
         </Col>
       </Row>

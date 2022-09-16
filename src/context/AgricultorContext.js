@@ -1,4 +1,4 @@
-import { helpHttp } from "helpers/helpHttp";
+import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
 
 const AgricultorContext = createContext();
@@ -10,17 +10,16 @@ const AgricultorProvider = ({ children }) => {
 
   const [agricultor, setAgricultor] = useState([]);
   const [agricultores, setAgricultores] = useState([]);
-  const [listCallNotes, setListCallNotes] = useState([]);
 
   const getAgricultor = (id) => {
     api.get(url + `${id}?`).then((res) => {
-      setAgricultor(res.data);
+      setAgricultor(res);
     });
   };
 
   const getAgricultores = () => {
     api.get(url).then((res) => {
-      setAgricultores(res.data);
+      setAgricultores(res);
     });
   };
 
@@ -54,17 +53,15 @@ const AgricultorProvider = ({ children }) => {
     });
   };
 
-  const delData = (task_id) => {
+  const delData =  async (task_id) => {
     let endpoint = url + task_id;
     let options = {
       body: "",
       headers: { "content-type": "application/json" },
     };
-    api.del(endpoint, options).then((res) => {
+    await api.del(endpoint, options).then((res) => {
       if (!res.err) {
         console.log("Eliminado");
-        let filter = listCallNotes.filter((task) => task.id != task_id);
-        setListCallNotes(filter);
       }
     });
   };

@@ -3,7 +3,6 @@ import Header from "../../UI/organism/Header";
 import Menu from "../../UI/organism/Menu";
 import { Row } from "reactstrap";
 import Agricultor from "../Agricultor/Index";
-// import AbonoOrganico from "../AbonoOrganico/Index";
 
 function Index() {
   return (
@@ -11,8 +10,7 @@ function Index() {
       <Header />
       <Row className="w-100">
         <Menu />
-        {/* <AbonoOrganico /> */}
-        <Agricultor />
+          <Agricultor />
       </Row>
     </div>
   );
