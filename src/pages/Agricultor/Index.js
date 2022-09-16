@@ -1,36 +1,18 @@
 import React, { useState } from "react";
 import { Button, Col, Row } from "reactstrap";
 import { AgricultorProvider } from "../../context/AgricultorContext";
-import ListAgricultor from "../ListaAgricultor/Index";
-import FormPut from "./FormPut";
+import ListAgricultor from "./List";
 import { useParams } from "react-router-dom";
 
 const Index = () => {
-  const [isFormPut, setIsFormPut] = useState(false);
-  const [data, setData] = useState([]);
   let { id } = useParams();
 
   const handleSave = () => {
-    // await postData(data);
-    // await getAgricultores();
-    // clearForm();
     console.log("Guardado");
-  };
-
-  const toggleFormPut = () => {
-    setIsFormPut(!isFormPut);
-    console.log("modal");
   };
 
   return (
     <div className="col-10 fixed top-0 right-0 mt-24 p-5">
-      <FormPut
-        isFormPut={isFormPut}
-        setIsFormPut={setIsFormPut}
-        data={data}
-        setData={setData}
-        onSubmit={handleSave}
-      />
       <Row>
         <Col className="col-uku">
           <div className="flex items-center mb-4 justify-between w-100">
@@ -39,11 +21,9 @@ const Index = () => {
               <p className="text-2xl">/</p>
               <p className="text-2xl ml-2 text-green-700">Lista Agricultor</p>
             </div>
-            <Button onClick={() => {
-              toggleFormPut()
-            }} color="success">
+            <button className="bg-green-700 rounded-md text-white hover:bg-green-700">
               Agregar
-            </Button>
+            </button>
           </div>
           <div className="rounded-2xl bg-white shadow-sm">
             <AgricultorProvider>
