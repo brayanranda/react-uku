@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import { Button, Col, Row } from "reactstrap";
+import React from "react";
+import { Col, Row } from "reactstrap";
 import { AgricultorProvider } from "../../context/AgricultorContext";
 import ListAgricultor from "./List";
-import { useParams } from "react-router-dom";
 
 const Index = () => {
-  let { id } = useParams();
 
   const handleSave = () => {
     console.log("Guardado");
@@ -19,10 +17,10 @@ const Index = () => {
             <div className="flex items-center">
               <p className="text-2xl mr-2">Inicio</p>
               <p className="text-2xl">/</p>
-              <p className="text-2xl ml-2 text-green-700">Lista Agricultor</p>
+              <p className="text-2xl ml-2 text-green-700">Lista Agricultores</p>
             </div>
-            <button className="bg-green-700 rounded-md text-white hover:bg-green-700">
-              Agregar
+            <button onClick={() => handleSave()} className="bg-green-700 rounded-md text-white hover:bg-green-700">
+              Agregar agricultor
             </button>
           </div>
           <div className="rounded-2xl bg-white shadow-sm">

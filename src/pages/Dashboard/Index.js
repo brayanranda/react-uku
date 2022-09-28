@@ -10,7 +10,7 @@ function Index() {
       <Header />
       <Row className="w-100">
         <Menu />
-          <Agricultor />
+        <Agricultor />
       </Row>
     </div>
   );

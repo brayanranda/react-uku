@@ -57,6 +57,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <Input
                     name="nombres"
+                    value={data.nombres}
                     onChange={handleChange}
                     type="text"
                     className="form-control"
@@ -70,6 +71,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                     type="text"
                     className="form-control col-lg-9"
                     name="apellidos"
+                    value={data.apellidos}
                     onChange={handleChange}
                   />
                 </Col>
@@ -83,6 +85,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                     type="date"
                     className="form-control col-lg-9"
                     name="fechaNacimiento"
+                    value={data.fechaNacimiento}
                     onChange={handleChange}
                   />
                 </Col>
@@ -96,6 +99,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                     type="text"
                     className="form-control"
                     name="identificacion"
+                    value={data.identificacion}
                     onChange={handleChange}
                   />
                 </Col>

@@ -6,8 +6,16 @@ import FormPut from "./FormPut";
 
 const Index = () => {
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
-  const [data, setData] = useState([]);
-  const [isFormPut, setIsFormPut] = useState(false);
+
+  const [ isFormPut, setIsFormPut ] = useState(false);
+  const { agricultorData, setAgricultorData } = useState({
+    nombres: "",
+    apellidos: "",
+    identificacion: "",
+    email: "",
+    telefono: "",
+    fechaNacimiento: "",
+  })
 
   const toggleFormPut = (agricultor) => {
     setIsFormPut(!isFormPut);
@@ -16,10 +24,10 @@ const Index = () => {
 
   useEffect(() => {
     getAgricultores();
-  });
+  }, []);
 
   const handlePut = (agricultor) => {
-    console.log(agricultor);
+    setAgricultorData(agricultor);
   };
 
   return (
@@ -27,15 +35,15 @@ const Index = () => {
       <FormPut
         isFormPut={isFormPut}
         setIsFormPut={setIsFormPut}
-        data={data}
-        setData={setData}
+        data={agricultorData}
+        setData={setAgricultorData}
         onSubmit={handlePut}
       />
       <div className="table-responsive fs-14">
         <table className="table">
           <thead>
             <tr>
-              <th>identifiacion</th>
+              <th>identificacion</th>
               <th>nombres</th>
               <th>apellidos</th>
               <th>telefono</th>
@@ -45,9 +53,10 @@ const Index = () => {
             </tr>
           </thead>
           <tbody>
-            {agricultores.map((agricultor, x) => (
+            { Object.entries(agricultores).length > 0 ? (
+              agricultores.map((agricultor, x) => (
               <tr key={x}>
-                <td>{agricultor.identifiacion}</td>
+                <td>{agricultor.identificacion}</td>
                 <td>{agricultor.nombres}</td>
                 <td>{agricultor.apellidos}</td>
                 <td>{agricultor.telefono}</td>
@@ -60,14 +69,16 @@ const Index = () => {
                   />
                   <FontAwesomeIcon
                     onClick={() => {
-                      toggleFormPut(agricultor.identifiacion);
+                      toggleFormPut(agricultor);
                     }}
                     className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                     icon={faEdit}
                   />
                 </td>
               </tr>
-            ))}
+            ))
+            ) : (<tr><td>No found data</td></tr>)
+            }
           </tbody>
         </table>
       </div>
