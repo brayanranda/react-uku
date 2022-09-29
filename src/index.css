@@ -15,7 +15,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-button, input {
+button, input, select, textarea {
   border-radius: .8rem !important;
   padding: .7rem 1rem !important;
 }

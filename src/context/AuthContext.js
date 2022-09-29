@@ -1,42 +1,81 @@
 import { createContext, useState } from "react";
 import { helpHttp } from "../helpers/helpHttp";
-import * as global from 'global'
+import { useNavigate } from "react-router-dom";
 
-const TokenContext = createContext();
+const AuthContext = createContext();
 
-const TokenProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+  const [isLogged, setIsLogged] = useState(false);
+  const [isLoginFail, setIsLoginFail] = useState(false);
+  const [resLogin, setResLogin] = useState({});
+  const [userInfo, setUserInfo] = useState("");
+
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let authURL = REACT_APP_API_URL + "auth/";
   let url = REACT_APP_API_URL + "usuario/";
-  
-  const [roles, setRoles] = useState([])
 
-  const post = (user) => {
+  const [roles, setRoles] = useState([]);
+
+  const post = async (user) => {
     let data = user;
     let options = {
       body: data,
       headers: { "content-type": "application/json" },
+    };
+
+    let res = null;
+    try {
+      res = await api.post(authURL + "nuevoAgricultor", options);
+      localStorage.setItem("token-auth", JSON.stringify(res.confirmationToken));
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
     }
-    api.post(authURL + 'nuevo', options)
   };
 
-  const putUser = (user) => {
+  const putUser = async (user) => {
     let data = user;
     let options = {
       body: data,
       headers: { "content-type": "application/json" },
+    };
+
+    let res = null;
+    try {
+      res = await api.post(url, options);
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
     }
-    api.put(url, options)
   };
 
-  const login = (loginUser) => {
+  const login = async (loginUser) => {
     let data = loginUser;
     let options = {
       body: data,
       headers: { "content-type": "application/json" },
+    };
+    let res = null;
+    try {
+      res = await api.post(authURL + "login", options);
+      setResLogin(res);
+      localStorage.setItem("token-auth", JSON.stringify(res.token));
+      setIsLogged(true);
+      navigate("/home");
+    } catch (error) {
+      setIsLogged(false);
+      setIsLoginFail(true);
+      console.log(error);
     }
-    api.post(authURL + 'login', options)
+  };
+
+  const logOut = () => {
+    localStorage.clear();
+    window.sessionStorage.clear();
+    localStorage.removeItem("token-auth");
+    navigate("/");
   };
 
   const data = {
@@ -45,12 +84,19 @@ const TokenProvider = ({ children }) => {
     post,
     putUser,
     login,
+    resLogin,
+    setResLogin,
+    isLogged,
+    isLoginFail,
+    setIsLogged,
+    setIsLoginFail,
+    userInfo,
+    setUserInfo,
+    logOut,
   };
 
-  return (
-    <TokenContext.Provider value={data}>{children}</TokenContext.Provider>
-  );
-}
+  return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
+};
 
-export { TokenProvider };
-export default TokenContext;
+export { AuthProvider };
+export default AuthContext;

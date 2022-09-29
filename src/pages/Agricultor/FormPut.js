@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Button, Modal } from "reactstrap";
 
 const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
