@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { helpHttp } from "../helpers/helpHttp";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const AuthContext = createContext();
 
@@ -16,6 +17,13 @@ const AuthProvider = ({ children }) => {
   let authURL = REACT_APP_API_URL + "auth/";
   let url = REACT_APP_API_URL + "usuario/";
 
+  const [user, setUser] = useState(null);
+
+  const login2 = ({ username }) => {
+    setUser({ username });
+    navigate("/home");
+  };
+
   const [roles, setRoles] = useState([]);
 
   const post = async (user) => {
@@ -30,8 +38,11 @@ const AuthProvider = ({ children }) => {
       res = await api.post(authURL + "nuevoAgricultor", options);
       localStorage.setItem("token-auth", JSON.stringify(res.confirmationToken));
       navigate("/home");
+      toast.success("Bienvenido a ukulima");
     } catch (error) {
       console.log(error);
+      toast.error("Error");
+      return res.err;
     }
   };
 
@@ -64,6 +75,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("token-auth", JSON.stringify(res.token));
       setIsLogged(true);
       navigate("/home");
+      toast.success("Bienvenido a ukulima");
     } catch (error) {
       setIsLogged(false);
       setIsLoginFail(true);
@@ -79,6 +91,9 @@ const AuthProvider = ({ children }) => {
   };
 
   const data = {
+    login2,
+    user,
+    setUser,
     roles,
     setRoles,
     post,

@@ -3,23 +3,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import AgricultorContext from "../../context/AgricultorContext";
 import FormPut from "./FormPut";
+import { Toaster } from "react-hot-toast";
 
 const Index = () => {
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
 
   const [isFormPut, setIsFormPut] = useState(false);
-  const { agricultorData, setAgricultorData } = useState({
-    nombres: "default",
-    apellidos: "default",
-    identificacion: "12345",
-    email: "default@gmail.com",
-    telefono: "12345",
-    fechaNacimiento: "1996-09-08",
+  const [agricultorData, setAgricultorData] = useState({
+    nombres: "",
+    apellidos: "",
+    identificacion: "",
+    email: "",
+    telefono: "",
+    fechaNacimiento: "",
   });
 
   const toggleFormPut = (agricultor) => {
+    console.log(agricultor);
+    setAgricultorData(agricultor);
     setIsFormPut(!isFormPut);
-    handlePut(agricultor);
   };
 
   useEffect(() => {
@@ -32,13 +34,16 @@ const Index = () => {
 
   return (
     <>
-      {/* <FormPut
-        isFormPut={isFormPut}
-        setIsFormPut={setIsFormPut}
-        data={agricultorData}
-        setData={setAgricultorData}
-        onSubmit={handlePut}
-      /> */}
+      <Toaster />
+      {isFormPut ? (
+        <FormPut
+          isFormPut={isFormPut}
+          setIsFormPut={setIsFormPut}
+          data={agricultorData}
+          setData={setAgricultorData}
+          onSubmit={handlePut}
+        />
+      ) : null}
       <div className="table-responsive fs-14">
         <table className="table">
           <thead>

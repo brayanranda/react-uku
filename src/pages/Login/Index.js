@@ -5,9 +5,11 @@ import { Button, Col, Row } from "reactstrap";
 import TokenContext from "../../context/TokenContext";
 import AuthContext from "../../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 
 const Index = () => {
   const { login, userInfo, setUserInfo } = useContext(AuthContext);
+  const auth = useAuth();
   const { getAuthorities, getToken, setRoles, setIsLogged, setIsLoginFail } =
     useContext(TokenContext);
 
@@ -44,7 +46,7 @@ const Index = () => {
         xl={4}
         className="bg-white p-3 p-md-5 rounded-3"
       >
-        <Image src={logo} width={120} className="mx-auto" alt="" />
+        <Image src={logo} width={120} className="mx-auto logo-lr" alt="" />
         <h4 className=" text-center mt-3 mb-4 text-2xl font-medium">
           Iniciar sesión
         </h4>

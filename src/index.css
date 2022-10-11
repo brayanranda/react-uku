@@ -61,3 +61,13 @@ tr > * {
 th { font-size: 18px; }
 th:first-child, td:first-child { padding-left: 2rem !important; }
 th:last-child, td:last-child { padding-right: 2rem !important; }
+.btn-404 {
+  border-radius: .5rem !important;
+  padding: .7rem 1rem !important;
+}
+.btn-404:hover {
+  color: white !important;
+  text-decoration: none !important;
+}
+.logo-lr { aspect-ratio: 1/1.14; }
+a:hover { text-decoration: none !important; }

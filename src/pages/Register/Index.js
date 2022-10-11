@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { Button, Col, Row } from "reactstrap";
 import AuthContext from "../../context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 const Index = () => {
   const { post } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const Index = () => {
     apellidos: "",
     email: "",
     password: "",
-    identificacion: "",
+    identificacion: 1,
     telefono: "",
     fechaNacimiento: "",
     idTipoIdentificacion: 1,
@@ -23,6 +24,12 @@ const Index = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+    if (name == "idTipoIdentificacion") {
+      setData({ ...data, [name]: Number(value) });
+    }
+    if (name == "identificacion") {
+      setData({ ...data, [name]: Number(value) });
+    }
   };
 
   const handleSave = async () => {
