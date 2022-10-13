@@ -31,8 +31,8 @@ const Index = () => {
 
   useEffect(() => {
     if (getToken() === true) {
-      setIsLogged(true);
-      setIsLoginFail(true);
+      // setIsLogged(true);
+      // setIsLoginFail(true);
       setRoles(getAuthorities());
     }
   }, []);

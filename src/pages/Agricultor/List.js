@@ -6,7 +6,8 @@ import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 
 const Index = () => {
-  const { getAgricultores, agricultores } = useContext(AgricultorContext);
+  const { getAgricultores, agricultores, putData } =
+    useContext(AgricultorContext);
 
   const [isFormPut, setIsFormPut] = useState(false);
   const [agricultorData, setAgricultorData] = useState({
@@ -28,8 +29,10 @@ const Index = () => {
     getAgricultores();
   }, []);
 
-  const handlePut = (agricultor) => {
-    setAgricultorData(agricultor);
+  const handlePut = async () => {
+    await putData(agricultorData);
+    await getAgricultores();
+    setIsFormPut(!isFormPut);
   };
 
   return (

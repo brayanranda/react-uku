@@ -57,7 +57,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <Input
                     name="nombres"
-                    // value={data.nombres}
+                    value={data.nombres}
                     onChange={handleChange}
                     type="text"
                     className="form-control"
@@ -67,11 +67,11 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Apellidos</Label>
                 <Col sm={9}>
-                  <input
+                  <Input
                     type="text"
                     className="form-control col-lg-9"
                     name="apellidos"
-                    // value={data.apellidos}
+                    value={data.apellidos}
                     onChange={handleChange}
                   />
                 </Col>
@@ -81,11 +81,11 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                   Fecha Nacimiento
                 </Label>
                 <Col sm={9}>
-                  <input
+                  <Input
                     type="date"
                     className="form-control col-lg-9"
                     name="fechaNacimiento"
-                    // value={data.fechaNacimiento}
+                    value={data.fechaNacimiento}
                     onChange={handleChange}
                   />
                 </Col>
@@ -95,11 +95,11 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                   Identificacion
                 </Label>
                 <Col sm={9}>
-                  <input
+                  <Input
                     type="text"
                     className="form-control"
                     name="identificacion"
-                    // value={data.identificacion}
+                    value={data.identificacion}
                     onChange={handleChange}
                   />
                 </Col>
@@ -131,6 +131,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <Input
                     name="telefono"
+                    value={data.telefono}
                     onChange={handleChange}
                     type="text"
                     className="form-control"
@@ -141,6 +142,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <div>
                     <button
+                      type="button"
                       className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4 me-2"
                       onClick={() => {
                         onSubmit();
