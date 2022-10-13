@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 import { helpHttp } from "../helpers/helpHttp";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const AuthContext = createContext();
@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [isLogged, setIsLogged] = useState(false);
   const [isLoginFail, setIsLoginFail] = useState(false);
-  const [resLogin, setResLogin] = useState({});
+  const [resLogin, setResLogin] = useState(null);
   const [userInfo, setUserInfo] = useState("");
 
   let api = helpHttp();
@@ -71,11 +71,13 @@ const AuthProvider = ({ children }) => {
     let res = null;
     try {
       res = await api.post(authURL + "login", options);
-      setResLogin(res);
-      localStorage.setItem("token-auth", JSON.stringify(res.token));
-      setIsLogged(true);
-      navigate("/home");
-      toast.success("Bienvenido a ukulima");
+      if (res.token) {
+        setResLogin(res);
+        localStorage.setItem("token-auth", JSON.stringify(res.token));
+        setIsLogged(true);
+        navigate("/home");
+        toast.success("Bienvenido a ukulima");
+      }
     } catch (error) {
       setIsLogged(false);
       setIsLoginFail(true);
@@ -112,6 +114,19 @@ const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };
+function useAuth() {
+  const auth = React.useContext(AuthContext);
+  return auth;
+}
 
-export { AuthProvider };
+function AuthRoute(props) {
+  const auth = useAuth();
+
+  if (!auth.resLogin) {
+    return <Navigate to="/login" />;
+  }
+
+  return props.children;
+}
+export { AuthProvider, AuthRoute, useAuth };
 export default AuthContext;
