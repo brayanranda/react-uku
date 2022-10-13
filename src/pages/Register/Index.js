@@ -24,10 +24,10 @@ const Index = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
-    if (name == "idTipoIdentificacion") {
+    if (name === "idTipoIdentificacion") {
       setData({ ...data, [name]: Number(value) });
     }
-    if (name == "identificacion") {
+    if (name === "identificacion") {
       setData({ ...data, [name]: Number(value) });
     }
   };
