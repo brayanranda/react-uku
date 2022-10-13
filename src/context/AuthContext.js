@@ -75,7 +75,7 @@ const AuthProvider = ({ children }) => {
         setResLogin(res);
         localStorage.setItem("token-auth", JSON.stringify(res.token));
         setIsLogged(true);
-        navigate("/home");
+        navigate("/home", { replace: true });
         toast.success("Bienvenido a ukulima");
       }
     } catch (error) {
@@ -89,7 +89,7 @@ const AuthProvider = ({ children }) => {
     localStorage.clear();
     window.sessionStorage.clear();
     localStorage.removeItem("token-auth");
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   const data = {
