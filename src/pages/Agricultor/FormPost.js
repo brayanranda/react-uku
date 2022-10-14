@@ -57,7 +57,6 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                 <Col sm={9}>
                   <Input
                     name="nombres"
-                    value={data.nombres}
                     onChange={handleChange}
                     type="text"
                     className="form-control"
@@ -71,7 +70,6 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                     type="text"
                     className="form-control col-lg-9"
                     name="apellidos"
-                    value={data.apellidos}
                     onChange={handleChange}
                   />
                 </Col>
@@ -85,7 +83,6 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                     type="date"
                     className="form-control col-lg-9"
                     name="fechaNacimiento"
-                    value={data.fechaNacimiento}
                     onChange={handleChange}
                   />
                 </Col>
@@ -99,8 +96,23 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                     type="text"
                     className="form-control"
                     name="identificacion"
-                    value={data.identificacion}
                     onChange={handleChange}
+                  />
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
+                  Email
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    name="email"
+                    onChange={handleChange}
+                    type="email"
+                    className="form-control"
                   />
                 </Col>
               </div>
@@ -115,7 +127,7 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                   <Input
                     name="password"
                     onChange={handleChange}
-                    type="text"
+                    type="password"
                     className="form-control"
                   />
                 </Col>
@@ -131,7 +143,6 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                 <Col sm={9}>
                   <Input
                     name="telefono"
-                    value={data.telefono}
                     onChange={handleChange}
                     type="text"
                     className="form-control"

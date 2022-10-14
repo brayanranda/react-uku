@@ -7,7 +7,7 @@ const AgricultorProvider = ({ children }) => {
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "agricultor";
-
+  let urlPost = REACT_APP_API_URL + "auth/nuevoAgricultor";
   const [agricultor, setAgricultor] = useState([]);
   const [agricultores, setAgricultores] = useState([]);
 
@@ -29,7 +29,7 @@ const AgricultorProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.post(url, options).then((res) => {
+    await api.post(urlPost, options).then((res) => {
       if (!res.err) {
         console.log("Registrado");
       } else {
@@ -53,7 +53,7 @@ const AgricultorProvider = ({ children }) => {
     });
   };
 
-  const delData =  async (task_id) => {
+  const delData = async (task_id) => {
     let endpoint = url + task_id;
     let options = {
       body: "",
