@@ -1,14 +1,10 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
-import AgricultorContext from "../../context/AgricultorContext";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 
-const Index = () => {
-  const { getAgricultores, agricultores, putData } =
-    useContext(AgricultorContext);
-
+const Index = ({ getAgricultores, agricultores, putData }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [agricultorData, setAgricultorData] = useState({
     nombres: "",

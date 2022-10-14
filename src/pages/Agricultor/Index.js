@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Col, Row } from "reactstrap";
-import { AgricultorProvider } from "../../context/AgricultorContext";
+import AgricultorContext from "../../context/AgricultorContext";
 import FormPost from "./FormPost";
 import ListAgricultor from "./List";
 
 const Index = () => {
+  const { getAgricultores, agricultores, putData, postData } =
+    useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [agricultorData, setAgricultorData] = useState({
     nombres: "",
@@ -12,11 +14,23 @@ const Index = () => {
     identificacion: "",
     email: "",
     telefono: "",
+    password: "",
     fechaNacimiento: "",
+    confirmationToken: "",
+    estado: false,
+    fincaCollection: null,
+    passwordResetTokens: null,
+    idTipoIdentificacion: {
+      idTipo: 1,
+      nombre: "CC",
+      agricultorCollection: null,
+    },
   });
 
-  const handleSave = () => {
-    console.log("Guardado");
+  const handleSave = async () => {
+    await postData(agricultorData);
+    await getAgricultores();
+    setIsFormPost(!isFormPost);
   };
 
   const toggleFormPost = () => {
@@ -53,9 +67,11 @@ const Index = () => {
               </button>
             </div>
             <div className="rounded-2xl bg-white shadow-sm">
-              <AgricultorProvider>
-                <ListAgricultor />
-              </AgricultorProvider>
+              <ListAgricultor
+                getAgricultores={getAgricultores}
+                agricultores={agricultores}
+                putData={putData}
+              />
             </div>
           </Col>
         </Row>
