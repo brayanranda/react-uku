@@ -20,7 +20,6 @@ const Index = () => {
   });
 
   const toggleFormPut = (agricultor) => {
-    console.log(agricultor);
     setAgricultorData(agricultor);
     setIsFormPut(!isFormPut);
   };
@@ -70,7 +69,7 @@ const Index = () => {
                   <td>{agricultor.telefono}</td>
                   <td>{agricultor.email}</td>
                   <td>{agricultor.fechaNacimiento}</td>
-                  <td className="flex items-center">
+                  <td>
                     <FontAwesomeIcon
                       className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       icon={faEye}

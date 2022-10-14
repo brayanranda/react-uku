@@ -1,35 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "reactstrap";
 import { AgricultorProvider } from "../../context/AgricultorContext";
+import FormPost from "./FormPost";
 import ListAgricultor from "./List";
 
 const Index = () => {
+  const [isFormPost, setIsFormPost] = useState(false);
+  const [agricultorData, setAgricultorData] = useState({
+    nombres: "",
+    apellidos: "",
+    identificacion: "",
+    email: "",
+    telefono: "",
+    fechaNacimiento: "",
+  });
 
   const handleSave = () => {
     console.log("Guardado");
   };
 
+  const toggleFormPost = () => {
+    setIsFormPost(!isFormPost);
+  };
+
   return (
-    <div className="col-10 fixed top-0 right-0 mt-24 p-5">
-      <Row>
-        <Col className="col-uku">
-          <div className="flex items-center mb-4 justify-between w-100">
-            <div className="flex items-center">
-              <p className="text-2xl mr-2">Inicio</p>
-              <p className="text-2xl">/</p>
-              <p className="text-2xl ml-2 text-green-700">Lista Agricultores</p>
+    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+      <div className="w-100 mt-16">
+        {isFormPost ? (
+          <FormPost
+            isFormPost={isFormPost}
+            setIsFormPost={setIsFormPost}
+            data={agricultorData}
+            setData={setAgricultorData}
+            onSubmit={handleSave}
+          />
+        ) : null}
+        <Row>
+          <Col className="col-uku">
+            <div className="flex items-center mb-4 justify-between w-100">
+              <div className="flex items-center">
+                <p className="text-2xl mr-2">Inicio</p>
+                <p className="text-2xl">/</p>
+                <p className="text-2xl ml-2 text-green-700">
+                  Lista Agricultores
+                </p>
+              </div>
+              <button
+                onClick={() => toggleFormPost()}
+                className="bg-green-700 rounded-md text-white hover:bg-green-700"
+              >
+                Agregar agricultor
+              </button>
             </div>
-            <button onClick={() => handleSave()} className="bg-green-700 rounded-md text-white hover:bg-green-700">
-              Agregar agricultor
-            </button>
-          </div>
-          <div className="rounded-2xl bg-white shadow-sm">
-            <AgricultorProvider>
-              <ListAgricultor />
-            </AgricultorProvider>
-          </div>
-        </Col>
-      </Row>
+            <div className="rounded-2xl bg-white shadow-sm">
+              <AgricultorProvider>
+                <ListAgricultor />
+              </AgricultorProvider>
+            </div>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 };
