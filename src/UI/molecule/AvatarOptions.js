@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import AuthContext from "../../context/AuthContext";
+import { AuthContext } from "../../auth/context/AuthContext";
+// import AuthContext from "../../context/AuthContext";
 
 const AvatarOptions = () => {
-  const { logOut } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
 
   return (
     <ul className="bg-white shadow-md rounded-3xl position-absolute top-20 right-0 w-48 py-3">
@@ -12,7 +13,7 @@ const AvatarOptions = () => {
       </li>
       <li
         onClick={() => {
-          logOut();
+          logout();
         }}
         className="py-2 px-3 hover:bg-gray-100"
       >
