@@ -20,7 +20,6 @@ const Index = () => {
   });
 
   const toggleFormPut = (agricultor) => {
-    console.log(agricultor);
     setAgricultorData(agricultor);
     setIsFormPut(!isFormPut);
   };

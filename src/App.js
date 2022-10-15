@@ -16,14 +16,7 @@ export default function App() {
           {/* <BrowserRouter> */}
           <Routes>
             <Route path="/" element={<Login />}></Route>
-            <Route
-              path="/home"
-              element={
-                <AuthRoute>
-                  <Dashboard />
-                </AuthRoute>
-              }
-            />
+            <Route path="/home" element={<Dashboard />} />
             <Route
               path="/abono-organico"
               element={
