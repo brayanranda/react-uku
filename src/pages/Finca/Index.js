@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Col, Row } from "reactstrap";
 import FincaContext from "../../context/FincaContext";
 import FormPost from "./FormPost";
-import ListAgricultor from "./List";
+import ListVariedad from "./List";
 
 const Index = () => {
   const { getFincas, fincas, putData, postData } = useContext(FincaContext);
@@ -56,7 +56,7 @@ const Index = () => {
               </button>
             </div>
             <div className="rounded-2xl bg-white shadow-sm">
-              <ListAgricultor
+              <ListVariedad
                 getFincas={getFincas}
                 fincas={fincas}
                 putData={putData}

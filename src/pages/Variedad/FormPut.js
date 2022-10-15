@@ -30,7 +30,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
             className="modal-title mt-0 text-xl font-medium"
             id="myLargeModalLabel"
           >
-            Editar Agricultor
+            Editar Variedad
           </h5>
           <button
             onClick={() => {
@@ -52,90 +52,32 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  Nombres
+                  Descripción
                 </Label>
                 <Col sm={9}>
                   <Input
-                    name="nombres"
-                    value={data.nombres}
+                    name="descripcion"
+                    value={data.descripcion}
                     onChange={handleChange}
-                    type="text"
+                    type="textarea"
                     className="form-control"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Apellidos</Label>
+                <Label className="col-sm-3 col-form-label">Tipo cultivo</Label>
                 <Col sm={9}>
-                  <Input
-                    type="text"
+                  <select
+                    type="select"
                     className="form-control col-lg-9"
-                    name="apellidos"
-                    value={data.apellidos}
+                    name="idTipoCultivo"
+                    value={data.idTipoCultivo[0].id}
                     onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Fecha Nacimiento
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    type="date"
-                    className="form-control col-lg-9"
-                    name="fechaNacimiento"
-                    value={data.fechaNacimiento}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Identificacion
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="identificacion"
-                    value={data.identificacion}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Contraseña
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    name="password"
-                    onChange={handleChange}
-                    type="text"
-                    className="form-control"
-                  />
-                </Col>
-              </div>
-
-              <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Teléfono
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    name="telefono"
-                    value={data.telefono}
-                    onChange={handleChange}
-                    type="text"
-                    className="form-control"
-                  />
+                  >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
                 </Col>
               </div>
               <div className="row justify-content-end">
