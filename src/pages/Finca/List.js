@@ -4,9 +4,9 @@ import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 
-const Index = ({ getAgricultores, agricultores, putData }) => {
+const Index = ({ getAgricultores, fincas, putData }) => {
   const [isFormPut, setIsFormPut] = useState(false);
-  const [agricultorData, setAgricultorData] = useState({
+  const [fincaData, setFincaData] = useState({
     nombres: "",
     apellidos: "",
     identificacion: "",
@@ -15,8 +15,8 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
     fechaNacimiento: "",
   });
 
-  const toggleFormPut = (agricultor) => {
-    setAgricultorData(agricultor);
+  const toggleFormPut = (finca) => {
+    setFincaData(finca);
     setIsFormPut(!isFormPut);
   };
 
@@ -25,7 +25,7 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
   }, []);
 
   const handlePut = async () => {
-    await putData(agricultorData);
+    await putData(fincaData);
     await getAgricultores();
     setIsFormPut(!isFormPut);
   };
@@ -37,8 +37,8 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
         <FormPut
           isFormPut={isFormPut}
           setIsFormPut={setIsFormPut}
-          data={agricultorData}
-          setData={setAgricultorData}
+          data={fincaData}
+          setData={setFincaData}
           onSubmit={handlePut}
         />
       ) : null}
@@ -46,25 +46,30 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
         <table className="table">
           <thead>
             <tr>
-              <th>Identificacion</th>
-              <th>Nombres</th>
-              <th>Apellidos</th>
-              <th>Teléfono</th>
-              <th>Correo</th>
-              <th>Fecha nacimiento</th>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Area total</th>
+              <th>Area en uso</th>
+              <th>Geolocalización</th>
+              <th>Agricultor</th>
+              <th>Corregimiento</th>
+              <th>Municipio</th>
+              <th>Vereda</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {Object.entries(agricultores).length > 0 ? (
-              agricultores.map((agricultor, x) => (
+            {Object.entries(fincas).length > 0 ? (
+              fincas.map((finca, x) => (
                 <tr key={x}>
-                  <td>{agricultor.identificacion}</td>
-                  <td>{agricultor.nombres}</td>
-                  <td>{agricultor.apellidos}</td>
-                  <td>{agricultor.telefono}</td>
-                  <td>{agricultor.email}</td>
-                  <td>{agricultor.fechaNacimiento}</td>
+                  <td>{finca.nombre}</td>
+                  <td>{finca.areaTotal}</td>
+                  <td>{finca.areaEnUso}</td>
+                  <td>{finca.geolocalizacion}</td>
+                  <td>{finca.ideAgricultor[x].ideAgricultor}</td>
+                  <td>{finca.idCorregimiento[x].idCorregimiento}</td>
+                  <td>{finca.idMunicipio[x].idMunicipio}</td>
+                  <td>{finca.idVereda[x].idVereda}</td>
                   <td>
                     <FontAwesomeIcon
                       className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
@@ -72,7 +77,7 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
                     />
                     <FontAwesomeIcon
                       onClick={() => {
-                        toggleFormPut(agricultor);
+                        toggleFormPut(finca);
                       }}
                       className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       icon={faEdit}

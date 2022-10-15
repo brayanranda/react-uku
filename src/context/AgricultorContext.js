@@ -79,7 +79,6 @@ const AgricultorProvider = ({ children }) => {
   };
 
   return (
-    // eslint-disable-next-line react/react-in-jsx-scope
     <AgricultorContext.Provider value={data}>
       {children}
     </AgricultorContext.Provider>
