@@ -30,7 +30,7 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
             className="modal-title mt-0 text-xl font-medium"
             id="myLargeModalLabel"
           >
-            Registrar Agricultor
+            Registrar Variedad
           </h5>
           <button
             onClick={() => {
@@ -52,101 +52,30 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  Nombres
+                  Descripción
                 </Label>
                 <Col sm={9}>
                   <Input
-                    name="nombres"
+                    name="descripcion"
                     onChange={handleChange}
-                    type="text"
+                    type="textarea"
                     className="form-control"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Apellidos</Label>
+                <Label className="col-sm-3 col-form-label">Tipo cultivo</Label>
                 <Col sm={9}>
-                  <Input
-                    type="text"
+                  <select
+                    type="select"
                     className="form-control col-lg-9"
-                    name="apellidos"
+                    name="idTipoCultivo"
                     onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Fecha Nacimiento
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    type="date"
-                    className="form-control col-lg-9"
-                    name="fechaNacimiento"
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Identificacion
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="identificacion"
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Email
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    name="email"
-                    onChange={handleChange}
-                    type="email"
-                    className="form-control"
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Contraseña
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    name="password"
-                    onChange={handleChange}
-                    type="password"
-                    className="form-control"
-                  />
-                </Col>
-              </div>
-
-              <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Teléfono
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    name="telefono"
-                    onChange={handleChange}
-                    type="text"
-                    className="form-control"
-                  />
+                  >
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                  </select>
                 </Col>
               </div>
               <div className="row justify-content-end">

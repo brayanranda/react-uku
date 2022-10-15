@@ -1,23 +1,20 @@
 import React, { useState, useContext } from "react";
 import { Col, Row } from "reactstrap";
-import VariedadContext from "../../context/VariedadContext";
+import TipoCultivoContext from "../../context/TipoCultivoContext";
 import FormPost from "./FormPost";
-import ListVariedades from "./List";
+import ListTipoCultivo from "./List";
 
 const Index = () => {
-  const { getVariedades, variedades, putData, postData } =
-    useContext(VariedadContext);
+  const { getTiposCultivos, tiposcultivos, putData, postData } =
+    useContext(TipoCultivoContext);
   const [isFormPost, setIsFormPost] = useState(false);
-  const [variedadData, setVariedadData] = useState({
+  const [tipoCultivoData, setTipoCultivoData] = useState({
     descripcion: "",
-    idTipoCultivo: {
-      id: 1,
-    },
   });
 
   const handleSave = async () => {
-    await postData(variedadData);
-    await getVariedades();
+    await postData(tipoCultivoData);
+    await getTiposCultivos();
     setIsFormPost(!isFormPost);
   };
 
@@ -32,8 +29,8 @@ const Index = () => {
           <FormPost
             isFormPost={isFormPost}
             setIsFormPost={setIsFormPost}
-            data={variedadData}
-            setData={setVariedadData}
+            data={tipoCultivoData}
+            setData={setTipoCultivoData}
             onSubmit={handleSave}
           />
         ) : null}
@@ -43,19 +40,21 @@ const Index = () => {
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">Lista Variedades</p>
+                <p className="text-2xl ml-2 text-green-700">
+                  Lista de tipo de cultivos
+                </p>
               </div>
               <button
                 onClick={() => toggleFormPost()}
                 className="bg-green-700 rounded-md text-white hover:bg-green-700"
               >
-                Agregar Variedad
+                Agregar Tipo cultivo
               </button>
             </div>
             <div className="rounded-2xl bg-white shadow-sm">
-              <ListVariedades
-                getVariedades={getVariedades}
-                variedades={variedades}
+              <ListTipoCultivo
+                getTiposCultivos={getTiposCultivos}
+                tiposcultivos={tiposcultivos}
                 putData={putData}
               />
             </div>
