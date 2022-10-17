@@ -23,6 +23,26 @@ export const AuthProvider = ({ children }) => {
   const api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let authURL = REACT_APP_API_URL + "auth/";
+
+  //REGISTER USER
+
+  const createUser = async (newUser = {}) => {
+    const options = {
+      body: newUser,
+      headers: { "content-type": "application/json" },
+    };
+    try {
+      const res = await api.post(authURL + "nuevoAgricultor", options);
+      console.log(res);
+      if (!res.err) {
+        login({ emailOrPhone: newUser.email, password: newUser.password });
+      } else toast.error(res.statusText.mensaje);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //METODOS LOGIN
   const login = async (loginUser = {}) => {
     const options = {
       body: loginUser,
@@ -57,6 +77,7 @@ export const AuthProvider = ({ children }) => {
         // Methods
         login,
         logout,
+        createUser,
       }}
     >
       {children}

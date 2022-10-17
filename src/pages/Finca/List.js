@@ -4,7 +4,7 @@ import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 
-const Index = ({ getAgricultores, fincas, putData }) => {
+const Index = ({ fincas, putData }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [fincaData, setFincaData] = useState({
     nombres: "",
@@ -20,13 +20,13 @@ const Index = ({ getAgricultores, fincas, putData }) => {
     setIsFormPut(!isFormPut);
   };
 
-  useEffect(() => {
-    getAgricultores();
-  }, []);
+  // useEffect(() => {
+  //   getAgricultores();
+  // }, []);
 
   const handlePut = async () => {
     await putData(fincaData);
-    await getAgricultores();
+    // await getAgricultores();
     setIsFormPut(!isFormPut);
   };
 

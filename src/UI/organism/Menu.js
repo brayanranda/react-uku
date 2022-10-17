@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { NavLink, Router } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Menu = () => {
   return (
@@ -30,7 +29,7 @@ const Menu = () => {
 const routes = [];
 
 routes.push({
-  to: "/",
+  to: "/home",
   text: "Agricultor",
   private: true,
 });
