@@ -3,6 +3,7 @@ import Dashboard from "../pages/Dashboard/Index";
 import Menu from "../UI/organism/Menu";
 import Header from "../UI/organism/Header";
 import { Row } from "reactstrap";
+import { AgricultorProvider } from "../context/AgricultorContext";
 import { FincaProvider } from "../context/FincaContext";
 import Finca from "../pages/Finca/Index";
 export const DashboardRoutes = () => {
@@ -27,7 +28,9 @@ export const DashboardRoutes = () => {
               path="finca"
               element={
                 <FincaProvider>
-                  <Finca />
+                  <AgricultorProvider>
+                    <Finca />
+                  </AgricultorProvider>
                 </FincaProvider>
               }
             />

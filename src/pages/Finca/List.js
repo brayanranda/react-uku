@@ -4,15 +4,25 @@ import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 
-const Index = ({ fincas, putData }) => {
+const Index = ({
+  getFincas,
+  fincas,
+  putData,
+  corregimientos,
+  municipios,
+  veredas,
+  agricultores,
+}) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [fincaData, setFincaData] = useState({
-    nombres: "",
-    apellidos: "",
-    identificacion: "",
-    email: "",
-    telefono: "",
-    fechaNacimiento: "",
+    nombre: "",
+    areaTotal: 0,
+    areaEnUso: 0,
+    geolocalizacion: "",
+    ideAgricultor: { identificacion: 0 },
+    idCorregimiento: { idCorregimiento: 1 },
+    idMunicipio: { idMunicipio: 1 },
+    idVereda: { idVereda: 1 },
   });
 
   const toggleFormPut = (finca) => {
@@ -20,13 +30,13 @@ const Index = ({ fincas, putData }) => {
     setIsFormPut(!isFormPut);
   };
 
-  // useEffect(() => {
-  //   getAgricultores();
-  // }, []);
+  useEffect(() => {
+    getFincas();
+  }, []);
 
   const handlePut = async () => {
     await putData(fincaData);
-    // await getAgricultores();
+    await getFincas();
     setIsFormPut(!isFormPut);
   };
 
@@ -40,6 +50,10 @@ const Index = ({ fincas, putData }) => {
           data={fincaData}
           setData={setFincaData}
           onSubmit={handlePut}
+          corregimientos={corregimientos}
+          municipios={municipios}
+          veredas={veredas}
+          agricultores={agricultores}
         />
       ) : null}
       <div className="table-responsive fs-14">
@@ -62,14 +76,19 @@ const Index = ({ fincas, putData }) => {
             {Object.entries(fincas).length > 0 ? (
               fincas.map((finca, x) => (
                 <tr key={x}>
+                  <td>{finca.idFinca}</td>
                   <td>{finca.nombre}</td>
                   <td>{finca.areaTotal}</td>
                   <td>{finca.areaEnUso}</td>
                   <td>{finca.geolocalizacion}</td>
-                  <td>{finca.ideAgricultor[x].ideAgricultor}</td>
-                  <td>{finca.idCorregimiento[x].idCorregimiento}</td>
-                  <td>{finca.idMunicipio[x].idMunicipio}</td>
-                  <td>{finca.idVereda[x].idVereda}</td>
+                  <td>
+                    {finca.idAgricultor.nombres +
+                      " " +
+                      finca.idAgricultor.apellidos}
+                  </td>
+                  <td>{finca.idCorregimiento.nombre}</td>
+                  <td>{finca.idMunicipio.nombre}</td>
+                  <td>{finca.idVereda.nombre}</td>
                   <td>
                     <FontAwesomeIcon
                       className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"

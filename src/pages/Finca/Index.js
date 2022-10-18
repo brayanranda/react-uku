@@ -1,26 +1,58 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Col, Row } from "reactstrap";
 import FincaContext from "../../context/FincaContext";
 import FormPost from "./FormPost";
 import ListVariedad from "./List";
-
+import AgricultorContext from "../../context/AgricultorContext";
 const Index = () => {
-  const { getFincas, fincas, putData, postData } = useContext(FincaContext);
+  const {
+    getFincas,
+    fincas,
+    getCorregimientos,
+    corregimientos,
+    getMunicipios,
+    municipios,
+    getVeredas,
+    veredas,
+    putData,
+    postData,
+  } = useContext(FincaContext);
+  const { getAgricultores, agricultores } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [fincaData, setFincaData] = useState({
     nombre: "",
     areaTotal: "",
     areaEnUso: "",
     geolocalizacion: "",
-    ideAgricultor: { identificacion: 0 },
-    idCorregimiento: { idCorregimiento: 1 },
-    idMunicipio: { idMunicipio: 1 },
-    idVereda: { idVereda: 1 },
+    idAgricultor: { identificacion: "" },
+    idCorregimiento: { idCorregimiento: "" },
+    idMunicipio: { idMunicipio: "" },
+    idVereda: { idVereda: "" },
   });
+  const clearForm = () => {
+    setFincaData({
+      nombre: "",
+      areaTotal: "",
+      areaEnUso: "",
+      geolocalizacion: "",
+      idAgricultor: { identificacion: "" },
+      idCorregimiento: { idCorregimiento: "" },
+      idMunicipio: { idMunicipio: "" },
+      idVereda: { idVereda: "" },
+    });
+  };
+
+  useEffect(() => {
+    getAgricultores();
+    getCorregimientos();
+    getMunicipios();
+    getVeredas();
+  }, []);
 
   const handleSave = async () => {
     await postData(fincaData);
     await getFincas();
+    clearForm();
     setIsFormPost(!isFormPost);
   };
 
@@ -38,6 +70,10 @@ const Index = () => {
             data={fincaData}
             setData={setFincaData}
             onSubmit={handleSave}
+            corregimientos={corregimientos}
+            municipios={municipios}
+            veredas={veredas}
+            agricultores={agricultores}
           />
         ) : null}
         <Row>
@@ -60,6 +96,10 @@ const Index = () => {
                 getFincas={getFincas}
                 fincas={fincas}
                 putData={putData}
+                corregimientos={corregimientos}
+                municipios={municipios}
+                veredas={veredas}
+                agricultores={agricultores}
               />
             </div>
           </Col>

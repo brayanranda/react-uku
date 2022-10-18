@@ -7,8 +7,14 @@ const FincaProvider = ({ children }) => {
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "finca";
+  let urlCorregimiento = REACT_APP_API_URL + "corregimiento";
+  let urlMunicipio = REACT_APP_API_URL + "municipio";
+  let urlVereda = REACT_APP_API_URL + "vereda";
   const [finca, setFinca] = useState([]);
   const [fincas, setFincas] = useState([]);
+  const [corregimientos, setCorregimientos] = useState([]);
+  const [municipios, setMunicipios] = useState([]);
+  const [veredas, setVeredas] = useState([]);
 
   const getFinca = async (id) => {
     const res = await api.get(url + `${id}?`);
@@ -18,6 +24,18 @@ const FincaProvider = ({ children }) => {
   const getFincas = async () => {
     const res = await api.get(url);
     setFincas(res);
+  };
+  const getCorregimientos = async () => {
+    const res = await api.get(urlCorregimiento);
+    setCorregimientos(res);
+  };
+  const getMunicipios = async () => {
+    const res = await api.get(urlMunicipio);
+    setMunicipios(res);
+  };
+  const getVeredas = async () => {
+    const res = await api.get(urlVereda);
+    setVeredas(res);
   };
 
   const postData = async (data) => {
@@ -53,12 +71,18 @@ const FincaProvider = ({ children }) => {
   const data = {
     postData,
     putData,
+    getCorregimientos,
+    getMunicipios,
+    getVeredas,
     getFinca,
     getFincas,
     setFincas,
     setFinca,
     fincas,
     finca,
+    corregimientos,
+    municipios,
+    veredas,
   };
 
   return <FincaContext.Provider value={data}>{children}</FincaContext.Provider>;
