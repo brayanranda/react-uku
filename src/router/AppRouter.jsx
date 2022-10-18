@@ -5,7 +5,6 @@ import { PrivateRoute } from "./PrivateRoute";
 import Login from "../pages/Login/Index";
 import Register from "../pages/Register/Index";
 import { DashboardRoutes } from "../routes/DashboardRoutes";
-import { AuthProvider } from "../context/AuthContext";
 export const AppRouter = () => {
   return (
     <>
@@ -25,14 +24,7 @@ export const AppRouter = () => {
           element={
             <PublicRoute>
               <Routes>
-                <Route
-                  path="/*"
-                  element={
-                    <AuthProvider>
-                      <Register />
-                    </AuthProvider>
-                  }
-                />
+                <Route path="/*" element={<Register />} />
               </Routes>
             </PublicRoute>
           }

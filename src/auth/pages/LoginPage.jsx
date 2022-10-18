@@ -9,7 +9,7 @@ import { useForm } from "../../hooks/useForm";
 import logo from "../../assets/images/logo-vertical.png";
 
 export const LoginPage = () => {
-  const { login } = useContext(AuthContext);
+  const { login, isLogged } = useContext(AuthContext);
   const { emailOrPhone, password, onInputChange, onResetForm } = useForm({
     emailOrPhone: "",
     password: "",
@@ -23,16 +23,19 @@ export const LoginPage = () => {
     if (password.length > 5) validate.password = true;
     return validate;
   };
-  const onLogin = (event) => {
+  const onLogin = async (event) => {
     event.preventDefault();
     const validate = validateInputs();
     if (!validate.emailOrPhone || !validate.password) return;
     const user = { emailOrPhone, password };
-    login(user);
-    onResetForm();
-    navigate("/home", {
-      replace: true,
-    });
+    await login(user);
+    if (isLogged) {
+      navigate("/home", {
+        replace: true,
+      });
+    } else {
+      onResetForm();
+    }
   };
   return (
     <Row className="d-flex align-items-center justify-content-center w-100 min-h-screen px-6 mx-0 bg-image-uku">
