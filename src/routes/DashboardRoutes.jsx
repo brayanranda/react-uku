@@ -6,6 +6,8 @@ import { Row } from "reactstrap";
 import { AgricultorProvider } from "../context/AgricultorContext";
 import { FincaProvider } from "../context/FincaContext";
 import Finca from "../pages/Finca/Index";
+import TipoCultivo from "../pages/TipoCultivo/Index";
+import { TipoCultivoProvider } from "../context/TipoCultivoContext";
 export const DashboardRoutes = () => {
   return (
     <>
@@ -36,7 +38,14 @@ export const DashboardRoutes = () => {
             />
             <Route path="municipio" element={<Dashboard />} />
             <Route path="recomendacion-abono" element={<Dashboard />} />
-            <Route path="tipo-cultivo" element={<Dashboard />} />
+            <Route
+              path="tipo-cultivo"
+              element={
+                <TipoCultivoProvider>
+                  <TipoCultivo />
+                </TipoCultivoProvider>
+              }
+            />
             <Route path="topografia" element={<Dashboard />} />
             <Route path="variedad" element={<Dashboard />} />
             <Route path="vereda" element={<Dashboard />} />

@@ -10,6 +10,7 @@ const Index = () => {
   const [isFormPost, setIsFormPost] = useState(false);
   const [tipoCultivoData, setTipoCultivoData] = useState({
     descripcion: "",
+    variedadCollection: null,
   });
 
   const handleSave = async () => {

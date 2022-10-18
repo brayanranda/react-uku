@@ -8,6 +8,7 @@ const Index = ({ getTiposCultivos, tiposcultivos, putData }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [tipoCultivoData, setTipoCultivoData] = useState({
     descripcion: "",
+    variedadCollection: null,
   });
 
   const toggleFormPut = (tipocultivo) => {
@@ -43,6 +44,7 @@ const Index = ({ getTiposCultivos, tiposcultivos, putData }) => {
             <tr>
               <th>Item</th>
               <th>Descripcion</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>

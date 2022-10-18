@@ -30,7 +30,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
             className="modal-title mt-0 text-xl font-medium"
             id="myLargeModalLabel"
           >
-            Editar Finca
+            Editar Tipo de Cultivo
           </h5>
           <button
             onClick={() => {
@@ -51,111 +51,12 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Label className="col-sm-3 col-form-label">Nombre</Label>
                 <Col sm={9}>
                   <Input
-                    name="nombre"
-                    value={data.nombre}
+                    name="descripcion"
+                    value={data.descripcion}
                     onChange={handleChange}
-                    type="text"
+                    type="textarea"
                     className="form-control"
                   />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Área total</Label>
-                <Col sm={9}>
-                  <Input
-                    type="text"
-                    className="form-control col-lg-9"
-                    name="areaTotal"
-                    value={data.areaTotal}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Área en uso</Label>
-                <Col sm={9}>
-                  <Input
-                    type="date"
-                    className="form-control col-lg-9"
-                    name="areaEnUso"
-                    value={data.areaEnUso}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Geolocalización
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="geolocalizacion"
-                    value={data.geolocalizacion}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Agricultor</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    value={data.ideAgricultor}
-                    className="form-select"
-                    onChange={handleChange}
-                  >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </Col>
-              </div>
-
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Corregimiento</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    value={data.idCorregimiento}
-                    className="form-select"
-                    onChange={handleChange}
-                  >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Municipio</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    value={data.idMunicipio}
-                    className="form-select"
-                    onChange={handleChange}
-                  >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Vereda</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    value={data.idVereda}
-                    className="form-select"
-                    onChange={handleChange}
-                  >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                  </select>
                 </Col>
               </div>
               <div className="row justify-content-end">
