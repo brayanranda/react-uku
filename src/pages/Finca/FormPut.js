@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
-const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
+const FormPut = ({
+  onSubmit,
+  data,
+  setData,
+  setIsFormPut,
+  isFormPut,
+  corregimientos,
+  municipios,
+  veredas,
+  agricultores,
+}) => {
   const toggleFormPut = () => {
     setIsFormPut(!isFormPut);
     removeBodyCss();
@@ -10,9 +20,61 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
   function removeBodyCss() {
     document.body.classList.add("no_padding");
   }
+  const getAgricultor = (value) => {
+    let el = {};
+    agricultores.forEach((element) => {
+      if (element.identificacion === value) {
+        el = element;
+      }
+    });
+    return el;
+  };
+  const getCorregimiento = (value) => {
+    let el = {};
+    corregimientos.forEach((element) => {
+      if (element.idCorregimiento === value) {
+        el = element;
+      }
+    });
+    return el;
+  };
+  const getMunicipio = (value) => {
+    let el = {};
+    municipios.forEach((element) => {
+      if (element.idMunicipio === value) {
+        el = element;
+      }
+    });
+    return el;
+  };
+  const getVereda = (value) => {
+    let el = {};
+    veredas.forEach((element) => {
+      if (element.idVereda === value) {
+        el = element;
+      }
+    });
+    return el;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "idAgricultor") {
+      setData({ ...data, [name]: getAgricultor(Number(value)) });
+      return;
+    }
+    if (name === "idCorregimiento") {
+      setData({ ...data, [name]: getCorregimiento(Number(value)) });
+      return;
+    }
+    if (name === "idMunicipio") {
+      setData({ ...data, [name]: getMunicipio(Number(value)) });
+      return;
+    }
+    if (name === "idVereda") {
+      setData({ ...data, [name]: getVereda(Number(value)) });
+      return;
+    }
     setData({ ...data, [name]: value });
   };
 
@@ -75,7 +137,7 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Label className="col-sm-3 col-form-label">Área en uso</Label>
                 <Col sm={9}>
                   <Input
-                    type="date"
+                    type="text"
                     className="form-control col-lg-9"
                     name="areaEnUso"
                     value={data.areaEnUso}
@@ -102,13 +164,17 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <select
                     type="select"
-                    value={data.ideAgricultor}
+                    value={data.idAgricultor.identificacion}
                     className="form-select"
                     onChange={handleChange}
                   >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
+                    <option value="">Seleccionar ...</option>
+                    {agricultores &&
+                      agricultores.map((agricultor, index) => (
+                        <option key={index} value={agricultor.identificacion}>
+                          {agricultor.nombres + agricultor.apellidos}
+                        </option>
+                      ))}
                   </select>
                 </Col>
               </div>
@@ -118,13 +184,20 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <select
                     type="select"
-                    value={data.idCorregimiento}
+                    value={data.idCorregimiento.idCorregimiento}
                     className="form-select"
                     onChange={handleChange}
                   >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
+                    <option value="">Seleccionar ...</option>
+                    {corregimientos &&
+                      corregimientos.map((corregimiento, index) => (
+                        <option
+                          key={index}
+                          value={corregimiento.idCorregimiento}
+                        >
+                          {corregimiento.nombre}
+                        </option>
+                      ))}
                   </select>
                 </Col>
               </div>
@@ -133,13 +206,17 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <select
                     type="select"
-                    value={data.idMunicipio}
+                    value={data.idMunicipio.idMunicipio}
                     className="form-select"
                     onChange={handleChange}
                   >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
+                    <option value="">Seleccionar ...</option>
+                    {municipios &&
+                      municipios.map((municipio, index) => (
+                        <option key={index} value={municipio.idMunicipio}>
+                          {municipio.nombre}
+                        </option>
+                      ))}
                   </select>
                 </Col>
               </div>
@@ -148,13 +225,17 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 <Col sm={9}>
                   <select
                     type="select"
-                    value={data.idVereda}
+                    value={data.idVereda.idVereda}
                     className="form-select"
                     onChange={handleChange}
                   >
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
+                    <option value="">Seleccionar ...</option>
+                    {veredas &&
+                      veredas.map((vereda, index) => (
+                        <option key={index} value={vereda.idVereda}>
+                          {vereda.nombre}
+                        </option>
+                      ))}
                   </select>
                 </Col>
               </div>
