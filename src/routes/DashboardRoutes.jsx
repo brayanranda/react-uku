@@ -8,6 +8,9 @@ import { FincaProvider } from "../context/FincaContext";
 import Finca from "../pages/Finca/Index";
 import TipoCultivo from "../pages/TipoCultivo/Index";
 import { TipoCultivoProvider } from "../context/TipoCultivoContext";
+import { VariedadProvider } from "../context/VariedadContext";
+import Variedad from "../pages/Variedad/Index";
+
 export const DashboardRoutes = () => {
   return (
     <>
@@ -47,7 +50,16 @@ export const DashboardRoutes = () => {
               }
             />
             <Route path="topografia" element={<Dashboard />} />
-            <Route path="variedad" element={<Dashboard />} />
+            <Route
+              path="variedad"
+              element={
+                <VariedadProvider>
+                  <TipoCultivoProvider>
+                    <Variedad />
+                  </TipoCultivoProvider>
+                </VariedadProvider>
+              }
+            />
             <Route path="vereda" element={<Dashboard />} />
             <Route path="/" element={<Navigate to="/home" />} />
           </Routes>
