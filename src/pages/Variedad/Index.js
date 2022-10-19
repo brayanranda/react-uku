@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Col, Row } from "reactstrap";
+import TipoCultivoContext from "../../context/TipoCultivoContext";
 import VariedadContext from "../../context/VariedadContext";
 import FormPost from "./FormPost";
 import ListVariedades from "./List";
@@ -7,13 +8,20 @@ import ListVariedades from "./List";
 const Index = () => {
   const { getVariedades, variedades, putData, postData } =
     useContext(VariedadContext);
+  const { getTiposCultivos, tiposcultivos } = useContext(TipoCultivoContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [variedadData, setVariedadData] = useState({
+    cultivoCollection: null,
     descripcion: "",
     idTipoCultivo: {
       id: 1,
+      descripcion: "",
+      variedadCollection: null,
     },
   });
+  useEffect(() => {
+    getTiposCultivos();
+  }, []);
 
   const handleSave = async () => {
     await postData(variedadData);
@@ -35,6 +43,7 @@ const Index = () => {
             data={variedadData}
             setData={setVariedadData}
             onSubmit={handleSave}
+            tiposcultivos={tiposcultivos}
           />
         ) : null}
         <Row>
@@ -57,6 +66,7 @@ const Index = () => {
                 getVariedades={getVariedades}
                 variedades={variedades}
                 putData={putData}
+                tiposcultivos={tiposcultivos}
               />
             </div>
           </Col>

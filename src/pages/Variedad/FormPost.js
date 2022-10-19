@@ -1,7 +1,14 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
-const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
+const FormPost = ({
+  onSubmit,
+  data,
+  setData,
+  setIsFormPost,
+  isFormPost,
+  tiposcultivos,
+}) => {
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
     removeBodyCss();
@@ -26,10 +33,7 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
         }}
       >
         <div className="modal-header">
-          <h5
-            className="modal-title mt-0 text-xl font-medium"
-            id="myLargeModalLabel"
-          >
+          <h5 className="modal-title mt-0 text-xl font-medium">
             Registrar Variedad
           </h5>
           <button
@@ -68,13 +72,17 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                 <Col sm={9}>
                   <select
                     type="select"
-                    className="form-control col-lg-9"
+                    className="form-select"
                     name="idTipoCultivo"
                     onChange={handleChange}
                   >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
+                    <option value="">Seleccionar </option>
+                    {tiposcultivos &&
+                      tiposcultivos.map((tipo, index) => (
+                        <option key={index} value={tipo.id}>
+                          {tipo.descripcion}
+                        </option>
+                      ))}
                   </select>
                 </Col>
               </div>

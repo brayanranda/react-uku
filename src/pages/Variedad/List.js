@@ -4,27 +4,30 @@ import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 
-const Index = ({ getAgricultores, agricultores, putData }) => {
+const Index = ({ getVariedades, variedades, putData, tiposcultivos }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [variedadData, setVariedadData] = useState({
+    cultivoCollection: null,
     descripcion: "",
     idTipoCultivo: {
       id: 1,
+      descripcion: "",
+      variedadCollection: null,
     },
   });
 
-  const toggleFormPut = (agricultor) => {
-    setVariedadData(agricultor);
+  const toggleFormPut = (variedad) => {
+    setVariedadData(variedad);
     setIsFormPut(!isFormPut);
   };
 
   useEffect(() => {
-    getAgricultores();
+    getVariedades();
   }, []);
 
   const handlePut = async () => {
     await putData(variedadData);
-    await getAgricultores();
+    await getVariedades();
     setIsFormPut(!isFormPut);
   };
 
@@ -38,6 +41,7 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
           data={variedadData}
           setData={setVariedadData}
           onSubmit={handlePut}
+          tiposcultivos={tiposcultivos}
         />
       ) : null}
       <div className="table-responsive fs-14">
@@ -50,11 +54,11 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(agricultores).length > 0 ? (
-              agricultores.map((agricultor, x) => (
+            {Object.entries(variedades).length > 0 ? (
+              variedades.map((variedad, x) => (
                 <tr key={x}>
-                  <td>{agricultor.descripcion}</td>
-                  <td>{agricultor.idTipoCultivo}</td>
+                  <td>{variedad.descripcion}</td>
+                  <td>{variedad.idTipoCultivo.descripcion}</td>
                   <td>
                     <FontAwesomeIcon
                       className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
@@ -62,7 +66,7 @@ const Index = ({ getAgricultores, agricultores, putData }) => {
                     />
                     <FontAwesomeIcon
                       onClick={() => {
-                        toggleFormPut(agricultor);
+                        toggleFormPut(variedad);
                       }}
                       className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       icon={faEdit}
