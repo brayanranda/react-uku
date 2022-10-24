@@ -13,58 +13,52 @@ import Variedad from "../pages/Variedad/Index";
 
 export const DashboardRoutes = () => {
   return (
-    <>
-      <div className="relative">
-        <Header />
-        <Row className="w-100">
-          <Menu />
-          <Routes>
-            <Route path="home" element={<Dashboard />} />
-            <Route path="abono-organico" element={<Dashboard />} />
-            <Route path="analisis" element={<Dashboard />} />
-            <Route path="corregimiento" element={<Dashboard />} />
-            <Route path="cultivo" element={<Dashboard />} />
-            <Route path="densidad" element={<Dashboard />} />
-            <Route path="departamento" element={<Dashboard />} />
-            <Route path="distancia-siembra" element={<Dashboard />} />
-            <Route path="elemento" element={<Dashboard />} />
-            <Route path="etapa-fenelogica" element={<Dashboard />} />
-            <Route
-              path="finca"
-              element={
-                <FincaProvider>
-                  <AgricultorProvider>
-                    <Finca />
-                  </AgricultorProvider>
-                </FincaProvider>
-              }
-            />
-            <Route path="municipio" element={<Dashboard />} />
-            <Route path="recomendacion-abono" element={<Dashboard />} />
-            <Route
-              path="tipo-cultivo"
-              element={
+    <div className="relative">
+      <Header />
+      <Row className="w-100">
+        <Menu />
+        <Routes>
+          <Route path="home" element={<Dashboard />} />
+          <Route path="abono-organico" element={<Dashboard />} />
+          <Route path="analisis" element={<Dashboard />} />
+          <Route path="cultivo" element={<Dashboard />} />
+          <Route path="densidad" element={<Dashboard />} />
+          <Route path="distancia-siembra" element={<Dashboard />} />
+          <Route path="elemento" element={<Dashboard />} />
+          <Route path="etapa-fenelogica" element={<Dashboard />} />
+          <Route
+            path="finca"
+            element={
+              <FincaProvider>
+                <AgricultorProvider>
+                  <Finca />
+                </AgricultorProvider>
+              </FincaProvider>
+            }
+          />
+          <Route path="recomendacion-abono" element={<Dashboard />} />
+          <Route
+            path="tipo-cultivo"
+            element={
+              <TipoCultivoProvider>
+                <TipoCultivo />
+              </TipoCultivoProvider>
+            }
+          />
+          <Route path="topografia" element={<Dashboard />} />
+          <Route
+            path="variedad"
+            element={
+              <VariedadProvider>
                 <TipoCultivoProvider>
-                  <TipoCultivo />
+                  <Variedad />
                 </TipoCultivoProvider>
-              }
-            />
-            <Route path="topografia" element={<Dashboard />} />
-            <Route
-              path="variedad"
-              element={
-                <VariedadProvider>
-                  <TipoCultivoProvider>
-                    <Variedad />
-                  </TipoCultivoProvider>
-                </VariedadProvider>
-              }
-            />
-            <Route path="vereda" element={<Dashboard />} />
-            <Route path="/" element={<Navigate to="/home" />} />
-          </Routes>
-        </Row>
-      </div>
-    </>
+              </VariedadProvider>
+            }
+          />
+          <Route path="/" element={<Navigate to="/home" />} />
+        </Routes>
+      </Row>
+    </div>
   );
 };
