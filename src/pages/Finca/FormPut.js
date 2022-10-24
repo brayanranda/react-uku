@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
 const FormPut = ({
@@ -165,6 +165,7 @@ const FormPut = ({
                   <select
                     type="select"
                     value={data.idAgricultor.identificacion}
+                    name="idAgricultor"
                     className="form-select"
                     onChange={handleChange}
                   >
@@ -185,6 +186,7 @@ const FormPut = ({
                   <select
                     type="select"
                     value={data.idCorregimiento.idCorregimiento}
+                    name="idCorregimiento"
                     className="form-select"
                     onChange={handleChange}
                   >
@@ -207,6 +209,7 @@ const FormPut = ({
                   <select
                     type="select"
                     value={data.idMunicipio.idMunicipio}
+                    name="idMunicipio"
                     className="form-select"
                     onChange={handleChange}
                   >
@@ -226,6 +229,7 @@ const FormPut = ({
                   <select
                     type="select"
                     value={data.idVereda.idVereda}
+                    name="idVereda"
                     className="form-select"
                     onChange={handleChange}
                   >

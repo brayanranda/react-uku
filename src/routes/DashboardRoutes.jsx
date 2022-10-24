@@ -10,7 +10,6 @@ import TipoCultivo from "../pages/TipoCultivo/Index";
 import { TipoCultivoProvider } from "../context/TipoCultivoContext";
 import { VariedadProvider } from "../context/VariedadContext";
 import Variedad from "../pages/Variedad/Index";
-
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -57,6 +56,7 @@ export const DashboardRoutes = () => {
             }
           />
           <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
       </Row>
     </div>

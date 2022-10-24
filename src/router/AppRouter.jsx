@@ -5,6 +5,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import Login from "../pages/Login/Index";
 import Register from "../pages/Register/Index";
 import { DashboardRoutes } from "../routes/DashboardRoutes";
+import Error from "../pages/Page404/index";
 export const AppRouter = () => {
   return (
     <>
@@ -29,7 +30,7 @@ export const AppRouter = () => {
             </PublicRoute>
           }
         />
-
+        <Route path="not-found" element={<Error />} />
         <Route
           path="/*"
           element={
