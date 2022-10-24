@@ -10,7 +10,6 @@ import TipoCultivo from "../pages/TipoCultivo/Index";
 import { TipoCultivoProvider } from "../context/TipoCultivoContext";
 import { VariedadProvider } from "../context/VariedadContext";
 import Variedad from "../pages/Variedad/Index";
-
 export const DashboardRoutes = () => {
   return (
     <>
@@ -25,7 +24,6 @@ export const DashboardRoutes = () => {
             <Route path="corregimiento" element={<Dashboard />} />
             <Route path="cultivo" element={<Dashboard />} />
             <Route path="densidad" element={<Dashboard />} />
-            <Route path="departamento" element={<Dashboard />} />
             <Route path="distancia-siembra" element={<Dashboard />} />
             <Route path="elemento" element={<Dashboard />} />
             <Route path="etapa-fenelogica" element={<Dashboard />} />
@@ -39,7 +37,6 @@ export const DashboardRoutes = () => {
                 </FincaProvider>
               }
             />
-            <Route path="municipio" element={<Dashboard />} />
             <Route path="recomendacion-abono" element={<Dashboard />} />
             <Route
               path="tipo-cultivo"
@@ -60,8 +57,8 @@ export const DashboardRoutes = () => {
                 </VariedadProvider>
               }
             />
-            <Route path="vereda" element={<Dashboard />} />
             <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="*" element={<Navigate to="/not-found" />} />
           </Routes>
         </Row>
       </div>
