@@ -47,12 +47,6 @@ routes.push({
 });
 
 routes.push({
-  to: "/corregimiento",
-  text: "Corregimiento",
-  private: true,
-});
-
-routes.push({
   to: "/cultivo",
   text: "Cultivo",
   private: true,
@@ -61,12 +55,6 @@ routes.push({
 routes.push({
   to: "/densidad",
   text: "Densidad",
-  private: true,
-});
-
-routes.push({
-  to: "/departamento",
-  text: "Departamento",
   private: true,
 });
 
@@ -95,12 +83,6 @@ routes.push({
 });
 
 routes.push({
-  to: "/municipio",
-  text: "Municipio",
-  private: true,
-});
-
-routes.push({
   to: "/tipo-cultivo",
   text: "Tipo Cultivo",
   private: true,
@@ -115,12 +97,6 @@ routes.push({
 routes.push({
   to: "/variedad",
   text: "Variedad",
-  private: true,
-});
-
-routes.push({
-  to: "/vereda",
-  text: "Vereda",
   private: true,
 });
 
