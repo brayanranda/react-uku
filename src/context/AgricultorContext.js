@@ -10,16 +10,18 @@ const AgricultorProvider = ({ children }) => {
   let urlPost = REACT_APP_API_URL + "auth/nuevoAgricultor";
   const [agricultor, setAgricultor] = useState([]);
   const [agricultores, setAgricultores] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   const getAgricultor = (id) => {
     api.get(url + `${id}?`).then((res) => {
       setAgricultor(res);
     });
   };
 
-  const getAgricultores = () => {
-    api.get(url).then((res) => {
+  const getAgricultores = async () => {
+    setIsLoading(true);
+    await api.get(url).then((res) => {
       setAgricultores(res);
+      setIsLoading(false);
     });
   };
 
@@ -76,6 +78,8 @@ const AgricultorProvider = ({ children }) => {
     setAgricultor,
     agricultores,
     agricultor,
+    isLoading,
+    setIsLoading,
   };
 
   return (

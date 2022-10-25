@@ -5,9 +5,16 @@ import FormPost from "./FormPost";
 import ListAgricultor from "./List";
 
 const Index = () => {
-  const { getAgricultores, agricultores, putData, postData } =
-    useContext(AgricultorContext);
+  const {
+    getAgricultores,
+    agricultores,
+    putData,
+    postData,
+    isLoading,
+    setIsLoading,
+  } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
+  const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [agricultorData, setAgricultorData] = useState({
     nombres: "",
     apellidos: "",
@@ -29,7 +36,7 @@ const Index = () => {
 
   const handleSave = async () => {
     await postData(agricultorData);
-    await getAgricultores();
+    setUpdateOrAdd(!updateOrAdd);
     setIsFormPost(!isFormPost);
   };
 
@@ -66,13 +73,15 @@ const Index = () => {
                 Agregar agricultor
               </button>
             </div>
-            <div className="rounded-2xl bg-white shadow-sm">
-              <ListAgricultor
-                getAgricultores={getAgricultores}
-                agricultores={agricultores}
-                putData={putData}
-              />
-            </div>
+            <ListAgricultor
+              getAgricultores={getAgricultores}
+              agricultores={agricultores}
+              putData={putData}
+              updateOrAdd={updateOrAdd}
+              setUpdateOrAdd={setUpdateOrAdd}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
+            />
           </Col>
         </Row>
       </div>
