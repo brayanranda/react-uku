@@ -58,7 +58,7 @@ const Index = () => {
         ) : null}
         <Row>
           <Col className="col-uku">
-            <div className="flex items-center mb-4 justify-between w-100">
+            <div className="flex items-center mb-2 justify-between w-100">
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
