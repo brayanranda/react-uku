@@ -12,7 +12,6 @@ const Index = ({
   updateOrAdd,
   setUpdateOrAdd,
   isLoading,
-  setIsLoading,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -33,16 +32,16 @@ const Index = ({
   useEffect(() => {
     if (updateOrAdd) {
       getAgricultores();
+      setUpdateOrAdd(false);
     }
   }, [updateOrAdd]);
-
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
   const handlePut = async () => {
     await putData(agricultorData);
-    setUpdateOrAdd(!updateOrAdd);
     setIsFormPut(!isFormPut);
+    setUpdateOrAdd(true);
   };
   const filter = () => {
     const result = agricultores.filter((agricultor) =>
@@ -97,14 +96,14 @@ const Index = ({
           onChange={onSearchChange}
         />
         <button
-          className="bg-green-700 rounded-md text-white hover:bg-green-700"
+          className="bg-green-700 rounded-md text-white hover:bg-green-700 mr-1"
           onClick={prevPage}
         >
           Anterior
         </button>
         &nbsp;
         <button
-          className="bg-green-700 rounded-md text-white hover:bg-green-700"
+          className="bg-green-700 rounded-md text-white hover:bg-green-700 ml-1"
           onClick={nextPage}
         >
           Siguiente
