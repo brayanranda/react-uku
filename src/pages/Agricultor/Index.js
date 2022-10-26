@@ -36,8 +36,8 @@ const Index = () => {
 
   const handleSave = async () => {
     await postData(agricultorData);
-    setUpdateOrAdd(!updateOrAdd);
     setIsFormPost(!isFormPost);
+    setUpdateOrAdd(true);
   };
 
   const toggleFormPost = () => {
@@ -80,7 +80,6 @@ const Index = () => {
               updateOrAdd={updateOrAdd}
               setUpdateOrAdd={setUpdateOrAdd}
               isLoading={isLoading}
-              setIsLoading={setIsLoading}
             />
           </Col>
         </Row>

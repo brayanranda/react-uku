@@ -26,6 +26,7 @@ const AgricultorProvider = ({ children }) => {
   };
 
   const postData = async (data) => {
+    setIsLoading(true);
     let newData = data;
     let options = {
       body: newData,
@@ -34,8 +35,10 @@ const AgricultorProvider = ({ children }) => {
     await api.post(urlPost, options).then((res) => {
       if (!res.err) {
         console.log("Registrado");
+        setIsLoading(false);
       } else {
         console.log("No Registrado");
+        setIsLoading(false);
       }
     });
   };

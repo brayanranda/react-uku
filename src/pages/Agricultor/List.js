@@ -17,7 +17,6 @@ const Index = ({
   updateOrAdd,
   setUpdateOrAdd,
   isLoading,
-  setIsLoading,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
@@ -38,16 +37,16 @@ const Index = ({
   useEffect(() => {
     if (updateOrAdd) {
       getAgricultores();
+      setUpdateOrAdd(false);
     }
   }, [updateOrAdd]);
-
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
   const handlePut = async () => {
     await putData(agricultorData);
-    setUpdateOrAdd(!updateOrAdd);
     setIsFormPut(!isFormPut);
+    setUpdateOrAdd(true);
   };
   const filter = () => {
     const result = agricultores.filter((agricultor) =>
