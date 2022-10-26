@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEye,
+  faEdit,
+  faChevronRight,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
@@ -88,7 +93,7 @@ const Index = ({
           onSubmit={handlePut}
         />
       ) : null}
-      <div className="w-50 mb-2">
+      <div className="w-50 mb-4 ml-auto">
         <input
           type="text"
           className="mb-2 form-control"
@@ -96,19 +101,6 @@ const Index = ({
           value={search}
           onChange={onSearchChange}
         />
-        <button
-          className="bg-green-700 rounded-md text-white hover:bg-green-700"
-          onClick={prevPage}
-        >
-          Anterior
-        </button>
-        &nbsp;
-        <button
-          className="bg-green-700 rounded-md text-white hover:bg-green-700"
-          onClick={nextPage}
-        >
-          Siguiente
-        </button>
       </div>
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
@@ -156,6 +148,20 @@ const Index = ({
               )}
             </tbody>
           </table>
+        </div>
+      </div>
+      <div className="flex mt-3">
+        <div
+          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
+          onClick={prevPage}
+        >
+          <FontAwesomeIcon icon={faChevronLeft} />
+        </div>
+        <div
+          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
+          onClick={nextPage}
+        >
+          <FontAwesomeIcon icon={faChevronRight} />
         </div>
       </div>
     </>
