@@ -16,9 +16,13 @@ const Index = () => {
     veredas,
     putData,
     postData,
+    isLoading,
   } = useContext(FincaContext);
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
+  const [updateOrAdd, setUpdateOrAdd] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [search, setSearch] = useState("");
   const [fincaData, setFincaData] = useState({
     nombre: "",
     areaTotal: "",
@@ -51,11 +55,15 @@ const Index = () => {
 
   const handleSave = async () => {
     await postData(fincaData);
-    await getFincas();
     clearForm();
     setIsFormPost(!isFormPost);
+    setUpdateOrAdd(true);
   };
 
+  const onSearchChange = ({ target }) => {
+    setCurrentPage(0);
+    setSearch(target.value);
+  };
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
   };
@@ -78,11 +86,20 @@ const Index = () => {
         ) : null}
         <Row>
           <Col className="col-uku">
-            <div className="flex items-center mb-4 justify-between w-100">
+            <div className="flex items-center mb-4 justify-between w-100 mt-3">
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
                 <p className="text-2xl ml-2 text-green-700">Lista Fincas</p>
+              </div>
+              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Buscar por nombre"
+                  value={search}
+                  onChange={onSearchChange}
+                />
               </div>
               <button
                 onClick={() => toggleFormPost()}
@@ -91,17 +108,21 @@ const Index = () => {
                 Agregar Finca
               </button>
             </div>
-            <div className="rounded-2xl bg-white shadow-sm">
-              <ListVariedad
-                getFincas={getFincas}
-                fincas={fincas}
-                putData={putData}
-                corregimientos={corregimientos}
-                municipios={municipios}
-                veredas={veredas}
-                agricultores={agricultores}
-              />
-            </div>
+            <ListVariedad
+              getFincas={getFincas}
+              fincas={fincas}
+              putData={putData}
+              corregimientos={corregimientos}
+              municipios={municipios}
+              veredas={veredas}
+              agricultores={agricultores}
+              updateOrAdd={updateOrAdd}
+              setUpdateOrAdd={setUpdateOrAdd}
+              isLoading={isLoading}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              search={search}
+            />
           </Col>
         </Row>
       </div>

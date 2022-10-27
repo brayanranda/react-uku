@@ -9,6 +9,7 @@ const TipoCultivoProvider = ({ children }) => {
   let url = REACT_APP_API_URL + "tipocultivo";
   const [tipocultivo, setTipoCultivo] = useState([]);
   const [tiposcultivos, setTiposCultivos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getTipoCultivo = async (id) => {
     const res = await api.get(url + `${id}?`);
@@ -16,11 +17,14 @@ const TipoCultivoProvider = ({ children }) => {
   };
 
   const getTiposCultivos = async () => {
+    setIsLoading(true);
     const res = await api.get(url);
     setTiposCultivos(res);
+    setIsLoading(false);
   };
 
   const postData = async (data) => {
+    setIsLoading(true);
     let newData = data;
     let options = {
       body: newData,
@@ -29,8 +33,10 @@ const TipoCultivoProvider = ({ children }) => {
     await api.post(url, options).then((res) => {
       if (!res.err) {
         console.log("Registrado");
+        setIsLoading(false);
       } else {
         console.log("No Registrado");
+        setIsLoading(false);
       }
     });
   };
@@ -59,6 +65,8 @@ const TipoCultivoProvider = ({ children }) => {
     setTipoCultivo,
     tiposcultivos,
     tipocultivo,
+    isLoading,
+    setIsLoading,
   };
 
   return (
