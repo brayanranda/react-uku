@@ -15,6 +15,8 @@ const Index = () => {
   } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [search, setSearch] = useState("");
   const [agricultorData, setAgricultorData] = useState({
     nombres: "",
     apellidos: "",
@@ -40,6 +42,11 @@ const Index = () => {
     setUpdateOrAdd(true);
   };
 
+  const onSearchChange = ({ target }) => {
+    setCurrentPage(0);
+    setSearch(target.value);
+  };
+
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
   };
@@ -58,13 +65,22 @@ const Index = () => {
         ) : null}
         <Row>
           <Col className="col-uku">
-            <div className="flex items-center mb-2 justify-between w-100">
+            <div className="flex items-center mb-2 justify-between w-100 mt-3">
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
                 <p className="text-2xl ml-2 text-green-700">
                   Lista Agricultores
                 </p>
+              </div>
+              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Buscar por nombre"
+                  value={search}
+                  onChange={onSearchChange}
+                />
               </div>
               <button
                 onClick={() => toggleFormPost()}
@@ -80,6 +96,9 @@ const Index = () => {
               updateOrAdd={updateOrAdd}
               setUpdateOrAdd={setUpdateOrAdd}
               isLoading={isLoading}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              search={search}
             />
           </Col>
         </Row>

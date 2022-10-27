@@ -17,10 +17,11 @@ const Index = ({
   updateOrAdd,
   setUpdateOrAdd,
   isLoading,
+  currentPage,
+  setCurrentPage,
+  search,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [search, setSearch] = useState("");
   const [agricultorData, setAgricultorData] = useState({
     nombres: "",
     apellidos: "",
@@ -75,11 +76,6 @@ const Index = ({
     }
   };
 
-  const onSearchChange = ({ target }) => {
-    setCurrentPage(0);
-    setSearch(target.value);
-  };
-
   return (
     <>
       <Toaster />
@@ -92,15 +88,6 @@ const Index = ({
           onSubmit={handlePut}
         />
       ) : null}
-      <div className="w-50 mb-4 ml-auto">
-        <input
-          type="text"
-          className="mb-2 form-control"
-          placeholder="Buscar por nombre"
-          value={search}
-          onChange={onSearchChange}
-        />
-      </div>
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">

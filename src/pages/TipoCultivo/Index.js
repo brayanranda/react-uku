@@ -5,9 +5,12 @@ import FormPost from "./FormPost";
 import ListTipoCultivo from "./List";
 
 const Index = () => {
-  const { getTiposCultivos, tiposcultivos, putData, postData } =
+  const { getTiposCultivos, tiposcultivos, putData, postData, isLoading } =
     useContext(TipoCultivoContext);
   const [isFormPost, setIsFormPost] = useState(false);
+  const [updateOrAdd, setUpdateOrAdd] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [search, setSearch] = useState("");
   const [tipoCultivoData, setTipoCultivoData] = useState({
     descripcion: "",
     variedadCollection: null,
@@ -15,8 +18,13 @@ const Index = () => {
 
   const handleSave = async () => {
     await postData(tipoCultivoData);
-    await getTiposCultivos();
     setIsFormPost(!isFormPost);
+    setUpdateOrAdd(true);
+  };
+
+  const onSearchChange = ({ target }) => {
+    setCurrentPage(0);
+    setSearch(target.value);
   };
 
   const toggleFormPost = () => {
@@ -45,6 +53,15 @@ const Index = () => {
                   Lista de tipo de cultivos
                 </p>
               </div>
+              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Buscar por nombre"
+                  value={search}
+                  onChange={onSearchChange}
+                />
+              </div>
               <button
                 onClick={() => toggleFormPost()}
                 className="bg-green-700 rounded-md text-white hover:bg-green-700"
@@ -52,13 +69,18 @@ const Index = () => {
                 Agregar Tipo cultivo
               </button>
             </div>
-            <div className="rounded-2xl bg-white shadow-sm">
-              <ListTipoCultivo
-                getTiposCultivos={getTiposCultivos}
-                tiposcultivos={tiposcultivos}
-                putData={putData}
-              />
-            </div>
+
+            <ListTipoCultivo
+              getTiposCultivos={getTiposCultivos}
+              tiposcultivos={tiposcultivos}
+              putData={putData}
+              updateOrAdd={updateOrAdd}
+              setUpdateOrAdd={setUpdateOrAdd}
+              isLoading={isLoading}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              search={search}
+            />
           </Col>
         </Row>
       </div>

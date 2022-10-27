@@ -6,10 +6,13 @@ import FormPost from "./FormPost";
 import ListVariedades from "./List";
 
 const Index = () => {
-  const { getVariedades, variedades, putData, postData } =
+  const { getVariedades, variedades, putData, postData, isLoading } =
     useContext(VariedadContext);
   const { getTiposCultivos, tiposcultivos } = useContext(TipoCultivoContext);
   const [isFormPost, setIsFormPost] = useState(false);
+  const [updateOrAdd, setUpdateOrAdd] = useState(true);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [search, setSearch] = useState("");
   const [variedadData, setVariedadData] = useState({
     cultivoCollection: null,
     descripcion: "",
@@ -25,10 +28,13 @@ const Index = () => {
 
   const handleSave = async () => {
     await postData(variedadData);
-    await getVariedades();
     setIsFormPost(!isFormPost);
+    setUpdateOrAdd(true);
   };
-
+  const onSearchChange = ({ target }) => {
+    setCurrentPage(0);
+    setSearch(target.value);
+  };
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
   };
@@ -54,6 +60,15 @@ const Index = () => {
                 <p className="text-2xl">/</p>
                 <p className="text-2xl ml-2 text-green-700">Lista Variedades</p>
               </div>
+              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Buscar por nombre"
+                  value={search}
+                  onChange={onSearchChange}
+                />
+              </div>
               <button
                 onClick={() => toggleFormPost()}
                 className="bg-green-700 rounded-md text-white hover:bg-green-700"
@@ -61,14 +76,18 @@ const Index = () => {
                 Agregar Variedad
               </button>
             </div>
-            <div className="rounded-2xl bg-white shadow-sm">
-              <ListVariedades
-                getVariedades={getVariedades}
-                variedades={variedades}
-                putData={putData}
-                tiposcultivos={tiposcultivos}
-              />
-            </div>
+            <ListVariedades
+              getVariedades={getVariedades}
+              variedades={variedades}
+              putData={putData}
+              tiposcultivos={tiposcultivos}
+              updateOrAdd={updateOrAdd}
+              setUpdateOrAdd={setUpdateOrAdd}
+              isLoading={isLoading}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              search={search}
+            />
           </Col>
         </Row>
       </div>

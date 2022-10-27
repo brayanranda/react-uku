@@ -15,6 +15,7 @@ const FincaProvider = ({ children }) => {
   const [corregimientos, setCorregimientos] = useState([]);
   const [municipios, setMunicipios] = useState([]);
   const [veredas, setVeredas] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getFinca = async (id) => {
     const res = await api.get(url + `${id}?`);
@@ -22,8 +23,10 @@ const FincaProvider = ({ children }) => {
   };
 
   const getFincas = async () => {
+    setIsLoading(true);
     const res = await api.get(url);
     setFincas(res);
+    setIsLoading(false);
   };
   const getCorregimientos = async () => {
     const res = await api.get(urlCorregimiento);
@@ -39,6 +42,7 @@ const FincaProvider = ({ children }) => {
   };
 
   const postData = async (data) => {
+    setIsLoading(true);
     let newData = data;
     let options = {
       body: newData,
@@ -47,8 +51,10 @@ const FincaProvider = ({ children }) => {
     await api.post(url, options).then((res) => {
       if (!res.err) {
         console.log("Registrado");
+        setIsLoading(false);
       } else {
         console.log("No Registrado");
+        setIsLoading(false);
       }
     });
   };
@@ -83,6 +89,8 @@ const FincaProvider = ({ children }) => {
     corregimientos,
     municipios,
     veredas,
+    isLoading,
+    setIsLoading,
   };
 
   return <FincaContext.Provider value={data}>{children}</FincaContext.Provider>;

@@ -9,6 +9,7 @@ const VariedadProvider = ({ children }) => {
   let url = REACT_APP_API_URL + "variedad";
   const [variedad, setVariedad] = useState([]);
   const [variedades, setVariedades] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getVariedad = async (id) => {
     const res = await api.get(url + `${id}?`);
@@ -16,11 +17,14 @@ const VariedadProvider = ({ children }) => {
   };
 
   const getVariedades = async () => {
+    setIsLoading(true);
     const res = await api.get(url);
     setVariedades(res);
+    setIsLoading(false);
   };
 
   const postData = async (data) => {
+    setIsLoading(true);
     let newData = data;
     let options = {
       body: newData,
@@ -29,8 +33,10 @@ const VariedadProvider = ({ children }) => {
     await api.post(url, options).then((res) => {
       if (!res.err) {
         console.log("Registrado");
+        setIsLoading(false);
       } else {
         console.log("No Registrado");
+        setIsLoading(false);
       }
     });
   };
@@ -59,6 +65,8 @@ const VariedadProvider = ({ children }) => {
     setVariedad,
     variedades,
     variedad,
+    isLoading,
+    setIsLoading,
   };
 
   return (
