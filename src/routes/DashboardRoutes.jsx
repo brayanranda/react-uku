@@ -14,6 +14,7 @@ import Cultivo from "../pages/Cultivo/Index";
 import { CultivoProvider } from "../context/CultivoContext";
 import { TopografiaProvider } from "../context/TopografiaContext";
 import { DistanciaSiembraProvider } from "../context/DistanciaSiembraContext";
+import Topografia from "../pages/Topografia/Index";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -63,7 +64,14 @@ export const DashboardRoutes = () => {
               </TipoCultivoProvider>
             }
           />
-          <Route path="topografia" element={<Dashboard />} />
+          <Route
+            path="topografia"
+            element={
+              <TopografiaProvider>
+                <Topografia />
+              </TopografiaProvider>
+            }
+          />
           <Route
             path="variedad"
             element={
