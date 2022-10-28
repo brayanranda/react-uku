@@ -10,6 +10,10 @@ import TipoCultivo from "../pages/TipoCultivo/Index";
 import { TipoCultivoProvider } from "../context/TipoCultivoContext";
 import { VariedadProvider } from "../context/VariedadContext";
 import Variedad from "../pages/Variedad/Index";
+import Cultivo from "../pages/Cultivo/Index";
+import { CultivoProvider } from "../context/CultivoContext";
+import { TopografiaProvider } from "../context/TopografiaContext";
+import { DistanciaSiembraProvider } from "../context/DistanciaSiembraContext";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -20,7 +24,22 @@ export const DashboardRoutes = () => {
           <Route path="home" element={<Dashboard />} />
           <Route path="abono-organico" element={<Dashboard />} />
           <Route path="analisis" element={<Dashboard />} />
-          <Route path="cultivo" element={<Dashboard />} />
+          <Route
+            path="cultivo"
+            element={
+              <CultivoProvider>
+                <FincaProvider>
+                  <VariedadProvider>
+                    <TopografiaProvider>
+                      <DistanciaSiembraProvider>
+                        <Cultivo />
+                      </DistanciaSiembraProvider>
+                    </TopografiaProvider>
+                  </VariedadProvider>
+                </FincaProvider>
+              </CultivoProvider>
+            }
+          />
           <Route path="densidad" element={<Dashboard />} />
           <Route path="distancia-siembra" element={<Dashboard />} />
           <Route path="elemento" element={<Dashboard />} />
