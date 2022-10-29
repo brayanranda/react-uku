@@ -11,8 +11,8 @@ import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 
 const Index = ({
-  getDensidades,
-  densidades,
+  getElementos,
+  elementos,
   putData,
   updateOrAdd,
   setUpdateOrAdd,
@@ -22,20 +22,20 @@ const Index = ({
   search,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
-  const [densidadData, setDensidadData] = useState({
+  const [elementoData, setElementoData] = useState({
     valor: "",
     idDensidad: "",
     analisisSueloCollection: null,
   });
 
-  const toggleFormPut = (topografia) => {
-    setDensidadData(topografia);
+  const toggleFormPut = (elemento) => {
+    setElementoData(elemento);
     setIsFormPut(!isFormPut);
   };
 
   useEffect(() => {
     if (updateOrAdd) {
-      getDensidades();
+      getElementos();
       setUpdateOrAdd(false);
     }
   }, [updateOrAdd]);
@@ -43,19 +43,19 @@ const Index = ({
     return <Spinner color="success">Loading...</Spinner>;
   }
   const handlePut = async () => {
-    await putData(densidadData);
+    await putData(elementoData);
     setIsFormPut(!isFormPut);
     setUpdateOrAdd(true);
   };
   const filter = () => {
-    const result = densidades.filter((densidad) =>
-      densidad.valor.toString().includes(search)
+    const result = elementos.filter((elemento) =>
+      elemento.nombre.toLowerCase().includes(search.toLowerCase())
     );
     return result;
   };
-  const filteredDensidades = () => {
+  const filteredElementos = () => {
     if (search.length === 0)
-      return densidades.slice(currentPage, currentPage + 5);
+      return elementos.slice(currentPage, currentPage + 5);
 
     // Si hay algo en la caja de texto
     const filtered = filter();
@@ -80,8 +80,8 @@ const Index = ({
         <FormPut
           isFormPut={isFormPut}
           setIsFormPut={setIsFormPut}
-          data={densidadData}
-          setData={setDensidadData}
+          data={elementoData}
+          setData={setElementoData}
           onSubmit={handlePut}
         />
       ) : null}
@@ -91,16 +91,18 @@ const Index = ({
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Valor</th>
+                <th>Nombre</th>
+                <th>Unidad</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {!isLoading && densidades.length > 0 ? (
-                filteredDensidades().map((densidad, x) => (
+              {!isLoading && elementos.length > 0 ? (
+                filteredElementos().map((elemento, x) => (
                   <tr key={x}>
-                    <td>{densidad.idDensidad}</td>
-                    <td>{densidad.valor}</td>
+                    <td>{elemento.id}</td>
+                    <td>{elemento.nombre}</td>
+                    <td>{elemento.unidad}</td>
                     <td>
                       <FontAwesomeIcon
                         className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
@@ -108,7 +110,7 @@ const Index = ({
                       />
                       <FontAwesomeIcon
                         onClick={() => {
-                          toggleFormPut(densidad);
+                          toggleFormPut(elemento);
                         }}
                         className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faEdit}

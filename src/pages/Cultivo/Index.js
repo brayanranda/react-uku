@@ -87,7 +87,7 @@ const Index = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Buscar por nombre"
+                  placeholder="Buscar por descripcion"
                   value={search}
                   onChange={onSearchChange}
                 />

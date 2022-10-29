@@ -18,6 +18,8 @@ import Topografia from "../pages/Topografia/Index";
 import DistanciaSiembra from "../pages/DistanciaSiembra/Index";
 import { DensidadProvider } from "../context/DensidadContext";
 import Densidad from "../pages/Densidad/Index";
+import { ElementoProvider } from "../context/ElementoContext";
+import Elemento from "../pages/Elemento/Index";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -60,7 +62,14 @@ export const DashboardRoutes = () => {
               </DistanciaSiembraProvider>
             }
           />
-          <Route path="elemento" element={<Dashboard />} />
+          <Route
+            path="elemento"
+            element={
+              <ElementoProvider>
+                <Elemento />
+              </ElementoProvider>
+            }
+          />
           <Route path="etapa-fenelogica" element={<Dashboard />} />
           <Route
             path="finca"
