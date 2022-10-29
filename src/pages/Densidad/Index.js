@@ -54,7 +54,7 @@ const Index = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Buscar por nombre"
+                  placeholder="Buscar por valor"
                   value={search}
                   onChange={onSearchChange}
                 />

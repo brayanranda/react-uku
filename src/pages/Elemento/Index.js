@@ -1,23 +1,24 @@
 import React, { useState, useContext } from "react";
 import { Col, Row } from "reactstrap";
-import TopografiaContext from "../../context/TopografiaContext";
+import ElementoContext from "../../context/ElementoContext";
 import FormPost from "./FormPost";
 import ListVariedades from "./List";
 
 const Index = () => {
-  const { getTopografias, topografias, postData, putData, isLoading } =
-    useContext(TopografiaContext);
+  const { getElementos, elementos, postData, putData, isLoading } =
+    useContext(ElementoContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
-  const [topografiaData, setTopografiaData] = useState({
-    descripcion: "",
+  const [elementoData, setElementoData] = useState({
     id: "",
+    nombre: "",
+    unidad: "",
   });
 
   const handleSave = async () => {
-    await postData(topografiaData);
+    await postData(elementoData);
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
   };
@@ -36,8 +37,8 @@ const Index = () => {
           <FormPost
             isFormPost={isFormPost}
             setIsFormPost={setIsFormPost}
-            data={topografiaData}
-            setData={setTopografiaData}
+            data={elementoData}
+            setData={setElementoData}
             onSubmit={handleSave}
           />
         ) : null}
@@ -47,15 +48,13 @@ const Index = () => {
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">
-                  Lista Topografias
-                </p>
+                <p className="text-2xl ml-2 text-green-700">Lista Elementos</p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Buscar por descripcion"
+                  placeholder="Buscar por nombre"
                   value={search}
                   onChange={onSearchChange}
                 />
@@ -64,12 +63,12 @@ const Index = () => {
                 onClick={() => toggleFormPost()}
                 className="bg-green-700 rounded-md text-white hover:bg-green-700"
               >
-                Agregar Topografia
+                Agregar Elemento
               </button>
             </div>
             <ListVariedades
-              getTopografias={getTopografias}
-              topografias={topografias}
+              getElementos={getElementos}
+              elementos={elementos}
               putData={putData}
               updateOrAdd={updateOrAdd}
               setUpdateOrAdd={setUpdateOrAdd}
