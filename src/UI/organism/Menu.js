@@ -69,7 +69,11 @@ routes.push({
   text: "Elemento",
   private: true,
 });
-
+routes.push({
+  to: "/elementovariedad",
+  text: "Elemento variedad",
+  private: true,
+});
 routes.push({
   to: "/etapa-fenelogica",
   text: "Etapa Fenelogica",

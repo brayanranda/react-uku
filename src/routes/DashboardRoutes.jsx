@@ -20,6 +20,8 @@ import { DensidadProvider } from "../context/DensidadContext";
 import Densidad from "../pages/Densidad/Index";
 import { ElementoProvider } from "../context/ElementoContext";
 import Elemento from "../pages/Elemento/Index";
+import ElementoVarided from "../pages/ElementoVariedad/Index";
+import { ElementoVariedadProvider } from "../context/ElementoVariedadContext";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -68,6 +70,18 @@ export const DashboardRoutes = () => {
               <ElementoProvider>
                 <Elemento />
               </ElementoProvider>
+            }
+          />
+          <Route
+            path="elementovariedad"
+            element={
+              <ElementoVariedadProvider>
+                <ElementoProvider>
+                  <VariedadProvider>
+                    <ElementoVarided />
+                  </VariedadProvider>
+                </ElementoProvider>
+              </ElementoVariedadProvider>
             }
           />
           <Route path="etapa-fenelogica" element={<Dashboard />} />
