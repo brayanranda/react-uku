@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEye,
-  faEdit,
+  // faEye,
+  // faEdit,
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
@@ -11,10 +11,11 @@ import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 
 const Index = ({
-  getVariedades,
-  variedades,
-  putData,
-  // tiposcultivos,
+  getElementosVariedades,
+  elementosVariedades,
+  // elementos,
+  // variedades,
+  // putData,
   updateOrAdd,
   setUpdateOrAdd,
   isLoading,
@@ -22,45 +23,44 @@ const Index = ({
   setCurrentPage,
   search,
 }) => {
-  const [isFormPut, setIsFormPut] = useState(false);
-  const [variedadData, setVariedadData] = useState({
-    cultivoCollection: null,
-    descripcion: "",
-    idTipoCultivo: {
-      id: 1,
-      descripcion: "",
-      variedadCollection: null,
-    },
-  });
+  // const [isFormPut, setIsFormPut] = useState(false);
+  // const [elementoData, setElementoData] = useState({
+  //   nombre: "",
+  //   idElemento: { id: "" },
+  //   idVariedad: { id: "" },
+  //   valorMaximo: "",
+  //   valorMinimo: "",
+  //   valorOptimo: "",
+  // });
 
-  const toggleFormPut = (variedad) => {
-    setVariedadData(variedad);
-    setIsFormPut(!isFormPut);
-  };
+  // const toggleFormPut = (elemento) => {
+  //   setElementoData(elemento);
+  //   setIsFormPut(!isFormPut);
+  // };
 
   useEffect(() => {
     if (updateOrAdd) {
-      getVariedades();
+      getElementosVariedades();
       setUpdateOrAdd(false);
     }
   }, [updateOrAdd]);
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
-  const handlePut = async () => {
-    await putData(variedadData);
-    setIsFormPut(!isFormPut);
-    setUpdateOrAdd(true);
-  };
+  // const handlePut = async () => {
+  //   await putData(elementoData);
+  //   setIsFormPut(!isFormPut);
+  //   setUpdateOrAdd(true);
+  // };
   const filter = () => {
-    const result = variedades.filter((variedad) =>
-      variedad.descripcion.toLowerCase().includes(search.toLowerCase())
+    const result = elementosVariedades.filter((elemento) =>
+      elemento.nombre.toLowerCase().includes(search.toLowerCase())
     );
     return result;
   };
-  const filteredVariedades = () => {
+  const filteredElementos = () => {
     if (search.length === 0)
-      return variedades.slice(currentPage, currentPage + 5);
+      return elementosVariedades.slice(currentPage, currentPage + 5);
 
     // Si hay algo en la caja de texto
     const filtered = filter();
@@ -85,10 +85,11 @@ const Index = ({
         <FormPut
           isFormPut={isFormPut}
           setIsFormPut={setIsFormPut}
-          data={variedadData}
-          setData={setVariedadData}
+          data={elementoData}
+          setData={setElementoData}
           onSubmit={handlePut}
-          tiposcultivos={tiposcultivos}
+          elementos={elementos}
+          variedades={variedades}
         />
       ) : null} */}
       <div className="rounded-2xl bg-white shadow-sm">
@@ -96,30 +97,26 @@ const Index = ({
           <table className="table">
             <thead>
               <tr>
-                <th>Descripcion</th>
-                <th>Tipo cultivo</th>
-                {/* <th>Acciones</th> */}
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Valor Minimo</th>
+                <th>Valor Maximo</th>
+                <th>Valor Optimo</th>
+                <th>Elemento</th>
+                <th>Variedad</th>
               </tr>
             </thead>
             <tbody>
-              {!isLoading && variedades.length > 0 ? (
-                filteredVariedades().map((variedad, x) => (
+              {!isLoading && elementosVariedades.length > 0 ? (
+                filteredElementos().map((elemento, x) => (
                   <tr key={x}>
-                    <td>{variedad.descripcion}</td>
-                    <td>{variedad.idTipoCultivo.descripcion}</td>
-                    {/* <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
-                      <FontAwesomeIcon
-                        onClick={() => {
-                          toggleFormPut(variedad);
-                        }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEdit}
-                      />
-                    </td> */}
+                    <td>{elemento.idElementoVariedad}</td>
+                    <td>{elemento.nombre}</td>
+                    <td>{elemento.valorMinimo}</td>
+                    <td>{elemento.valorMaximo}</td>
+                    <td>{elemento.valorOptimo}</td>
+                    <td>{elemento.idElemento.nombre}</td>
+                    <td>{elemento.idVariedad.descripcion}</td>
                   </tr>
                 ))
               ) : (
