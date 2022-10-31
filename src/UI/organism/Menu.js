@@ -75,6 +75,11 @@ routes.push({
   private: true,
 });
 routes.push({
+  to: "/enmienda",
+  text: "Enmienda",
+  private: true,
+});
+routes.push({
   to: "/etapa-fenelogica",
   text: "Etapa Fenelogica",
   private: true,
