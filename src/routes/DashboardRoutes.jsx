@@ -22,6 +22,8 @@ import { ElementoProvider } from "../context/ElementoContext";
 import Elemento from "../pages/Elemento/Index";
 import ElementoVarided from "../pages/ElementoVariedad/Index";
 import { ElementoVariedadProvider } from "../context/ElementoVariedadContext";
+import { EnmiendaProvider } from "../context/EnmiendaContext";
+import Enmienda from "../pages/Enmienda/Index";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -82,6 +84,14 @@ export const DashboardRoutes = () => {
                   </VariedadProvider>
                 </ElementoProvider>
               </ElementoVariedadProvider>
+            }
+          />
+          <Route
+            path="enmienda"
+            element={
+              <EnmiendaProvider>
+                <Enmienda />
+              </EnmiendaProvider>
             }
           />
           <Route path="etapa-fenelogica" element={<Dashboard />} />
