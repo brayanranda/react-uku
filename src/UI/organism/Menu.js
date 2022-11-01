@@ -41,8 +41,8 @@ routes.push({
 });
 
 routes.push({
-  to: "/analisis",
-  text: "Analisis",
+  to: "/analisis-elemento",
+  text: "Analisis Elemento",
   private: true,
 });
 
@@ -70,7 +70,7 @@ routes.push({
   private: true,
 });
 routes.push({
-  to: "/elementovariedad",
+  to: "/elemento-variedad",
   text: "Elemento variedad",
   private: true,
 });

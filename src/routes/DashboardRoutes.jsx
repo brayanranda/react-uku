@@ -24,6 +24,9 @@ import ElementoVarided from "../pages/ElementoVariedad/Index";
 import { ElementoVariedadProvider } from "../context/ElementoVariedadContext";
 import { EnmiendaProvider } from "../context/EnmiendaContext";
 import Enmienda from "../pages/Enmienda/Index";
+import { AnalisisElementoProvider } from "../context/AnalisisElementoContext";
+import { AnalisisSueloProvider } from "../context/AnalisisSueloContext";
+import AnalisisElemento from "../pages/AnalisisElemento/Index";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -33,7 +36,18 @@ export const DashboardRoutes = () => {
         <Routes>
           <Route path="home" element={<Dashboard />} />
           <Route path="abono-organico" element={<Dashboard />} />
-          <Route path="analisis" element={<Dashboard />} />
+          <Route
+            path="analisis-elemento"
+            element={
+              <AnalisisElementoProvider>
+                <AnalisisSueloProvider>
+                  <ElementoProvider>
+                    <AnalisisElemento />
+                  </ElementoProvider>
+                </AnalisisSueloProvider>
+              </AnalisisElementoProvider>
+            }
+          />
           <Route
             path="cultivo"
             element={
@@ -75,7 +89,7 @@ export const DashboardRoutes = () => {
             }
           />
           <Route
-            path="elementovariedad"
+            path="elemento-variedad"
             element={
               <ElementoVariedadProvider>
                 <ElementoProvider>
