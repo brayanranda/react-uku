@@ -45,7 +45,11 @@ routes.push({
   text: "Analisis Elemento",
   private: true,
 });
-
+routes.push({
+  to: "/analisis-suelo",
+  text: "Analisis Suelo",
+  private: true,
+});
 routes.push({
   to: "/cultivo",
   text: "Cultivo",

@@ -11,8 +11,11 @@ import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 
 const Index = ({
-  getElementos,
-  elementos,
+  getAnalisisSuelos,
+  analisisSuelos,
+  claseTextural,
+  densidades,
+  cultivos,
   putData,
   updateOrAdd,
   setUpdateOrAdd,
@@ -23,9 +26,15 @@ const Index = ({
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [elementoData, setElementoData] = useState({
-    valor: "",
-    idDensidad: "",
-    analisisSueloCollection: null,
+    idAnalisisSuelo: "",
+    porcentArena: "",
+    porcentLimos: "",
+    porcentArcilla: "",
+    fecha: "",
+    idClaseTextural: { idClaseTextural: "" },
+    idCultivo: { idCultivo: "" },
+    idDensidad: { idDensidad: "" },
+    idProfundidad: { idProfundidadMuestra: "", profundidad: "" },
   });
 
   const toggleFormPut = (elemento) => {
@@ -35,7 +44,7 @@ const Index = ({
 
   useEffect(() => {
     if (updateOrAdd) {
-      getElementos();
+      getAnalisisSuelos();
       setUpdateOrAdd(false);
     }
   }, [updateOrAdd]);
@@ -48,14 +57,16 @@ const Index = ({
     setUpdateOrAdd(true);
   };
   const filter = () => {
-    const result = elementos.filter((elemento) =>
-      elemento.nombre.toLowerCase().includes(search.toLowerCase())
+    const result = analisisSuelos.filter((elemento) =>
+      elemento.idClaseTextural.nombre
+        .toLowerCase()
+        .includes(search.toLowerCase())
     );
     return result;
   };
   const filteredElementos = () => {
     if (search.length === 0)
-      return elementos.slice(currentPage, currentPage + 5);
+      return analisisSuelos.slice(currentPage, currentPage + 5);
 
     // Si hay algo en la caja de texto
     const filtered = filter();
@@ -83,6 +94,9 @@ const Index = ({
           data={elementoData}
           setData={setElementoData}
           onSubmit={handlePut}
+          cultivos={cultivos}
+          densidades={densidades}
+          claseTextural={claseTextural}
         />
       ) : null}
       <div className="rounded-2xl bg-white shadow-sm">
@@ -91,18 +105,30 @@ const Index = ({
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Nombre</th>
-                <th>Unidad</th>
+                <th>Clase Textural</th>
+                <th>Cultivo</th>
+                <th>Porcentaje de Arena</th>
+                <th>Porcentaje de Limos</th>
+                <th>Porcentaje de Arcilla</th>
+                <th>Fecha</th>
+                <th>Densidad</th>
+                <th>Profundidad</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {!isLoading && elementos.length > 0 ? (
+              {!isLoading && analisisSuelos.length > 0 ? (
                 filteredElementos().map((elemento, x) => (
                   <tr key={x}>
-                    <td>{elemento.id}</td>
-                    <td>{elemento.nombre}</td>
-                    <td>{elemento.unidad}</td>
+                    <td>{elemento.idAnalisisSuelo}</td>
+                    <td>{elemento.idClaseTextural.nombre}</td>
+                    <td>{elemento.idCultivo.descripcion}</td>
+                    <td>{elemento.porcentArena}</td>
+                    <td>{elemento.porcentLimos}</td>
+                    <td>{elemento.porcentArcilla}</td>
+                    <td>{elemento.fecha}</td>
+                    <td>{elemento.idDensidad.valor}</td>
+                    <td>{elemento.idProfundidad.profundidad}</td>
                     <td>
                       <FontAwesomeIcon
                         className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"

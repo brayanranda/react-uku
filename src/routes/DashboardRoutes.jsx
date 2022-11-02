@@ -27,6 +27,7 @@ import Enmienda from "../pages/Enmienda/Index";
 import { AnalisisElementoProvider } from "../context/AnalisisElementoContext";
 import { AnalisisSueloProvider } from "../context/AnalisisSueloContext";
 import AnalisisElemento from "../pages/AnalisisElemento/Index";
+import AnalisisSuelo from "../pages/AnalisisSuelo/Index";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -46,6 +47,18 @@ export const DashboardRoutes = () => {
                   </ElementoProvider>
                 </AnalisisSueloProvider>
               </AnalisisElementoProvider>
+            }
+          />
+          <Route
+            path="analisis-suelo"
+            element={
+              <AnalisisSueloProvider>
+                <CultivoProvider>
+                  <DensidadProvider>
+                    <AnalisisSuelo />
+                  </DensidadProvider>
+                </CultivoProvider>
+              </AnalisisSueloProvider>
             }
           />
           <Route
