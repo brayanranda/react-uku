@@ -7,8 +7,10 @@ const AnalisisSueloProvider = ({ children }) => {
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "analisissuelo";
+  let urlClase = REACT_APP_API_URL + "clasetextural";
   const [analisisSuelo, setAnalisisSuelo] = useState([]);
   const [analisisSuelos, setAnalisisSuelos] = useState([]);
+  const [claseTextural, setClaseTextural] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAnalisisSuelo = async (id) => {
@@ -23,6 +25,10 @@ const AnalisisSueloProvider = ({ children }) => {
     setIsLoading(false);
   };
 
+  const getClaseTextural = async () => {
+    const res = await api.get(urlClase);
+    setClaseTextural(res);
+  };
   const postData = async (data) => {
     setIsLoading(true);
     let newData = data;
@@ -61,10 +67,12 @@ const AnalisisSueloProvider = ({ children }) => {
     putData,
     getAnalisisSuelo,
     getAnalisisSuelos,
+    getClaseTextural,
     setAnalisisSuelos,
     setAnalisisSuelo,
     analisisSuelos,
     analisisSuelo,
+    claseTextural,
     isLoading,
     setIsLoading,
   };
