@@ -28,6 +28,8 @@ import { AnalisisElementoProvider } from "../context/AnalisisElementoContext";
 import { AnalisisSueloProvider } from "../context/AnalisisSueloContext";
 import AnalisisElemento from "../pages/AnalisisElemento/Index";
 import AnalisisSuelo from "../pages/AnalisisSuelo/Index";
+import { AbonoOrganicoProvider } from "../context/AbonoOrganicoContext";
+import AbonoOrganico from "../pages/AbonoOrganico/Index";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -36,7 +38,14 @@ export const DashboardRoutes = () => {
         <Menu />
         <Routes>
           <Route path="home" element={<Dashboard />} />
-          <Route path="abono-organico" element={<Dashboard />} />
+          <Route
+            path="abono-organico"
+            element={
+              <AbonoOrganicoProvider>
+                <AbonoOrganico />
+              </AbonoOrganicoProvider>
+            }
+          />
           <Route
             path="analisis-elemento"
             element={
