@@ -1,8 +1,7 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Button, Col, Row } from "reactstrap";
-import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
 import { useForm } from "../../hooks/useForm";
 import logo from "../../assets/images/logo-vertical.png";

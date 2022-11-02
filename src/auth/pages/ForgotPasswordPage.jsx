@@ -7,7 +7,7 @@ import { useForm } from "../../hooks/useForm";
 
 import logo from "../../assets/images/logo-vertical.png";
 
-export const LoginPage = () => {
+export const ForgotPasswordPage = () => {
   const { login, isLogged } = useContext(AuthContext);
   const { emailOrPhone, password, onInputChange, onResetForm } = useForm({
     emailOrPhone: "",
@@ -47,7 +47,7 @@ export const LoginPage = () => {
       >
         <Image src={logo} width={120} className="mx-auto logo-lr" alt="" />
         <h4 className=" text-center mt-3 mb-4 text-2xl font-medium">
-          Iniciar sesión
+          Solicitud de cambio de contraseña
         </h4>
         <form onSubmit={onLogin}>
           <label className="d-block  mb-3" htmlFor="email">
@@ -61,27 +61,15 @@ export const LoginPage = () => {
               placeholder="ejemplo@ukulima.com"
             />
           </label>
-          <label className="d-block  mb-3" htmlFor="password">
-            <p className="font-bold">Contraseña</p>
-            <input
-              name="password"
-              onChange={onInputChange}
-              value={password}
-              type="password"
-              className="form-control"
-              placeholder="* * * * * * * * *"
-            />
-          </label>
           <Button
             type="submit"
             className="w-100 my-4 bg-green-600 hover:bg-green-700"
           >
-            Ingresar
+            Solicitar
           </Button>
           <p className=" text-center">
-            ¿No tienes cuenta?
-            <Link className="font-medium ml-2" to="/register">
-              Registrate
+            <Link className="font-medium ml-2" to="/">
+              Iniciar sesión
             </Link>
           </p>
         </form>

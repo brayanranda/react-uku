@@ -1,8 +1,9 @@
 import { Route, Routes } from "react-router-dom";
-
 import { PublicRoute } from "./PublicRoute";
 import { PrivateRoute } from "./PrivateRoute";
 import Login from "../pages/Login/Index";
+import ForgotPassword from "../pages/ForgotPassword/Index";
+import ChangePassword from "../pages/ChangePassword/Index";
 import Register from "../pages/Register/Index";
 import { DashboardRoutes } from "../routes/DashboardRoutes";
 import Error from "../pages/Page404/index";
@@ -16,6 +17,26 @@ export const AppRouter = () => {
             <PublicRoute>
               <Routes>
                 <Route path="/*" element={<Login />} />
+              </Routes>
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="forgot-password/*"
+          element={
+            <PublicRoute>
+              <Routes>
+                <Route path="/*" element={<ForgotPassword />} />
+              </Routes>
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="change-password/*"
+          element={
+            <PublicRoute>
+              <Routes>
+                <Route path="/*" element={<ChangePassword />} />
               </Routes>
             </PublicRoute>
           }
