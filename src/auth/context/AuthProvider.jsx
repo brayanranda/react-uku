@@ -24,6 +24,39 @@ export const AuthProvider = ({ children }) => {
   const { REACT_APP_API_URL } = process.env;
   let authURL = REACT_APP_API_URL + "auth/";
 
+  //FORGOT PASSWORD
+  const forgotPassword = async (email = "") => {
+    const options = {
+      headers: { "content-type": "application/json" },
+    };
+    try {
+      const res = await api.get(
+        `${authURL} + solicitudPassword/${email}`,
+        options
+      );
+      if (!res.err) {
+        console.log("codigo enviado");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const changePassword = async (user = {}, token = "") => {
+    const options = {
+      body: user,
+      headers: { "content-type": "application/json" },
+    };
+    try {
+      const res = await api.post(`${authURL} + recuperar/${token}`, options);
+      if (!res.err) {
+        console.log("contraseña actualizada");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //REGISTER USER
 
   const createUser = async (newUser = {}) => {
@@ -50,6 +83,7 @@ export const AuthProvider = ({ children }) => {
     };
     try {
       const res = await api.post(authURL + "login", options);
+      console.log(res);
       if (res.token) {
         localStorage.setItem("user", JSON.stringify(res));
         localStorage.setItem("token-auth", JSON.stringify(res.token));
