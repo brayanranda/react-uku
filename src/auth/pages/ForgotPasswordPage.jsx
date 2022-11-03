@@ -6,30 +6,30 @@ import { Image } from "react-bootstrap";
 import { useForm } from "../../hooks/useForm";
 
 import logo from "../../assets/images/logo-vertical.png";
+import { Toaster } from "react-hot-toast";
 
 export const ForgotPasswordPage = () => {
-  const { login, isLogged } = useContext(AuthContext);
-  const { emailOrPhone, password, onInputChange, onResetForm } = useForm({
-    emailOrPhone: "",
-    password: "",
+  const { forgotPassword, ok } = useContext(AuthContext);
+  const { email, onInputChange, onResetForm } = useForm({
+    email: "",
   });
   const navigate = useNavigate();
   const validateInputs = () => {
-    const validate = { emailOrPhone: false, password: false };
-    if (emailOrPhone.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) !== null) {
-      validate.emailOrPhone = true;
+    const validate = { email: false };
+    if (email.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) !== null) {
+      validate.email = true;
     }
-    if (password.length > 5) validate.password = true;
     return validate;
   };
+
   const onLogin = async (event) => {
     event.preventDefault();
     const validate = validateInputs();
-    if (!validate.emailOrPhone || !validate.password) return;
-    const user = { emailOrPhone, password };
-    await login(user);
-    if (isLogged) {
-      navigate("/home", {
+    if (!validate.email) return;
+    await forgotPassword(email);
+    if (ok === true) {
+      console.log("entre");
+      navigate("/login", {
         replace: true,
       });
     } else {
@@ -38,6 +38,7 @@ export const ForgotPasswordPage = () => {
   };
   return (
     <Row className="d-flex align-items-center justify-content-center w-100 min-h-screen px-6 mx-0 bg-image-uku">
+      <Toaster />
       <Col
         sm={8}
         md={8}
@@ -53,10 +54,10 @@ export const ForgotPasswordPage = () => {
           <label className="d-block  mb-3" htmlFor="email">
             <p className="font-bold">Correo electrónico</p>
             <input
-              name="emailOrPhone"
+              name="email"
               onChange={onInputChange}
               type="email"
-              value={emailOrPhone}
+              value={email}
               className="form-control"
               placeholder="ejemplo@ukulima.com"
             />
@@ -68,7 +69,7 @@ export const ForgotPasswordPage = () => {
             Solicitar
           </Button>
           <p className=" text-center">
-            <Link className="font-medium ml-2" to="/">
+            <Link className="font-medium ml-2" to="/login">
               Iniciar sesión
             </Link>
           </p>

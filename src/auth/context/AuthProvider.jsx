@@ -15,6 +15,7 @@ const init = () => {
   return {
     isLogged: !!user,
     user: user,
+    ok: false,
   };
 };
 
@@ -31,12 +32,15 @@ export const AuthProvider = ({ children }) => {
     };
     try {
       const res = await api.get(
-        `${authURL} + solicitudPassword/${email}`,
+        `${authURL}solicitudPassword/${email}`,
         options
       );
+      console.log(res);
       if (!res.err) {
-        console.log("codigo enviado");
-      }
+        toast.success(res.mensaje);
+        const action = { type: types.forgotPass };
+        dispatch(action);
+      } else toast.error(res.statusText.mensaje);
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +52,8 @@ export const AuthProvider = ({ children }) => {
       headers: { "content-type": "application/json" },
     };
     try {
-      const res = await api.post(`${authURL} + recuperar/${token}`, options);
+      const res = await api.post(`${authURL}recuperar/${token}`, options);
+      console.log(res);
       if (!res.err) {
         console.log("contraseña actualizada");
       }
@@ -90,7 +95,7 @@ export const AuthProvider = ({ children }) => {
         toast.success("Bienvenido a ukulima");
         const action = { type: types.login, payload: res };
         dispatch(action);
-      }
+      } else toast.error("Correo o contraseña incorrectos");
     } catch (error) {
       console.log(error);
     }
@@ -111,6 +116,8 @@ export const AuthProvider = ({ children }) => {
         // Methods
         login,
         logout,
+        forgotPassword,
+        changePassword,
         createUser,
       }}
     >

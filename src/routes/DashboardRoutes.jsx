@@ -3,33 +3,35 @@ import Dashboard from "../pages/Dashboard/Index";
 import Menu from "../UI/organism/Menu";
 import Header from "../UI/organism/Header";
 import { Row } from "reactstrap";
-import { AgricultorProvider } from "../context/AgricultorContext";
-import { FincaProvider } from "../context/FincaContext";
 import Finca from "../pages/Finca/Index";
 import TipoCultivo from "../pages/TipoCultivo/Index";
-import { TipoCultivoProvider } from "../context/TipoCultivoContext";
-import { VariedadProvider } from "../context/VariedadContext";
 import Variedad from "../pages/Variedad/Index";
 import Cultivo from "../pages/Cultivo/Index";
-import { CultivoProvider } from "../context/CultivoContext";
-import { TopografiaProvider } from "../context/TopografiaContext";
-import { DistanciaSiembraProvider } from "../context/DistanciaSiembraContext";
 import Topografia from "../pages/Topografia/Index";
 import DistanciaSiembra from "../pages/DistanciaSiembra/Index";
-import { DensidadProvider } from "../context/DensidadContext";
 import Densidad from "../pages/Densidad/Index";
-import { ElementoProvider } from "../context/ElementoContext";
 import Elemento from "../pages/Elemento/Index";
 import ElementoVarided from "../pages/ElementoVariedad/Index";
-import { ElementoVariedadProvider } from "../context/ElementoVariedadContext";
-import { EnmiendaProvider } from "../context/EnmiendaContext";
 import Enmienda from "../pages/Enmienda/Index";
-import { AnalisisElementoProvider } from "../context/AnalisisElementoContext";
-import { AnalisisSueloProvider } from "../context/AnalisisSueloContext";
 import AnalisisElemento from "../pages/AnalisisElemento/Index";
 import AnalisisSuelo from "../pages/AnalisisSuelo/Index";
-import { AbonoOrganicoProvider } from "../context/AbonoOrganicoContext";
 import AbonoOrganico from "../pages/AbonoOrganico/Index";
+import {
+  AbonoOrganicoProvider,
+  AgricultorProvider,
+  AnalisisElementoProvider,
+  AnalisisSueloProvider,
+  CultivoProvider,
+  DensidadProvider,
+  DistanciaSiembraProvider,
+  ElementoProvider,
+  ElementoVariedadProvider,
+  EnmiendaProvider,
+  FincaProvider,
+  TipoCultivoProvider,
+  TopografiaProvider,
+  VariedadProvider,
+} from "../context";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">

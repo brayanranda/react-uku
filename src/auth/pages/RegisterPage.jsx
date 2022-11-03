@@ -166,7 +166,7 @@ export const RegisterPage = () => {
             </Button>
             <p className=" text-center">
               Ya tengo cuenta
-              <Link className="font-medium ml-2" to="/">
+              <Link className="font-medium ml-2" to="/login">
                 Iniciar sesión
               </Link>
             </p>
