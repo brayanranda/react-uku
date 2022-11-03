@@ -13,6 +13,7 @@ const Menu = () => {
                   : "py-2 px-3 hover:bg-yellow-400 duration-300 flex justify-center rounded-xl mb-1 text-center"
               }
               to={route.to}
+              end
             >
               {route.text}
             </NavLink>

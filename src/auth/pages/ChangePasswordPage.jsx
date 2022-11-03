@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Button, Col, Row } from "reactstrap";
 import { Image } from "react-bootstrap";
@@ -8,26 +8,26 @@ import { useForm } from "../../hooks/useForm";
 import logo from "../../assets/images/logo-vertical.png";
 
 export const ChangePasswordPage = () => {
-  const { login, isLogged } = useContext(AuthContext);
-  const { emailOrPhone, password, onInputChange, onResetForm } = useForm({
-    emailOrPhone: "",
+  const { changePassword, isLogged } = useContext(AuthContext);
+  const { token } = useParams();
+  const { confirmPassword, password, onInputChange, onResetForm } = useForm({
+    confirmPassword: "",
     password: "",
   });
   const navigate = useNavigate();
   const validateInputs = () => {
-    const validate = { emailOrPhone: false, password: false };
-    if (emailOrPhone.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) !== null) {
-      validate.emailOrPhone = true;
-    }
-    if (password.length > 5) validate.password = true;
+    const validate = { password: false, confirmPassword: false };
+    if (password === confirmPassword && password.length > 0)
+      validate.password = true;
     return validate;
   };
   const onLogin = async (event) => {
     event.preventDefault();
+    console.log(token);
     const validate = validateInputs();
-    if (!validate.emailOrPhone || !validate.password) return;
-    const user = { emailOrPhone, password };
-    await login(user);
+    if (!validate.password) return;
+    const user = { confirmPassword, password };
+    await changePassword(user, token);
     if (isLogged) {
       navigate("/home", {
         replace: true,
@@ -56,7 +56,7 @@ export const ChangePasswordPage = () => {
               name="password"
               onChange={onInputChange}
               type="password"
-              value={emailOrPhone}
+              value={password}
               className="form-control"
               placeholder="* * * * * * * * *"
             />
@@ -64,9 +64,9 @@ export const ChangePasswordPage = () => {
           <label className="d-block  mb-3" htmlFor="password">
             <p className="font-bold">Repetir contraseña</p>
             <input
-              name="password"
+              name="confirmPassword"
               onChange={onInputChange}
-              value={password}
+              value={confirmPassword}
               type="password"
               className="form-control"
               placeholder="* * * * * * * * *"
@@ -79,7 +79,7 @@ export const ChangePasswordPage = () => {
             Continuar
           </Button>
           <p className=" text-center">
-            <Link className="font-medium ml-2" to="/">
+            <Link className="font-medium ml-2" to="/login">
               Iniciar sesión
             </Link>
           </p>

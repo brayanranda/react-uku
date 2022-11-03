@@ -25,19 +25,15 @@ export const AppRouter = () => {
           path="forgot-password/*"
           element={
             <PublicRoute>
-              <Routes>
-                <Route path="/*" element={<ForgotPassword />} />
-              </Routes>
+              <ForgotPassword />
             </PublicRoute>
           }
         />
         <Route
-          path="change-password/*"
+          path="change-password/:token"
           element={
             <PublicRoute>
-              <Routes>
-                <Route path="/*" element={<ChangePassword />} />
-              </Routes>
+              <ChangePassword />
             </PublicRoute>
           }
         />

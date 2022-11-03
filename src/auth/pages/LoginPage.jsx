@@ -6,6 +6,7 @@ import { Image } from "react-bootstrap";
 import { useForm } from "../../hooks/useForm";
 
 import logo from "../../assets/images/logo-vertical.png";
+import { Toaster } from "react-hot-toast";
 
 export const LoginPage = () => {
   const { login, isLogged } = useContext(AuthContext);
@@ -38,6 +39,7 @@ export const LoginPage = () => {
   };
   return (
     <Row className="d-flex align-items-center justify-content-center w-100 min-h-screen px-6 mx-0 bg-image-uku">
+      <Toaster />
       <Col
         sm={8}
         md={8}
@@ -78,6 +80,13 @@ export const LoginPage = () => {
           >
             Ingresar
           </Button>
+
+          <Link
+            className="flex justify-center font-medium"
+            to="/forgot-password"
+          >
+            ¿Olvidaste la contraseña?
+          </Link>
           <p className=" text-center">
             ¿No tienes cuenta?
             <Link className="font-medium ml-2" to="/register">
