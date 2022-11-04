@@ -10,6 +10,7 @@ const FormPut = ({
   cultivos,
   densidades,
   claseTextural,
+  profundidad,
 }) => {
   const toggleFormPut = () => {
     setIsFormPut(!isFormPut);
@@ -46,6 +47,15 @@ const FormPut = ({
     });
     return el;
   };
+  const getProfundidad = (value) => {
+    let el = {};
+    profundidad.forEach((element) => {
+      if (element.idProfundidadMuestra === value) {
+        el = element;
+      }
+    });
+    return el;
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "idCultivo") {
@@ -61,10 +71,7 @@ const FormPut = ({
       return;
     }
     if (name === "idProfundidad") {
-      setData({
-        ...data,
-        [name]: { idProfundidadMuestra: 2, profundidad: Number(value) },
-      });
+      setData({ ...data, [name]: getProfundidad(Number(value)) });
       return;
     }
     setData({ ...data, [name]: value });
@@ -230,20 +237,23 @@ const FormPut = ({
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Profundidad
-                </Label>
+                <Label className="col-sm-3 col-form-label">Profundidad</Label>
                 <Col sm={9}>
-                  <Input
+                  <select
+                    type="select"
+                    className="form-select"
                     name="idProfundidad"
-                    value={data.idProfundidad.profundidad}
+                    value={data.idProfundidad.idProfundidadMuestra}
                     onChange={handleChange}
-                    type="text"
-                    className="form-control"
-                  />
+                  >
+                    <option value="">Seleccionar </option>
+                    {profundidad &&
+                      profundidad.map((tipo, index) => (
+                        <option key={index} value={tipo.idProfundidadMuestra}>
+                          {tipo.profundidad}
+                        </option>
+                      ))}
+                  </select>
                 </Col>
               </div>
               <div className="row justify-content-end">

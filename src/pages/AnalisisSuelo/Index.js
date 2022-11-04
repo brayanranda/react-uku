@@ -11,7 +11,9 @@ const Index = () => {
     getAnalisisSuelos,
     analisisSuelos,
     getClaseTextural,
+    getProfundidad,
     claseTextural,
+    profundidad,
     postData,
     putData,
     isLoading,
@@ -37,6 +39,7 @@ const Index = () => {
     getCultivos();
     getDensidades();
     getClaseTextural();
+    getProfundidad();
   }, []);
 
   const handleSave = async () => {
@@ -65,6 +68,7 @@ const Index = () => {
             cultivos={cultivos}
             densidades={densidades}
             claseTextural={claseTextural}
+            profundidad={profundidad}
           />
         ) : null}
         <Row>
@@ -106,6 +110,7 @@ const Index = () => {
               cultivos={cultivos}
               densidades={densidades}
               claseTextural={claseTextural}
+              profundidad={profundidad}
             />
           </Col>
         </Row>
