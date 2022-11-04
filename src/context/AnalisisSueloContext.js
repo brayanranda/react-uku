@@ -8,9 +8,11 @@ const AnalisisSueloProvider = ({ children }) => {
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "analisissuelo";
   let urlClase = REACT_APP_API_URL + "clasetextural";
+  let urlProfundidad = REACT_APP_API_URL + "profundidad";
   const [analisisSuelo, setAnalisisSuelo] = useState([]);
   const [analisisSuelos, setAnalisisSuelos] = useState([]);
   const [claseTextural, setClaseTextural] = useState([]);
+  const [profundidad, setProfundidad] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getAnalisisSuelo = async (id) => {
@@ -28,6 +30,11 @@ const AnalisisSueloProvider = ({ children }) => {
   const getClaseTextural = async () => {
     const res = await api.get(urlClase);
     setClaseTextural(res);
+  };
+
+  const getProfundidad = async () => {
+    const res = await api.get(urlProfundidad);
+    setProfundidad(res);
   };
   const postData = async (data) => {
     setIsLoading(true);
@@ -68,11 +75,13 @@ const AnalisisSueloProvider = ({ children }) => {
     getAnalisisSuelo,
     getAnalisisSuelos,
     getClaseTextural,
+    getProfundidad,
     setAnalisisSuelos,
     setAnalisisSuelo,
     analisisSuelos,
     analisisSuelo,
     claseTextural,
+    profundidad,
     isLoading,
     setIsLoading,
   };

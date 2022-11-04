@@ -14,6 +14,7 @@ const Index = ({
   getAnalisisSuelos,
   analisisSuelos,
   claseTextural,
+  profundidad,
   densidades,
   cultivos,
   putData,
@@ -97,6 +98,7 @@ const Index = ({
           cultivos={cultivos}
           densidades={densidades}
           claseTextural={claseTextural}
+          profundidad={profundidad}
         />
       ) : null}
       <div className="rounded-2xl bg-white shadow-sm">

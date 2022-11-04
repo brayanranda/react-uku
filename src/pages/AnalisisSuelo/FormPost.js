@@ -10,6 +10,7 @@ const FormPost = ({
   cultivos,
   densidades,
   claseTextural,
+  profundidad,
 }) => {
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
@@ -46,6 +47,15 @@ const FormPost = ({
     });
     return el;
   };
+  const getProfundidad = (value) => {
+    let el = {};
+    profundidad.forEach((element) => {
+      if (element.idProfundidadMuestra === value) {
+        el = element;
+      }
+    });
+    return el;
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "idCultivo") {
@@ -61,10 +71,7 @@ const FormPost = ({
       return;
     }
     if (name === "idProfundidad") {
-      setData({
-        ...data,
-        [name]: { idProfundidadMuestra: 1, profundidad: Number(value) },
-      });
+      setData({ ...data, [name]: getProfundidad(Number(value)) });
       return;
     }
     if (
@@ -115,7 +122,6 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idClaseTextural"
-                    value={data.idClaseTextural.idClaseTextural}
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
@@ -135,7 +141,6 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idCultivo"
-                    value={data.idCultivo.idCultivo}
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
@@ -158,7 +163,6 @@ const FormPost = ({
                 <Col sm={9}>
                   <Input
                     name="porcentArena"
-                    value={data.porcentArena}
                     onChange={handleChange}
                     type="text"
                     className="form-control"
@@ -175,7 +179,6 @@ const FormPost = ({
                 <Col sm={9}>
                   <Input
                     name="porcentLimos"
-                    value={data.porcentLimos}
                     onChange={handleChange}
                     type="text"
                     className="form-control"
@@ -192,7 +195,6 @@ const FormPost = ({
                 <Col sm={9}>
                   <Input
                     name="porcentArcilla"
-                    value={data.porcentArcilla}
                     onChange={handleChange}
                     type="text"
                     className="form-control"
@@ -209,7 +211,6 @@ const FormPost = ({
                 <Col sm={9}>
                   <Input
                     name="fecha"
-                    value={data.fecha}
                     onChange={handleChange}
                     type="date"
                     className="form-control"
@@ -224,7 +225,6 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idDensidad"
-                    value={data.idDensidad.idDensidad}
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
@@ -238,20 +238,22 @@ const FormPost = ({
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Profundidad
-                </Label>
+                <Label className="col-sm-3 col-form-label">Profundidad</Label>
                 <Col sm={9}>
-                  <Input
+                  <select
+                    type="select"
+                    className="form-select"
                     name="idProfundidad"
-                    value={data.idProfundidad.profundidad}
                     onChange={handleChange}
-                    type="text"
-                    className="form-control"
-                  />
+                  >
+                    <option value="">Seleccionar </option>
+                    {profundidad &&
+                      profundidad.map((tipo, index) => (
+                        <option key={index} value={tipo.idProfundidadMuestra}>
+                          {tipo.profundidad}
+                        </option>
+                      ))}
+                  </select>
                 </Col>
               </div>
               <div className="row justify-content-end">
