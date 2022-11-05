@@ -11,11 +11,12 @@ import { types } from "../types/types";
 
 const init = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  const isOk = localStorage.getItem("isOk");
 
   return {
     isLogged: !!user,
     user: user,
-    ok: false,
+    isOk: !!isOk,
   };
 };
 
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }) => {
       console.log(res);
       if (!res.err) {
         toast.success(res.mensaje);
+        localStorage.setItem("isOK", "true");
         const action = { type: types.forgotPass };
         dispatch(action);
       } else toast.error(res.statusText.mensaje);
@@ -88,7 +90,6 @@ export const AuthProvider = ({ children }) => {
     };
     try {
       const res = await api.post(authURL + "login", options);
-      console.log(res);
       if (res.token) {
         localStorage.setItem("user", JSON.stringify(res));
         localStorage.setItem("token-auth", JSON.stringify(res.token));
@@ -103,6 +104,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("isOK");
     localStorage.removeItem("token-auth");
     const action = { type: types.logout };
     dispatch(action);
