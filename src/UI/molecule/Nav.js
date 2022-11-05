@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Row } from "reactstrap";
 import logo from "../../assets/images/logo.png";
 import Avatar from "../atom/Avatar";
 import AvatarOptions from "../molecule/AvatarOptions";
-
+import { useLocation } from "react-router-dom";
 const Nav = () => {
   const [isAvatar, setIsAvatar] = useState(false);
+  let location = useLocation();
+  useEffect(() => {
+    if (isAvatar) {
+      setIsAvatar(false);
+    }
+  }, [location]);
+
   return (
     <nav className="mx-auto w-11/12 flex items-center justify-between">
       <Row className="w-100">

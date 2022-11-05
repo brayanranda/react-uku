@@ -16,7 +16,7 @@ export const authReducer = (state = {}, action) => {
     case types.forgotPass:
       return {
         ...state,
-        ok: true,
+        isOk: false,
       };
 
     default:

@@ -104,22 +104,6 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                   />
                 </Col>
               </div>
-              <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Contraseña
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    name="password"
-                    onChange={handleChange}
-                    type="text"
-                    className="form-control"
-                  />
-                </Col>
-              </div>
 
               <div className="row mb-4">
                 <Label
