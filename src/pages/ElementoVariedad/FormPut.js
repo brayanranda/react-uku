@@ -57,7 +57,7 @@ const FormPut = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  nombre
+                  Nombre
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -74,7 +74,7 @@ const FormPut = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  valor minimo
+                  Valor minimo
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -91,7 +91,7 @@ const FormPut = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  valor maximo
+                  Valor Máximo
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -108,7 +108,7 @@ const FormPut = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  valor optimo
+                  Valor optimo
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -150,7 +150,7 @@ const FormPut = ({
                     name="idVariedad"
                     onChange={handleChange}
                   >
-                    <option value="">Seleccionar </option>
+                    <option value="">Seleccionar... </option>
                     {variedades &&
                       variedades.map((tipo, index) => (
                         <option key={index} value={tipo.id}>

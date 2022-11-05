@@ -89,7 +89,7 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
               </div>
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">
-                  Identificacion
+                  Identificación
                 </Label>
                 <Col sm={9}>
                   <Input

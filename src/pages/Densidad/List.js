@@ -91,8 +91,8 @@ const Index = ({
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Valor</th>
-                <th>Acciones</th>
+                <th className="text-center">Valor</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -100,12 +100,8 @@ const Index = ({
                 filteredDensidades().map((densidad, x) => (
                   <tr key={x}>
                     <td>{densidad.idDensidad}</td>
-                    <td>{densidad.valor}</td>
-                    <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
+                    <td className="text-center">{densidad.valor}</td>
+                    <td className="text-center">
                       <FontAwesomeIcon
                         onClick={() => {
                           toggleFormPut(densidad);
