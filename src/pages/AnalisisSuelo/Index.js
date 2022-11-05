@@ -78,7 +78,7 @@ const Index = () => {
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
                 <p className="text-2xl ml-2 text-green-700">
-                  Lista Analisis Suelo
+                  Lista Análisis Suelo
                 </p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
@@ -94,7 +94,7 @@ const Index = () => {
                 onClick={() => toggleFormPost()}
                 className="bg-green-700 rounded-md text-white hover:bg-green-700"
               >
-                Agregar Analisis Suelo
+                Agregar Análisis Suelo
               </button>
             </div>
             <ListVariedades

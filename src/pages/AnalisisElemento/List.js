@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  // faEye,
-  // faEdit,
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-// import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 
 const Index = ({
   getAnalisisElementos,
   analisiselementos,
-  // elementos,
-  // variedades,
-  // putData,
   updateOrAdd,
   setUpdateOrAdd,
   isLoading,
@@ -23,21 +17,6 @@ const Index = ({
   setCurrentPage,
   search,
 }) => {
-  // const [isFormPut, setIsFormPut] = useState(false);
-  // const [elementoData, setElementoData] = useState({
-  //   nombre: "",
-  //   idElemento: { id: "" },
-  //   idVariedad: { id: "" },
-  //   valorMaximo: "",
-  //   valorMinimo: "",
-  //   valorOptimo: "",
-  // });
-
-  // const toggleFormPut = (elemento) => {
-  //   setElementoData(elemento);
-  //   setIsFormPut(!isFormPut);
-  // };
-
   useEffect(() => {
     if (updateOrAdd) {
       getAnalisisElementos();
@@ -47,11 +26,6 @@ const Index = ({
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
-  // const handlePut = async () => {
-  //   await putData(elementoData);
-  //   setIsFormPut(!isFormPut);
-  //   setUpdateOrAdd(true);
-  // };
   const filter = () => {
     const result = analisiselementos.filter((elemento) =>
       elemento.idElemento.nombre.toLowerCase().includes(search.toLowerCase())
@@ -81,17 +55,6 @@ const Index = ({
   return (
     <>
       <Toaster />
-      {/* {isFormPut ? (
-        <FormPut
-          isFormPut={isFormPut}
-          setIsFormPut={setIsFormPut}
-          data={elementoData}
-          setData={setElementoData}
-          onSubmit={handlePut}
-          elementos={elementos}
-          variedades={variedades}
-        />
-      ) : null} */}
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
@@ -100,7 +63,7 @@ const Index = ({
                 <th>Id</th>
                 <th>Elemento</th>
                 <th>Valor</th>
-                <th>Analisis Suelo</th>
+                <th>Análisis Suelo</th>
               </tr>
             </thead>
             <tbody>

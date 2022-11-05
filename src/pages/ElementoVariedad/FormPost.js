@@ -57,7 +57,7 @@ const FormPost = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  nombre
+                  Nombre
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -73,7 +73,7 @@ const FormPost = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  valor minimo
+                  Valor Mínimo
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -89,7 +89,7 @@ const FormPost = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  valor maximo
+                  Valor Máximo
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -105,7 +105,7 @@ const FormPost = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  valor optimo
+                  Valor optimo
                 </Label>
                 <Col sm={9}>
                   <Input

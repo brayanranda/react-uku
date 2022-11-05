@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  // faEye,
-  // faEdit,
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-// import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 
 const Index = ({
   getEnmiendas,
   enmiendas,
-  // putData,
   updateOrAdd,
   setUpdateOrAdd,
   isLoading,
@@ -21,17 +17,6 @@ const Index = ({
   setCurrentPage,
   search,
 }) => {
-  // const [isFormPut, setIsFormPut] = useState(false);
-  // const [enmiendaData, setEnmiendaData] = useState({
-  //   descripcion: "",
-  //   id: "",
-  // });
-
-  // const toggleFormPut = (enmienda) => {
-  //   setEnmiendaData(enmienda);
-  //   setIsFormPut(!isFormPut);
-  // };
-
   useEffect(() => {
     if (updateOrAdd) {
       getEnmiendas();
@@ -41,11 +26,6 @@ const Index = ({
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
-  // const handlePut = async () => {
-  //   await putData(enmiendaData);
-  //   setIsFormPut(!isFormPut);
-  //   setUpdateOrAdd(true);
-  // };
   const filter = () => {
     const result = enmiendas.filter((enmienda) =>
       enmienda.descripcion.toLowerCase().includes(search.toLowerCase())
@@ -56,7 +36,6 @@ const Index = ({
     if (search.length === 0)
       return enmiendas.slice(currentPage, currentPage + 5);
 
-    // Si hay algo en la caja de texto
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
   };
@@ -75,44 +54,21 @@ const Index = ({
   return (
     <>
       <Toaster />
-      {/* {isFormPut ? (
-        <FormPut
-          isFormPut={isFormPut}
-          setIsFormPut={setIsFormPut}
-          data={topografiaData}
-          setData={setTopografiaData}
-          onSubmit={handlePut}
-        />
-      ) : null} */}
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Descripcion</th>
-                {/* <th>Acciones</th> */}
+                <th className="text-center">Id</th>
+                <th className="text-center">DescripciÓn</th>
               </tr>
             </thead>
             <tbody>
               {!isLoading && enmiendas.length > 0 ? (
                 filteredEnmiendas().map((enmienda, x) => (
                   <tr key={x}>
-                    <td>{enmienda.id}</td>
-                    <td>{enmienda.descripcion}</td>
-                    {/* <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
-                      <FontAwesomeIcon
-                        onClick={() => {
-                          toggleFormPut(topografia);
-                        }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEdit}
-                      />
-                    </td> */}
+                    <td className="text-center">{enmienda.id}</td>
+                    <td className="text-center">{enmienda.descripcion}</td>
                   </tr>
                 ))
               ) : (

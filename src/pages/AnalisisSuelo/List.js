@@ -133,10 +133,6 @@ const Index = ({
                     <td>{elemento.idProfundidad.profundidad}</td>
                     <td>
                       <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
-                      <FontAwesomeIcon
                         onClick={() => {
                           toggleFormPut(elemento);
                         }}

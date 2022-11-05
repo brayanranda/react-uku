@@ -105,12 +105,12 @@ const Index = ({
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Descripcion</th>
-                <th>Plantas por Hectarea</th>
+                <th>Descripción</th>
+                <th>Plantas por Hectárea</th>
                 <th>Distancia Siembra</th>
-                <th>Etapa Fenologica</th>
+                <th>Etapa Fenológica</th>
                 <th>Finca</th>
-                <th>Topografia</th>
+                <th>Topografía</th>
                 <th>Variedad</th>
                 <th>Acciones</th>
               </tr>

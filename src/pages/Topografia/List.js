@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEye,
   faEdit,
   faChevronRight,
   faChevronLeft,
@@ -56,7 +55,6 @@ const Index = ({
     if (search.length === 0)
       return topografias.slice(currentPage, currentPage + 5);
 
-    // Si hay algo en la caja de texto
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
   };
@@ -90,8 +88,8 @@ const Index = ({
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Descripcion</th>
-                <th>Acciones</th>
+                <th>Descripción</th>
+                <th className="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -100,11 +98,7 @@ const Index = ({
                   <tr key={x}>
                     <td>{topografia.id}</td>
                     <td>{topografia.descripcion}</td>
-                    <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
+                    <td className="text-center">
                       <FontAwesomeIcon
                         onClick={() => {
                           toggleFormPut(topografia);

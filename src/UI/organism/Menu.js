@@ -43,12 +43,12 @@ routes.push({
 
 routes.push({
   to: "/analisis-elemento",
-  text: "Analisis Elemento",
+  text: "Análisis Elemento",
   private: true,
 });
 routes.push({
   to: "/analisis-suelo",
-  text: "Analisis Suelo",
+  text: "Análisis Suelo",
   private: true,
 });
 routes.push({
@@ -86,7 +86,7 @@ routes.push({
 });
 routes.push({
   to: "/etapa-fenelogica",
-  text: "Etapa Fenelogica",
+  text: "Etapa Fenológica",
   private: true,
 });
 
@@ -116,7 +116,7 @@ routes.push({
 
 routes.push({
   to: "/recomendacion-abono",
-  text: "Recomendacion Abono",
+  text: "Recomendación Abono",
   private: true,
 });
 
