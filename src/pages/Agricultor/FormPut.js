@@ -90,20 +90,6 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                   />
                 </Col>
               </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Identificación
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="identificacion"
-                    value={data.identificacion}
-                    onChange={handleChange}
-                  />
-                </Col>
-              </div>
 
               <div className="row mb-4">
                 <Label

@@ -16,6 +16,7 @@ import Enmienda from "../pages/Enmienda/Index";
 import AnalisisElemento from "../pages/AnalisisElemento/Index";
 import AnalisisSuelo from "../pages/AnalisisSuelo/Index";
 import AbonoOrganico from "../pages/AbonoOrganico/Index";
+import EtapaFenologica from "../pages/EtapaFenologica/Index";
 import {
   AbonoOrganicoProvider,
   AgricultorProvider,
@@ -132,7 +133,14 @@ export const DashboardRoutes = () => {
               </EnmiendaProvider>
             }
           />
-          <Route path="etapa-fenelogica" element={<Dashboard />} />
+          <Route
+            path="etapa-fenologica"
+            element={
+              <CultivoProvider>
+                <EtapaFenologica />
+              </CultivoProvider>
+            }
+          />
           <Route
             path="finca"
             element={

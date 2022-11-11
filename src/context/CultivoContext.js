@@ -25,8 +25,10 @@ const CultivoProvider = ({ children }) => {
   };
 
   const getEtapasFenologicas = async () => {
+    setIsLoading(true);
     const res = await api.get(urlEtapa);
     setEtapasFenologicas(res);
+    setIsLoading(false);
   };
 
   const postData = async (data) => {
