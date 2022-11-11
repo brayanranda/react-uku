@@ -85,7 +85,7 @@ routes.push({
   private: true,
 });
 routes.push({
-  to: "/etapa-fenelogica",
+  to: "/etapa-fenologica",
   text: "Etapa Fenológica",
   private: true,
 });
