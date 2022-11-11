@@ -77,7 +77,7 @@ const FormPut = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
-                  Plantas por Hectarea
+                  Plantas por Hectárea
                 </Label>
                 <Col sm={9}>
                   <Input
@@ -113,7 +113,7 @@ const FormPut = ({
               </div>
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">
-                  Etapa Fenologica
+                  Etapa Fenológica
                 </Label>
                 <Col sm={9}>
                   <select
@@ -154,7 +154,7 @@ const FormPut = ({
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Topografia</Label>
+                <Label className="col-sm-3 col-form-label">Topografía</Label>
                 <Col sm={9}>
                   <select
                     type="select"

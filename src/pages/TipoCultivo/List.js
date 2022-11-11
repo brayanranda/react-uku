@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEye,
   faEdit,
   faChevronRight,
   faChevronLeft,
@@ -56,7 +55,6 @@ const Index = ({
     if (search.length === 0)
       return tiposcultivos.slice(currentPage, currentPage + 5);
 
-    // Si hay algo en la caja de texto
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
   };
@@ -90,7 +88,7 @@ const Index = ({
             <thead>
               <tr>
                 <th>Item</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -101,10 +99,6 @@ const Index = ({
                     <td>{x}</td>
                     <td>{tipocultivo.descripcion}</td>
                     <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
                       <FontAwesomeIcon
                         onClick={() => {
                           toggleFormPut(tipocultivo);

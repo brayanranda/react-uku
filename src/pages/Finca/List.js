@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faEye,
   faEdit,
   faChevronRight,
   faChevronLeft,
@@ -63,7 +62,6 @@ const Index = ({
   const filteredFincas = () => {
     if (search.length === 0) return fincas.slice(currentPage, currentPage + 5);
 
-    // Si hay algo en la caja de texto
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
   };
@@ -132,10 +130,6 @@ const Index = ({
                     <td>{finca.idMunicipio.nombre}</td>
                     <td>{finca.idVereda.nombre}</td>
                     <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
                       <FontAwesomeIcon
                         onClick={() => {
                           toggleFormPut(finca);

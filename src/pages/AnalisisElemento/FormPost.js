@@ -35,7 +35,7 @@ const FormPost = ({
       >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">
-            Registrar Analisis Elemento
+            Registrar Análisis Elemento
           </h5>
           <button
             onClick={() => {

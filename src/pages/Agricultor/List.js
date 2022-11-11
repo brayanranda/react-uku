@@ -93,7 +93,7 @@ const Index = ({
           <table className="table">
             <thead>
               <tr>
-                <th>Identificacion</th>
+                <th>Identificación</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Teléfono</th>
@@ -113,10 +113,6 @@ const Index = ({
                     <td>{agricultor.email}</td>
                     <td>{agricultor.fechaNacimiento}</td>
                     <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
                       <FontAwesomeIcon
                         onClick={() => {
                           toggleFormPut(agricultor);

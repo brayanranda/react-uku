@@ -88,7 +88,7 @@ const FormPut = ({
       >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">
-            Editar Analisis Suelo
+            Editar Análisis Suelo
           </h5>
           <button
             onClick={() => {
