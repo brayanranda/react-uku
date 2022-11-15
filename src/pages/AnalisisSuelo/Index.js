@@ -24,6 +24,7 @@ const Index = () => {
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [inputsStates, setInputsStates] = useState({});
   const [elementoData, setElementoData] = useState({
     porcentArena: "",
     porcentLimos: "",
@@ -41,10 +42,20 @@ const Index = () => {
     getClaseTextural();
     getProfundidad();
   }, []);
+  const validateInput = () => {
+    const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
+    const validateFirstInputs = arrInputs.every((key) => key);
+    return validateFirstInputs;
+  };
 
   const handleSave = async () => {
+    const validate = validateInput();
+    if (validate === false) {
+      return;
+    }
     await postData(elementoData);
     setIsFormPost(!isFormPost);
+    setInputsStates({});
     setUpdateOrAdd(true);
   };
   const onSearchChange = ({ target }) => {
@@ -52,6 +63,7 @@ const Index = () => {
     setSearch(target.value);
   };
   const toggleFormPost = () => {
+    setInputsStates({});
     setIsFormPost(!isFormPost);
   };
 
@@ -69,6 +81,8 @@ const Index = () => {
             densidades={densidades}
             claseTextural={claseTextural}
             profundidad={profundidad}
+            inputsStates={inputsStates}
+            setInputsStates={setInputsStates}
           />
         ) : null}
         <Row>

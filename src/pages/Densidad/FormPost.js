@@ -1,8 +1,17 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
-const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
+const FormPost = ({
+  onSubmit,
+  data,
+  setData,
+  setIsFormPost,
+  isFormPost,
+  inputsStates,
+  setInputsStates,
+}) => {
   const toggleFormPost = () => {
+    setInputsStates({});
     setIsFormPost(!isFormPost);
     removeBodyCss();
   };
@@ -11,9 +20,14 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
     document.body.classList.add("no_padding");
   }
 
-  const handleChange = (e) => {
+  const handleChange = (isValid, e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value });
+    if (isValid) {
+      setData({ ...data, [name]: Number(value) });
+    } else {
+      setData({ ...data, [name]: value });
+    }
+    setInputsStates({ ...inputsStates, [name]: isValid });
   };
 
   return (
@@ -53,8 +67,16 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
                 </Label>
                 <Col sm={9}>
                   <Input
+                    invalid={inputsStates.valor === false}
                     name="valor"
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
                     type="text"
                     className="form-control"
                   />

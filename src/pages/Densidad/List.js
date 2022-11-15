@@ -22,6 +22,7 @@ const Index = ({
   search,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
+  const [inputsStates, setInputsStates] = useState({});
   const [densidadData, setDensidadData] = useState({
     valor: "",
     idDensidad: "",
@@ -30,6 +31,7 @@ const Index = ({
 
   const toggleFormPut = (topografia) => {
     setDensidadData(topografia);
+    setInputsStates({});
     setIsFormPut(!isFormPut);
   };
 
@@ -42,9 +44,19 @@ const Index = ({
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
+  const validateInput = () => {
+    const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
+    const validateFirstInputs = arrInputs.every((key) => key);
+    return validateFirstInputs;
+  };
   const handlePut = async () => {
+    const validate = validateInput();
+    if (validate === false) {
+      return;
+    }
     await putData(densidadData);
     setIsFormPut(!isFormPut);
+    setInputsStates({});
     setUpdateOrAdd(true);
   };
   const filter = () => {
@@ -83,6 +95,8 @@ const Index = ({
           data={densidadData}
           setData={setDensidadData}
           onSubmit={handlePut}
+          inputsStates={inputsStates}
+          setInputsStates={setInputsStates}
         />
       ) : null}
       <div className="rounded-2xl bg-white shadow-sm">

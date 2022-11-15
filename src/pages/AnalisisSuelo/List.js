@@ -26,6 +26,7 @@ const Index = ({
   search,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
+  const [inputsStates, setInputsStates] = useState({});
   const [elementoData, setElementoData] = useState({
     idAnalisisSuelo: "",
     porcentArena: "",
@@ -40,6 +41,7 @@ const Index = ({
 
   const toggleFormPut = (elemento) => {
     setElementoData(elemento);
+    setInputsStates({});
     setIsFormPut(!isFormPut);
   };
 
@@ -52,9 +54,19 @@ const Index = ({
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
+  const validateInput = () => {
+    const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
+    const validateFirstInputs = arrInputs.every((key) => key);
+    return validateFirstInputs;
+  };
   const handlePut = async () => {
+    const validate = validateInput();
+    if (validate === false) {
+      return;
+    }
     await putData(elementoData);
     setIsFormPut(!isFormPut);
+    setInputsStates({});
     setUpdateOrAdd(true);
   };
   const filter = () => {
@@ -99,6 +111,8 @@ const Index = ({
           densidades={densidades}
           claseTextural={claseTextural}
           profundidad={profundidad}
+          inputsStates={inputsStates}
+          setInputsStates={setInputsStates}
         />
       ) : null}
       <div className="rounded-2xl bg-white shadow-sm">

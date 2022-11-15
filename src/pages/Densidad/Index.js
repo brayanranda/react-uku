@@ -11,15 +11,25 @@ const Index = () => {
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [inputsStates, setInputsStates] = useState({});
   const [densidadData, setDensidadData] = useState({
     valor: "",
     idDensidad: "",
     analisisSueloCollection: null,
   });
-
+  const validateInput = () => {
+    const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
+    const validateFirstInputs = arrInputs.every((key) => key);
+    return validateFirstInputs;
+  };
   const handleSave = async () => {
+    const validate = validateInput();
+    if (validate === false) {
+      return;
+    }
     await postData(densidadData);
     setIsFormPost(!isFormPost);
+    setInputsStates({});
     setUpdateOrAdd(true);
   };
   const onSearchChange = ({ target }) => {
@@ -27,6 +37,7 @@ const Index = () => {
     setSearch(target.value);
   };
   const toggleFormPost = () => {
+    setInputsStates({});
     setIsFormPost(!isFormPost);
   };
 
@@ -40,6 +51,8 @@ const Index = () => {
             data={densidadData}
             setData={setDensidadData}
             onSubmit={handleSave}
+            inputsStates={inputsStates}
+            setInputsStates={setInputsStates}
           />
         ) : null}
         <Row>
