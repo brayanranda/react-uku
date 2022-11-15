@@ -11,8 +11,11 @@ const FormPut = ({
   densidades,
   claseTextural,
   profundidad,
+  inputsStates,
+  setInputsStates,
 }) => {
   const toggleFormPut = () => {
+    setInputsStates({});
     setIsFormPut(!isFormPut);
     removeBodyCss();
   };
@@ -56,7 +59,7 @@ const FormPut = ({
     });
     return el;
   };
-  const handleChange = (e) => {
+  const handleChange = (isValid, e) => {
     const { name, value } = e.target;
     if (name === "idCultivo") {
       setData({ ...data, [name]: getCultivo(Number(value)) });
@@ -72,6 +75,19 @@ const FormPut = ({
     }
     if (name === "idProfundidad") {
       setData({ ...data, [name]: getProfundidad(Number(value)) });
+      return;
+    }
+    if (
+      name === "porcentArena" ||
+      name === "porcentLimos" ||
+      name === "porcentArcilla"
+    ) {
+      if (isValid) {
+        setData({ ...data, [name]: Number(value) });
+      } else {
+        setData({ ...data, [name]: value });
+      }
+      setInputsStates({ ...inputsStates, [name]: isValid });
       return;
     }
     setData({ ...data, [name]: value });
@@ -156,9 +172,17 @@ const FormPut = ({
                 </Label>
                 <Col sm={9}>
                   <Input
+                    invalid={inputsStates.porcentArena === false}
                     name="porcentArena"
                     value={data.porcentArena}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
                     type="text"
                     className="form-control"
                   />
@@ -173,9 +197,17 @@ const FormPut = ({
                 </Label>
                 <Col sm={9}>
                   <Input
+                    invalid={inputsStates.porcentLimos === false}
                     name="porcentLimos"
                     value={data.porcentLimos}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
                     type="text"
                     className="form-control"
                   />
@@ -190,9 +222,17 @@ const FormPut = ({
                 </Label>
                 <Col sm={9}>
                   <Input
+                    invalid={inputsStates.porcentArcilla === false}
                     name="porcentArcilla"
                     value={data.porcentArcilla}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
                     type="text"
                     className="form-control"
                   />

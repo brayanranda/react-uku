@@ -1,8 +1,17 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
-const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
+const FormPut = ({
+  onSubmit,
+  data,
+  setData,
+  setIsFormPut,
+  isFormPut,
+  inputsStates,
+  setInputsStates,
+}) => {
   const toggleFormPut = () => {
+    setInputsStates({});
     setIsFormPut(!isFormPut);
     removeBodyCss();
   };
@@ -11,9 +20,14 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
     document.body.classList.add("no_padding");
   }
 
-  const handleChange = (e) => {
+  const handleChange = (isValid, e) => {
     const { name, value } = e.target;
-    setData({ ...data, [name]: value });
+    if (isValid) {
+      setData({ ...data, [name]: Number(value) });
+    } else {
+      setData({ ...data, [name]: value });
+    }
+    setInputsStates({ ...inputsStates, [name]: isValid });
   };
 
   return (
@@ -53,9 +67,17 @@ const FormPut = ({ onSubmit, data, setData, setIsFormPut, isFormPut }) => {
                 </Label>
                 <Col sm={9}>
                   <Input
+                    invalid={inputsStates.valor === false}
                     name="valor"
                     value={data.valor}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
                     type="text"
                     className="form-control"
                   />
