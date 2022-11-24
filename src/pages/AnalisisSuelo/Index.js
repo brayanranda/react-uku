@@ -24,7 +24,17 @@ const Index = () => {
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
-  const [inputsStates, setInputsStates] = useState({});
+  const [showError, setshowError] = useState(false);
+  const [inputsStates, setInputsStates] = useState({
+    porcentArena: false,
+    porcentLimos: false,
+    porcentArcilla: false,
+    fecha: false,
+    idClaseTextural: false,
+    idCultivo: false,
+    idDensidad: false,
+    idProfundidad: false,
+  });
   const [elementoData, setElementoData] = useState({
     porcentArena: "",
     porcentLimos: "",
@@ -42,6 +52,18 @@ const Index = () => {
     getClaseTextural();
     getProfundidad();
   }, []);
+  const clearStates = () => {
+    setInputsStates({
+      porcentArena: false,
+      porcentLimos: false,
+      porcentArcilla: false,
+      fecha: false,
+      idClaseTextural: false,
+      idCultivo: false,
+      idDensidad: false,
+      idProfundidad: false,
+    });
+  };
   const validateInput = () => {
     const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
     const validateFirstInputs = arrInputs.every((key) => key);
@@ -51,19 +73,22 @@ const Index = () => {
   const handleSave = async () => {
     const validate = validateInput();
     if (validate === false) {
+      setshowError(true);
       return;
+    } else {
+      await postData(elementoData);
+      setshowError(false);
+      setIsFormPost(!isFormPost);
+      clearStates();
+      setUpdateOrAdd(true);
     }
-    await postData(elementoData);
-    setIsFormPost(!isFormPost);
-    setInputsStates({});
-    setUpdateOrAdd(true);
   };
   const onSearchChange = ({ target }) => {
     setCurrentPage(0);
     setSearch(target.value);
   };
   const toggleFormPost = () => {
-    setInputsStates({});
+    clearStates();
     setIsFormPost(!isFormPost);
   };
 
@@ -83,6 +108,8 @@ const Index = () => {
             profundidad={profundidad}
             inputsStates={inputsStates}
             setInputsStates={setInputsStates}
+            showError={showError}
+            setshowError={setshowError}
           />
         ) : null}
         <Row>

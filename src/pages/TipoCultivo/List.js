@@ -53,21 +53,21 @@ const Index = ({
   };
   const filteredTiposCultivos = () => {
     if (search.length === 0)
-      return tiposcultivos.slice(currentPage, currentPage + 5);
+      return tiposcultivos.slice(currentPage, currentPage + 6);
 
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 6);
   };
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 6) {
+      setCurrentPage(currentPage + 6);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 6);
     }
   };
   return (
@@ -96,7 +96,7 @@ const Index = ({
               {!isLoading && tiposcultivos.length > 0 ? (
                 filteredTiposCultivos().map((tipocultivo, x) => (
                   <tr key={x}>
-                    <td>{x}</td>
+                    <td>{tipocultivo.id}</td>
                     <td>{tipocultivo.descripcion}</td>
                     <td>
                       <FontAwesomeIcon

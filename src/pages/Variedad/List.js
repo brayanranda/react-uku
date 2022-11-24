@@ -60,22 +60,22 @@ const Index = ({
   };
   const filteredVariedades = () => {
     if (search.length === 0)
-      return variedades.slice(currentPage, currentPage + 5);
+      return variedades.slice(currentPage, currentPage + 6);
 
     // Si hay algo en la caja de texto
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 6);
   };
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 6) {
+      setCurrentPage(currentPage + 6);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 6);
     }
   };
   return (

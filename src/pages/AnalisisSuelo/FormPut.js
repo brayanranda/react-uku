@@ -13,9 +13,11 @@ const FormPut = ({
   profundidad,
   inputsStates,
   setInputsStates,
+  showError,
+  setshowError,
 }) => {
   const toggleFormPut = () => {
-    setInputsStates({});
+    setshowError(false);
     setIsFormPut(!isFormPut);
     removeBodyCss();
   };
@@ -63,18 +65,22 @@ const FormPut = ({
     const { name, value } = e.target;
     if (name === "idCultivo") {
       setData({ ...data, [name]: getCultivo(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid });
       return;
     }
     if (name === "idDensidad") {
       setData({ ...data, [name]: getDensidad(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid });
       return;
     }
     if (name === "idClaseTextural") {
       setData({ ...data, [name]: getClaseTextural(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid });
       return;
     }
     if (name === "idProfundidad") {
       setData({ ...data, [name]: getProfundidad(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid });
       return;
     }
     if (
@@ -90,6 +96,7 @@ const FormPut = ({
       setInputsStates({ ...inputsStates, [name]: isValid });
       return;
     }
+    setInputsStates({ ...inputsStates, [name]: isValid });
     setData({ ...data, [name]: value });
   };
 
@@ -126,12 +133,17 @@ const FormPut = ({
                   Clase Textural
                 </Label>
                 <Col sm={9}>
-                  <select
+                  <Input
+                    invalid={
+                      showError && inputsStates.idClaseTextural === false
+                    }
                     type="select"
                     className="form-select"
                     name="idClaseTextural"
                     value={data.idClaseTextural.idClaseTextural}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(e.target.selectedIndex !== 0, e)
+                    }
                   >
                     <option value="">Seleccionar </option>
                     {claseTextural &&
@@ -140,18 +152,21 @@ const FormPut = ({
                           {tipo.nombre}
                         </option>
                       ))}
-                  </select>
+                  </Input>
                 </Col>
               </div>
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Cultivo</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
+                    invalid={showError && inputsStates.idCultivo === false}
                     type="select"
                     className="form-select"
                     name="idCultivo"
                     value={data.idCultivo.idCultivo}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(e.target.selectedIndex !== 0, e)
+                    }
                   >
                     <option value="">Seleccionar </option>
                     {cultivos &&
@@ -160,7 +175,7 @@ const FormPut = ({
                           {tipo.descripcion}
                         </option>
                       ))}
-                  </select>
+                  </Input>
                 </Col>
               </div>
               <div className="row mb-4">
@@ -172,7 +187,7 @@ const FormPut = ({
                 </Label>
                 <Col sm={9}>
                   <Input
-                    invalid={inputsStates.porcentArena === false}
+                    invalid={showError && inputsStates.porcentArena === false}
                     name="porcentArena"
                     value={data.porcentArena}
                     onChange={(e) =>
@@ -197,7 +212,7 @@ const FormPut = ({
                 </Label>
                 <Col sm={9}>
                   <Input
-                    invalid={inputsStates.porcentLimos === false}
+                    invalid={showError && inputsStates.porcentLimos === false}
                     name="porcentLimos"
                     value={data.porcentLimos}
                     onChange={(e) =>
@@ -222,7 +237,7 @@ const FormPut = ({
                 </Label>
                 <Col sm={9}>
                   <Input
-                    invalid={inputsStates.porcentArcilla === false}
+                    invalid={showError && inputsStates.porcentArcilla === false}
                     name="porcentArcilla"
                     value={data.porcentArcilla}
                     onChange={(e) =>
@@ -247,9 +262,17 @@ const FormPut = ({
                 </Label>
                 <Col sm={9}>
                   <Input
+                    invalid={showError && inputsStates.fecha === false}
                     name="fecha"
                     value={data.fecha}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(
+                          /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/
+                        ) !== null,
+                        e
+                      )
+                    }
                     type="date"
                     className="form-control"
                   />
@@ -259,12 +282,15 @@ const FormPut = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Densidad</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
+                    invalid={showError && inputsStates.idDensidad === false}
                     type="select"
                     className="form-select"
                     name="idDensidad"
                     value={data.idDensidad.idDensidad}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(e.target.selectedIndex !== 0, e)
+                    }
                   >
                     <option value="">Seleccionar </option>
                     {densidades &&
@@ -273,18 +299,21 @@ const FormPut = ({
                           {tipo.valor}
                         </option>
                       ))}
-                  </select>
+                  </Input>
                 </Col>
               </div>
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Profundidad</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
+                    invalid={showError && inputsStates.idProfundidad === false}
                     type="select"
                     className="form-select"
                     name="idProfundidad"
                     value={data.idProfundidad.idProfundidadMuestra}
-                    onChange={handleChange}
+                    onChange={(e) =>
+                      handleChange(e.target.selectedIndex !== 0, e)
+                    }
                   >
                     <option value="">Seleccionar </option>
                     {profundidad &&
@@ -293,7 +322,7 @@ const FormPut = ({
                           {tipo.profundidad}
                         </option>
                       ))}
-                  </select>
+                  </Input>
                 </Col>
               </div>
               <div className="row justify-content-end">

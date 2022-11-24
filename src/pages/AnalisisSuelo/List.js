@@ -26,7 +26,17 @@ const Index = ({
   search,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
-  const [inputsStates, setInputsStates] = useState({});
+  const [showError, setshowError] = useState(false);
+  const [inputsStates, setInputsStates] = useState({
+    porcentArena: true,
+    porcentLimos: true,
+    porcentArcilla: true,
+    fecha: true,
+    idClaseTextural: true,
+    idCultivo: true,
+    idDensidad: true,
+    idProfundidad: true,
+  });
   const [elementoData, setElementoData] = useState({
     idAnalisisSuelo: "",
     porcentArena: "",
@@ -41,7 +51,7 @@ const Index = ({
 
   const toggleFormPut = (elemento) => {
     setElementoData(elemento);
-    setInputsStates({});
+    clearStates();
     setIsFormPut(!isFormPut);
   };
 
@@ -54,6 +64,18 @@ const Index = ({
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
+  const clearStates = () => {
+    setInputsStates({
+      porcentArena: true,
+      porcentLimos: true,
+      porcentArcilla: true,
+      fecha: true,
+      idClaseTextural: true,
+      idCultivo: true,
+      idDensidad: true,
+      idProfundidad: true,
+    });
+  };
   const validateInput = () => {
     const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
     const validateFirstInputs = arrInputs.every((key) => key);
@@ -62,12 +84,15 @@ const Index = ({
   const handlePut = async () => {
     const validate = validateInput();
     if (validate === false) {
+      setshowError(true);
       return;
+    } else {
+      await putData(elementoData);
+      setshowError(false);
+      setIsFormPut(!isFormPut);
+      clearStates();
+      setUpdateOrAdd(true);
     }
-    await putData(elementoData);
-    setIsFormPut(!isFormPut);
-    setInputsStates({});
-    setUpdateOrAdd(true);
   };
   const filter = () => {
     const result = analisisSuelos.filter((elemento) =>
@@ -79,22 +104,22 @@ const Index = ({
   };
   const filteredElementos = () => {
     if (search.length === 0)
-      return analisisSuelos.slice(currentPage, currentPage + 5);
+      return analisisSuelos.slice(currentPage, currentPage + 6);
 
     // Si hay algo en la caja de texto
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 6);
   };
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 6) {
+      setCurrentPage(currentPage + 6);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 6);
     }
   };
   return (
@@ -113,6 +138,8 @@ const Index = ({
           profundidad={profundidad}
           inputsStates={inputsStates}
           setInputsStates={setInputsStates}
+          showError={showError}
+          setshowError={setshowError}
         />
       ) : null}
       <div className="rounded-2xl bg-white shadow-sm">

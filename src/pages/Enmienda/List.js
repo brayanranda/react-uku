@@ -34,21 +34,21 @@ const Index = ({
   };
   const filteredEnmiendas = () => {
     if (search.length === 0)
-      return enmiendas.slice(currentPage, currentPage + 5);
+      return enmiendas.slice(currentPage, currentPage + 6);
 
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 6);
   };
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 6) {
+      setCurrentPage(currentPage + 6);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 6);
     }
   };
   return (
