@@ -36,7 +36,7 @@ export const RegisterPage = () => {
     };
     await createUser(data);
     if (isLogged) {
-      navigate("/home", {
+      navigate("/finca", {
         replace: true,
       });
     } else {

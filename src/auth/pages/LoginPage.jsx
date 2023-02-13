@@ -30,7 +30,7 @@ export const LoginPage = () => {
     const user = { emailOrPhone, password };
     await login(user);
     if (isLogged) {
-      navigate("/home", {
+      navigate("/finca", {
         replace: true,
       });
     } else {

@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
+  faCircleExclamation,
   faChevronRight,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
+import FormPreview from "./FormPreview";
 const Index = ({
   getFincas,
   fincas,
@@ -24,6 +26,7 @@ const Index = ({
   search,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
+  const [isFormPreview, setIsFormPreview] = useState(false);
   const [fincaData, setFincaData] = useState({
     nombre: "",
     areaTotal: 0,
@@ -38,6 +41,10 @@ const Index = ({
   const toggleFormPut = (finca) => {
     setFincaData(finca);
     setIsFormPut(!isFormPut);
+  };
+  const toggleFormPreview = (finca) => {
+    setFincaData(finca);
+    setIsFormPreview(!isFormPreview);
   };
   useEffect(() => {
     if (updateOrAdd) {
@@ -94,7 +101,19 @@ const Index = ({
           agricultores={agricultores}
         />
       ) : null}
-
+      {isFormPreview ? (
+        <FormPreview
+          isFormPreview={isFormPreview}
+          setIsFormPreview={setIsFormPreview}
+          data={fincaData}
+          setData={setFincaData}
+          onSubmit={handlePut}
+          corregimientos={corregimientos}
+          municipios={municipios}
+          veredas={veredas}
+          agricultores={agricultores}
+        />
+      ) : null}
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
@@ -108,7 +127,6 @@ const Index = ({
                 <th>Agricultor</th>
                 <th>Corregimiento</th>
                 <th>Municipio</th>
-                <th>Vereda</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -128,7 +146,6 @@ const Index = ({
                     </td>
                     <td>{finca.idCorregimiento.nombre}</td>
                     <td>{finca.idMunicipio.nombre}</td>
-                    <td>{finca.idVereda.nombre}</td>
                     <td>
                       <FontAwesomeIcon
                         onClick={() => {
@@ -136,6 +153,13 @@ const Index = ({
                         }}
                         className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faEdit}
+                      />
+                      <FontAwesomeIcon
+                        onClick={() => {
+                          toggleFormPreview(finca);
+                        }}
+                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                        icon={faCircleExclamation}
                       />
                     </td>
                   </tr>
