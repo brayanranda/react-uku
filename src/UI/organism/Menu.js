@@ -30,81 +30,8 @@ const Menu = () => {
 const routes = [];
 
 routes.push({
-  to: "/home",
-  text: "Agricultor",
-  private: true,
-});
-
-routes.push({
-  to: "/abono-organico",
-  text: "Abono Organico",
-  private: true,
-});
-
-routes.push({
-  to: "/analisis-elemento",
-  text: "Análisis Elemento",
-  private: true,
-});
-routes.push({
-  to: "/analisis-suelo",
-  text: "Análisis Suelo",
-  private: true,
-});
-routes.push({
-  to: "/cultivo",
-  text: "Cultivo",
-  private: true,
-});
-
-routes.push({
-  to: "/densidad",
-  text: "Densidad",
-  private: true,
-});
-
-routes.push({
-  to: "/distancia-siembra",
-  text: "Distancia siembra",
-  private: true,
-});
-
-routes.push({
-  to: "/elemento",
-  text: "Elemento",
-  private: true,
-});
-routes.push({
-  to: "/elemento-variedad",
-  text: "Elemento variedad",
-  private: true,
-});
-routes.push({
-  to: "/enmienda",
-  text: "Enmienda",
-  private: true,
-});
-routes.push({
-  to: "/etapa-fenologica",
-  text: "Etapa Fenológica",
-  private: true,
-});
-
-routes.push({
   to: "/finca",
   text: "Finca",
-  private: true,
-});
-
-routes.push({
-  to: "/tipo-cultivo",
-  text: "Tipo Cultivo",
-  private: true,
-});
-
-routes.push({
-  to: "/topografia",
-  text: "Topografía",
   private: true,
 });
 
@@ -115,8 +42,8 @@ routes.push({
 });
 
 routes.push({
-  to: "/recomendacion-abono",
-  text: "Recomendación Abono",
+  to: "/analisis-suelo",
+  text: "Análisis Suelo",
   private: true,
 });
 

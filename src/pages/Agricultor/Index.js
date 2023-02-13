@@ -5,14 +5,8 @@ import FormPost from "./FormPost";
 import ListAgricultor from "./List";
 
 const Index = () => {
-  const {
-    getAgricultores,
-    agricultores,
-    putData,
-    postData,
-    isLoading,
-    setIsLoading,
-  } = useContext(AgricultorContext);
+  const { getAgricultores, agricultores, putData, postData, isLoading } =
+    useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
