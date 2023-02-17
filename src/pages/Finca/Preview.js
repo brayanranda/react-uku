@@ -6,13 +6,8 @@ import { Link } from "react-router-dom";
 
 const Preview = ({
   data,
-  setData,
   setIsFormPreview,
-  isFormPreview,
-  corregimientos,
-  municipios,
-  veredas,
-  agricultores,
+  isFormPreview
 }) => {
   const toggleFormPut = () => {
     setIsFormPreview(!isFormPreview);
@@ -23,64 +18,6 @@ const Preview = ({
     document.body.classList.add("no_padding");
   }
   
-  const getAgricultor = (value) => {
-    let el = {};
-    agricultores.forEach((element) => {
-      if (element.identificacion === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
-  const getCorregimiento = (value) => {
-    let el = {};
-    corregimientos.forEach((element) => {
-      if (element.idCorregimiento === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
-  const getMunicipio = (value) => {
-    let el = {};
-    municipios.forEach((element) => {
-      if (element.idMunicipio === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
-  const getVereda = (value) => {
-    let el = {};
-    veredas.forEach((element) => {
-      if (element.idVereda === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "idAgricultor") {
-      setData({ ...data, [name]: getAgricultor(Number(value)) });
-      return;
-    }
-    if (name === "idCorregimiento") {
-      setData({ ...data, [name]: getCorregimiento(Number(value)) });
-      return;
-    }
-    if (name === "idMunicipio") {
-      setData({ ...data, [name]: getMunicipio(Number(value)) });
-      return;
-    }
-    if (name === "idVereda") {
-      setData({ ...data, [name]: getVereda(Number(value)) });
-      return;
-    }
-    setData({ ...data, [name]: value });
-  };
-
   return (
     <React.Fragment>
       <Modal
