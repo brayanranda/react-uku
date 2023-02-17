@@ -6,7 +6,9 @@ import FincaContext from "../../context/FincaContext";
 import TopografiaContext from "../../context/TopografiaContext";
 import VariedadContext from "../../context/VariedadContext";
 import FormPost from "./FormPost";
-import ListVariedades from "./List";
+import ListCultivo from "./List";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Index = () => {
   const {
@@ -81,7 +83,7 @@ const Index = () => {
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">Lista Variedades</p>
+                <p className="text-2xl ml-2 text-green-700">Lista Cultivo</p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
@@ -92,14 +94,15 @@ const Index = () => {
                   onChange={onSearchChange}
                 />
               </div>
-              <button
-                onClick={() => toggleFormPost()}
-                className="bg-green-700 rounded-md text-white hover:bg-green-700"
-              >
-                Agregar Variedad
+              <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
+                  <FontAwesomeIcon
+                    className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                    icon={faPlus}
+                  />
+                Agregar Cultivo
               </button>
             </div>
-            <ListVariedades
+            <ListCultivo
               getCultivos={getCultivos}
               cultivos={cultivos}
               putData={putData}

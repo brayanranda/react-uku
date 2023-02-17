@@ -4,6 +4,8 @@ import Header from "../UI/organism/Header";
 import { Row } from "reactstrap";
 import Finca from "../pages/Finca/Index";
 import Variedad from "../pages/Variedad/Index";
+import Lote from "../pages/Lote/Index";
+import Cultivo from "../pages/Cultivo/Index";
 import AnalisisSuelo from "../pages/AnalisisSuelo/Index";
 import {
   AgricultorProvider,
@@ -13,6 +15,8 @@ import {
   FincaProvider,
   TipoCultivoProvider,
   VariedadProvider,
+  TopografiaProvider,
+  DistanciaSiembraProvider,
 } from "../context";
 export const DashboardRoutes = () => {
   return (
@@ -55,6 +59,26 @@ export const DashboardRoutes = () => {
               </VariedadProvider>
             }
           />
+
+          <Route path="lote" element={<Lote />}/>
+
+          <Route 
+            path="cultivo"
+            element={
+              <FincaProvider>
+                <VariedadProvider>
+                  <TopografiaProvider>
+                    <DistanciaSiembraProvider>
+                      <CultivoProvider>
+                        <Cultivo />
+                      </CultivoProvider>
+                    </DistanciaSiembraProvider>
+                  </TopografiaProvider>
+                </VariedadProvider>
+              </FincaProvider>
+            }
+          />
+
           <Route path="/" element={<Navigate to="/finca" />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>

@@ -15,12 +15,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-button,
-input,
-select,
-textarea {
-  border-radius: 0.8rem !important;
-  padding: 0.7rem 1rem !important;
+button {
+  font-size: 16px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
 }
 .btn-ukulima {
   background-color: #16a34a !important;
@@ -33,7 +36,7 @@ textarea {
   background-color: #067642 !important;
 }
 a:hover {
-  color: #034c2a !important;
+  /* color: #034c2a !important; */
   text-decoration: underline !important;
 }
 .bg-image-uku {

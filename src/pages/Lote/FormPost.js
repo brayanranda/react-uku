@@ -1,14 +1,7 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
-const FormPost = ({
-  onSubmit,
-  data,
-  setData,
-  setIsFormPost,
-  isFormPost,
-  tiposcultivos,
-}) => {
+const FormPost = ({ setIsFormPost, isFormPost }) => {
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
     removeBodyCss();
@@ -18,10 +11,7 @@ const FormPost = ({
     document.body.classList.add("no_padding");
   }
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: value });
-  };
+  const handleChange = (e) => {}
 
   return (
     <React.Fragment>
@@ -33,15 +23,18 @@ const FormPost = ({
         }}
       >
         <div className="modal-header">
-          <h5 className="modal-title mt-0 text-xl font-medium">
-            Registrar Variedad
+          <h5
+            className="modal-title mt-0 text-xl font-medium"
+            id="myLargeModalLabel"
+          >
+            Registrar Lote
           </h5>
           <button
             onClick={() => {
               setIsFormPost(false);
             }}
             type="button"
-            className="close"
+            className="close text-xl p-0"
             data-dismiss="modal"
             aria-label="Close"
           >
@@ -52,49 +45,71 @@ const FormPost = ({
           <CardBody>
             <Form className="row">
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Descripción
-                </Label>
+                <Label className="col-sm-3 col-form-label">Nombre del Lote</Label>
                 <Col sm={9}>
                   <Input
-                    name="descripcion"
+                    name="nombre"
                     onChange={handleChange}
-                    type="textarea"
+                    type="text"
                     className="form-control"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Tipo cultivo</Label>
+                <Label className="col-sm-3 col-form-label">Nombre del Encargado</Label>
                 <Col sm={9}>
-                  <select
-                    type="select"
-                    className="form-select"
-                    name="idTipoCultivo"
+                  <Input
+                    type="text"
+                    className="form-control col-lg-9"
+                    name="areaTotal"
                     onChange={handleChange}
-                  >
-                    <option value="">Seleccionar </option>
-                    {tiposcultivos &&
-                      tiposcultivos.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
-                      ))}
-                  </select>
+                  />
                 </Col>
               </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">Metros</Label>
+                <Col sm={9}>
+                  <Input
+                    type="text"
+                    className="form-control col-lg-9"
+                    name="areaEnUso"
+                    onChange={handleChange}
+                  />
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">
+                  Tipo de Cultivo
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="geolocalizacion"
+                    onChange={handleChange}
+                  />
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">
+                  Variedad
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="geolocalizacion"
+                    onChange={handleChange}
+                  />
+                </Col>
+              </div>
+              
               <div className="row justify-content-end">
                 <Col sm={9}>
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
                       className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
-                      onClick={() => {
-                        onSubmit();
-                      }}
                     >
                       Save
                     </button>
