@@ -7,9 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Col, CardBody, Modal, Card, CardHeader, Row } from "reactstrap";
+import { Link } from "react-router-dom";
 
-const FormPreview = ({
-  onSubmit,
+const Preview = ({
   data,
   setData,
   setIsFormPreview,
@@ -27,6 +27,7 @@ const FormPreview = ({
   function removeBodyCss() {
     document.body.classList.add("no_padding");
   }
+  
   const getAgricultor = (value) => {
     let el = {};
     agricultores.forEach((element) => {
@@ -106,61 +107,63 @@ const FormPreview = ({
               setIsFormPreview(false);
             }}
             type="button"
-            className="close"
+            className="close text-xl p-0"
             data-dismiss="modal"
             aria-label="Close"
           >
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div className="modal-body">
-          <Card className="rounded-2xl shadow-md mb-3">
-            <CardHeader>Finca / {data.nombre}</CardHeader>
-            <CardBody>
+        <div className="modal-body p-4">
+          <Card className="rounded-2xl shadow-md mb-3 overflow-hidden">
+            <CardHeader className="px-4 py-3 font-semibold text-lg">Finca / {data.nombre}</CardHeader>
+            <CardBody className="p-4">
               <Row>
-                <Col md={8}>
-                  <small className="d-block">Corregimiento</small>
-                  <b>{data.idCorregimiento.nombre}</b>
+                <Col md={8} className="mb-3">
+                  <p className="d-block">Corregimiento</p>
+                  <p className="text-xl font-semibold">{data.idCorregimiento.nombre}</p>
                 </Col>
-                <Col md={4}>
-                  <small className="d-block">Area en uso</small>
-                  <b>{data.areaEnUso}</b>
+                <Col md={4} className="mb-3">
+                  <p className="d-block">Area en uso</p>
+                  <p className="text-xl font-semibold">{data.areaEnUso}</p>
                 </Col>
               </Row>
 
               <Row>
-                <Col md={8}>
-                  <small className="d-block">Municipio</small>
-                  <b>{data.idMunicipio.nombre}</b>
+                <Col md={8} className="mb-3">
+                  <p className="d-block">Municipio</p>
+                  <p className="text-xl font-semibold">{data.idMunicipio.nombre}</p>
                 </Col>
-                <Col md={4}>
-                  <small className="d-block">Agricultor</small>
-                  <b>
+                <Col md={4} className="mb-3">
+                  <p className="d-block">Agricultor</p>
+                  <p className="text-xl font-semibold">
                     {data.idAgricultor.nombres +
                       " " +
                       data.idAgricultor.nombres}
-                  </b>
+                  </p>
                 </Col>
               </Row>
 
               <Row>
-                <small className="d-block">Vereda</small>
-                <b>{data.idVereda.nombre}</b>
+                <p className="d-block">Vereda</p>
+                <p className="text-xl font-semibold">{data.idVereda.nombre}</p>
               </Row>
             </CardBody>
           </Card>
 
-          <div className="bg-green-200 card-body rounded-2xl">
-            <div className="row align-items-center mb-1">
-              <Col md={10}>
-                <FontAwesomeIcon className="text-xl " icon={faNewspaper} />{" "}
+          <div className="bg-green-200 card-body rounded-2xl p-4">
+            <div className="row align-items-center mb-3">
+              <Col md={10} className="text-xl">
+                <FontAwesomeIcon icon={faNewspaper} />{" "}
                 Estudios Realizados
               </Col>
               <Col md={2} className="d-flex justify-content-end">
-                <FontAwesomeIcon
-                  className="cursor-pointer duration-300 transform hover:scale-105 bg-white rounded-full hover:bg-green-200 hover:text-green-800 p-2"
-                  icon={faEye}
-                />
+                <Link to="/analisis-suelo">
+                  <FontAwesomeIcon
+                    className="cursor-pointer duration-300 transform hover:scale-105 bg-white rounded-full hover:bg-green-200 hover:text-green-800 p-2"
+                    icon={faEye}
+                  />
+                </Link>
               </Col>
             </div>
             <div className="rounded-2xl bg-white">
@@ -233,4 +236,4 @@ const FormPreview = ({
   );
 };
 
-export default FormPreview;
+export default Preview;

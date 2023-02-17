@@ -78,10 +78,10 @@ const FormPost = ({ onSubmit, data, setData, setIsFormPost, isFormPost }) => {
               </div>
               <div className="row justify-content-end">
                 <Col sm={9}>
-                  <div>
+                  <div className="flex items-center gap-1">
                     <button
                       type="button"
-                      className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4 me-2"
+                      className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
                       onClick={() => {
                         onSubmit();
                       }}

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faEdit,
-  faChevronRight,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faCircleExclamation, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
+import Preview from "./Preview";
+import FormPost from "../Elemento/FormPost";
 
 const Index = ({
   getAnalisisSuelos,
@@ -25,9 +22,17 @@ const Index = ({
   setCurrentPage,
   search,
 }) => {
+  const [isFormPost, setIsFormPost] = useState(false);
+  const [elementoData, setElementoData] = useState({
+    id: "",
+    nombre: "",
+    unidad: "",
+  });
+
   const [isFormPut, setIsFormPut] = useState(false);
   const [inputsStates, setInputsStates] = useState({});
-  const [elementoData, setElementoData] = useState({
+  const [isFormPreview, setIsFormPreview] = useState(false);
+  const [analisisData, setAnalisisData] = useState({
     idAnalisisSuelo: "",
     porcentArena: "",
     porcentLimos: "",
@@ -40,7 +45,7 @@ const Index = ({
   });
 
   const toggleFormPut = (elemento) => {
-    setElementoData(elemento);
+    setAnalisisData(elemento);
     setInputsStates({});
     setIsFormPut(!isFormPut);
   };
@@ -64,7 +69,7 @@ const Index = ({
     if (validate === false) {
       return;
     }
-    await putData(elementoData);
+    await putData(analisisData);
     setIsFormPut(!isFormPut);
     setInputsStates({});
     setUpdateOrAdd(true);
@@ -81,7 +86,6 @@ const Index = ({
     if (search.length === 0)
       return analisisSuelos.slice(currentPage, currentPage + 5);
 
-    // Si hay algo en la caja de texto
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
   };
@@ -97,6 +101,20 @@ const Index = ({
       setCurrentPage(currentPage - 5);
     }
   };
+
+  const toggleFormPreview = (element) => {
+    setAnalisisData(element);
+    setIsFormPreview(!isFormPreview);
+  };
+
+  const handleSaveElemento = async () => {
+
+  };
+
+  const toggleFormPost = () => {
+    setIsFormPost(!isFormPost);
+  };
+
   return (
     <>
       <Toaster />
@@ -104,8 +122,8 @@ const Index = ({
         <FormPut
           isFormPut={isFormPut}
           setIsFormPut={setIsFormPut}
-          data={elementoData}
-          setData={setElementoData}
+          data={analisisData}
+          setData={setAnalisisData}
           onSubmit={handlePut}
           cultivos={cultivos}
           densidades={densidades}
@@ -115,6 +133,25 @@ const Index = ({
           setInputsStates={setInputsStates}
         />
       ) : null}
+      {isFormPreview ? (
+        <Preview
+          isFormPreview={isFormPreview}
+          setIsFormPreview={setIsFormPreview}
+          data={analisisData}
+          setData={setAnalisisData}
+          toggleFormPost={toggleFormPost}
+        />
+      ) : null}
+      {isFormPost ? (
+          <FormPost
+            isFormPost={isFormPost}
+            setIsFormPost={setIsFormPost}
+            data={elementoData}
+            setData={setElementoData}
+            onSubmit={handleSaveElemento}
+          />
+        ) : null}
+
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
@@ -152,6 +189,13 @@ const Index = ({
                         }}
                         className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faEdit}
+                      />
+                      <FontAwesomeIcon
+                        onClick={() => {
+                          toggleFormPreview(elemento);
+                        }}
+                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                        icon={faCircleExclamation}
                       />
                     </td>
                   </tr>

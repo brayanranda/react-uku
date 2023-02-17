@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faEdit,
-  faChevronRight,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 // import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
+import FormPreview from "../ElementoVariedad/Preview";
+import FormPost from "../ElementoVariedad/FormPost";
 
 const Index = ({
   getVariedades,
   variedades,
   putData,
-  // tiposcultivos,
   updateOrAdd,
   setUpdateOrAdd,
   isLoading,
@@ -23,6 +19,7 @@ const Index = ({
   search,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
+  const [isFormPreview, setIsFormPreview] = useState(false);
   const [variedadData, setVariedadData] = useState({
     cultivoCollection: null,
     descripcion: "",
@@ -78,6 +75,13 @@ const Index = ({
       setCurrentPage(currentPage - 5);
     }
   };
+
+  const toggleFormPreview = (variedad) => {
+    setVariedadData(variedad);
+    setIsFormPreview(!isFormPreview);
+  };
+
+  
   return (
     <>
       <Toaster />
@@ -91,6 +95,26 @@ const Index = ({
           tiposcultivos={tiposcultivos}
         />
       ) : null} */}
+      {isFormPreview ? (
+        <FormPreview
+          isFormPreview={isFormPreview}
+          setIsFormPreview={setIsFormPreview}
+          data={variedadData}
+          setData={setVariedadData}
+          onSubmit={handlePut}
+        />
+      ) : null}
+      {/* {isFormPost ? (
+        <FormPost
+          isFormPost={isFormPost}
+          setIsFormPost={setIsFormPost}
+          data={elementoData}
+          setData={setElementoData}
+          onSubmit={handleSave}
+          elementos={elementos}
+          variedades={variedades}
+        />
+      ) : null} */}
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
@@ -98,7 +122,7 @@ const Index = ({
               <tr>
                 <th>Descripcion</th>
                 <th>Tipo cultivo</th>
-                {/* <th>Acciones</th> */}
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -107,19 +131,15 @@ const Index = ({
                   <tr key={x}>
                     <td>{variedad.descripcion}</td>
                     <td>{variedad.idTipoCultivo.descripcion}</td>
-                    {/* <td>
-                      <FontAwesomeIcon
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEye}
-                      />
+                    <td>
                       <FontAwesomeIcon
                         onClick={() => {
-                          toggleFormPut(variedad);
+                          toggleFormPreview(variedad);
                         }}
                         className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEdit}
+                        icon={faCircleExclamation}
                       />
-                    </td> */}
+                    </td>
                   </tr>
                 ))
               ) : (

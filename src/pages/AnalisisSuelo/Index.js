@@ -5,6 +5,8 @@ import CultivoContext from "../../context/CultivoContext";
 import DensidadContext from "../../context/DensidadContext";
 import FormPost from "./FormPost";
 import ListVariedades from "./List";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 const Index = () => {
   const {
@@ -104,10 +106,11 @@ const Index = () => {
                   onChange={onSearchChange}
                 />
               </div>
-              <button
-                onClick={() => toggleFormPost()}
-                className="bg-green-700 rounded-md text-white hover:bg-green-700"
-              >
+              <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
+                  <FontAwesomeIcon
+                    className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                    icon={faPlus}
+                  />
                 Agregar Análisis Suelo
               </button>
             </div>

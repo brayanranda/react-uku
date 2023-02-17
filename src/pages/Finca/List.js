@@ -9,7 +9,7 @@ import {
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
-import FormPreview from "./FormPreview";
+import Preview from "./Preview";
 const Index = ({
   getFincas,
   fincas,
@@ -102,7 +102,7 @@ const Index = ({
         />
       ) : null}
       {isFormPreview ? (
-        <FormPreview
+        <Preview
           isFormPreview={isFormPreview}
           setIsFormPreview={setIsFormPreview}
           data={fincaData}
