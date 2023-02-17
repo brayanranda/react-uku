@@ -36,7 +36,7 @@ button {
   background-color: #067642 !important;
 }
 a:hover {
-  color: #034c2a !important;
+  /* color: #034c2a !important; */
   text-decoration: underline !important;
 }
 .bg-image-uku {

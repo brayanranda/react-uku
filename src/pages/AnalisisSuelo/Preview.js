@@ -9,7 +9,7 @@ const Preview = ({
   isFormPreview,
   toggleFormPost
 }) => {
-  const toggleFormPut = () => {
+  const togglePreview = () => {
     setIsFormPreview(!isFormPreview);
     removeBodyCss();
   };
@@ -24,7 +24,7 @@ const Preview = ({
         size="lg"
         isOpen={isFormPreview}
         toggle={() => {
-          toggleFormPut();
+          togglePreview();
         }}
       >
         <div className="modal-header">
@@ -57,7 +57,7 @@ const Preview = ({
                 <Link to="/analisis-suelo">
                   <FontAwesomeIcon
                     onClick={() => {
-                      toggleFormPut()
+                      togglePreview()
                       toggleFormPost()}
                     }
                     className="cursor-pointer duration-300 transform hover:scale-105 bg-white rounded-full hover:bg-green-200 hover:text-green-800 p-2"

@@ -1,10 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faNewspaper,
-  faCircleExclamation,
-  faEdit,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import { Col, CardBody, Modal, Card, CardHeader, Row } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -151,84 +146,15 @@ const Preview = ({
             </CardBody>
           </Card>
 
-          <div className="bg-green-200 card-body rounded-2xl p-4">
-            <div className="row align-items-center mb-3">
-              <Col md={10} className="text-xl">
-                <FontAwesomeIcon icon={faNewspaper} />{" "}
-                Estudios Realizados
-              </Col>
-              <Col md={2} className="d-flex justify-content-end">
-                <Link to="/analisis-suelo">
-                  <FontAwesomeIcon
-                    className="cursor-pointer duration-300 transform hover:scale-105 bg-white rounded-full hover:bg-green-200 hover:text-green-800 p-2"
-                    icon={faEye}
-                  />
-                </Link>
-              </Col>
-            </div>
-            <div className="rounded-2xl bg-white">
-              <div className="table-responsive">
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Id</th>
-                      <th>Clase Textural</th>
-                      <th>Cultivo</th>
-                      <th>Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>001</td>
-                      <td>Clase 1</td>
-                      <td>Cultivo 1</td>
-                      <td>
-                        <FontAwesomeIcon
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                          icon={faEdit}
-                        />
-                        <FontAwesomeIcon
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                          icon={faCircleExclamation}
-                        />
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>002</td>
-                      <td>Clase 2</td>
-                      <td>Cultivo 2</td>
-                      <td>
-                        <FontAwesomeIcon
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                          icon={faEdit}
-                        />
-                        <FontAwesomeIcon
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                          icon={faCircleExclamation}
-                        />
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>003</td>
-                      <td>Clase 3</td>
-                      <td>Cultivo 3</td>
-                      <td>
-                        <FontAwesomeIcon
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                          icon={faEdit}
-                        />
-                        <FontAwesomeIcon
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                          icon={faCircleExclamation}
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div className="flex items-center gap-1">
+            <Link to="/lote" className="bg-green-700 rounded-md py-1 px-2 text-white hover:text-white hover:bg-green-800 flex items-center gap-2 font-sm">
+                <FontAwesomeIcon className="cursor-pointer" icon={faEye}/>
+              Ver Lotes
+            </Link>
+            <Link to="/analisis-suelo" className="bg-slate-400 rounded-md py-1 px-2 text-white hover:bg-slate-500 flex items-center gap-2 font-sm">
+                <FontAwesomeIcon className="cursor-pointer" icon={faEye}/>
+              Ver Estudios Realizados
+            </Link>
           </div>
         </div>
       </Modal>
