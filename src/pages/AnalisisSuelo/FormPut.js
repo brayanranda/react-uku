@@ -131,7 +131,7 @@ const FormPut = ({
                     className="form-select"
                     name="idClaseTextural"
                     value={data.idClaseTextural.idClaseTextural}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {claseTextural &&
@@ -151,7 +151,7 @@ const FormPut = ({
                     className="form-select"
                     name="idCultivo"
                     value={data.idCultivo.idCultivo}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {cultivos &&
@@ -249,7 +249,16 @@ const FormPut = ({
                   <Input
                     name="fecha"
                     value={data.fecha}
-                    onChange={handleChange}
+                    onChange={e => {
+                      handleChange(
+                        e.target.value.match(
+                          /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/
+                        ) !== null
+                          ? true
+                          : false,
+                        e
+                      )
+                    }}
                     type="date"
                     className="form-control"
                   />
@@ -264,7 +273,7 @@ const FormPut = ({
                     className="form-select"
                     name="idDensidad"
                     value={data.idDensidad.idDensidad}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {densidades &&
@@ -284,7 +293,7 @@ const FormPut = ({
                     className="form-select"
                     name="idProfundidad"
                     value={data.idProfundidad.idProfundidadMuestra}
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {profundidad &&

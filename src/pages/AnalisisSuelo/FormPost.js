@@ -130,7 +130,7 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idClaseTextural"
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {claseTextural &&
@@ -149,7 +149,7 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idCultivo"
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {cultivos &&
@@ -243,7 +243,16 @@ const FormPost = ({
                 <Col sm={9}>
                   <Input
                     name="fecha"
-                    onChange={handleChange}
+                    onChange={e => {
+                      handleChange(
+                        e.target.value.match(
+                          /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/
+                        ) !== null
+                          ? true
+                          : false,
+                        e
+                      )
+                    }}
                     type="date"
                     className="form-control"
                   />
@@ -257,7 +266,7 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idDensidad"
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {densidades &&
@@ -276,7 +285,7 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idProfundidad"
-                    onChange={handleChange}
+                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
                   >
                     <option value="">Seleccionar </option>
                     {profundidad &&
