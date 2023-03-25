@@ -14,6 +14,14 @@ const FormPost = ({
   inputsStates,
   setInputsStates,
 }) => {
+  let inputs = [
+    "porcentArena",
+    "porcentLimos",
+    "porcentArcilla",
+    "phSuelo",
+    "conductividadElectrica",
+    "intercambioCationico",
+  ];
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);
@@ -62,26 +70,22 @@ const FormPost = ({
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
     if (name === "idCultivo") {
-      setData({ ...data, [name]: getCultivo(Number(value)) });
+      setData({ ...data, [name]: { idCultivo: Number(value) } });
       return;
     }
     if (name === "idDensidad") {
-      setData({ ...data, [name]: getDensidad(Number(value)) });
+      setData({ ...data, [name]: { idDensidad: Number(value) } });
       return;
     }
     if (name === "idClaseTextural") {
-      setData({ ...data, [name]: getClaseTextural(Number(value)) });
+      setData({ ...data, [name]: { idClaseTextural: Number(value) } });
       return;
     }
     if (name === "idProfundidad") {
-      setData({ ...data, [name]: getProfundidad(Number(value)) });
+      setData({ ...data, [name]: { idProfundidadMuestra: Number(value) } });
       return;
     }
-    if (
-      name === "porcentArena" ||
-      name === "porcentLimos" ||
-      name === "porcentArcilla"
-    ) {
+    if (inputs.includes(name)) {
       if (isValid) {
         setData({ ...data, [name]: Number(value) });
       } else {
@@ -130,7 +134,9 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idClaseTextural"
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {claseTextural &&
@@ -149,13 +155,15 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idCultivo"
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {cultivos &&
                       cultivos.map((tipo, index) => (
                         <option key={index} value={tipo.idCultivo}>
-                          {tipo.descripcion}
+                          {tipo.idCultivo}
                         </option>
                       ))}
                   </select>
@@ -238,12 +246,85 @@ const FormPost = ({
                   htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
+                  PH Suelo
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    invalid={inputsStates.phSuelo === false}
+                    name="phSuelo"
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
+                    type="text"
+                    className="form-control"
+                  />
+                </Col>
+              </div>
+
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
+                  Conductividad Electrica
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    invalid={inputsStates.conductividadElectrica === false}
+                    name="conductividadElectrica"
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
+                    type="text"
+                    className="form-control"
+                  />
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
+                  Intercambio Cationico
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    invalid={inputsStates.intercambioCationico === false}
+                    name="intercambioCationico"
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]+$/) !== null &&
+                          e.target.value.length < 4 &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
+                    type="text"
+                    className="form-control"
+                  />
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
                   Fecha
                 </Label>
                 <Col sm={9}>
                   <Input
                     name="fecha"
-                    onChange={e => {
+                    onChange={(e) => {
                       handleChange(
                         e.target.value.match(
                           /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/
@@ -251,7 +332,7 @@ const FormPost = ({
                           ? true
                           : false,
                         e
-                      )
+                      );
                     }}
                     type="date"
                     className="form-control"
@@ -266,7 +347,9 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idDensidad"
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {densidades &&
@@ -285,7 +368,9 @@ const FormPost = ({
                     type="select"
                     className="form-select"
                     name="idProfundidad"
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {profundidad &&

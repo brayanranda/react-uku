@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faCircleExclamation, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faCircleExclamation,
+  faChevronRight,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
@@ -107,9 +112,7 @@ const Index = ({
     setIsFormPreview(!isFormPreview);
   };
 
-  const handleSaveElemento = async () => {
-
-  };
+  const handleSaveElemento = async () => {};
 
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
@@ -143,14 +146,14 @@ const Index = ({
         />
       ) : null}
       {isFormPost ? (
-          <FormPost
-            isFormPost={isFormPost}
-            setIsFormPost={setIsFormPost}
-            data={elementoData}
-            setData={setElementoData}
-            onSubmit={handleSaveElemento}
-          />
-        ) : null}
+        <FormPost
+          isFormPost={isFormPost}
+          setIsFormPost={setIsFormPost}
+          data={elementoData}
+          setData={setElementoData}
+          onSubmit={handleSaveElemento}
+        />
+      ) : null}
 
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
@@ -166,6 +169,9 @@ const Index = ({
                 <th>Fecha</th>
                 <th>Densidad</th>
                 <th>Profundidad</th>
+                <th>PH Suelo</th>
+                <th>Conductividad Electrica</th>
+                <th>Intercambio Cationico</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -175,13 +181,16 @@ const Index = ({
                   <tr key={x}>
                     <td>{elemento.idAnalisisSuelo}</td>
                     <td>{elemento.idClaseTextural.nombre}</td>
-                    <td>{elemento.idCultivo.descripcion}</td>
+                    <td>{elemento.idCultivo.idCultivo}</td>
                     <td>{elemento.porcentArena}</td>
                     <td>{elemento.porcentLimos}</td>
                     <td>{elemento.porcentArcilla}</td>
                     <td>{elemento.fecha}</td>
                     <td>{elemento.idDensidad.valor}</td>
                     <td>{elemento.idProfundidad.profundidad}</td>
+                    <td>{elemento.phSuelo}</td>
+                    <td>{elemento.conductividadElectrica}</td>
+                    <td>{elemento.intercambioCationico}</td>
                     <td>
                       <FontAwesomeIcon
                         onClick={() => {
