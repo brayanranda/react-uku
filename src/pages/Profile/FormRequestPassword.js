@@ -50,13 +50,8 @@ const FormRequestPassword = ({
         <div className="modal-body">
           <CardBody>
             <Form className="row" onSubmit={onSubmit}>
-              <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Correo electronico
-                </Label>
+              <div className="flex items-center mb-4">
+                <Label className="col-sm-3 col-form-label">Correo electronico</Label>
                 <Col sm={9}>
                   <Input
                     name="email"
@@ -64,28 +59,15 @@ const FormRequestPassword = ({
                     type="email"
                     value={email}
                     className="form-control"
-                    placeholder="ejemplo@ukulima.com"
                   />
                 </Col>
               </div>
-              <p className="text-xs text-slate-600 mb-2">
-                Se cerrará la sesión luego de solicitar el cambio de contraseña
-              </p>
+              {/* <p className="text-xs text-slate-600 mb-2">Se cerrará la sesión luego de solicitar el cambio de contraseña</p> */}
               <div className="row justify-content-end">
                 <Col sm={9}>
-                  <div>
-                    <button
-                      type="submit"
-                      className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4 me-2"
-                    >
-                      Solicitar
-                    </button>
-                    <button
-                      onClick={toggleFormPost}
-                      className="bg-gray-300 rounded-md hover:bg-gray-300"
-                    >
-                      Cancel
-                    </button>
+                  <div className="flex">
+                    <button type="submit" className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4 me-2">Solicitar</button>
+                    <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300">Cancel</button>
                   </div>
                 </Col>
               </div>

@@ -64,7 +64,6 @@ export const RegisterPage = () => {
                   value={formState.nombres}
                   type="text"
                   className="form-control"
-                  placeholder="Carlos"
                   required
                 />
               </label>
@@ -77,7 +76,6 @@ export const RegisterPage = () => {
                   type="text"
                   className="form-control"
                   required
-                  placeholder="Angarita"
                 />
               </label>
               <label className="d-block  mb-3" htmlFor="email">
@@ -89,7 +87,6 @@ export const RegisterPage = () => {
                   type="email"
                   className="form-control"
                   required
-                  placeholder="ejemplo@ukulima.com"
                 />
               </label>
               <label className="d-block  mb-3" htmlFor="password">
@@ -115,7 +112,6 @@ export const RegisterPage = () => {
                   type="text"
                   className="form-control"
                   required
-                  placeholder="3101234567"
                 />
               </label>
               <label className="d-block  mb-3" htmlFor="identificacion">
@@ -127,7 +123,6 @@ export const RegisterPage = () => {
                   type="text"
                   className="form-control"
                   required
-                  placeholder="1090444555"
                 />
               </label>
               <label className="d-block  mb-3">
@@ -139,7 +134,6 @@ export const RegisterPage = () => {
                   type="text"
                   className="form-select"
                   required
-                  placeholder="Angarita"
                 >
                   <option value="">Seleccionar...</option>
                   <option value="1">Cédula de Ciudadanía</option>
@@ -154,7 +148,6 @@ export const RegisterPage = () => {
                   type="date"
                   className="form-control"
                   required
-                  placeholder="1090444555"
                 />
               </label>
             </Col>
@@ -166,9 +159,7 @@ export const RegisterPage = () => {
             </Button>
             <p className=" text-center">
               Ya tengo cuenta
-              <Link className="font-medium ml-2" to="/login">
-                Iniciar sesión
-              </Link>
+              <Link className="font-medium ml-2" to="/login">Iniciar sesión</Link>
             </p>
           </Row>
         </form>
