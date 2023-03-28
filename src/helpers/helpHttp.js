@@ -17,7 +17,7 @@ export const helpHttp = () => {
     options.maxContentLength = Infinity;
     options.maxBodyLength = Infinity;
 
-    setTimeout(() => controller.abort(), 10000);
+    setTimeout(() => controller.abort(), 20000);
 
     return fetch(endpoint, options)
       .then(async (res) =>
