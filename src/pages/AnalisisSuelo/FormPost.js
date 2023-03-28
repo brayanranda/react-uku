@@ -221,6 +221,14 @@ const FormPost = ({
                     type="text"
                     className="form-control"
                   />
+                  {inputsStates.porcentArena === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[data.idClaseTextural.idClaseTextural].arena.join(
+                        " - "
+                      )}
+                    </p>
+                  ) : null}
                 </Col>
               </div>
               <div className="row mb-4">
