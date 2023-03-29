@@ -38,15 +38,17 @@ const Index = ({
   const [inputsStates, setInputsStates] = useState({});
   const [isFormPreview, setIsFormPreview] = useState(false);
   const [analisisData, setAnalisisData] = useState({
-    idAnalisisSuelo: "",
-    porcentArena: "",
-    porcentLimos: "",
-    porcentArcilla: "",
     fecha: "",
     idClaseTextural: { idClaseTextural: "" },
     idCultivo: { idCultivo: "" },
+    idProfundidad: { idProfundidadMuestra: "" },
     idDensidad: { idDensidad: "" },
-    idProfundidad: { idProfundidadMuestra: "", profundidad: "" },
+    porcentArcilla: "",
+    porcentArena: "",
+    porcentLimos: "",
+    phSuelo: "",
+    conductividadElectrica: "",
+    intercambioCationico: "",
   });
 
   const toggleFormPut = (elemento) => {

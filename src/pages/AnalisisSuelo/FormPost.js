@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
+import { inputs, ranges, inRange } from "../../utils/ranges.utils";
 
 const FormPost = ({
   onSubmit,
@@ -14,77 +15,6 @@ const FormPost = ({
   inputsStates,
   setInputsStates,
 }) => {
-  let inputs = [
-    "porcentArena",
-    "porcentLimos",
-    "porcentArcilla",
-    "phSuelo",
-    "conductividadElectrica",
-    "intercambioCationico",
-  ];
-  const inRange = (range, value) => value >= range[1] && value <= range[0];
-  const ranges = {
-    1: {
-      arena: [100, 85],
-      limo: [15, 0],
-      arcilla: [10, 0],
-    },
-    2: {
-      arena: [90, 70],
-      limo: [30, 0],
-      arcilla: [15, 0],
-    },
-    11: {
-      arena: [85, 43],
-      limo: [50, 0],
-      arcilla: [20, 0],
-    },
-    3: {
-      arena: [52, 23],
-      limo: [50, 32],
-      arcilla: [27, 7],
-    },
-    4: {
-      arena: [50, 0],
-      limo: [87, 50],
-      arcilla: [27, 0],
-    },
-    5: {
-      arena: [20, 0],
-      limo: [100, 80],
-      arcilla: [12, 0],
-    },
-    6: {
-      arena: [80, 45],
-      limo: [28, 0],
-      arcilla: [35, 20],
-    },
-    10: {
-      arena: [45, 20],
-      limo: [53, 15],
-      arcilla: [40, 27],
-    },
-    7: {
-      arena: [20, 0],
-      limo: [73, 40],
-      arcilla: [40, 27],
-    },
-    8: {
-      arena: [67, 45],
-      limo: [20, 0],
-      arcilla: [55, 35],
-    },
-    12: {
-      arena: [20, 0],
-      limo: [60, 40],
-      arcilla: [60, 40],
-    },
-    9: {
-      arena: [45, 0],
-      limo: [40, 0],
-      arcilla: [100, 40],
-    },
-  };
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);
@@ -210,7 +140,7 @@ const FormPost = ({
                     name="porcentArena"
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
                           inRange(
                             ranges[data.idClaseTextural.idClaseTextural].arena,
                             e.target.value
@@ -244,7 +174,7 @@ const FormPost = ({
                     name="porcentLimos"
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
                           inRange(
                             ranges[data.idClaseTextural.idClaseTextural].limo,
                             e.target.value
@@ -255,6 +185,14 @@ const FormPost = ({
                     type="text"
                     className="form-control"
                   />
+                  {inputsStates.porcentLimos === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[data.idClaseTextural.idClaseTextural].limo.join(
+                        " - "
+                      )}
+                    </p>
+                  ) : null}
                 </Col>
               </div>
               <div className="row mb-4">
@@ -270,7 +208,7 @@ const FormPost = ({
                     name="porcentArcilla"
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
                           inRange(
                             ranges[data.idClaseTextural.idClaseTextural]
                               .arcilla,
@@ -282,6 +220,14 @@ const FormPost = ({
                     type="text"
                     className="form-control"
                   />
+                  {inputsStates.porcentArcilla === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[
+                        data.idClaseTextural.idClaseTextural
+                      ].arcilla.join(" - ")}
+                    </p>
+                  ) : null}
                 </Col>
               </div>
               <div className="row mb-4">
@@ -297,8 +243,7 @@ const FormPost = ({
                     name="phSuelo"
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
-                          e.target.value.length < 4 &&
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
                           e.target.value.length > 0,
                         e
                       )
@@ -322,8 +267,7 @@ const FormPost = ({
                     name="conductividadElectrica"
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
-                          e.target.value.length < 4 &&
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
                           e.target.value.length > 0,
                         e
                       )
@@ -346,8 +290,7 @@ const FormPost = ({
                     name="intercambioCationico"
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
-                          e.target.value.length < 4 &&
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
                           e.target.value.length > 0,
                         e
                       )
