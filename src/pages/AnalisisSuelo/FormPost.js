@@ -198,10 +198,7 @@ const FormPost = ({
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
+                <Label className="col-sm-3 col-form-label">
                   Porcentaje de Arena
                 </Label>
                 <Col sm={9}>
@@ -225,7 +222,6 @@ const FormPost = ({
               </div>
               <div className="row mb-4">
                 <Label
-                  htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
                   Porcentaje de Limos
@@ -251,7 +247,6 @@ const FormPost = ({
               </div>
               <div className="row mb-4">
                 <Label
-                  htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
                   Porcentaje de Arcilla
@@ -278,7 +273,6 @@ const FormPost = ({
               </div>
               <div className="row mb-4">
                 <Label
-                  htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
                   PH Suelo
@@ -303,7 +297,6 @@ const FormPost = ({
 
               <div className="row mb-4">
                 <Label
-                  htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
                   Conductividad Electrica
@@ -327,7 +320,6 @@ const FormPost = ({
               </div>
               <div className="row mb-4">
                 <Label
-                  htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
                   Intercambio Cationico
@@ -351,7 +343,6 @@ const FormPost = ({
               </div>
               <div className="row mb-4">
                 <Label
-                  htmlFor="horizontal-password-Input"
                   className="col-sm-3 col-form-label"
                 >
                   Fecha
