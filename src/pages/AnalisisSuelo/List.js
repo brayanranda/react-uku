@@ -114,7 +114,9 @@ const Index = ({
     setIsFormPreview(!isFormPreview);
   };
 
-  const handleSaveElemento = async () => {};
+  const handleSaveElemento = async () => {
+    console.log(elementoData);
+  };
 
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
