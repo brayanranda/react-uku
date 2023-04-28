@@ -251,6 +251,14 @@ const FormPost = ({
                     type="text"
                     className="form-control"
                   />
+                  {inputsStates.porcentLimos === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[data.idClaseTextural.idClaseTextural].limo.join(
+                        " - "
+                      )}
+                    </p>
+                  ) : null}
                 </Col>
               </div>
               <div className="row mb-4">
@@ -277,6 +285,14 @@ const FormPost = ({
                     type="text"
                     className="form-control"
                   />
+                  {inputsStates.porcentArcilla === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[data.idClaseTextural.idClaseTextural].arcilla.join(
+                        " - "
+                      )}
+                    </p>
+                  ) : null}
                 </Col>
               </div>
               <div className="row mb-4">

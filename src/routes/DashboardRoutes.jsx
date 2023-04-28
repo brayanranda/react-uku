@@ -3,6 +3,7 @@ import Menu from "../UI/organism/Menu";
 import Header from "../UI/organism/Header";
 import { Row } from "reactstrap";
 import Finca from "../pages/Finca/Index";
+import Results from "../pages/Results/Index";
 import Variedad from "../pages/Variedad/Index";
 import Lote from "../pages/Lote/Index";
 import Cultivo from "../pages/Cultivo/Index";
@@ -35,6 +36,8 @@ export const DashboardRoutes = () => {
               </FincaProvider>
             }
           />
+
+          <Route path="results" element={<Results />}/>
 
           <Route
             path="analisis-suelo"
