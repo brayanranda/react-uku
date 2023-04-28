@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
+import { inputs, ranges, inRange } from "../../utils/ranges.utils";
 
 const FormPut = ({
   onSubmit,
@@ -23,65 +24,26 @@ const FormPut = ({
   function removeBodyCss() {
     document.body.classList.add("no_padding");
   }
-  const getCultivo = (value) => {
-    let el = {};
-    cultivos.forEach((element) => {
-      if (element.idCultivo === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
-  const getDensidad = (value) => {
-    let el = {};
-    densidades.forEach((element) => {
-      if (element.idDensidad === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
-  const getClaseTextural = (value) => {
-    let el = {};
-    claseTextural.forEach((element) => {
-      if (element.idClaseTextural === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
-  const getProfundidad = (value) => {
-    let el = {};
-    profundidad.forEach((element) => {
-      if (element.idProfundidadMuestra === value) {
-        el = element;
-      }
-    });
-    return el;
-  };
+
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
     if (name === "idCultivo") {
-      setData({ ...data, [name]: getCultivo(Number(value)) });
+      setData({ ...data, [name]: { idCultivo: Number(value) } });
       return;
     }
     if (name === "idDensidad") {
-      setData({ ...data, [name]: getDensidad(Number(value)) });
+      setData({ ...data, [name]: { idDensidad: Number(value) } });
       return;
     }
     if (name === "idClaseTextural") {
-      setData({ ...data, [name]: getClaseTextural(Number(value)) });
+      setData({ ...data, [name]: { idClaseTextural: Number(value) } });
       return;
     }
     if (name === "idProfundidad") {
-      setData({ ...data, [name]: getProfundidad(Number(value)) });
+      setData({ ...data, [name]: { idProfundidadMuestra: Number(value) } });
       return;
     }
-    if (
-      name === "porcentArena" ||
-      name === "porcentLimos" ||
-      name === "porcentArcilla"
-    ) {
+    if (inputs.includes(name)) {
       if (isValid) {
         setData({ ...data, [name]: Number(value) });
       } else {
@@ -131,7 +93,9 @@ const FormPut = ({
                     className="form-select"
                     name="idClaseTextural"
                     value={data.idClaseTextural.idClaseTextural}
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {claseTextural &&
@@ -151,7 +115,9 @@ const FormPut = ({
                     className="form-select"
                     name="idCultivo"
                     value={data.idCultivo.idCultivo}
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {cultivos &&
@@ -177,15 +143,25 @@ const FormPut = ({
                     value={data.porcentArena}
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
-                          e.target.value.length < 4 &&
-                          e.target.value.length > 0,
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
+                          inRange(
+                            ranges[data.idClaseTextural.idClaseTextural].arena,
+                            e.target.value
+                          ),
                         e
                       )
                     }
                     type="text"
                     className="form-control"
                   />
+                  {inputsStates.porcentArena === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[data.idClaseTextural.idClaseTextural].arena.join(
+                        " - "
+                      )}
+                    </p>
+                  ) : null}
                 </Col>
               </div>
               <div className="row mb-4">
@@ -202,15 +178,25 @@ const FormPut = ({
                     value={data.porcentLimos}
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
-                          e.target.value.length < 4 &&
-                          e.target.value.length > 0,
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
+                          inRange(
+                            ranges[data.idClaseTextural.idClaseTextural].limo,
+                            e.target.value
+                          ),
                         e
                       )
                     }
                     type="text"
                     className="form-control"
                   />
+                  {inputsStates.porcentLimos === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[data.idClaseTextural.idClaseTextural].limo.join(
+                        " - "
+                      )}
+                    </p>
+                  ) : null}
                 </Col>
               </div>
               <div className="row mb-4">
@@ -227,8 +213,92 @@ const FormPut = ({
                     value={data.porcentArcilla}
                     onChange={(e) =>
                       handleChange(
-                        e.target.value.match(/^[0-9]+$/) !== null &&
-                          e.target.value.length < 4 &&
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
+                          inRange(
+                            ranges[data.idClaseTextural.idClaseTextural]
+                              .arcilla,
+                            e.target.value
+                          ),
+                        e
+                      )
+                    }
+                    type="text"
+                    className="form-control"
+                  />
+                  {inputsStates.porcentArcilla === false ? (
+                    <p>
+                      Por favor ingrese un valor entre{" "}
+                      {ranges[
+                        data.idClaseTextural.idClaseTextural
+                      ].arcilla.join(" - ")}
+                    </p>
+                  ) : null}
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
+                  PH Suelo
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    value={data.phSuelo}
+                    invalid={inputsStates.phSuelo === false}
+                    name="phSuelo"
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
+                    type="text"
+                    className="form-control"
+                  />
+                </Col>
+              </div>
+
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
+                  Conductividad Electrica
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    value={data.conductividadElectrica}
+                    invalid={inputsStates.conductividadElectrica === false}
+                    name="conductividadElectrica"
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
+                    type="text"
+                    className="form-control"
+                  />
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
+                  Intercambio Cationico
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    value={data.intercambioCationico}
+                    invalid={inputsStates.intercambioCationico === false}
+                    name="intercambioCationico"
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
                           e.target.value.length > 0,
                         e
                       )
@@ -249,7 +319,7 @@ const FormPut = ({
                   <Input
                     name="fecha"
                     value={data.fecha}
-                    onChange={e => {
+                    onChange={(e) => {
                       handleChange(
                         e.target.value.match(
                           /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/
@@ -257,7 +327,7 @@ const FormPut = ({
                           ? true
                           : false,
                         e
-                      )
+                      );
                     }}
                     type="date"
                     className="form-control"
@@ -273,7 +343,9 @@ const FormPut = ({
                     className="form-select"
                     name="idDensidad"
                     value={data.idDensidad.idDensidad}
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {densidades &&
@@ -293,7 +365,9 @@ const FormPut = ({
                     className="form-select"
                     name="idProfundidad"
                     value={data.idProfundidad.idProfundidadMuestra}
-                    onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                    onChange={(e) => {
+                      handleChange(e.selectedIndex != 0, e);
+                    }}
                   >
                     <option value="">Seleccionar </option>
                     {profundidad &&
