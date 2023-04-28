@@ -52,22 +52,6 @@ const FormPost = ({
           <CardBody>
             <Form className="row">
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Descripción
-                </Label>
-                <Col sm={9}>
-                  <Input
-                    name="descripcion"
-                    onChange={handleChange}
-                    type="textarea"
-                    className="form-control"
-                  />
-                </Col>
-              </div>
-              <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Tipo cultivo</Label>
                 <Col sm={9}>
                   <select
@@ -84,6 +68,22 @@ const FormPost = ({
                         </option>
                       ))}
                   </select>
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label
+                  htmlFor="horizontal-password-Input"
+                  className="col-sm-3 col-form-label"
+                >
+                  Descripción
+                </Label>
+                <Col sm={9}>
+                  <Input
+                    name="descripcion"
+                    onChange={handleChange}
+                    type="textarea"
+                    className="form-control"
+                  />
                 </Col>
               </div>
               <div className="row justify-content-end">

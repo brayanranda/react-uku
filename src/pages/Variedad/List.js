@@ -120,8 +120,8 @@ const Index = ({
           <table className="table">
             <thead>
               <tr>
-                <th>Descripcion</th>
                 <th>Tipo cultivo</th>
+                <th>Descripcion</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -129,8 +129,8 @@ const Index = ({
               {!isLoading && variedades.length > 0 ? (
                 filteredVariedades().map((variedad, x) => (
                   <tr key={x}>
-                    <td>{variedad.descripcion}</td>
                     <td>{variedad.idTipoCultivo.descripcion}</td>
+                    <td>{variedad.descripcion}</td>
                     <td>
                       <FontAwesomeIcon
                         onClick={() => {
