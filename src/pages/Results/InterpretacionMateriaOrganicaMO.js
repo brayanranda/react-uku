@@ -3,23 +3,19 @@ import React from "react";
 const Index = ({analisisSuelo}) => {
   return (
     <div className="rounded-2xl bg-white shadow-sm w-1/2">
-      <div className="table-responsive fs-14">
-        <table className="table bg-white">
-          <thead>
-            <tr>
-              <th className="text-center">Interpretación de la M.O</th>
-              <th className="text-center">Materia Organica</th>
-              <th className="text-center">Clima</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="text-center">{analisisSuelo?.idMateriaOrganica?.interpretacion}</td>
-              <td className="text-center">{analisisSuelo?.materiaOrganica}</td>
-              <td className="text-center">{analisisSuelo?.idMateriaOrganica?.clima}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="px-3 py-2 bg-white flex items-center gap-8">
+        <p className="w-3/5 font-bold">Interpretación de la M.O: </p>
+        <p className="w-2/5">{analisisSuelo?.idMateriaOrganica?.interpretacion}</p>
+      </div>
+      <hr></hr>
+      <div className="px-3 py-2 bg-white flex items-center gap-8">
+        <p className="w-3/5 font-bold">Materia Organica: </p>
+        <p className="w-2/5">{analisisSuelo?.materiaOrganica}</p>
+      </div>
+      <hr></hr>
+      <div className="px-3 py-2 bg-white flex items-center gap-8">
+        <p className="w-3/5 font-bold">Clima: </p>
+        <p className="w-2/5">{analisisSuelo?.idMateriaOrganica?.clima}</p>
       </div>
     </div>
   );

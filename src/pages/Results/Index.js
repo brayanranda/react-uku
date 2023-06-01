@@ -14,72 +14,37 @@ import InterpretacionDisponibilidadNutrientes from "./InterpretacionDisponibilid
 import InterpretacionRelacionesBasesSuelo from "./InterpretacionRelacionesBasesSuelo";
 import Mapa from "../Mapa/Mapa";
 import { useParams } from "react-router-dom";
+import logo from "../../assets/images/logo.png";
+import logoUfps from "../../assets/images/logoUfps.jpg";
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import AnalisisSueloContext from "../../context/AnalisisSueloContext";
 
 const Index = () => {
-
   let { id } = useParams()
   const {getAnalisisSuelo, analisisSuelo} = useContext(AnalisisSueloContext);
 
   const generarPDF = () => {
     const tabla = document.getElementById('tabla');
-  
     html2canvas(tabla).then((canvas) => {
       const imgData = canvas.toDataURL('image/png');
-  
       const pdf = new jsPDF();
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = pdf.internal.pageSize.getHeight();
       const imgWidth = 180;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
       pdf.addImage(imgData, 'PNG', (pdfWidth - imgWidth) / 2, 15, imgWidth, imgHeight);
-  
       pdf.save('tabla.pdf');
     })
   }
 
   useEffect(() => {
-    if(id) {
+    if(id && id !== "") {
+      console.log("entre22");
       getAnalisisSuelo(id)
     }
   }, [id])
-
-  // const generarPDF = () => {
-  //   const tabla = document.getElementById('tabla');
-  //   const tablaHeight = tabla.clientHeight;
-  //   const pageHeight = 790; // Altura máxima de la página PDF (ajústalo según tus necesidades)
-  //   let posicionVertical = 0;
-  
-  //   const pdf = new jsPDF();
-  
-  //   const generarPagina = () => {
-  //     html2canvas(tabla, {
-  //       y: posicionVertical,
-  //       height: pageHeight,
-  //     }).then((canvas) => {
-  //       const imgData = canvas.toDataURL('image/png');
-  //       const imgWidth = 180; // Ancho de la imagen en el PDF (ajústalo según tus necesidades)
-  //       const imgHeight = (canvas.height * imgWidth) / canvas.width;
-  
-  //       pdf.addPage();
-  //       pdf.addImage(imgData, 'PNG', (pdf.internal.pageSize.getWidth() - imgWidth) / 2, 15, imgWidth, imgHeight);
-  
-  //       posicionVertical += pageHeight;
-  
-  //       if (posicionVertical < tablaHeight) {
-  //         generarPagina();
-  //       } else {
-  //         pdf.save('tabla.pdf');
-  //       }
-  //     });
-  //   };
-  
-  //   generarPagina();
-  // }
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
@@ -101,65 +66,61 @@ const Index = () => {
               </button>
             </div>
             <div id="tabla">
-              <div className="mb-2">
-                <p className="font-bold">Determinación de la Clase textural</p>
-                <p>Con los datos del %Arena, %Limo y %Arcilla, se determina la clase textural del suelo, con los rangos de la siguiente tabla</p>
+              <div className="bg-white p-3 mb-2 rounded-md flex items-center justify-between">
+                <img className="w-52" src={logo} />
+                <img className="w-60" src={logoUfps} />
               </div>
-              <ListClaseTextural analisisSuelo={analisisSuelo} />
+              <div className="p-3 pb-0">
+                <div className="mb-2">
+                  <p className="font-bold">Determinación de la Clase textural</p>
+                </div>
+                <ListClaseTextural analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Determinación del Grupo Textural</p>
-                <p>Con la clase textural se determina el grupo textural del suelo, de acuerdo a la siguiente tabla</p>
-              </div>
-              <ListGrupoTextural analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Determinación del Grupo Textural</p>
+                </div>
+                <ListGrupoTextural analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Densidad Aparente del Suelo:</p>
-                <p>Esta variable se le pide al usuario. Pero si no es ingresado el valor de la densidad aparente, entonces el sistema lo asigna a partir de la siguiente tabla:</p>
-              </div>
-              <ListDensidadSuelo analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Densidad Aparente del Suelo:</p>
+                </div>
+                <ListDensidadSuelo analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Interpretación del pH del suelo:</p>
-                <p>Esta variable se pide al usuario y se interpreta de acuerdo a la siguiente tabla:</p>
-              </div>
-              <InterpretaciónpHSuelo analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Interpretación del pH del suelo:</p>
+                </div>
+                <InterpretaciónpHSuelo analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Interpretación del aluminio intercambiable:</p>
-                <p>Este dato se le solicita al usuario y es opcional. Si es cargado el dato se interpreta a partir de la siguiente tabla:</p>
-              </div>
-              <InterpretacionAluminioIntercambiable analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Interpretación del aluminio intercambiable:</p>
+                </div>
+                <InterpretacionAluminioIntercambiable analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Interpretación de la Conductividad Eléctrica (C.E.):</p>
-                <p>Este dato se le solicita al usuario y es opcional. Si es cargado el dato se interpreta a partir de la siguiente tabla: </p>
-              </div>
-              <InterpretacionConductividadElectricaCE analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Interpretación de la Conductividad Eléctrica (C.E.):</p>
+                </div>
+                <InterpretacionConductividadElectricaCE analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Interpretación de la Materia orgánica (M.O.):</p>
-                <p>Este dato se le solicita al usuario y se interpreta de acuerdo a la siguiente tabla:</p>
-              </div>
-              <InterpretacionMateriaOrganicaMO analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Interpretación de la Materia orgánica (M.O.):</p>
+                </div>
+                <InterpretacionMateriaOrganicaMO analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Interpretación de la Capacidad de Intercambio Catiónico (CIC):</p>
-                <p>Este dato se le solicita al usuario y es opcional. Si es cargado se interpreta de acuerdo a la siguiente tabla:</p>
-              </div>
-              <InterpretacionCapacidadIntercambioCationicoCIC analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Interpretación de la Capacidad de Intercambio Catiónico (CIC):</p>
+                </div>
+                <InterpretacionCapacidadIntercambioCationicoCIC analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Interpretación de la Disponibilidad de nutrientes:</p>
-                <p>Estos datos se le solicitan al usuario y son opcionales. Si son cargados se interpretan de acuerdo a la siguiente tabla:</p>
-              </div>
-              <InterpretacionDisponibilidadNutrientes analisisSuelo={analisisSuelo} />
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Interpretación de la Disponibilidad de nutrientes:</p>
+                </div>
+                <InterpretacionDisponibilidadNutrientes analisisSuelo={analisisSuelo} />
 
-              <div className="mt-14 mb-2">
-                <p className="font-bold">Interpretación de las Relaciones de Bases del Suelo:</p>
-                <p>Se realiza a partir de los datos del análisis de suelo, referidos al Ca, Mg, K y Na.</p>
+                <div className="mt-8 mb-2">
+                  <p className="font-bold">Interpretación de las Relaciones de Bases del Suelo:</p>
+                </div>
+                <InterpretacionRelacionesBasesSuelo analisisSuelo={analisisSuelo} />
               </div>
-              <InterpretacionRelacionesBasesSuelo analisisSuelo={analisisSuelo} />
             </div>
           </Col>
         </Row>

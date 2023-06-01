@@ -7,6 +7,7 @@ import CultivoContext from "../../context/CultivoContext";
 import DensidadContext from "../../context/DensidadContext";
 import FormPost from "./FormPost";
 import ListVariedades from "./List";
+
 const Index = () => {
   const {
     getAnalisisSuelos,
@@ -19,6 +20,7 @@ const Index = () => {
     putData,
     isLoading,
   } = useContext(AnalisisSueloContext);
+
   const { getCultivos, cultivos } = useContext(CultivoContext);
   const { getDensidades, densidades } = useContext(DensidadContext);
   const [isFormPost, setIsFormPost] = useState(false);

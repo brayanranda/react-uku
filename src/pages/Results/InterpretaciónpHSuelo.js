@@ -4,21 +4,14 @@ const Index = ({analisisSuelo}) => {
 
   return (
     <div className="rounded-2xl bg-white shadow-sm w-1/2">
-      <div className="table-responsive fs-14">
-        <table className="table bg-white">
-          <thead>
-            <tr>
-              <th>Interpretación</th>
-              <th className="text-center">Rango del pH</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{analisisSuelo?.idPhSuelo?.interpretacion}</td>
-              <td className="text-center">{analisisSuelo?.phSuelo}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="px-3 py-2 bg-white flex items-center gap-8">
+        <p className="w-3/5 font-bold">Interpretación: </p>
+        <p className="w-2/5">{analisisSuelo?.idPhSuelo?.interpretacion}</p>
+      </div>
+      <hr></hr>
+      <div className="px-3 py-2 bg-white flex items-center gap-8">
+        <p className="w-3/5 font-bold">Rango del pH: </p>
+        <p className="w-2/5">{analisisSuelo?.phSuelo}</p>
       </div>
     </div>
   );
