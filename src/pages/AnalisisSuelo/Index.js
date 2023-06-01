@@ -1,13 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Col, Row } from "reactstrap";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnalisisSueloContext from "../../context/AnalisisSueloContext";
 import CultivoContext from "../../context/CultivoContext";
 import DensidadContext from "../../context/DensidadContext";
 import FormPost from "./FormPost";
 import ListVariedades from "./List";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
 const Index = () => {
   const {
     getAnalisisSuelos,
@@ -29,7 +28,6 @@ const Index = () => {
   const [inputsStates, setInputsStates] = useState({});
   const [elementoData, setElementoData] = useState({
     fecha: "",
-    idClaseTextural: { idClaseTextural: "" },
     idCultivo: { idCultivo: "" },
     idProfundidad: { idProfundidadMuestra: "" },
     idDensidad: { idDensidad: "" },
@@ -39,6 +37,52 @@ const Index = () => {
     phSuelo: "",
     conductividadElectrica: "",
     intercambioCationico: "",
+    aluminioIntercambiable: "",
+    materiaOrganica: "",
+    analisisElementoCollection: [
+      {
+        valor: 0.1,
+        idElemento: {
+          id: 2,
+          nombre: "FÓSFORO (P)",
+        },
+      },
+      {
+        valor: 0.1,
+        idElemento: {
+          id: 3,
+          nombre: "POTASIO (K)",
+        },
+      },
+      {
+        valor: 0.1,
+        idElemento: {
+          id: 5,
+          nombre: "MAGNESIO (Mg)",
+        },
+      },
+      {
+        valor: 0.1,
+        idElemento: {
+          id: 4,
+          nombre: "CALCIO (Ca)",
+        },
+      },
+      {
+        valor: 100000,
+        idElemento: {
+          id: 6,
+          nombre: "AZUFRE (S)",
+        },
+      },
+      {
+        valor: 100000,
+        idElemento: {
+          id: 8,
+          nombre: "SODIO (Na)",
+        },
+      },
+    ],
   });
 
   useEffect(() => {
@@ -84,7 +128,6 @@ const Index = () => {
             onSubmit={handleSave}
             cultivos={cultivos}
             densidades={densidades}
-            claseTextural={claseTextural}
             profundidad={profundidad}
             inputsStates={inputsStates}
             setInputsStates={setInputsStates}

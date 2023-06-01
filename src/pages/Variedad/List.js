@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleExclamation,
+  faChevronRight,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 // import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
@@ -81,7 +85,6 @@ const Index = ({
     setIsFormPreview(!isFormPreview);
   };
 
-  
   return (
     <>
       <Toaster />
