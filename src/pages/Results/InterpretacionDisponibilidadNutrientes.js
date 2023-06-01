@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import React from "react";
 
-const Index = () => {
-  const data = [
-    {interpretacion: "Muy Bajo", fosforo: "8", potasio: "0.2", calcio: "1.5", magnesio: "0.3", sodio: "", asufre: ""},
-    {interpretacion: "Bajo", fosforo: "14", potasio: "0.3", calcio: "3.0", magnesio: "0.7", sodio: "0,009", asufre: "7.2"},
-    {interpretacion: "Medio", fosforo: "25", potasio: "0.5", calcio: "5.7", magnesio: "1.3", sodio: "0.3", asufre: "10.4"},
-    {interpretacion: "Alto", fosforo: "47", potasio: "0.8", calcio: "6.9", magnesio: "2.0", sodio: "0.8", asufre: "16.3"},
-  ]
+const Index = ({analisisSuelo}) => {
 
   return (
-    <>
-      <Toaster />
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table bg-white">
@@ -31,22 +22,25 @@ const Index = () => {
                 </tr>
             </thead>
             <tbody>
-                {data.map((element, index) => (
-                  <tr key={index}>
-                    <td>{element.interpretacion}</td>
-                    <td className="text-center">{element.fosforo}</td>
-                    <td className="text-center">{element.potasio}</td>
-                    <td className="text-center">{element.calcio}</td>
-                    <td className="text-center">{element.magnesio}</td>
-                    <td className="text-center">{element.sodio}</td>
-                    <td className="text-center">{element.asufre}</td>
-                  </tr>
-                ))}
+              <tr>
+                {
+                  analisisSuelo.analisisElementoCollection && analisisSuelo.analisisElementoCollection.lenght !== 0 &&
+                    <td>{analisisSuelo.analisisElementoCollection[0]?.idAnalisisElementoInterpretacion?.interpretacion}</td>
+                }
+                {
+                  analisisSuelo && analisisSuelo.analisisElementoCollection && analisisSuelo.analisisElementoCollection.lenght !== 0 &&
+                    analisisSuelo.analisisElementoCollection.map((element, index) => 
+                      <td key={index} className="text-center">
+                        {element.valor} {element?.idAnalisisElementoInterpretacion?.idElemento?.unidad}
+                      </td>
+                    )
+                }
+                {/* <td className="text-center">{analisisSuelo?.analisisElementoCollection?.idAnalisisElementoInterpretacion?.interpretacion}</td> */}
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </>
   );
 };
 

@@ -47,10 +47,4 @@ routes.push({
   private: true,
 });
 
-routes.push({
-  to: "/results",
-  text: "Resultados",
-  private: true,
-});
-
 export default Menu;
