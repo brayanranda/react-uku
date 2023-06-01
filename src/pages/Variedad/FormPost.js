@@ -86,7 +86,6 @@ const FormPost = ({
                   />
                 </Col>
               </div>
-
               <div className="row justify-content-end">
                 <Col sm={9}>
                   <div className="flex items-center gap-1">
