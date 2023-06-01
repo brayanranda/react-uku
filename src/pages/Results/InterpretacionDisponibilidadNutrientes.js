@@ -35,7 +35,6 @@ const Index = ({analisisSuelo}) => {
                       </td>
                     )
                 }
-                {/* <td className="text-center">{analisisSuelo?.analisisElementoCollection?.idAnalisisElementoInterpretacion?.interpretacion}</td> */}
               </tr>
             </tbody>
           </table>

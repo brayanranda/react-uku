@@ -4,21 +4,14 @@ const Index = ({analisisSuelo}) => {
 
   return (
     <div className="rounded-2xl bg-white shadow-sm w-1/2">
-      <div className="table-responsive fs-14">
-        <table className="table bg-white">
-          <thead>
-            <tr>
-              <th className="text-center">Conductividad eléctrica (dS/m)</th>
-              <th className="text-center">Interpretación</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="text-center">{analisisSuelo?.conductividadElectrica}</td>
-              <td className="text-center">{analisisSuelo?.idConductividadElectrica?.interpretacion}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="px-3 py-2 bg-white flex items-center gap-8">
+        <p className="w-3/5 font-bold">Conductividad eléctrica (dS/m): </p>
+        <p className="w-2/5">{analisisSuelo?.conductividadElectrica}</p>
+      </div>
+      <hr></hr>
+      <div className="px-3 py-2 bg-white flex items-center gap-8">
+        <p className="w-3/5 font-bold">Interpretación: </p>
+        <p className="w-2/5">{analisisSuelo?.idConductividadElectrica?.interpretacion}</p>
       </div>
     </div>
   );

@@ -1,9 +1,12 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 const AnalisisSueloContext = createContext();
 
 const AnalisisSueloProvider = ({ children }) => {
+  const navigate = useNavigate();
+
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "analisissuelo";
@@ -14,7 +17,6 @@ const AnalisisSueloProvider = ({ children }) => {
   const [claseTextural, setClaseTextural] = useState([]);
   const [profundidad, setProfundidad] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [resPost, setResPost] = useState({});
 
   const getAnalisisSuelo = async (id) => {
     if(id !== "") {
@@ -47,11 +49,11 @@ const AnalisisSueloProvider = ({ children }) => {
       headers: { "content-type": "application/json" },
     };
     await api.post(url, options).then((res) => {
-      console.log(res);
-      setResPost(res)
       if (!res.err) {
-        console.log("Registrado");
         setIsLoading(false);
+        if(res && Object.entries(res).length !== 0 && res.idAnalisisSuelo !== "") {
+          navigate(`/results/${res.data.idAnalisisSuelo}`)
+        }
       } else {
         console.log("No Registrado");
         setIsLoading(false);
@@ -89,7 +91,6 @@ const AnalisisSueloProvider = ({ children }) => {
     profundidad,
     isLoading,
     setIsLoading,
-    resPost,
   };
 
   return (
