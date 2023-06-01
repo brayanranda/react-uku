@@ -9,15 +9,18 @@ const AnalisisSueloProvider = ({ children }) => {
   let url = REACT_APP_API_URL + "analisissuelo";
   let urlClase = REACT_APP_API_URL + "clasetextural";
   let urlProfundidad = REACT_APP_API_URL + "profundidad";
-  const [analisisSuelo, setAnalisisSuelo] = useState([]);
+  const [analisisSuelo, setAnalisisSuelo] = useState({});
   const [analisisSuelos, setAnalisisSuelos] = useState([]);
   const [claseTextural, setClaseTextural] = useState([]);
   const [profundidad, setProfundidad] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [resPost, setResPost] = useState({});
 
   const getAnalisisSuelo = async (id) => {
-    const res = await api.get(url + `${id}?`);
-    setAnalisisSuelo(res);
+    if(id !== "") {
+      const res = await api.get(url + `/${id}`);
+      setAnalisisSuelo(res);
+    }
   };
 
   const getAnalisisSuelos = async () => {
@@ -44,6 +47,8 @@ const AnalisisSueloProvider = ({ children }) => {
       headers: { "content-type": "application/json" },
     };
     await api.post(url, options).then((res) => {
+      console.log(res);
+      setResPost(res)
       if (!res.err) {
         console.log("Registrado");
         setIsLoading(false);
@@ -84,6 +89,7 @@ const AnalisisSueloProvider = ({ children }) => {
     profundidad,
     isLoading,
     setIsLoading,
+    resPost,
   };
 
   return (

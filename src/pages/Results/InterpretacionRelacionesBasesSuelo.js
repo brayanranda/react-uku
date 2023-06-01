@@ -1,36 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import React from "react";
 
-const Index = () => {
-  const interpretacion = [
-    {value: "1.3", interpretacion: "Baja, hay dificultad con la disponibilidad del Ca"},
-    {value: "4", interpretacion: "Ideal"},
-    {value: "5.8", interpretacion: "Alta, hay dificultad con la disponibilidad del Mg"},
-  ]
+const Index = ({analisisSuelo}) => {
 
   return (
     <>
-      <Toaster />
-      <div className="rounded-2xl bg-white shadow-sm w-1/2">
-        <div className="table-responsive fs-14">
-          <table className="table bg-white">
-            <thead>
-              <tr>
-                <th className="text-center">Relación Ca : Mg</th>
-                <th>Interpretación</th>
-              </tr>
-            </thead>
-            <tbody>
-                {interpretacion.map((element, index) => (
-                  <tr key={index}>
-                    <td className="text-center">{element.value}</td>
-                    <td>{element.interpretacion}</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {
+        analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
+          analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) => 
+            <div key={index}>
+              <p className="mt-5">
+                {
+                  element?.idRelacionBase?.formula == "Ca ; Mg ; K = (Ca + Mg) / K "
+                    ? `Relación entre las principales bases ${element?.idRelacionBase?.formula}`
+                    : `Relación ${element?.idRelacionBase?.formula}`
+                }
+              </p>
+              <div className="rounded-2xl bg-white shadow-sm w-1/2 mb-5">
+                <div className="table-responsive fs-14">
+                  <table className="table bg-white">
+                    <thead>
+                      <tr>
+                        <th className="text-center">
+                          {
+                            element?.idRelacionBase?.formula == "Ca ; Mg ; K = (Ca + Mg) / K "
+                              ? `Relación ${element?.idRelacionBase?.formula.split("=")[1]}`
+                              : `Relación ${element?.idRelacionBase?.formula.split("=")[1].replace("/", ":")}`
+                          }
+                        </th>
+                        <th>Interpretación</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="text-center">{element?.valor}</td>
+                        <td>{element?.idRelacionBase?.interpretacion}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )
+      }
     </>
   );
 };

@@ -91,6 +91,7 @@ const Index = () => {
     getClaseTextural();
     getProfundidad();
   }, []);
+
   const validateInput = () => {
     const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
     const validateFirstInputs = arrInputs.every((key) => key);
@@ -106,15 +107,17 @@ const Index = () => {
     setIsFormPost(!isFormPost);
     setInputsStates({});
     setUpdateOrAdd(true);
-  };
+  }
+
   const onSearchChange = ({ target }) => {
-    setCurrentPage(0);
-    setSearch(target.value);
-  };
+    setCurrentPage(0)
+    setSearch(target.value)
+  }
+
   const toggleFormPost = () => {
-    setInputsStates({});
-    setIsFormPost(!isFormPost);
-  };
+    setInputsStates({})
+    setIsFormPost(!isFormPost)
+  }
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">

@@ -1,52 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { Toaster } from "react-hot-toast";
+import React from "react";
 
-const Index = () => {
-  const clases = [
-    "Arenoso",
-    "Arenoso Franco",
-    "Franco Arenoso",
-    "Franco Arcillo Arenoso",
-    "Arcillo Arenoso",
-    "Arcilloso",
-    "Arcillo Limoso",
-    "Franco Arcilloso",
-    "Franco Arcillo Limoso",
-    "Franco",
-    "Franco Limoso",
-    "Limoso",
-  ]
+const Index = ({analisisSuelo}) => {
 
   return (
-    <>
-      <Toaster />
-      <div className="rounded-2xl bg-white shadow-sm">
-        <div className="table-responsive fs-14">
-          <table className="table bg-white">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Clase textural</th>
-                <th>% Arena</th>
-                <th>% Limo</th>
-                <th>% Arcilla</th>
-              </tr>
-            </thead>
-            <tbody>
-                {clases.map((element, index) => (
-                  <tr key={index}>
-                    <td>{index+1}</td>
-                    <td>{element}</td>
-                    <td>{Math.trunc(Math.random()*100)}%</td>
-                    <td>{Math.trunc(Math.random()*100)}%</td>
-                    <td>{Math.trunc(Math.random()*100)}%</td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </div>
+    <div className="rounded-2xl bg-white shadow-sm w-1/2">
+      <div className="table-responsive fs-14">
+        <table className="table bg-white">
+          <thead>
+            <tr>
+              <th>Clase textural</th>
+              <th>% Arena</th>
+              <th>% Limo</th>
+              <th>% Arcilla</th>
+            </tr>
+          </thead>
+          <tbody>
+                <tr>
+                  <td>{analisisSuelo?.idClaseTextural?.nombre} ({analisisSuelo?.idClaseTextural?.sigla})</td>
+                  <td>{analisisSuelo?.porcentArena}</td>
+                  <td>{analisisSuelo?.porcentLimos}</td>
+                  <td>{analisisSuelo?.porcentArcilla}</td>
+                </tr>
+          </tbody>
+        </table>
       </div>
-    </>
+    </div>
   );
 };
 

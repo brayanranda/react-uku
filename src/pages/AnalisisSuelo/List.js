@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
-  faCircleExclamation,
-  faChevronRight,
   faChevronLeft,
+  faChevronRight,
+  faCircleExclamation,
+  faSquarePollHorizontal,
 } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import Preview from "./Preview";
 import FormPost from "../Elemento/FormPost";
+import { Link } from "react-router-dom";
 
 const Index = ({
   getAnalisisSuelos,
@@ -63,14 +65,17 @@ const Index = ({
       setUpdateOrAdd(false);
     }
   }, [updateOrAdd]);
+  
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
+
   const validateInput = () => {
     const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
     const validateFirstInputs = arrInputs.every((key) => key);
     return validateFirstInputs;
   };
+
   const handlePut = async () => {
     const validate = validateInput();
     if (validate === false) {
@@ -81,6 +86,7 @@ const Index = ({
     setInputsStates({});
     setUpdateOrAdd(true);
   };
+
   const filter = () => {
     const result = analisisSuelos.filter((elemento) =>
       elemento.idClaseTextural.nombre
@@ -89,6 +95,7 @@ const Index = ({
     );
     return result;
   };
+
   const filteredElementos = () => {
     if (search.length === 0)
       return analisisSuelos.slice(currentPage, currentPage + 5);
@@ -120,7 +127,7 @@ const Index = ({
 
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
-  };
+  }
 
   return (
     <>
@@ -210,6 +217,12 @@ const Index = ({
                         className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faCircleExclamation}
                       />
+                      <Link to={`/results/${elemento.idAnalisisSuelo}`}>
+                        <FontAwesomeIcon
+                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                          icon={faSquarePollHorizontal}
+                        />
+                      </Link>
                     </td>
                   </tr>
                 ))
