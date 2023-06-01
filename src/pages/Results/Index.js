@@ -5,8 +5,70 @@ import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import ListClaseTextural from "./ListClaseTextural";
 import ListGrupoTextural from "./ListGrupoTextural";
 import ListDensidadSuelo from "./ListDensidadSuelo";
+import InterpretaciónpHSuelo from "./InterpretaciónpHSuelo";
+import InterpretacionAluminioInterCambiable from "./InterpretacionAluminioInterCambiable";
+import InterpretacionConductividadElectricaCE from "./InterpretacionConductividadElectricaCE";
+import InterpretacionMateriaOrganicaMO from "./InterpretacionMateriaOrganicaMO";
+import InterpretacionCapacidadIntercambioCationicoCIC from "./InterpretacionCapacidadIntercambioCationicoCIC";
+import InterpretacionDisponibilidadNutrientes from "./InterpretacionDisponibilidadNutrientes";
+import InterpretacionRelacionesBasesSuelo from "./InterpretacionRelacionesBasesSuelo";
+import Mapa from "../Mapa/Mapa";
+
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 const Index = () => {
+
+  const generarPDF = () => {
+    const tabla = document.getElementById('tabla');
+  
+    html2canvas(tabla).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+  
+      const pdf = new jsPDF();
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = 180;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  
+      pdf.addImage(imgData, 'PNG', (pdfWidth - imgWidth) / 2, 15, imgWidth, imgHeight);
+  
+      pdf.save('tabla.pdf');
+    })
+  }
+
+  // const generarPDF = () => {
+  //   const tabla = document.getElementById('tabla');
+  //   const tablaHeight = tabla.clientHeight;
+  //   const pageHeight = 790; // Altura máxima de la página PDF (ajústalo según tus necesidades)
+  //   let posicionVertical = 0;
+  
+  //   const pdf = new jsPDF();
+  
+  //   const generarPagina = () => {
+  //     html2canvas(tabla, {
+  //       y: posicionVertical,
+  //       height: pageHeight,
+  //     }).then((canvas) => {
+  //       const imgData = canvas.toDataURL('image/png');
+  //       const imgWidth = 180; // Ancho de la imagen en el PDF (ajústalo según tus necesidades)
+  //       const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  
+  //       pdf.addPage();
+  //       pdf.addImage(imgData, 'PNG', (pdf.internal.pageSize.getWidth() - imgWidth) / 2, 15, imgWidth, imgHeight);
+  
+  //       posicionVertical += pageHeight;
+  
+  //       if (posicionVertical < tablaHeight) {
+  //         generarPagina();
+  //       } else {
+  //         pdf.save('tabla.pdf');
+  //       }
+  //     });
+  //   };
+  
+  //   generarPagina();
+  // }
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
@@ -19,7 +81,7 @@ const Index = () => {
                 <p className="text-2xl">/</p>
                 <p className="text-2xl ml-2 text-green-700">Lista Resultados</p>
               </div>
-              <button className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
+              <button onClick={generarPDF} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
                   <FontAwesomeIcon
                     className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
                     icon={faDownload}
@@ -27,26 +89,72 @@ const Index = () => {
                 Descargar
               </button>
             </div>
-            <div className="mb-2">
-              <p className="font-bold">Determinación de la Clase textural</p>
-              <p>Con los datos del %Arena, %Limo y %Arcilla, se determina la clase textural del suelo, con los rangos de la siguiente tabla</p>
-            </div>
-            <ListClaseTextural />
+            <div id="tabla">
+              <div className="mb-2">
+                <p className="font-bold">Determinación de la Clase textural</p>
+                <p>Con los datos del %Arena, %Limo y %Arcilla, se determina la clase textural del suelo, con los rangos de la siguiente tabla</p>
+              </div>
+              <ListClaseTextural />
 
-            <div className="mt-14 mb-2">
-              <p className="font-bold">Determinación de la Clase textural</p>
-              <p>Con los datos del %Arena, %Limo y %Arcilla, se determina la clase textural del suelo, con los rangos de la siguiente tabla</p>
-            </div>
-            <ListGrupoTextural />
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Determinación del Grupo Textural</p>
+                <p>Con la clase textural se determina el grupo textural del suelo, de acuerdo a la siguiente tabla</p>
+              </div>
+              <ListGrupoTextural />
 
-            <div className="mt-14 mb-2">
-              <p className="font-bold">Determinación de la Clase textural</p>
-              <p>Con los datos del %Arena, %Limo y %Arcilla, se determina la clase textural del suelo, con los rangos de la siguiente tabla</p>
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Densidad Aparente del Suelo:</p>
+                <p>Esta variable se le pide al usuario. Pero si no es ingresado el valor de la densidad aparente, entonces el sistema lo asigna a partir de la siguiente tabla:</p>
+              </div>
+              <ListDensidadSuelo />
+
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Interpretación del pH del suelo:</p>
+                <p>Esta variable se pide al usuario y se interpreta de acuerdo a la siguiente tabla:</p>
+              </div>
+              <InterpretaciónpHSuelo />
+
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Interpretación del aluminio intercambiable:</p>
+                <p>Este dato se le solicita al usuario y es opcional. Si es cargado el dato se interpreta a partir de la siguiente tabla:</p>
+              </div>
+              <InterpretacionAluminioInterCambiable />
+
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Interpretación de la Conductividad Eléctrica (C.E.):</p>
+                <p>Este dato se le solicita al usuario y es opcional. Si es cargado el dato se interpreta a partir de la siguiente tabla: </p>
+              </div>
+              <InterpretacionConductividadElectricaCE />
+
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Interpretación de la Materia orgánica (M.O.):</p>
+                <p>Este dato se le solicita al usuario y se interpreta de acuerdo a la siguiente tabla:</p>
+              </div>
+              <InterpretacionMateriaOrganicaMO />
+
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Interpretación de la Capacidad de Intercambio Catiónico (CIC):</p>
+                <p>Este dato se le solicita al usuario y es opcional. Si es cargado se interpreta de acuerdo a la siguiente tabla:</p>
+              </div>
+              <InterpretacionCapacidadIntercambioCationicoCIC />
+
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Interpretación de la Disponibilidad de nutrientes:</p>
+                <p>Estos datos se le solicitan al usuario y son opcionales. Si son cargados se interpretan de acuerdo a la siguiente tabla:</p>
+              </div>
+              <InterpretacionDisponibilidadNutrientes />
+
+              <div className="mt-14 mb-2">
+                <p className="font-bold">Interpretación de las Relaciones de Bases del Suelo:</p>
+                <p>Se realiza a partir de los datos del análisis de suelo, referidos al Ca, Mg, K y Na.</p>
+                <p>Relación Calcio : Magnesio = Ca / Mg </p>
+              </div>
+              <InterpretacionRelacionesBasesSuelo />
             </div>
-            <ListDensidadSuelo />
           </Col>
         </Row>
       </div>
+      <Mapa />
     </div>
   );
 };

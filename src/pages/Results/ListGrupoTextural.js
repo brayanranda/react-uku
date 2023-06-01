@@ -16,7 +16,7 @@ const Index = () => {
       <Toaster />
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
-          <table className="table">
+          <table className="table bg-white">
             <thead>
               <tr>
                 <th>#</th>
