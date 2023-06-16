@@ -34,7 +34,7 @@ const FormPost = ({
       >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">
-            Registrar Variedad
+            Registrar Cultivo
           </h5>
           <button
             onClick={() => {

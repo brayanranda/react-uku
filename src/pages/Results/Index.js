@@ -3,7 +3,6 @@ import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import ListClaseTextural from "./ListClaseTextural";
-import ListGrupoTextural from "./ListGrupoTextural";
 import ListDensidadSuelo from "./ListDensidadSuelo";
 import InterpretaciónpHSuelo from "./InterpretaciónpHSuelo";
 import InterpretacionAluminioIntercambiable from "./InterpretacionAluminioIntercambiable";
@@ -70,55 +69,40 @@ const Index = () => {
                 <img className="w-52" src={logo} />
                 <img className="w-60" src={logoUfps} />
               </div>
-              <div className="p-3 pb-0">
-                <div className="mb-2">
-                  <p className="font-bold">Determinación de la Clase textural</p>
-                </div>
-                <ListClaseTextural analisisSuelo={analisisSuelo} />
+              <div className="p-3 pb-0 space-y-8">
+                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Reporte del análisis de suelo</p>
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Determinación del Grupo Textural</p>
+                <div className="w-100 flex gap-4 items-end">
+                  <div className="w-3/4">
+                    <p className="font-bold">Textura del suelo</p>
+                    <ListClaseTextural analisisSuelo={analisisSuelo} />
+                  </div>
+                  <div className="w-1/4">
+                    <ListDensidadSuelo analisisSuelo={analisisSuelo} />
+                  </div>
                 </div>
-                <ListGrupoTextural analisisSuelo={analisisSuelo} />
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Densidad Aparente del Suelo:</p>
-                </div>
-                <ListDensidadSuelo analisisSuelo={analisisSuelo} />
+                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Características químicas del suelo</p>
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Interpretación del pH del suelo:</p>
-                </div>
+                <p className="font-bold mb-2">Interpretación del pH del suelo:</p>
                 <InterpretaciónpHSuelo analisisSuelo={analisisSuelo} />
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Interpretación del aluminio intercambiable:</p>
-                </div>
+                <p className="font-bold mb-2">Interpretación del aluminio intercambiable:</p>
                 <InterpretacionAluminioIntercambiable analisisSuelo={analisisSuelo} />
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Interpretación de la Conductividad Eléctrica (C.E.):</p>
-                </div>
+                <p className="font-bold mb-2">Interpretación de la Conductividad Eléctrica (C.E.):</p>
                 <InterpretacionConductividadElectricaCE analisisSuelo={analisisSuelo} />
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Interpretación de la Materia orgánica (M.O.):</p>
-                </div>
+                <p className="font-bold mb-2">Interpretación de la Materia orgánica (M.O.):</p>
                 <InterpretacionMateriaOrganicaMO analisisSuelo={analisisSuelo} />
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Interpretación de la Capacidad de Intercambio Catiónico (CIC):</p>
-                </div>
+                <p className="font-bold mb-2">Interpretación de la Capacidad de Intercambio Catiónico (CIC):</p>
                 <InterpretacionCapacidadIntercambioCationicoCIC analisisSuelo={analisisSuelo} />
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Interpretación de la Disponibilidad de nutrientes:</p>
-                </div>
+                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Disponibilidad de nutrientes en el suelo</p>
                 <InterpretacionDisponibilidadNutrientes analisisSuelo={analisisSuelo} />
 
-                <div className="mt-8 mb-2">
-                  <p className="font-bold">Interpretación de las Relaciones de Bases del Suelo:</p>
-                </div>
+                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Interpretación de las Relaciones de Bases del Suelo</p>
                 <InterpretacionRelacionesBasesSuelo analisisSuelo={analisisSuelo} />
               </div>
             </div>

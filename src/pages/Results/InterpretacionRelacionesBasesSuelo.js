@@ -1,39 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Index = ({analisisSuelo}) => {
+
+  useEffect(() => {
+    if(analisisSuelo) console.log(analisisSuelo);
+  }, [analisisSuelo])
+  
   return (
     <>
-      {
-        analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
-          analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) => 
-            <div key={index}>
-              <p className="mt-4">
+      <div className="rounded-2xl bg-white shadow-sm">
+        <div className="table-responsive fs-14">
+          <table className="table bg-white">
+            <thead>
+              <tr>
+                <th>Tipo de relación</th>
                 {
-                  element?.idRelacionBase?.formula == "Ca ; Mg ; K = (Ca + Mg) / K "
-                    ? `Relación entre las principales bases ${element?.idRelacionBase?.formula}`
-                    : `Relación ${element?.idRelacionBase?.formula}`
+                    analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
+                      analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) =>
+                              <th key={index}>{`Relación ${element?.idRelacionBase?.formula.split("=")[1]}`}</th>
+                    )
                 }
-              </p>
-              <div className="rounded-2xl bg-white shadow-sm w-1/2 mt-2">
-                <div className="px-3 bg-white py-2 flex items-center gap-8">
-                  <p className="w-3/5 font-bold">
-                    {
-                      element?.idRelacionBase?.formula == "Ca ; Mg ; K = (Ca + Mg) / K "
-                        ? `Relación ${element?.idRelacionBase?.formula.split("=")[1]}`
-                        : `Relación ${element?.idRelacionBase?.formula.split("=")[1].replace("/", ":")}`
-                    }   
-                  </p>
-                  <p className="w-2/5">{element?.valor}</p>
-                </div>
-                <hr></hr>
-                <div className="px-3 bg-white py-2 flex items-center gap-8">
-                  <p className="w-3/5 font-bold">Interpretación: </p>
-                  <p className="w-2/5">{element?.idRelacionBase?.interpretacion}</p>
-                </div>
-              </div>
-            </div>
-          )
-      }
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>Resultado</th>
+                {
+                    analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
+                      analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) =>
+                              <td key={index}>{element?.valor}</td>
+                    )
+                }
+              </tr>
+              <tr>
+                <th>Interpretación</th>
+                {
+                    analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
+                      analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) =>
+                              <td key={index}>{element?.idRelacionBase?.interpretacion}</td>
+                    )
+                }
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </>
   );
 };
