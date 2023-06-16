@@ -37,7 +37,7 @@ routes.push({
 
 routes.push({
   to: "/variedad",
-  text: "Variedad",
+  text: "Cultivo",
   private: true,
 });
 

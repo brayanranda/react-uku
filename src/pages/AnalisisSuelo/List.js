@@ -191,14 +191,14 @@ const Index = ({
                 filteredElementos().map((elemento, x) => (
                   <tr key={x}>
                     <td>{elemento.idAnalisisSuelo}</td>
-                    <td>{elemento.idClaseTextural.nombre}</td>
-                    <td>{elemento.idCultivo.idCultivo}</td>
+                    <td>{elemento?.idClaseTextural?.nombre}</td>
+                    <td>{elemento?.idCultivo?.idCultivo}</td>
                     <td>{elemento.porcentArena}</td>
                     <td>{elemento.porcentLimos}</td>
                     <td>{elemento.porcentArcilla}</td>
                     <td>{elemento.fecha}</td>
                     <td>{elemento.idDensidad.valor}</td>
-                    <td>{elemento.idProfundidad.profundidad}</td>
+                    <td>{elemento?.idProfundidad?.profundidad}</td>
                     <td>{elemento.phSuelo}</td>
                     <td>{elemento.conductividadElectrica}</td>
                     <td>{elemento.intercambioCationico}</td>
