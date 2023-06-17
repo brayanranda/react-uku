@@ -1,14 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import ListClaseTextural from "./ListClaseTextural";
 import ListDensidadSuelo from "./ListDensidadSuelo";
 import InterpretaciónpHSuelo from "./InterpretaciónpHSuelo";
-import InterpretacionAluminioIntercambiable from "./InterpretacionAluminioIntercambiable";
-import InterpretacionConductividadElectricaCE from "./InterpretacionConductividadElectricaCE";
-import InterpretacionMateriaOrganicaMO from "./InterpretacionMateriaOrganicaMO";
-import InterpretacionCapacidadIntercambioCationicoCIC from "./InterpretacionCapacidadIntercambioCationicoCIC";
 import InterpretacionDisponibilidadNutrientes from "./InterpretacionDisponibilidadNutrientes";
 import InterpretacionRelacionesBasesSuelo from "./InterpretacionRelacionesBasesSuelo";
 import Mapa from "../Mapa/Mapa";
@@ -30,7 +26,6 @@ const Index = () => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF();
       const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
       const imgWidth = 180;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', (pdfWidth - imgWidth) / 2, 15, imgWidth, imgHeight);
@@ -40,7 +35,6 @@ const Index = () => {
 
   useEffect(() => {
     if(id && id !== "") {
-      console.log("entre22");
       getAnalisisSuelo(id)
     }
   }, [id])
@@ -65,45 +59,46 @@ const Index = () => {
               </button>
             </div>
             <div id="tabla">
-              <div className="bg-white p-3 mb-2 rounded-md flex items-center justify-between">
-                <img className="w-52" src={logo} />
-                <img className="w-60" src={logoUfps} />
+              <div className="bg-white p-3 mb-2 rounded-md space-y-5">
+                <div className="flex items-center justify-between">
+                  <img className="w-52" src={logo} />
+                  <img className="w-60" src={logoUfps} />
+                </div>
+                <div className="flex justify-between">
+                  <div>
+                    <p><b>Nombre: </b> Nombre Finca</p>
+                    <p><b>Finca/Lote: </b> Lote 001</p>
+                  </div>
+                  <div>
+                    <p><b>Fecha: </b>{new Date().toLocaleDateString()}</p>
+                    <p><b>Ubicación: </b> Colombia</p>
+                  </div>
+                </div>
               </div>
+
               <div className="p-3 pb-0 space-y-8">
                 <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Reporte del análisis de suelo</p>
-
                 <div className="w-100 flex gap-4 items-end">
                   <div className="w-3/4">
-                    <p className="font-bold">Textura del suelo</p>
+                    <p className="font-bold mb-4">Textura del suelo</p>
                     <ListClaseTextural analisisSuelo={analisisSuelo} />
                   </div>
                   <div className="w-1/4">
                     <ListDensidadSuelo analisisSuelo={analisisSuelo} />
                   </div>
                 </div>
-
-                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Características químicas del suelo</p>
-
-                <p className="font-bold mb-2">Interpretación del pH del suelo:</p>
-                <InterpretaciónpHSuelo analisisSuelo={analisisSuelo} />
-
-                <p className="font-bold mb-2">Interpretación del aluminio intercambiable:</p>
-                <InterpretacionAluminioIntercambiable analisisSuelo={analisisSuelo} />
-
-                <p className="font-bold mb-2">Interpretación de la Conductividad Eléctrica (C.E.):</p>
-                <InterpretacionConductividadElectricaCE analisisSuelo={analisisSuelo} />
-
-                <p className="font-bold mb-2">Interpretación de la Materia orgánica (M.O.):</p>
-                <InterpretacionMateriaOrganicaMO analisisSuelo={analisisSuelo} />
-
-                <p className="font-bold mb-2">Interpretación de la Capacidad de Intercambio Catiónico (CIC):</p>
-                <InterpretacionCapacidadIntercambioCationicoCIC analisisSuelo={analisisSuelo} />
-
-                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Disponibilidad de nutrientes en el suelo</p>
-                <InterpretacionDisponibilidadNutrientes analisisSuelo={analisisSuelo} />
-
-                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Interpretación de las Relaciones de Bases del Suelo</p>
-                <InterpretacionRelacionesBasesSuelo analisisSuelo={analisisSuelo} />
+                <div>
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Características químicas del suelo</p>
+                  <InterpretaciónpHSuelo analisisSuelo={analisisSuelo} />
+                </div>
+                <div>
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Disponibilidad de nutrientes en el suelo</p>
+                  <InterpretacionDisponibilidadNutrientes analisisSuelo={analisisSuelo} />
+                </div>
+                <div>
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Interpretación de las Relaciones de Bases del Suelo</p>
+                  <InterpretacionRelacionesBasesSuelo analisisSuelo={analisisSuelo} />
+                </div>
               </div>
             </div>
           </Col>
