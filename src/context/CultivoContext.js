@@ -1,5 +1,6 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
+import { getUser } from "../hooks/useGetUser";
 
 const CultivoContext = createContext();
 
@@ -12,12 +13,6 @@ const CultivoProvider = ({ children }) => {
   const [cultivos, setCultivos] = useState([]);
   const [etapasFenologicas, setEtapasFenologicas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  
-  const getUser = () => {
-    var userData = localStorage.getItem('user');
-    var parsedData = JSON.parse(userData);
-    return parsedData.nombreUsuario;
-  }
 
   const getCultivo = async (id) => {
     const res = await api.get(url + `${id}?`);
@@ -26,7 +21,7 @@ const CultivoProvider = ({ children }) => {
 
   const getCultivos = async () => {
     setIsLoading(true);
-    const res = await api.get(`${REACT_APP_API_URL}cultivo/${getUser()}/cultivos`);
+    const res = await api.get(`${url}/${getUser()}/cultivos`);
     setCultivos(res);
     setIsLoading(false);
   };

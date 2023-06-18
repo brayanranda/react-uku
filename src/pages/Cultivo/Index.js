@@ -12,20 +12,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Index = () => {
   const {
-    getCultivos,
-    cultivos,
-    getEtapasFenologicas,
-    etapasFenologicas,
     putData,
+    cultivos,
     postData,
     isLoading,
+    getCultivos,
+    etapasFenologicas,
+    getEtapasFenologicas,
   } = useContext(CultivoContext);
+
   const { getFincas, fincas } = useContext(FincaContext);
   const { getVariedades, variedades } = useContext(VariedadContext);
   const { getTopografias, topografias } = useContext(TopografiaContext);
-  const { getDistanciaSiembras, distanciaSiembras } = useContext(
-    DistanciaSiembraContext
-  );
+  const { getDistanciaSiembras, distanciaSiembras } = useContext(DistanciaSiembraContext);
+  
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -65,16 +65,16 @@ const Index = () => {
       <div className="w-100 mt-16">
         {isFormPost ? (
           <FormPost
-            isFormPost={isFormPost}
-            setIsFormPost={setIsFormPost}
+            fincas={fincas}
             data={cultivoData}
-            setData={setCultivoData}
             onSubmit={handleSave}
+            isFormPost={isFormPost}
+            variedades={variedades}
+            setData={setCultivoData}
+            topografias={topografias}
+            setIsFormPost={setIsFormPost}
             distanciaSiembras={distanciaSiembras}
             etapasFenologicas={etapasFenologicas}
-            fincas={fincas}
-            variedades={variedades}
-            topografias={topografias}
           />
         ) : null}
         <Row>
@@ -88,9 +88,9 @@ const Index = () => {
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
                   type="text"
+                  value={search}
                   className="form-control"
                   placeholder="Buscar por descripcion"
-                  value={search}
                   onChange={onSearchChange}
                 />
               </div>
@@ -103,20 +103,20 @@ const Index = () => {
               </button>
             </div>
             <ListCultivo
-              getCultivos={getCultivos}
-              cultivos={cultivos}
-              putData={putData}
-              updateOrAdd={updateOrAdd}
-              setUpdateOrAdd={setUpdateOrAdd}
-              isLoading={isLoading}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
               search={search}
-              distanciaSiembras={distanciaSiembras}
-              etapasFenologicas={etapasFenologicas}
               fincas={fincas}
+              putData={putData}
+              cultivos={cultivos}
+              isLoading={isLoading}
               variedades={variedades}
               topografias={topografias}
+              updateOrAdd={updateOrAdd}
+              getCultivos={getCultivos}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              setUpdateOrAdd={setUpdateOrAdd}
+              distanciaSiembras={distanciaSiembras}
+              etapasFenologicas={etapasFenologicas}
             />
           </Col>
         </Row>

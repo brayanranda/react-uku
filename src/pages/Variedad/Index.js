@@ -62,7 +62,7 @@ const Index = () => {
             <div className="flex items-center mb-4 justify-between w-100">
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
-                <p className="text-2xl ml-2 text-green-700">Lista Cultivos</p>
+                <p className="text-2xl ml-2 text-green-700">Lista Variedades</p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
