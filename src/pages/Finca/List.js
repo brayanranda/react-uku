@@ -1,29 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-  faCircleExclamation,
-  faChevronRight,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faCircleExclamation, faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import Preview from "./Preview";
 const Index = ({
-  getFincas,
-  fincas,
-  putData,
-  corregimientos,
-  municipios,
-  veredas,
-  agricultores,
-  updateOrAdd,
-  setUpdateOrAdd,
-  isLoading,
-  currentPage,
-  setCurrentPage,
   search,
+  fincas,
+  veredas,
+  putFinca,
+  getFincas,
+  isLoading,
+  municipios,
+  updateOrAdd,
+  currentPage,
+  agricultores,
+  corregimientos,
+  setUpdateOrAdd,
+  setCurrentPage,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [isFormPreview, setIsFormPreview] = useState(false);
@@ -42,30 +37,36 @@ const Index = ({
     setFincaData(finca);
     setIsFormPut(!isFormPut);
   };
+
   const toggleFormPreview = (finca) => {
     setFincaData(finca);
     setIsFormPreview(!isFormPreview);
   };
+
   useEffect(() => {
     if (updateOrAdd) {
       getFincas();
       setUpdateOrAdd(false);
     }
   }, [updateOrAdd]);
+
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
+
   const handlePut = async () => {
-    await putData(fincaData);
+    await putFinca(fincaData);
     setIsFormPut(!isFormPut);
     setUpdateOrAdd(true);
   };
+
   const filter = () => {
     const result = fincas.filter((finca) =>
       finca.nombre.toLowerCase().includes(search.toLowerCase())
     );
     return result;
   };
+  
   const filteredFincas = () => {
     if (search.length === 0) return fincas.slice(currentPage, currentPage + 5);
 
@@ -88,32 +89,32 @@ const Index = ({
   return (
     <>
       <Toaster />
-      {isFormPut ? (
+      {isFormPut &&
         <FormPut
+          data={fincaData}
+          veredas={veredas}
+          onSubmit={handlePut}
           isFormPut={isFormPut}
+          setData={setFincaData}
+          municipios={municipios}
           setIsFormPut={setIsFormPut}
-          data={fincaData}
-          setData={setFincaData}
-          onSubmit={handlePut}
-          corregimientos={corregimientos}
-          municipios={municipios}
-          veredas={veredas}
           agricultores={agricultores}
+          corregimientos={corregimientos}
         />
-      ) : null}
-      {isFormPreview ? (
+      }
+      {isFormPreview &&
         <Preview
-          isFormPreview={isFormPreview}
-          setIsFormPreview={setIsFormPreview}
           data={fincaData}
-          setData={setFincaData}
-          onSubmit={handlePut}
-          corregimientos={corregimientos}
-          municipios={municipios}
           veredas={veredas}
+          onSubmit={handlePut}
+          setData={setFincaData}
+          municipios={municipios}
           agricultores={agricultores}
+          isFormPreview={isFormPreview}
+          corregimientos={corregimientos}
+          setIsFormPreview={setIsFormPreview}
         />
-      ) : null}
+      }
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
@@ -139,27 +140,19 @@ const Index = ({
                     <td>{finca.areaTotal}</td>
                     <td>{finca.areaEnUso}</td>
                     <td>{finca.geolocalizacion}</td>
-                    <td>
-                      {finca.idAgricultor.nombres +
-                        " " +
-                        finca.idAgricultor.apellidos}
-                    </td>
+                    <td>{finca.idAgricultor.nombres + " " +finca.idAgricultor.apellidos}</td>
                     <td>{finca.idCorregimiento.nombre}</td>
                     <td>{finca.idMunicipio.nombre}</td>
                     <td>
                       <FontAwesomeIcon
-                        onClick={() => {
-                          toggleFormPut(finca);
-                        }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faEdit}
+                        onClick={() => { toggleFormPut(finca) }}
+                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       />
                       <FontAwesomeIcon
-                        onClick={() => {
-                          toggleFormPreview(finca);
-                        }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faCircleExclamation}
+                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                        onClick={() => { toggleFormPreview(finca) }}
                       />
                     </td>
                   </tr>
@@ -175,14 +168,14 @@ const Index = ({
       </div>
       <div className="flex mt-3">
         <div
-          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
           onClick={prevPage}
+          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </div>
         <div
-          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
           onClick={nextPage}
+          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </div>

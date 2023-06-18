@@ -105,13 +105,11 @@ const FormPost = ({
             Registrar Cultivo
           </h5>
           <button
-            onClick={() => {
-              setIsFormPost(false);
-            }}
             type="button"
             className="close"
-            data-dismiss="modal"
             aria-label="Close"
+            data-dismiss="modal"
+            onClick={() => { setIsFormPost(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -120,41 +118,29 @@ const FormPost = ({
           <CardBody>
             <Form className="row">
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Descripción
-                </Label>
+                <Label className="col-sm-3 col-form-label" >Descripción</Label>
                 <Col sm={9}>
                   <Input
                     name="descripcion"
-                    onChange={handleChange}
                     type="textarea"
+                    onChange={handleChange}
                     className="form-control"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Plantas por Hectarea
-                </Label>
+                <Label className="col-sm-3 col-form-label">Plantas por Hectarea</Label>
                 <Col sm={9}>
                   <Input
+                    type="text"
                     name="plantasPorHectarea"
                     onChange={handleChange}
-                    type="text"
                     className="form-control"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Distancia Siembra
-                </Label>
+                <Label className="col-sm-3 col-form-label">Distancia Siembra</Label>
                 <Col sm={9}>
                   <select
                     type="select"
@@ -163,11 +149,9 @@ const FormPost = ({
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {distanciaSiembras &&
+                    {distanciaSiembras && distanciaSiembras.length > 0 &&
                       distanciaSiembras.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
                       ))}
                   </select>
                 </Col>
@@ -184,11 +168,9 @@ const FormPost = ({
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {etapasFenologicas &&
+                    {etapasFenologicas && etapasFenologicas.length > 0 &&
                       etapasFenologicas.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
                       ))}
                   </select>
                 </Col>
@@ -203,11 +185,9 @@ const FormPost = ({
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {fincas &&
+                    {fincas && fincas.length > 0 &&
                       fincas.map((tipo, index) => (
-                        <option key={index} value={tipo.idFinca}>
-                          {tipo.nombre}
-                        </option>
+                        <option key={index} value={tipo.idFinca}>{tipo.nombre}</option>
                       ))}
                   </select>
                 </Col>
@@ -217,16 +197,14 @@ const FormPost = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    className="form-select"
                     name="idTopografia"
+                    className="form-select"
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {topografias &&
+                    {topografias && topografias.length > 0 &&
                       topografias.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
                       ))}
                   </select>
                 </Col>
@@ -236,17 +214,33 @@ const FormPost = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    className="form-select"
                     name="idVariedad"
+                    className="form-select"
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {variedades &&
+                    {variedades && variedades.length > 0 &&
                       variedades.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
-                      ))}
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
+                    ))}
+                  </select>
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">Rendimiento (Ton/ha)</Label>
+                <Col sm={9}>
+                  <select
+                    type="select"
+                    name="idVariedad"
+                    className="form-select"
+                    onChange={handleChange}
+                  >
+                    <option value="">Seleccionar </option>
+                    {
+                      [...Array(8)].map((e, x) => 
+                        <option>{x+3}</option>
+                      )
+                    }
                   </select>
                 </Col>
               </div>
@@ -255,19 +249,12 @@ const FormPost = ({
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
+                      onClick={() => { onSubmit() }}
                       className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
-                      onClick={() => {
-                        onSubmit();
-                      }}
                     >
                       Save
                     </button>
-                    <button
-                      onClick={toggleFormPost}
-                      className="bg-gray-300 rounded-md hover:bg-gray-300"
-                    >
-                      Cancel
-                    </button>
+                    <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300" >Cancel</button>
                   </div>
                 </Col>
               </div>

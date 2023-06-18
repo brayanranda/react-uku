@@ -172,9 +172,9 @@ const Index = ({
                 <th>Id</th>
                 <th>Clase Textural</th>
                 <th>Cultivo</th>
-                <th>Porcentaje de Arena</th>
-                <th>Porcentaje de Limos</th>
-                <th>Porcentaje de Arcilla</th>
+                <th>% Arena</th>
+                <th>% Limos</th>
+                <th>% Arcilla</th>
                 <th>Fecha</th>
                 <th>Densidad</th>
                 <th>Profundidad</th>

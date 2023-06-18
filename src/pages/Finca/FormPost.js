@@ -2,24 +2,25 @@ import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
 const FormPost = ({
-  onSubmit,
   data,
   setData,
-  setIsFormPost,
-  isFormPost,
-  corregimientos,
-  municipios,
   veredas,
+  onSubmit,
+  isFormPost,
+  municipios,
   agricultores,
+  setIsFormPost,
+  corregimientos,
 }) => {
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
     removeBodyCss();
-  };
+  }
 
   function removeBodyCss() {
     document.body.classList.add("no_padding");
   }
+
   const getAgricultor = (value) => {
     let el = {};
     agricultores.forEach((element) => {
@@ -28,7 +29,8 @@ const FormPost = ({
       }
     });
     return el;
-  };
+  }
+
   const getCorregimiento = (value) => {
     let el = {};
     corregimientos.forEach((element) => {
@@ -37,7 +39,8 @@ const FormPost = ({
       }
     });
     return el;
-  };
+  }
+
   const getMunicipio = (value) => {
     let el = {};
     municipios.forEach((element) => {
@@ -46,7 +49,8 @@ const FormPost = ({
       }
     });
     return el;
-  };
+  }
+
   const getVereda = (value) => {
     let el = {};
     veredas.forEach((element) => {
@@ -55,13 +59,10 @@ const FormPost = ({
       }
     });
     return el;
-  };
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "idAgricultor") {
-      setData({ ...data, [name]: getAgricultor(Number(value)) });
-      return;
-    }
     if (name === "idCorregimiento") {
       setData({ ...data, [name]: getCorregimiento(Number(value)) });
       return;
@@ -75,28 +76,17 @@ const FormPost = ({
       return;
     }
     setData({ ...data, [name]: value });
-  };
+  }
 
   return (
     <React.Fragment>
-      <Modal
-        size="lg"
-        isOpen={isFormPost}
-        toggle={() => {
-          toggleFormPost();
-        }}
-      >
+      <Modal size="lg" isOpen={isFormPost} toggle={() => { toggleFormPost() }} >
         <div className="modal-header">
-          <h5
-            className="modal-title mt-0 text-xl font-medium"
-            id="myLargeModalLabel"
-          >
-            Registrar Finca
-          </h5>
+          <h5 className="modal-title mt-0 text-xl font-medium">Registrar Finca</h5>
           <button
             type="button"
-            data-dismiss="modal"
             aria-label="Close"
+            data-dismiss="modal"
             className="close text-xl p-0"
             onClick={() => { setIsFormPost(false) }}
           >
@@ -110,10 +100,10 @@ const FormPost = ({
                 <Label className="col-sm-3 col-form-label">Nombre</Label>
                 <Col sm={9}>
                   <Input
+                    type="text"
                     name="nombre"
                     value={data.nombre}
                     onChange={handleChange}
-                    type="text"
                     className="form-control"
                   />
                 </Col>
@@ -123,10 +113,10 @@ const FormPost = ({
                 <Col sm={9}>
                   <Input
                     type="text"
-                    className="form-control col-lg-9"
                     name="areaTotal"
                     value={data.areaTotal}
                     onChange={handleChange}
+                    className="form-control col-lg-9"
                   />
                 </Col>
               </div>
@@ -135,67 +125,39 @@ const FormPost = ({
                 <Col sm={9}>
                   <Input
                     type="text"
-                    className="form-control col-lg-9"
                     name="areaEnUso"
                     value={data.areaEnUso}
                     onChange={handleChange}
+                    className="form-control col-lg-9"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Geolocalización
-                </Label>
+                <Label className="col-sm-3 col-form-label">Geolocalización</Label>
                 <Col sm={9}>
                   <Input
                     type="text"
-                    className="form-control"
                     name="geolocalizacion"
+                    className="form-control"
                     value={data.geolocalizacion}
                     onChange={handleChange}
                   />
                 </Col>
               </div>
-              {/* <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Agricultor</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    value={data.idAgricultor.identificacion}
-                    name="idAgricultor"
-                    className="form-select"
-                    onChange={handleChange}
-                  >
-                    <option value="">Seleccionar ...</option>
-                    {agricultores &&
-                      agricultores.map((agricultor, index) => (
-                        <option key={index} value={agricultor.identificacion}>
-                          {agricultor.nombres + agricultor.apellidos}
-                        </option>
-                      ))}
-                  </select>
-                </Col>
-              </div> */}
-
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Corregimiento</Label>
                 <Col sm={9}>
                   <select
                     type="select"
-                    value={data.idCorregimiento.idCorregimiento}
                     name="idCorregimiento"
                     className="form-select"
                     onChange={handleChange}
+                    value={data?.idCorregimiento?.idCorregimiento}
                   >
                     <option value="">Seleccionar ...</option>
-                    {corregimientos &&
+                    {corregimientos && corregimientos.length > 0 &&
                       corregimientos.map((corregimiento, index) => (
-                        <option
-                          key={index}
-                          value={corregimiento.idCorregimiento}
-                        >
-                          {corregimiento.nombre}
-                        </option>
+                        <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
                       ))}
                   </select>
                 </Col>
@@ -205,17 +167,15 @@ const FormPost = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    value={data.idMunicipio.idMunicipio}
                     name="idMunicipio"
                     className="form-select"
                     onChange={handleChange}
+                    value={data?.idMunicipio?.idMunicipio}
                   >
                     <option value="">Seleccionar ...</option>
-                    {municipios &&
+                    {municipios && municipios.length > 0 &&
                       municipios.map((municipio, index) => (
-                        <option key={index} value={municipio.idMunicipio}>
-                          {municipio.nombre}
-                        </option>
+                        <option key={index} value={municipio.idMunicipio}>{municipio.nombre}</option>
                       ))}
                   </select>
                 </Col>
@@ -225,18 +185,33 @@ const FormPost = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    value={data.idVereda.idVereda}
                     name="idVereda"
                     className="form-select"
                     onChange={handleChange}
+                    value={data?.idVereda?.idVereda}
                   >
                     <option value="">Seleccionar ...</option>
-                    {veredas &&
+                    {veredas && veredas.length > 0 &&
                       veredas.map((vereda, index) => (
-                        <option key={index} value={vereda.idVereda}>
-                          {vereda.nombre}
-                        </option>
+                        <option key={index} value={vereda.idVereda}>{vereda.nombre}</option>
                       ))}
+                  </select>
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">Precipitación anual</Label>
+                <Col sm={9}>
+                  <select
+                    type="select"
+                    name="idVereda"
+                    className="form-select"
+                    onChange={handleChange}
+                    // value={data?.idVereda?.idVereda}
+                  >
+                    <option value="">Seleccionar ...</option>
+                    <option>Lluvioso</option>
+                    <option>Medio</option>
+                    <option>Seco</option>
                   </select>
                 </Col>
               </div>
@@ -245,19 +220,12 @@ const FormPost = ({
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
+                      onClick={() => { onSubmit() }}
                       className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
-                      onClick={() => {
-                        onSubmit();
-                      }}
                     >
                       Save
                     </button>
-                    <button
-                      onClick={toggleFormPost}
-                      className="bg-gray-300 rounded-md hover:bg-gray-300"
-                    >
-                      Cancel
-                    </button>
+                    <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300">Cancel</button>
                   </div>
                 </Col>
               </div>

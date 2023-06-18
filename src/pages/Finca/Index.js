@@ -7,20 +7,22 @@ import AgricultorContext from "../../context/AgricultorContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import Mapa from "../Mapa/Mapa"
 const Index = () => {
   const {
-    getFincas,
     fincas,
-    getCorregimientos,
-    corregimientos,
-    getMunicipios,
+    veredas,
+    putFinca,
+    postFinca,
+    getFincas,
+    isLoading,
     municipios,
     getVeredas,
-    veredas,
-    putData,
-    postData,
-    isLoading,
+    getMunicipios,
+    corregimientos,
+    getCorregimientos,
   } = useContext(FincaContext);
+
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
@@ -31,62 +33,67 @@ const Index = () => {
     areaTotal: "",
     areaEnUso: "",
     geolocalizacion: "",
-    idAgricultor: { identificacion: "" },
     idCorregimiento: { idCorregimiento: "" },
     idMunicipio: { idMunicipio: "" },
     idVereda: { idVereda: "" },
-  });
+  })
+
   const clearForm = () => {
     setFincaData({
       nombre: "",
       areaTotal: "",
       areaEnUso: "",
       geolocalizacion: "",
-      idAgricultor: { identificacion: "" },
       idCorregimiento: { idCorregimiento: "" },
       idMunicipio: { idMunicipio: "" },
       idVereda: { idVereda: "" },
     });
-  };
+  }
 
   useEffect(() => {
     getAgricultores();
     getCorregimientos();
     getMunicipios();
     getVeredas();
-  }, []);
+  }, [])
 
   const handleSave = async () => {
-    await postData(fincaData);
+    await postFinca(fincaData);
     clearForm();
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
-  };
+  }
 
   const onSearchChange = ({ target }) => {
     setCurrentPage(0);
     setSearch(target.value);
-  };
+  }
+
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
+  }
+
+  const handleLocationSave = (location) => {
+    // Aquí puedes enviar la ubicación al servidor para guardarla
+    console.log('Ubicación guardada:', location);
   };
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
-        {isFormPost ? (
+        {isFormPost &&
           <FormPost
-            isFormPost={isFormPost}
-            setIsFormPost={setIsFormPost}
             data={fincaData}
-            setData={setFincaData}
-            onSubmit={handleSave}
-            corregimientos={corregimientos}
-            municipios={municipios}
             veredas={veredas}
+            onSubmit={handleSave}
+            setData={setFincaData}
+            isFormPost={isFormPost}
+            municipios={municipios}
             agricultores={agricultores}
+            setIsFormPost={setIsFormPost}
+            corregimientos={corregimientos}
           />
-        ) : null}
+        }
         <Row>
           <Col className="col-uku">
             <div className="flex items-center mb-4 justify-between w-100 mt-3">
@@ -98,10 +105,10 @@ const Index = () => {
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
                   type="text"
-                  className="form-control"
-                  placeholder="Buscar por nombre"
                   value={search}
+                  className="form-control"
                   onChange={onSearchChange}
+                  placeholder="Buscar por nombre"
                 />
               </div>
               <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
@@ -113,22 +120,26 @@ const Index = () => {
               </button>
             </div>
             <ListVariedad
-              getFincas={getFincas}
               fincas={fincas}
-              putData={putData}
-              corregimientos={corregimientos}
-              municipios={municipios}
-              veredas={veredas}
-              agricultores={agricultores}
-              updateOrAdd={updateOrAdd}
-              setUpdateOrAdd={setUpdateOrAdd}
-              isLoading={isLoading}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
               search={search}
+              putFinca={putFinca}
+              veredas={veredas}
+              getFincas={getFincas}
+              isLoading={isLoading}
+              municipios={municipios}
+              currentPage={currentPage}
+              updateOrAdd={updateOrAdd}
+              agricultores={agricultores}
+              setUpdateOrAdd={setUpdateOrAdd}
+              setCurrentPage={setCurrentPage}
+              corregimientos={corregimientos}
             />
           </Col>
         </Row>
+        <div>
+          <h1>Seleccionar ubicación</h1>
+          <Mapa onSave={handleLocationSave} />
+        </div>
       </div>
     </div>
   );

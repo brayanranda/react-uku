@@ -12,20 +12,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Index = () => {
   const {
-    getCultivos,
-    cultivos,
-    getEtapasFenologicas,
-    etapasFenologicas,
     putData,
+    cultivos,
     postData,
     isLoading,
+    getCultivos,
+    etapasFenologicas,
+    getEtapasFenologicas,
   } = useContext(CultivoContext);
+
   const { getFincas, fincas } = useContext(FincaContext);
   const { getVariedades, variedades } = useContext(VariedadContext);
   const { getTopografias, topografias } = useContext(TopografiaContext);
-  const { getDistanciaSiembras, distanciaSiembras } = useContext(
-    DistanciaSiembraContext
-  );
+  const { getDistanciaSiembras, distanciaSiembras } = useContext(DistanciaSiembraContext);
+  
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -38,45 +38,49 @@ const Index = () => {
     idFinca: {},
     idTopografia: {},
     idVariedad: {},
-  });
+    // rendimiento: 0,
+  })
+
   useEffect(() => {
     getDistanciaSiembras();
     getEtapasFenologicas();
     getFincas();
     getTopografias();
     getVariedades();
-  }, []);
+  }, [])
 
   const handleSave = async () => {
     await postData(cultivoData);
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
-  };
+  }
+
   const onSearchChange = ({ target }) => {
     setCurrentPage(0);
     setSearch(target.value);
-  };
+  }
+
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
-  };
+  }
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
-        {isFormPost ? (
+        {isFormPost &&
           <FormPost
-            isFormPost={isFormPost}
-            setIsFormPost={setIsFormPost}
+            fincas={fincas}
             data={cultivoData}
-            setData={setCultivoData}
             onSubmit={handleSave}
+            isFormPost={isFormPost}
+            variedades={variedades}
+            setData={setCultivoData}
+            topografias={topografias}
+            setIsFormPost={setIsFormPost}
             distanciaSiembras={distanciaSiembras}
             etapasFenologicas={etapasFenologicas}
-            fincas={fincas}
-            variedades={variedades}
-            topografias={topografias}
           />
-        ) : null}
+        }
         <Row>
           <Col className="col-uku">
             <div className="flex items-center mb-4 justify-between w-100">
@@ -88,10 +92,10 @@ const Index = () => {
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
                   type="text"
-                  className="form-control"
-                  placeholder="Buscar por descripcion"
                   value={search}
+                  className="form-control"
                   onChange={onSearchChange}
+                  placeholder="Buscar por descripcion"
                 />
               </div>
               <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
@@ -103,20 +107,20 @@ const Index = () => {
               </button>
             </div>
             <ListCultivo
-              getCultivos={getCultivos}
-              cultivos={cultivos}
-              putData={putData}
-              updateOrAdd={updateOrAdd}
-              setUpdateOrAdd={setUpdateOrAdd}
-              isLoading={isLoading}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
               search={search}
-              distanciaSiembras={distanciaSiembras}
-              etapasFenologicas={etapasFenologicas}
               fincas={fincas}
+              putData={putData}
+              cultivos={cultivos}
+              isLoading={isLoading}
               variedades={variedades}
               topografias={topografias}
+              updateOrAdd={updateOrAdd}
+              getCultivos={getCultivos}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              setUpdateOrAdd={setUpdateOrAdd}
+              distanciaSiembras={distanciaSiembras}
+              etapasFenologicas={etapasFenologicas}
             />
           </Col>
         </Row>

@@ -1,5 +1,6 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
+import { getUser } from "../hooks/useGetUser";
 
 const FincaContext = createContext();
 
@@ -21,34 +22,38 @@ const FincaProvider = ({ children }) => {
     const res = await api.get(url + `${id}?`);
     setFinca(res);
   };
-
+  
   const getFincas = async () => {
     setIsLoading(true);
-    const res = await api.get(url);
+    const res = await api.get(`${url}/${getUser()}`);
     setFincas(res);
     setIsLoading(false);
-  };
+  }
+
   const getCorregimientos = async () => {
     const res = await api.get(urlCorregimiento);
     setCorregimientos(res);
-  };
+  }
+
   const getMunicipios = async () => {
     const res = await api.get(urlMunicipio);
     setMunicipios(res);
-  };
+  }
+
   const getVeredas = async () => {
     const res = await api.get(urlVereda);
     setVeredas(res);
-  };
+  }
 
-  const postData = async (data) => {
+
+  const postFinca = async (data) => {
     setIsLoading(true);
     let newData = data;
     let options = {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.post(url, options).then((res) => {
+    await api.post(`${url}/${getUser()}`, options).then((res) => {
       if (!res.err) {
         console.log("Registrado");
         setIsLoading(false);
@@ -59,7 +64,7 @@ const FincaProvider = ({ children }) => {
     });
   };
 
-  const putData = async (data) => {
+  const putFinca = async (data) => {
     let newData = data;
     let options = {
       body: newData,
@@ -75,8 +80,8 @@ const FincaProvider = ({ children }) => {
   };
 
   const data = {
-    postData,
-    putData,
+    postFinca,
+    putFinca,
     getCorregimientos,
     getMunicipios,
     getVeredas,

@@ -57,15 +57,22 @@ const Index = ({
                       <tr key={x} className="card-text placeholder-glow">
                         <td>{lote.id}</td>
                         <td>{lote.descripcion}</td>
-                        <td className="text-end flex items-center justify-end">
+                        <td className="text-end flex items-center justify-end gap-2">
                           <FontAwesomeIcon
-                              className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                              className="cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
                               icon={faEdit}
                           />
-                          <Link to={`/analisis-suelo/${lote.id}`}
-                              className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                          <Link to={`/suelo/${lote.id}`}
+                              className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-amber-400 hover:bg-amber-200 hover:text-amber-900 p-1.5"
                           >
                               <FontAwesomeIcon icon={faEye} />
+                              Suelos
+                          </Link>
+                          <Link to={`/analisis-suelo/${lote.id}`}
+                              className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-blue-200 hover:text-blue-900 p-1.5"
+                          >
+                              <FontAwesomeIcon icon={faEye} />
+                              Análisis de suelo
                           </Link>
                         </td>
                       </tr>

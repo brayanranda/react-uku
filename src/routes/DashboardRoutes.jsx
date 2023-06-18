@@ -97,6 +97,23 @@ export const DashboardRoutes = () => {
             }
           />
 
+          <Route 
+            path="cultivo/:idFinca"
+            element={
+              <FincaProvider>
+                <VariedadProvider>
+                  <TopografiaProvider>
+                    <DistanciaSiembraProvider>
+                      <CultivoProvider>
+                        <Cultivo />
+                      </CultivoProvider>
+                    </DistanciaSiembraProvider>
+                  </TopografiaProvider>
+                </VariedadProvider>
+              </FincaProvider>
+            }
+          />
+
           <Route path="/" element={<Navigate to="/finca" />} />
           <Route path="*" element={<Navigate to="/not-found" />} />
         </Routes>
