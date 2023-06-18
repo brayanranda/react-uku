@@ -15,15 +15,19 @@ const Index = ({analisisSuelo}) => {
                     <th className="text-center">Magnesio (Mg)</th>
                     <th className="text-center">Sodio (Na)</th>
                     <th className="text-center">Asufre (S)</th>
+                    <th className="text-center">Boro (B)</th>
+                    <th className="text-center">Cobre (Cu)</th>
                 </tr>
                 <tr>
                     <th>Unidad</th>
-                    <th className="text-center">mg/kg</th>
+                    <th className="text-center">ppm</th>
                     <th className="text-center">cmol / kg</th>
                     <th className="text-center">cmol / kg</th>
                     <th className="text-center">cmol / kg</th>
                     <th className="text-center">cmol / kg</th>
-                    <th className="text-center">mg / kg</th>
+                    <th className="text-center">ppm</th>
+                    <th className="text-center">ppm</th>
+                    <th className="text-center">ppm</th>
                 </tr>
             </thead>
             <tbody>

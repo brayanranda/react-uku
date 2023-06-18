@@ -6,19 +6,19 @@ import AnalisisSueloContext from "../../context/AnalisisSueloContext";
 import CultivoContext from "../../context/CultivoContext";
 import DensidadContext from "../../context/DensidadContext";
 import FormPost from "./FormPost";
-import ListVariedades from "./List";
+import ListAnalisisSuelo from "./List";
 
 const Index = () => {
   const {
-    getAnalisisSuelos,
+    putData,
+    postData,
+    isLoading,
+    profundidad,
+    claseTextural,
+    getProfundidad,
     analisisSuelos,
     getClaseTextural,
-    getProfundidad,
-    claseTextural,
-    profundidad,
-    postData,
-    putData,
-    isLoading,
+    getAnalisisSuelos,
   } = useContext(AnalisisSueloContext);
 
   const { getCultivos, cultivos } = useContext(CultivoContext);
@@ -124,29 +124,27 @@ const Index = () => {
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
-        {isFormPost ? (
+        {isFormPost &&
           <FormPost
-            isFormPost={isFormPost}
-            setIsFormPost={setIsFormPost}
             data={elementoData}
-            setData={setElementoData}
-            onSubmit={handleSave}
             cultivos={cultivos}
+            onSubmit={handleSave}
+            isFormPost={isFormPost}
             densidades={densidades}
+            setData={setElementoData}
             profundidad={profundidad}
             inputsStates={inputsStates}
+            setIsFormPost={setIsFormPost}
             setInputsStates={setInputsStates}
           />
-        ) : null}
+        }
         <Row>
           <Col className="col-uku">
             <div className="flex items-center mb-4 justify-between w-100">
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">
-                  Lista Análisis Suelo
-                </p>
+                <p className="text-2xl ml-2 text-green-700">Lista Análisis Suelo</p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
@@ -168,20 +166,20 @@ const Index = () => {
                 Agregar Análisis Suelo
               </button>
             </div>
-            <ListVariedades
-              getAnalisisSuelos={getAnalisisSuelos}
-              analisisSuelos={analisisSuelos}
-              putData={putData}
-              updateOrAdd={updateOrAdd}
-              setUpdateOrAdd={setUpdateOrAdd}
-              isLoading={isLoading}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
+            <ListAnalisisSuelo
               search={search}
+              putData={putData}
               cultivos={cultivos}
+              isLoading={isLoading}
               densidades={densidades}
-              claseTextural={claseTextural}
+              updateOrAdd={updateOrAdd}
+              currentPage={currentPage}
               profundidad={profundidad}
+              claseTextural={claseTextural}
+              analisisSuelos={analisisSuelos}
+              setUpdateOrAdd={setUpdateOrAdd}
+              setCurrentPage={setCurrentPage}
+              getAnalisisSuelos={getAnalisisSuelos}
             />
           </Col>
         </Row>

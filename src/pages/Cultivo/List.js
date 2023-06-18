@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEye,
-  faEdit,
-  faChevronRight,
-  faChevronLeft,
-} from "@fortawesome/free-solid-svg-icons";
+import {faEdit,faChevronRight,faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 
 const Index = ({
-  getCultivos,
-  cultivos,
-  putData,
-  updateOrAdd,
-  setUpdateOrAdd,
-  isLoading,
-  currentPage,
-  setCurrentPage,
+  fincas,
   search,
+  putData,
+  cultivos,
+  isLoading,
+  variedades,
+  currentPage,
+  topografias,
+  getCultivos,
+  setUpdateOrAdd,
+  setCurrentPage,
   distanciaSiembras,
   etapasFenologicas,
-  fincas,
-  variedades,
-  topografias,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [cultivoData, setCultivoData] = useState({
@@ -43,11 +37,9 @@ const Index = ({
   };
 
   useEffect(() => {
-    if (updateOrAdd) {
       getCultivos();
-      setUpdateOrAdd(false);
-    }
-  }, [updateOrAdd]);
+  }, []);
+
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
@@ -66,7 +58,6 @@ const Index = ({
     if (search.length === 0)
       return cultivos.slice(currentPage, currentPage + 5);
 
-    // Si hay algo en la caja de texto
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
   };
@@ -85,20 +76,20 @@ const Index = ({
   return (
     <>
       <Toaster />
-      {isFormPut ? (
+      {isFormPut &&
         <FormPut
-          isFormPut={isFormPut}
-          setIsFormPut={setIsFormPut}
+          fincas={fincas}
           data={cultivoData}
-          setData={setCultivoData}
           onSubmit={handlePut}
+          isFormPut={isFormPut}
+          variedades={variedades}
+          setData={setCultivoData}
+          topografias={topografias}
+          setIsFormPut={setIsFormPut}
           distanciaSiembras={distanciaSiembras}
           etapasFenologicas={etapasFenologicas}
-          fincas={fincas}
-          variedades={variedades}
-          topografias={topografias}
         />
-      ) : null}
+      }
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
@@ -122,11 +113,11 @@ const Index = ({
                     <td>{cultivo.idCultivo}</td>
                     <td>{cultivo.descripcion}</td>
                     <td>{cultivo.plantasPorHectarea}</td>
-                    <td>{cultivo.idDistanciaSiembra.descripcion}</td>
-                    <td>{cultivo.idEtapaFenologica.descripcion}</td>
-                    <td>{cultivo.idFinca.nombre}</td>
-                    <td>{cultivo.idTopografia.descripcion}</td>
-                    <td>{cultivo.idVariedad.descripcion}</td>
+                    <td>{cultivo?.idDistanciaSiembra?.descripcion}</td>
+                    <td>{cultivo?.idEtapaFenologica?.descripcion}</td>
+                    <td>{cultivo?.idFinca?.nombre}</td>
+                    <td>{cultivo?.idTopografia?.descripcion}</td>
+                    <td>{cultivo?.descripcion}</td>
                     <td>
                       <FontAwesomeIcon
                         onClick={() => {

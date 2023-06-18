@@ -12,15 +12,15 @@ import FormPreview from "../ElementoVariedad/Preview";
 import FormPost from "../ElementoVariedad/FormPost";
 
 const Index = ({
-  getVariedades,
-  variedades,
-  putData,
-  updateOrAdd,
-  setUpdateOrAdd,
-  isLoading,
-  currentPage,
-  setCurrentPage,
   search,
+  putData,
+  isLoading,
+  variedades,
+  updateOrAdd,
+  currentPage,
+  getVariedades,
+  setCurrentPage,
+  setUpdateOrAdd,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [isFormPreview, setIsFormPreview] = useState(false);

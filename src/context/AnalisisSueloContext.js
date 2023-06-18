@@ -25,9 +25,9 @@ const AnalisisSueloProvider = ({ children }) => {
     }
   };
 
-  const getAnalisisSuelos = async () => {
+  const getAnalisisSuelos = async (idLote) => {
     setIsLoading(true);
-    const res = await api.get(url);
+    const res = await api.get(`${url}/${idLote}/analisisLotes`);
     setAnalisisSuelos(res);
     setIsLoading(false);
   };

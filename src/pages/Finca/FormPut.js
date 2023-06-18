@@ -159,7 +159,7 @@ const FormPut = ({
                   />
                 </Col>
               </div>
-              <div className="row mb-4">
+              {/* <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Agricultor</Label>
                 <Col sm={9}>
                   <select
@@ -178,7 +178,7 @@ const FormPut = ({
                       ))}
                   </select>
                 </Col>
-              </div>
+              </div> */}
 
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Corregimiento</Label>
