@@ -94,13 +94,11 @@ const FormPost = ({
             Registrar Finca
           </h5>
           <button
-            onClick={() => {
-              setIsFormPost(false);
-            }}
             type="button"
-            className="close text-xl p-0"
             data-dismiss="modal"
             aria-label="Close"
+            className="close text-xl p-0"
+            onClick={() => { setIsFormPost(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -158,7 +156,7 @@ const FormPost = ({
                   />
                 </Col>
               </div>
-              <div className="row mb-4">
+              {/* <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Agricultor</Label>
                 <Col sm={9}>
                   <select
@@ -177,7 +175,7 @@ const FormPost = ({
                       ))}
                   </select>
                 </Col>
-              </div>
+              </div> */}
 
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Corregimiento</Label>

@@ -20,9 +20,7 @@ const Menu = () => {
           </li>
         ))}
       </ul>
-      <p className="text-gray-400 p-0 m-0 font-bold text-center pt-5">
-        ukulima © 2022
-      </p>
+      <p className="text-gray-400 p-0 m-0 font-bold text-center pt-5">ukulima © 2023</p>
     </aside>
   );
 };
@@ -36,14 +34,8 @@ routes.push({
 });
 
 routes.push({
-  to: "/variedad",
+  to: "/cultivo",
   text: "Cultivo",
-  private: true,
-});
-
-routes.push({
-  to: "/analisis-suelo",
-  text: "Análisis Suelo",
   private: true,
 });
 

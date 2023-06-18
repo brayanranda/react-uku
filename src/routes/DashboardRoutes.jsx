@@ -19,6 +19,7 @@ import {
   TopografiaProvider,
   DistanciaSiembraProvider,
 } from "../context";
+import { LotesProvider } from "../context/LotesContext";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -47,7 +48,7 @@ export const DashboardRoutes = () => {
           />
 
           <Route
-            path="analisis-suelo"
+            path="analisis-suelo/:idLote"
             element={
               <AnalisisSueloProvider>
                 <CultivoProvider>
@@ -70,7 +71,14 @@ export const DashboardRoutes = () => {
             }
           />
 
-          <Route path="lote" element={<Lote />}/>
+          <Route 
+            path="lote/:idFinca"
+            element={
+              <LotesProvider>
+                <Lote />
+              </LotesProvider>
+            }
+          />
 
           <Route 
             path="cultivo"

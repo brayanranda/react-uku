@@ -1,26 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight, faChevronLeft, faEdit, faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faChevronLeft, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
-import Preview from "./Preview";
+import { Link } from "react-router-dom";
 
 const Index = ({
-  variedades,
+  lotes,
+  search,
   isLoading,
   currentPage,
   setCurrentPage,
-  search,
 }) => {
-    const [isFormPreview, setIsFormPreview] = useState(false);
-    const [isFormPost, setIsFormPost] = useState(false);
 
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
 
   const filter = () => {
-    const result = variedades.filter((variedad) =>
+    const result = lotes.filter((variedad) =>
       variedad.descripcion.toLowerCase().includes(search.toLowerCase())
     );
     return result;
@@ -38,53 +36,41 @@ const Index = ({
     }
   };
 
-  const toggleFormPreview = () => {
-    setIsFormPreview(!isFormPreview);
-  };
-
-  const toggleFormPost = () => {
-    setIsFormPost(!isFormPost);
-  };
-  
   return (
     <>
       <Toaster />
-      {isFormPreview ? (
-        <Preview isFormPreview={isFormPreview} setIsFormPreview={setIsFormPreview} toggleFormPost={toggleFormPost} />
-      ) : null}
+     
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
           <table className="table">
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Persona Encargada</th>
-                <th className="text-end">Metros</th>
-                <th className="text-end">Tipo de Cultivo</th>
-                <th className="text-end">Variedad</th>
+                <th>Identificador</th>
+                <th>Descripcion</th>
                 <th className="text-end">Acciones</th>
               </tr>
             </thead>
             <tbody>
-                {[...Array(10)].map((e, x) => (
-                    <tr key={x} className="card-text placeholder-glow">
-                        <td>Nombre del Lote{Math.trunc(Math.random()*9)}</td>
-                        <td>Nombre de la Persona {Math.trunc(Math.random()*10)}</td>
-                        <td className="text-end">{Math.trunc(Math.random()*10000)}</td>
-                        <td>Tipo de Cultivo {Math.trunc(Math.random()*10)}</td>
-                        <td>Variedad {Math.trunc(Math.random()*10)}</td>
-                        <td className="text-end">
-                        <FontAwesomeIcon
-                            className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                            icon={faEdit}
-                        />
-                        <FontAwesomeIcon onClick={() => {toggleFormPreview()}}
-                            className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                            icon={faCircleExclamation}
-                        />
+                {
+                  lotes && lotes.length > 0 &&
+                    lotes.map((lote, x) => 
+                      <tr key={x} className="card-text placeholder-glow">
+                        <td>{lote.id}</td>
+                        <td>{lote.descripcion}</td>
+                        <td className="text-end flex items-center justify-end">
+                          <FontAwesomeIcon
+                              className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                              icon={faEdit}
+                          />
+                          <Link to={`/analisis-suelo/${lote.id}`}
+                              className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                          >
+                              <FontAwesomeIcon icon={faEye} />
+                          </Link>
                         </td>
-                    </tr>
-                ))}
+                      </tr>
+                    )
+                }
             </tbody>
           </table>
         </div>

@@ -1,29 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Col, Row } from "reactstrap";
 import ListaLote from "./List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import FormPost from "./FormPost";
+import LotesContext from "../../context/LotesContext";
+import { useParams } from "react-router-dom";
 
 const Index = () => {
-  const [isFormPost, setIsFormPost] = useState(false);
-  const [updateOrAdd, setUpdateOrAdd] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [search, setSearch] = useState("");
+  let { idFinca } = useParams()
+  const { getLotes, lotes } = useContext(LotesContext)
+  const [isFormPost, setIsFormPost] = useState(false)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [search, setSearch] = useState("")
 
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
   };
 
+  useEffect(() => {
+    getLotes(idFinca)
+  }, [])
+
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
-        {isFormPost ? (
+        {isFormPost &&
           <FormPost 
             isFormPost={isFormPost}
             setIsFormPost={setIsFormPost}
           />
-        ) : null}
+        }
         <Row>
           <Col className="col-uku">
             <div className="flex items-center mb-4 justify-between w-100 mt-3">
@@ -48,8 +55,7 @@ const Index = () => {
               </button>
             </div>
             <ListaLote
-              updateOrAdd={updateOrAdd}
-              setUpdateOrAdd={setUpdateOrAdd}
+              lotes={lotes}
               setCurrentPage={setCurrentPage}
               currentPage={currentPage}
               search={search}

@@ -13,22 +13,23 @@ import { Spinner } from "reactstrap";
 import Preview from "./Preview";
 import FormPost from "../Elemento/FormPost";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Index = ({
-  getAnalisisSuelos,
-  analisisSuelos,
-  claseTextural,
-  profundidad,
-  densidades,
-  cultivos,
-  putData,
-  updateOrAdd,
-  setUpdateOrAdd,
-  isLoading,
-  currentPage,
-  setCurrentPage,
   search,
+  putData,
+  cultivos,
+  isLoading,
+  densidades,
+  currentPage,
+  profundidad,
+  claseTextural,
+  analisisSuelos,
+  setUpdateOrAdd,
+  setCurrentPage,
+  getAnalisisSuelos,
 }) => {
+  let { idLote } = useParams()
   const [isFormPost, setIsFormPost] = useState(false);
   const [elementoData, setElementoData] = useState({
     id: "",
@@ -60,11 +61,8 @@ const Index = ({
   };
 
   useEffect(() => {
-    if (updateOrAdd) {
-      getAnalisisSuelos();
-      setUpdateOrAdd(false);
-    }
-  }, [updateOrAdd]);
+      getAnalisisSuelos(idLote);
+  }, []);
   
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
@@ -94,7 +92,7 @@ const Index = ({
         .includes(search.toLowerCase())
     );
     return result;
-  };
+  }
 
   const filteredElementos = () => {
     if (search.length === 0)
@@ -102,28 +100,28 @@ const Index = ({
 
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
-  };
+  }
 
   const nextPage = () => {
     if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+      setCurrentPage(currentPage + 5)
     }
-  };
+  }
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 5)
     }
-  };
+  }
 
   const toggleFormPreview = (element) => {
     setAnalisisData(element);
     setIsFormPreview(!isFormPreview);
-  };
+  }
 
   const handleSaveElemento = async () => {
     console.log(elementoData);
-  };
+  }
 
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
@@ -132,7 +130,7 @@ const Index = ({
   return (
     <>
       <Toaster />
-      {isFormPut ? (
+      {isFormPut &&
         <FormPut
           isFormPut={isFormPut}
           setIsFormPut={setIsFormPut}
@@ -146,8 +144,8 @@ const Index = ({
           inputsStates={inputsStates}
           setInputsStates={setInputsStates}
         />
-      ) : null}
-      {isFormPreview ? (
+      }
+      {isFormPreview &&
         <Preview
           isFormPreview={isFormPreview}
           setIsFormPreview={setIsFormPreview}
@@ -155,8 +153,8 @@ const Index = ({
           setData={setAnalisisData}
           toggleFormPost={toggleFormPost}
         />
-      ) : null}
-      {isFormPost ? (
+      }
+      {isFormPost &&
         <FormPost
           isFormPost={isFormPost}
           setIsFormPost={setIsFormPost}
@@ -164,7 +162,7 @@ const Index = ({
           setData={setElementoData}
           onSubmit={handleSaveElemento}
         />
-      ) : null}
+      }
 
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">
@@ -204,23 +202,19 @@ const Index = ({
                     <td>{elemento.intercambioCationico}</td>
                     <td>
                       <FontAwesomeIcon
-                        onClick={() => {
-                          toggleFormPut(elemento);
-                        }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faEdit}
+                        onClick={() => { toggleFormPut(elemento) }}
+                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       />
                       <FontAwesomeIcon
-                        onClick={() => {
-                          toggleFormPreview(elemento);
-                        }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         icon={faCircleExclamation}
+                        onClick={() => { toggleFormPreview(elemento) }}
+                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       />
                       <Link to={`/results/${elemento.idAnalisisSuelo}`}>
                         <FontAwesomeIcon
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                           icon={faSquarePollHorizontal}
+                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         />
                       </Link>
                     </td>
@@ -237,14 +231,14 @@ const Index = ({
       </div>
       <div className="flex mt-3">
         <div
-          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
           onClick={prevPage}
+          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </div>
         <div
-          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
           onClick={nextPage}
+          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </div>
