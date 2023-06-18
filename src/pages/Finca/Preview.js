@@ -70,6 +70,9 @@ const Preview = ({ data, setIsFormPreview, isFormPreview }) => {
             <Link to={`/lote/${data.idFinca}`} className="bg-green-700 rounded-md py-1 px-2 text-white hover:text-white hover:bg-green-800 flex items-center gap-2 font-sm">
                 <FontAwesomeIcon className="cursor-pointer" icon={faEye}/> Ver Lotes
             </Link>
+            <Link to={`/cultivo/${data.idFinca}`} className="bg-slate-400 rounded-md py-1 px-2 text-white hover:bg-slate-500 flex items-center gap-2 font-sm">
+                <FontAwesomeIcon className="cursor-pointer" icon={faEye}/> Ver Cultivos
+            </Link>
             <Link to="/analisis-suelo" className="bg-slate-400 rounded-md py-1 px-2 text-white hover:bg-slate-500 flex items-center gap-2 font-sm">
                 <FontAwesomeIcon className="cursor-pointer" icon={faEye}/> Ver Estudios Realizados
             </Link>

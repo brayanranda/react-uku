@@ -7,6 +7,7 @@ import AgricultorContext from "../../context/AgricultorContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
+import Mapa from "../Mapa/Mapa"
 const Index = () => {
   const {
     fincas,
@@ -72,6 +73,11 @@ const Index = () => {
     setIsFormPost(!isFormPost);
   }
 
+  const handleLocationSave = (location) => {
+    // Aquí puedes enviar la ubicación al servidor para guardarla
+    console.log('Ubicación guardada:', location);
+  };
+
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
@@ -130,6 +136,10 @@ const Index = () => {
             />
           </Col>
         </Row>
+        <div>
+          <h1>Seleccionar ubicación</h1>
+          <Mapa onSave={handleLocationSave} />
+        </div>
       </div>
     </div>
   );

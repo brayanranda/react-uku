@@ -2,16 +2,16 @@ import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
 const FormPut = ({
-  onSubmit,
   data,
-  setData,
-  setIsFormPut,
-  isFormPut,
-  distanciaSiembras,
-  etapasFenologicas,
   fincas,
+  setData,
+  onSubmit,
+  isFormPut,
   variedades,
   topografias,
+  setIsFormPut,
+  distanciaSiembras,
+  etapasFenologicas,
 }) => {
   const toggleFormPut = () => {
     setIsFormPut(!isFormPut);
@@ -32,22 +32,16 @@ const FormPut = ({
       <Modal
         size="lg"
         isOpen={isFormPut}
-        toggle={() => {
-          toggleFormPut();
-        }}
+        toggle={() => { toggleFormPut() }}
       >
         <div className="modal-header">
-          <h5 className="modal-title mt-0 text-xl font-medium">
-            Editar Cultivo
-          </h5>
+          <h5 className="modal-title mt-0 text-xl font-medium">Editar Cultivo</h5>
           <button
-            onClick={() => {
-              setIsFormPut(false);
-            }}
             type="button"
             className="close"
-            data-dismiss="modal"
             aria-label="Close"
+            data-dismiss="modal"
+            onClick={() => { setIsFormPut(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -56,79 +50,61 @@ const FormPut = ({
           <CardBody>
             <Form className="row">
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Descripción
-                </Label>
+                <Label className="col-sm-3 col-form-label">Descripción</Label>
                 <Col sm={9}>
                   <Input
+                    type="textarea"
                     name="descripcion"
                     value={data.descripcion}
                     onChange={handleChange}
-                    type="textarea"
                     className="form-control"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Plantas por Hectárea
-                </Label>
+                <Label className="col-sm-3 col-form-label">Plantas por Hectárea</Label>
                 <Col sm={9}>
                   <Input
+                    type="text"
+                    onChange={handleChange}
+                    className="form-control"
                     name="plantasPorHectarea"
                     value={data.plantasPorHectarea}
-                    onChange={handleChange}
-                    type="text"
-                    className="form-control"
                   />
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Distancia Siembra
-                </Label>
+                <Label className="col-sm-3 col-form-label">Distancia Siembra</Label>
                 <Col sm={9}>
                   <select
                     type="select"
+                    onChange={handleChange}
                     className="form-select"
                     name="idDistanciaSiembra"
                     value={data.idDistanciaSiembra.id}
-                    onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {distanciaSiembras &&
+                    {distanciaSiembras && distanciaSiembras.length > 0 &&
                       distanciaSiembras.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
                       ))}
                   </select>
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">
-                  Etapa Fenológica
-                </Label>
+                <Label className="col-sm-3 col-form-label">Etapa Fenológica</Label>
                 <Col sm={9}>
                   <select
                     type="select"
+                    onChange={handleChange}
                     className="form-select"
                     name="idEtapaFenologica"
                     value={data.idEtapaFenologica.id}
-                    onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {etapasFenologicas &&
+                    {etapasFenologicas && etapasFenologicas.length > 0 &&
                       etapasFenologicas.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
                       ))}
                   </select>
                 </Col>
@@ -138,17 +114,15 @@ const FormPut = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    className="form-select"
                     name="idFinca"
-                    value={data.idFinca.idFinca}
+                    className="form-select"
                     onChange={handleChange}
+                    value={data?.idFinca?.idFinca}
                   >
                     <option value="">Seleccionar </option>
-                    {fincas &&
+                    {fincas && fincas.length > 0 &&
                       fincas.map((tipo, index) => (
-                        <option key={index} value={tipo.idFinca}>
-                          {tipo.nombre}
-                        </option>
+                        <option key={index} value={tipo.idFinca}>{tipo.nombre}</option>
                       ))}
                   </select>
                 </Col>
@@ -158,17 +132,15 @@ const FormPut = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    className="form-select"
                     name="idTopografia"
-                    value={data.idTopografia.id}
+                    className="form-select"
                     onChange={handleChange}
+                    value={data.idTopografia.id}
                   >
                     <option value="">Seleccionar </option>
-                    {topografias &&
+                    {topografias && topografias.length > 0 &&
                       topografias.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
                       ))}
                   </select>
                 </Col>
@@ -178,18 +150,34 @@ const FormPut = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    className="form-select"
                     name="idVariedad"
+                    className="form-select"
+                    onChange={handleChange}
                     value={data.idVariedad.id}
+                  >
+                    <option value="">Seleccionar </option>
+                    {variedades && variedades.length > 0 &&
+                      variedades.map((tipo, index) => (
+                        <option key={index} value={tipo.id}>{tipo.descripcion}</option>
+                      ))}
+                  </select>
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">Rendimiento (Ton/ha)</Label>
+                <Col sm={9}>
+                  <select
+                    type="select"
+                    name="idVariedad"
+                    className="form-select"
                     onChange={handleChange}
                   >
                     <option value="">Seleccionar </option>
-                    {variedades &&
-                      variedades.map((tipo, index) => (
-                        <option key={index} value={tipo.id}>
-                          {tipo.descripcion}
-                        </option>
-                      ))}
+                    {
+                      [...Array(8)].map((e, x) => 
+                        <option>{x+3}</option>
+                      )
+                    }
                   </select>
                 </Col>
               </div>
@@ -199,18 +187,11 @@ const FormPut = ({
                     <button
                       type="button"
                       className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
-                      onClick={() => {
-                        onSubmit();
-                      }}
+                      onClick={() => { onSubmit() }}
                     >
                       Save
                     </button>
-                    <button
-                      onClick={toggleFormPut}
-                      className="bg-gray-300 rounded-md hover:bg-gray-300"
-                    >
-                      Cancel
-                    </button>
+                    <button onClick={toggleFormPut} className="bg-gray-300 rounded-md hover:bg-gray-300" >Cancel</button>
                   </div>
                 </Col>
               </div>

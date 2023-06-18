@@ -4,6 +4,7 @@ import {faEdit,faChevronRight,faChevronLeft} from "@fortawesome/free-solid-svg-i
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
+import { useParams } from "react-router-dom";
 
 const Index = ({
   fincas,
@@ -20,6 +21,7 @@ const Index = ({
   distanciaSiembras,
   etapasFenologicas,
 }) => {
+  let { idFinca } = useParams()
   const [isFormPut, setIsFormPut] = useState(false);
   const [cultivoData, setCultivoData] = useState({
     descripcion: "",
@@ -37,7 +39,11 @@ const Index = ({
   };
 
   useEffect(() => {
-      getCultivos();
+      if(!idFinca) {
+        getCultivos()
+      } else {
+        getCultivos(idFinca)
+      }
   }, []);
 
   if (isLoading) {

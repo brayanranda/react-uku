@@ -56,9 +56,9 @@ const Index = () => {
             </div>
             <ListaLote
               lotes={lotes}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
               search={search}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </Col>
         </Row>

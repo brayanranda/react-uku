@@ -19,9 +19,13 @@ const CultivoProvider = ({ children }) => {
     setCultivo(res);
   };
 
-  const getCultivos = async () => {
+  const getCultivos = async (idFinca) => {
+    let endpoint = `${url}/${getUser()}/cultivos`
+    if(idFinca && idFinca !== "") {
+      endpoint = `${url}/${idFinca}`
+    }
     setIsLoading(true);
-    const res = await api.get(`${url}/${getUser()}/cultivos`);
+    const res = await api.get(endpoint);
     setCultivos(res);
     setIsLoading(false);
   };

@@ -198,6 +198,23 @@ const FormPost = ({
                   </select>
                 </Col>
               </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">Precipitación anual</Label>
+                <Col sm={9}>
+                  <select
+                    type="select"
+                    name="idVereda"
+                    className="form-select"
+                    onChange={handleChange}
+                    // value={data?.idVereda?.idVereda}
+                  >
+                    <option value="">Seleccionar ...</option>
+                    <option>Lluvioso</option>
+                    <option>Medio</option>
+                    <option>Seco</option>
+                  </select>
+                </Col>
+              </div>
               <div className="row justify-content-end">
                 <Col sm={9}>
                   <div className="flex items-center gap-1">

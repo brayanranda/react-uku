@@ -38,32 +38,36 @@ const Index = () => {
     idFinca: {},
     idTopografia: {},
     idVariedad: {},
-  });
+    // rendimiento: 0,
+  })
+
   useEffect(() => {
     getDistanciaSiembras();
     getEtapasFenologicas();
     getFincas();
     getTopografias();
     getVariedades();
-  }, []);
+  }, [])
 
   const handleSave = async () => {
     await postData(cultivoData);
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
-  };
+  }
+
   const onSearchChange = ({ target }) => {
     setCurrentPage(0);
     setSearch(target.value);
-  };
+  }
+
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
-  };
+  }
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
-        {isFormPost ? (
+        {isFormPost &&
           <FormPost
             fincas={fincas}
             data={cultivoData}
@@ -76,7 +80,7 @@ const Index = () => {
             distanciaSiembras={distanciaSiembras}
             etapasFenologicas={etapasFenologicas}
           />
-        ) : null}
+        }
         <Row>
           <Col className="col-uku">
             <div className="flex items-center mb-4 justify-between w-100">
@@ -90,8 +94,8 @@ const Index = () => {
                   type="text"
                   value={search}
                   className="form-control"
-                  placeholder="Buscar por descripcion"
                   onChange={onSearchChange}
+                  placeholder="Buscar por descripcion"
                 />
               </div>
               <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
