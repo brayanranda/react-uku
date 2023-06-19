@@ -1,16 +1,18 @@
-import React from "react";
-import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
+import React, { useEffect } from "react";
+import { Form, Label, Input, Col, CardBody, Modal, Row, Button } from "reactstrap";
 
 const FormPost = ({
   data,
   setData,
   veredas,
   onSubmit,
+  location,
   isFormPost,
   municipios,
   agricultores,
   setIsFormPost,
   corregimientos,
+  handleModalMapa,
 }) => {
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
@@ -20,6 +22,14 @@ const FormPost = ({
   function removeBodyCss() {
     document.body.classList.add("no_padding");
   }
+
+  useEffect(() => {
+    if(location) {
+      // setData({ ...data, [name]: getVereda(Number(value)) });
+      console.log(typeof location);
+      console.log(location);
+    }
+  }, [location])
 
   const getAgricultor = (value) => {
     let el = {};
@@ -135,13 +145,21 @@ const FormPost = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Geolocalización</Label>
                 <Col sm={9}>
-                  <Input
-                    type="text"
-                    name="geolocalizacion"
-                    className="form-control"
-                    value={data.geolocalizacion}
-                    onChange={handleChange}
-                  />
+                  <Row>
+                    <Col xs={8}>
+                      <Input
+                        type="text"
+                        disabled="true"
+                        name="geolocalizacion"
+                        onChange={handleChange}
+                        className="form-control"
+                        value={data.geolocalizacion}
+                      />
+                    </Col>
+                    <Col xs={4}>
+                      <Button color="warning" className="w-100" onClick={() => { handleModalMapa() }}>Mostrar Mapa</Button>
+                    </Col>
+                  </Row>
                 </Col>
               </div>
               <div className="row mb-4">
@@ -154,7 +172,7 @@ const FormPost = ({
                     onChange={handleChange}
                     value={data?.idCorregimiento?.idCorregimiento}
                   >
-                    <option value="">Seleccionar ...</option>
+                    <option value="" hidden>Seleccionar ...</option>
                     {corregimientos && corregimientos.length > 0 &&
                       corregimientos.map((corregimiento, index) => (
                         <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
@@ -172,7 +190,7 @@ const FormPost = ({
                     onChange={handleChange}
                     value={data?.idMunicipio?.idMunicipio}
                   >
-                    <option value="">Seleccionar ...</option>
+                    <option value="" hidden>Seleccionar ...</option>
                     {municipios && municipios.length > 0 &&
                       municipios.map((municipio, index) => (
                         <option key={index} value={municipio.idMunicipio}>{municipio.nombre}</option>
@@ -190,7 +208,7 @@ const FormPost = ({
                     onChange={handleChange}
                     value={data?.idVereda?.idVereda}
                   >
-                    <option value="">Seleccionar ...</option>
+                    <option value="" hidden>Seleccionar ...</option>
                     {veredas && veredas.length > 0 &&
                       veredas.map((vereda, index) => (
                         <option key={index} value={vereda.idVereda}>{vereda.nombre}</option>
@@ -208,7 +226,7 @@ const FormPost = ({
                     onChange={handleChange}
                     // value={data?.idVereda?.idVereda}
                   >
-                    <option value="">Seleccionar ...</option>
+                    <option value="" hidden>Seleccionar ...</option>
                     <option>Lluvioso</option>
                     <option>Medio</option>
                     <option>Seco</option>

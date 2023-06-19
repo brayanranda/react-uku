@@ -6,8 +6,8 @@ import ListVariedad from "./List";
 import AgricultorContext from "../../context/AgricultorContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import ModalMapa from "./ModalMapa";
 
-import Mapa from "../Mapa/Mapa"
 const Index = () => {
   const {
     fincas,
@@ -25,9 +25,12 @@ const Index = () => {
 
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
+  const [modalMapa, setModalMapa] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [location, setLocation] = useState(null);
+
   const [fincaData, setFincaData] = useState({
     nombre: "",
     areaTotal: "",
@@ -48,6 +51,10 @@ const Index = () => {
       idMunicipio: { idMunicipio: "" },
       idVereda: { idVereda: "" },
     });
+  }
+
+  const handleModalMapa = () => {
+    setModalMapa(!modalMapa)
   }
 
   useEffect(() => {
@@ -81,18 +88,32 @@ const Index = () => {
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
-        {isFormPost &&
-          <FormPost
-            data={fincaData}
-            veredas={veredas}
-            onSubmit={handleSave}
-            setData={setFincaData}
-            isFormPost={isFormPost}
-            municipios={municipios}
-            agricultores={agricultores}
-            setIsFormPost={setIsFormPost}
-            corregimientos={corregimientos}
-          />
+        {
+          isFormPost &&
+            <FormPost
+              data={fincaData}
+              veredas={veredas}
+              location={location}
+              onSubmit={handleSave}
+              setData={setFincaData}
+              isFormPost={isFormPost}
+              municipios={municipios}
+              agricultores={agricultores}
+              setIsFormPost={setIsFormPost}
+              corregimientos={corregimientos}
+              handleModalMapa={handleModalMapa}
+            />
+        }
+        {
+          modalMapa &&
+            <ModalMapa 
+              location={location}
+              modalMapa={modalMapa}
+              setLocation={setLocation}
+              setModalMapa={setModalMapa}
+              handleModalMapa={handleModalMapa}
+              handleLocationSave={handleLocationSave}
+            />
         }
         <Row>
           <Col className="col-uku">
@@ -136,10 +157,6 @@ const Index = () => {
             />
           </Col>
         </Row>
-        <div>
-          <h1>Seleccionar ubicación</h1>
-          <Mapa onSave={handleLocationSave} />
-        </div>
       </div>
     </div>
   );

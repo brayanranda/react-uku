@@ -104,7 +104,6 @@ const Index = () => {
           </Col>
         </Row>
       </div>
-      {/* <Mapa /> */}
     </div>
   );
 };

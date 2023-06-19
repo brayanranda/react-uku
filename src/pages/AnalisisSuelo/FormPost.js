@@ -1,18 +1,18 @@
 import React from "react";
-import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
+import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import { inputs, ranges, validarTerreno } from "../../utils/ranges.utils";
 import { Toaster, toast } from "react-hot-toast";
 
 const FormPost = ({
-  onSubmit,
   data,
   setData,
-  setIsFormPost,
-  isFormPost,
+  onSubmit,
   cultivos,
+  isFormPost,
   densidades,
   profundidad,
   inputsStates,
+  setIsFormPost,
   setInputsStates,
 }) => {
   const toggleFormPost = () => {
@@ -72,13 +72,11 @@ const FormPost = ({
             Registrar Análisis Suelo
           </h5>
           <button
-            onClick={() => {
-              setIsFormPost(false);
-            }}
             type="button"
             className="close"
-            data-dismiss="modal"
             aria-label="Close"
+            data-dismiss="modal"
+            onClick={() => { setIsFormPost(false)}}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -86,90 +84,97 @@ const FormPost = ({
         <div className="modal-body">
           <CardBody>
             <Form className="row">
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Cultivo</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    className="form-select"
-                    name="idCultivo"
-                    onChange={(e) => {
-                      handleChange(e.selectedIndex != 0, e);
-                    }}
-                  >
-                    <option value="">Seleccionar </option>
-                    {cultivos &&
-                      cultivos.map((tipo, index) => (
-                        <option key={index} value={tipo.idCultivo}>
-                          {tipo.idCultivo}
-                        </option>
-                      ))}
-                  </select>
+              <Row>
+                <Col md={6}>
+                  <Label className="col-sm-3 col-form-label">Cultivo</Label>
+                  <div className="w-100">
+                    <select
+                      type="select"
+                      name="idCultivo"
+                      className="form-select"
+                      onChange={(e) => {
+                        handleChange(e.selectedIndex != 0, e);
+                      }}
+                    >
+                      <option value="">Seleccionar </option>
+                      {cultivos && cultivos.length > 0 &&
+                        cultivos.map((tipo, index) => (
+                          <option key={index} value={tipo.idCultivo}>
+                            {tipo.idCultivo}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
                 </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Fecha</Label>
-                <Col sm={9}>
-                  <Input
-                    name="fecha"
-                    onChange={(e) => {
-                      handleChange(
-                        e.target.value.match(
-                          /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/
-                        ) !== null
-                          ? true
-                          : false,
-                        e
-                      );
-                    }}
-                    type="date"
-                    className="form-control"
-                  />
+                <Col md={6}>
+                    <Label className="col-sm-3 col-form-label">Fecha</Label>
+                    <div className="w-100">
+                      <Input
+                        name="fecha"
+                        onChange={(e) => {
+                          handleChange(
+                            e.target.value.match(
+                              /^\d{4}([\-/.])(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])$/
+                            ) !== null
+                              ? true
+                              : false,
+                            e
+                          );
+                        }}
+                        type="date"
+                        className="form-control"
+                      />
+                    </div>
                 </Col>
-              </div>
+              </Row>
+              
+              <Row>
+                <Col md={6}>
+                  <Label className="col-sm-3 col-form-label">Densidad</Label>
+                  <div className="w-100">
+                    <select
+                      type="select"
+                      className="form-select"
+                      name="idDensidad"
+                      onChange={(e) => {
+                        handleChange(e.selectedIndex != 0, e);
+                      }}
+                    >
+                      <option value="">Seleccionar </option>
+                      {densidades && densidades.length > 0 &&
+                        densidades.map((tipo, index) => (
+                          <option key={index} value={tipo.idDensidad}>
+                            {tipo.valor}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </Col>
+                <Col md={6}>
+                    <Label className="col-sm-3 col-form-label">Profundidad</Label>
+                    <div className="w-100">
+                      <select
+                        type="select"
+                        className="form-select"
+                        name="idProfundidad"
+                        onChange={(e) => {
+                          handleChange(e.selectedIndex != 0, e);
+                        }}
+                      >
+                        <option value="">Seleccionar </option>
+                        {profundidad && profundidad.length > 0 &&
+                          profundidad.map((tipo, index) => (
+                            <option key={index} value={tipo.idProfundidadMuestra}>
+                              {tipo.profundidad}
+                            </option>
+                          ))}
+                      </select>
+                    </div>
+                </Col>
+              </Row>
 
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Densidad</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    className="form-select"
-                    name="idDensidad"
-                    onChange={(e) => {
-                      handleChange(e.selectedIndex != 0, e);
-                    }}
-                  >
-                    <option value="">Seleccionar </option>
-                    {densidades &&
-                      densidades.map((tipo, index) => (
-                        <option key={index} value={tipo.idDensidad}>
-                          {tipo.valor}
-                        </option>
-                      ))}
-                  </select>
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Profundidad</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    className="form-select"
-                    name="idProfundidad"
-                    onChange={(e) => {
-                      handleChange(e.selectedIndex != 0, e);
-                    }}
-                  >
-                    <option value="">Seleccionar </option>
-                    {profundidad &&
-                      profundidad.map((tipo, index) => (
-                        <option key={index} value={tipo.idProfundidadMuestra}>
-                          {tipo.profundidad}
-                        </option>
-                      ))}
-                  </select>
-                </Col>
-              </div>
+              
+              
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">
                   Porcentaje de Arena
@@ -435,12 +440,7 @@ const FormPost = ({
                     >
                       Save
                     </button>
-                    <button
-                      onClick={toggleFormPost}
-                      className="bg-gray-300 rounded-md hover:bg-gray-300"
-                    >
-                      Cancel
-                    </button>
+                    <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300">Cancel</button>
                   </div>
                 </Col>
               </div>
