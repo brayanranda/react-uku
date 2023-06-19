@@ -149,10 +149,10 @@ const Index = () => {
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
                   type="text"
-                  className="form-control"
-                  placeholder="Buscar por clase textural"
                   value={search}
+                  className="form-control"
                   onChange={onSearchChange}
+                  placeholder="Buscar por clase textural"
                 />
               </div>
               <button

@@ -4,6 +4,7 @@ import Header from "../UI/organism/Header";
 import { Row } from "reactstrap";
 import Finca from "../pages/Finca/Index";
 import Results from "../pages/Results/Index";
+import Recomendaciones from "../pages/Recomendaciones/Index";
 import Variedad from "../pages/Variedad/Index";
 import Lote from "../pages/Lote/Index";
 import Cultivo from "../pages/Cultivo/Index";
@@ -44,6 +45,13 @@ export const DashboardRoutes = () => {
               <AnalisisSueloProvider>
                 <Results />
               </AnalisisSueloProvider>
+            }
+          />
+
+          <Route
+            path="recomendaciones/:id"
+            element={
+                <Recomendaciones />
             }
           />
 

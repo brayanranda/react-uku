@@ -1,9 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight, faChevronLeft, faEdit, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faChevronLeft, faEdit, faTableList, faWater } from "@fortawesome/free-solid-svg-icons";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
+import NoFoundData from "../../UI/atom/NoFoundData";
 
 const Index = ({
   lotes,
@@ -52,7 +53,7 @@ const Index = ({
             </thead>
             <tbody>
                 {
-                  lotes && lotes.length > 0 &&
+                  lotes && lotes.length > 0 ?
                     lotes.map((lote, x) => 
                       <tr key={x} className="card-text placeholder-glow">
                         <td>{lote.id}</td>
@@ -65,18 +66,19 @@ const Index = ({
                           <Link to={`/suelo/${lote.id}`}
                               className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-amber-400 hover:bg-amber-200 hover:text-amber-900 p-1.5"
                           >
-                              <FontAwesomeIcon icon={faEye} />
+                              <FontAwesomeIcon icon={faWater} />
                               Suelos
                           </Link>
                           <Link to={`/analisis-suelo/${lote.id}`}
                               className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-blue-200 hover:text-blue-900 p-1.5"
                           >
-                              <FontAwesomeIcon icon={faEye} />
+                              <FontAwesomeIcon icon={faTableList} />
                               Análisis de suelo
                           </Link>
                         </td>
                       </tr>
                     )
+                    : <tr><td colSpan={3} className="text-center"><NoFoundData /></td></tr>
                 }
             </tbody>
           </table>
