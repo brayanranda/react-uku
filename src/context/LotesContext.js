@@ -35,19 +35,35 @@ const LotesProvider = ({ children }) => {
     })
   }
 
-  const putLote = async (data) => {
+  const putLote = async (data, idLote) => {
     let newData = data;
     let options = {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.put(url, options).then((res) => {
+    await api.put(`${REACT_APP_API_URL}lote/${idLote}`, options).then((res) => {
       if (!res.err) {
         console.log("Actualizado");
       } else {
         console.log("No Actualizado");
       }
     })
+  }
+
+    
+  const deleteLote = async (idLote) => {
+    let endpoint = `${REACT_APP_API_URL}lote/${idLote}`
+    let options = {body: "", headers: { "content-type": "application/json" }}
+    
+    const res = await api.del(endpoint, options)
+    if (res.err) {
+      console.log("Eliminado")
+      // toast.error(res.statusText)
+      return res.err
+    } else {
+      console.log("No eliminado")
+      // toast.success("Success")
+    }
   }
 
   const data = {
@@ -57,6 +73,7 @@ const LotesProvider = ({ children }) => {
     setLotes,
     getLotes,
     isLoading,
+    deleteLote,
     setIsLoading,
   };
 

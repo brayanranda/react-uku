@@ -8,6 +8,7 @@ import Recomendaciones from "../pages/Recomendaciones/Index";
 import Variedad from "../pages/Variedad/Index";
 import Lote from "../pages/Lote/Index";
 import Cultivo from "../pages/Cultivo/Index";
+import Suelo from "../pages/Suelo/Index";
 import AnalisisSuelo from "../pages/AnalisisSuelo/Index";
 import {
   AgricultorProvider,
@@ -21,6 +22,7 @@ import {
   DistanciaSiembraProvider,
 } from "../context";
 import { LotesProvider } from "../context/LotesContext";
+import { SuelosProvider } from "../context/SuelosContext";
 export const DashboardRoutes = () => {
   return (
     <div className="relative">
@@ -121,6 +123,15 @@ export const DashboardRoutes = () => {
                   </TopografiaProvider>
                 </VariedadProvider>
               </FincaProvider>
+            }
+          />
+
+          <Route 
+            path="suelo/:idLote"
+            element={
+              <SuelosProvider>
+                  <Suelo />
+              </SuelosProvider>
             }
           />
 

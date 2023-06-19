@@ -37,10 +37,11 @@ const FormPut = ({
                 <Label className="col-sm-3 col-form-label">Descripción</Label>
                 <Col sm={9}>
                   <Input
-                    type="text"
+                    type="textarea"
                     name="descripcion"
                     onChange={handleChange}
-                    className="form-control"
+                    className="form-control"                   
+                    value={loteData.descripcion}
                   />
                 </Col>
               </div>
