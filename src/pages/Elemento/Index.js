@@ -5,8 +5,7 @@ import FormPost from "./FormPost";
 import ListVariedades from "./List";
 
 const Index = () => {
-  const { getElementos, elementos, postData, putData, isLoading } =
-    useContext(ElementoContext);
+  const { getElementos, elementos, postData, putData, isLoading } = useContext(ElementoContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -15,25 +14,27 @@ const Index = () => {
     id: "",
     nombre: "",
     unidad: "",
-  });
+  })
 
   const handleSave = async () => {
     await postData(elementoData);
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
-  };
+  }
+
   const onSearchChange = ({ target }) => {
     setCurrentPage(0);
     setSearch(target.value);
-  };
+  }
+
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
-  };
+  }  
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
-        {isFormPost ? (
+        {isFormPost &&
           <FormPost
             isFormPost={isFormPost}
             setIsFormPost={setIsFormPost}
@@ -41,7 +42,7 @@ const Index = () => {
             setData={setElementoData}
             onSubmit={handleSave}
           />
-        ) : null}
+        }
         <Row>
           <Col className="col-uku">
             <div className="flex items-center mb-4 justify-between w-100">

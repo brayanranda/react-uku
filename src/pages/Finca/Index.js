@@ -82,11 +82,10 @@ const Index = () => {
   }
 
   const handleLocationSave = (location) => {
-    // Aquí puedes enviar la ubicación al servidor para guardarla
     let {lat, lng} = location;
     setFincaData({...fincaData, geolocalizacion: `${lat},${lng}`});
-  };
-  useEffect(()=>{console.log(fincaData)},[fincaData])
+  }
+
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
@@ -135,10 +134,10 @@ const Index = () => {
                 />
               </div>
               <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
-                  <FontAwesomeIcon
-                    className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
-                    icon={faPlus}
-                  />
+                <FontAwesomeIcon
+                  icon={faPlus}
+                  className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                />
                 Agregar Finca
               </button>
             </div>

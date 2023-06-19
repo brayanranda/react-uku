@@ -8,11 +8,13 @@ import logoUfps from "../../assets/images/logoUfps.jpg";
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-// import AnalisisSueloContext from "../../context/AnalisisSueloContext";
+import RecomendacionLabranza from "./RecomendacionLabranza";
+import AnalisisSueloContext from "../../context/AnalisisSueloContext";
+import DosisNutrientes from "./DosisNutrientes";
 
 const Index = () => {
   let { id } = useParams()
-  // const {getAnalisisSuelo, analisisSuelo} = useContext(AnalisisSueloContext);
+  const {getAnalisisSuelo, analisisSuelo} = useContext(AnalisisSueloContext);
 
   const generarPDF = () => {
     const tabla = document.getElementById('tabla');
@@ -23,15 +25,15 @@ const Index = () => {
       const imgWidth = 180;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', (pdfWidth - imgWidth) / 2, 15, imgWidth, imgHeight);
-      pdf.save('tabla.pdf');
+      pdf.save('recomendacion-ukulima.pdf');
     })
   }
 
-  // useEffect(() => {
-  //   if(id && id !== "") {
-  //     getAnalisisSuelo(id)
-  //   }
-  // }, [id])
+  useEffect(() => {
+    if(id && id !== "") {
+      getAnalisisSuelo(id)
+    }
+  }, [id])
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
@@ -71,22 +73,87 @@ const Index = () => {
               </div>
 
               <div className="p-3 pb-0 space-y-8">
-                <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Reporte del análisis de suelo</p>
+                <div className="bg-white">
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
+                  <div className="w-100 flex gap-4 p-4">
+                    {
+                      analisisSuelo && analisisSuelo.recomendacionCollection && 
+                      analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection &&
+                      analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection.length > 0 &&
+                        analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection.map((element, index) => 
+                          <div key={index} className="w-1/4 border-r-2 border-none-last">
+                            <p className="font-bold">{element?.enmienda?.nombre}</p>
+                            <p>{element.valor}</p>
+                          </div>
+                        )
+                    }
+                  </div>
+                </div>
+
+                {/* <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de materia orgánica (M.O.)</p>
                 <div className="w-100 flex gap-4 items-end">
-                  <div className="w-3/4">
-                    <p className="font-bold mb-4">Textura del suelo</p>
+                  <div className="w-100">
+                    <p className="font-bold mb-4">Calculo del peso del suelo (kg/ha)</p>
+                    <p>Densidad aparente * 10000*Prof. Suelo * 1000</p>
                   </div>
-                  <div className="w-1/4">
+                  <div className="w-100">
+                    <p className="font-bold mb-4">Materia orgánica (kg /ha)</p>
+                    <p>Peso del suelo * Diferencial entre la M.O. / 100</p>
+                  </div>
+                </div> */}
+
+                <div className="bg-white">
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
+                  <div className="w-100 flex gap-4 p-4">
+                    {
+                      analisisSuelo && analisisSuelo.recomendacionCollection && 
+                      analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection &&
+                      analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.length > 0 &&
+                        analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.map((element, index) => 
+                          <div key={index} className="w-1/4 border-r-2 border-none-last">
+                            <p className="font-bold">{element?.idAbonoOrganico?.descripcion}</p>
+                            <p>{element.cantidad}</p>
+                          </div>
+                        )
+                    }
                   </div>
                 </div>
-                <div>
-                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Características químicas del suelo</p>
+                
+                <div className="bg-white">
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de Uso de Bioinsumos:</p>
+                  <div className="p-4 space-y-5">
+                    <p>
+                      Se refiere al uso de microorganismos benéficos que ayudan a mejorar las condiciones biológicas del suelo y favorecen el crecimiento de las raíces de las plantas, y ayudan a lograr una buena producción.
+                    </p>
+                    <ul className="space-y-5">
+                      <li>
+                        <p className="font-bold">Aplicación de Micorrizas:</p>
+                         Para todos los suelos se debe recomendar la aplicación de este bioinsumo. Se aplica al momento de la siembra del cultivo. Su forma de aplicación debe atender las indicaciones del fabricante del producto utilizado.
+                      </li>
+                      <li>
+                        <p className="font-bold">Aplicación del hongo Trichoderma spp. :</p>
+                         Para todos los suelos se debe recomendar la aplicación de este bioinsumo. Se aplica al inicio del ciclo de cultivo, en aspersión dirigida al suelo cuando el cultivo tenga de 8 a 15 días de sembrado. Y se repite en aspersión dirigida al suelo al transcurrir 15 días de la primera aplicación. Se debe usar la dosis indicada por el fabricante.
+                      </li>
+                      <li>
+                        <p className="font-bold">Aplicación del hongo Paecilomyces lilacinus:</p>
+                        Para todos los suelos se debe recomendar la aplicación de este bioinsumo. Se aplica al inicio del ciclo de cultivo, en aspersión dirigida al suelo cuando el cultivo tenga de 18 a 21 días de sembrado. Y se repite en aspersión dirigida al suelo al transcurrir 30 días de la primera aplicación. Se debe usar la dosis indicada por el fabricante.
+                      </li>
+                      <li>
+                        <p className="font-bold">Aplicación de microorganismos Solubilizadores de Fosforo:</p>
+                        para todos los suelos se debe recomendar la aplicación de este bioinsumo. Se aplica al momento de la siembra del cultivo y a la mitad del ciclo. Su forma de aplicación debe atender las indicaciones del fabricante del producto utilizado.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div>
-                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Disponibilidad de nutrientes en el suelo</p>
+
+                <div className="bg-white">
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Dosis de nutrientes</p>
+                  <DosisNutrientes analisisSuelo={analisisSuelo} />
                 </div>
+                
                 <div>
-                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Interpretación de las Relaciones de Bases del Suelo</p>
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de Labranza</p>
+                  <RecomendacionLabranza analisisSuelo={analisisSuelo} />
                 </div>
               </div>
             </div>

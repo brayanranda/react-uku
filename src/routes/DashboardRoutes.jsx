@@ -51,7 +51,9 @@ export const DashboardRoutes = () => {
           <Route
             path="recomendaciones/:id"
             element={
+              <AnalisisSueloProvider>
                 <Recomendaciones />
+              </AnalisisSueloProvider>
             }
           />
 

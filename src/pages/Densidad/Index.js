@@ -5,8 +5,7 @@ import FormPost from "./FormPost";
 import ListVariedades from "./List";
 
 const Index = () => {
-  const { getDensidades, densidades, postData, putData, isLoading } =
-    useContext(DensidadContext);
+  const { getDensidades, densidades, postData, putData, isLoading } = useContext(DensidadContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -16,12 +15,14 @@ const Index = () => {
     valor: "",
     idDensidad: "",
     analisisSueloCollection: null,
-  });
+  })
+
   const validateInput = () => {
     const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
     const validateFirstInputs = arrInputs.every((key) => key);
     return validateFirstInputs;
-  };
+  }
+
   const handleSave = async () => {
     const validate = validateInput();
     if (validate === false) {
@@ -31,15 +32,17 @@ const Index = () => {
     setIsFormPost(!isFormPost);
     setInputsStates({});
     setUpdateOrAdd(true);
-  };
+  }
+
   const onSearchChange = ({ target }) => {
     setCurrentPage(0);
     setSearch(target.value);
-  };
+  }
+
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);
-  };
+  }
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
