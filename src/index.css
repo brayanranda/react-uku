@@ -105,3 +105,6 @@ tr:last-child td {
 .table {
   margin-bottom: 0 !important;
 }
+.border-none-last:last-child {
+  border: 0px;
+}

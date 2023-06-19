@@ -3,20 +3,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft, faEdit, faTableList, faWater, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
-import { Link } from "react-router-dom";
 import NoFoundData from "../../UI/atom/NoFoundData";
 import FormPut from "./FormPut";
 
 const Index = ({
-  lotes,
+  suelos,
   search,
-  loteData,
+  sueloData,
   isLoading,
   handlePut,
-  setIdLote,
+  setIdSuelo,
   currentPage,
-  setLoteData,
-  handleDelete,
+  setSueloData,
   setCurrentPage,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false)
@@ -30,7 +28,7 @@ const Index = ({
   }
 
   const filter = () => {
-    const result = lotes.filter((variedad) =>
+    const result = suelos.filter((variedad) =>
       variedad.descripcion.toLowerCase().includes(search.toLowerCase())
     );
     return result;
@@ -54,10 +52,10 @@ const Index = ({
       {
           isFormPut &&
             <FormPut
-              loteData={loteData}
+              sueloData={sueloData}
               isFormPut={isFormPut}
               handlePut={handlePut}
-              setLoteData={setLoteData}
+              setSueloData={setSueloData}
               setIsFormPut={setIsFormPut}
               toggleFormPut={toggleFormPut}
             />
@@ -74,32 +72,17 @@ const Index = ({
             </thead>
             <tbody>
                 {
-                  lotes && lotes.length > 0 ?
-                    lotes.map((lote, x) => 
+                  suelos && suelos.length > 0 ?
+                    suelos.map((suelo, x) => 
                       <tr key={x} className="card-text placeholder-glow">
-                        <td>{lote.id}</td>
-                        <td>{lote.descripcion}</td>
+                        <td>{suelo.id}</td>
+                        <td>{suelo.descripcion}</td>
                         <td className="text-end flex items-center justify-end gap-2">
                           <FontAwesomeIcon
                               icon={faEdit}
-                              onClick={() => { toggleFormPut(); setIdLote(lote.id) }}
+                              onClick={() => { toggleFormPut(); setIdSuelo(suelo.id)}}
                               className="cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
                           />
-                          <FontAwesomeIcon
-                              icon={faTrash}
-                              onClick={() => { handleDelete(lote.id) }}
-                              className="cursor-pointer duration-300 transform rounded-md bg-red-200 hover:text-red-800 p-2.5"
-                          />
-                          <Link to={`/suelo/${lote.id}`}
-                              className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-amber-400 hover:bg-amber-200 hover:text-amber-900 p-1.5"
-                          >
-                              <FontAwesomeIcon icon={faWater} /> Suelos
-                          </Link>
-                          <Link to={`/analisis-suelo/${lote.id}`}
-                              className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-blue-200 hover:text-blue-900 p-1.5"
-                          >
-                              <FontAwesomeIcon icon={faTableList} /> Análisis de suelo
-                          </Link>
                         </td>
                       </tr>
                     )

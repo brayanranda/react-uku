@@ -28,7 +28,7 @@ const Index = () => {
       const imgWidth = 180;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', (pdfWidth - imgWidth) / 2, 15, imgWidth, imgHeight);
-      pdf.save('tabla.pdf');
+      pdf.save('interpretacion-ukulima.pdf');
     })
   }
 

@@ -1,53 +1,46 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Col, Row } from "reactstrap";
-import ListaLote from "./List";
+import ListaSuelo from "./List";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import FormPost from "./FormPost";
-import LotesContext from "../../context/LotesContext";
+import SuelosContext from "../../context/SuelosContext";
 import { useParams } from "react-router-dom";
 
 const Index = () => {
-  let { idFinca } = useParams()
-  const { getLotes, lotes, postLote, putLote, deleteLote } = useContext(LotesContext)
+  let { idLote } = useParams()
+  const { getSuelos, suelos, postSuelo, putSuelo } = useContext(SuelosContext)
   const [isFormPost, setIsFormPost] = useState(false)
-  const [idLote, setIdLote] = useState("")
+  const [idSuelo, setIdSuelo] = useState("")
   
   const [currentPage, setCurrentPage] = useState(0)
   const [search, setSearch] = useState("")
-  const [loteData, setLoteData] = useState({descripcion: ""})
+  const [sueloData, setSueloData] = useState({descripcion: ""})
 
   const clearForm = () => {
-    setLoteData({descripcion: ""});
+    setSueloData({descripcion: ""});
   }
 
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
   }
 
-
   useEffect(() => {
-    getLotes(idFinca)
+    getSuelos(idLote)
   }, [])
 
   const handleSave = async () => {
-    await postLote(loteData, idFinca)
+    await postSuelo(sueloData, idLote)
     clearForm();
     setIsFormPost(!isFormPost);
-    await getLotes(idFinca)
+    await getSuelos(idLote)
   }
 
   const handlePut = async () => {
-    await putLote(loteData, idLote)
+    await putSuelo(sueloData, idSuelo)
     clearForm();
     setIsFormPost(!isFormPost);
-    await getLotes(idFinca)
-  }
-
-  const handleDelete = async (id) => {
-    await deleteLote(id)
-    clearForm();
-    await getLotes(idFinca)
+    await getSuelos(idLote)
   }
 
   return (
@@ -56,10 +49,10 @@ const Index = () => {
         {
           isFormPost &&
             <FormPost
-              loteData={loteData}
+              sueloData={sueloData}
               isFormPost={isFormPost}
               handleSave={handleSave}
-              setLoteData={setLoteData}
+              setSueloData={setSueloData}
               setIsFormPost={setIsFormPost}
               toggleFormPost={toggleFormPost}
             />
@@ -70,7 +63,7 @@ const Index = () => {
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">Lista Lotes</p>
+                <p className="text-2xl ml-2 text-green-700">Lista Suelos</p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
@@ -80,22 +73,21 @@ const Index = () => {
                 />
               </div>
               <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
-                  <FontAwesomeIcon
-                    className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
-                    icon={faPlus}
-                  />
-                Agregar Lote
+                <FontAwesomeIcon
+                  className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                  icon={faPlus}
+                />
+                Agregar Suelo
               </button>
             </div>
-            <ListaLote
-              lotes={lotes}
+            <ListaSuelo
+              suelos={suelos}
               search={search}
-              loteData={loteData}
-              setIdLote={setIdLote}
+              sueloData={sueloData}
               handlePut={handlePut}
-              setLoteData={setLoteData}
+              setIdSuelo={setIdSuelo}
               currentPage={currentPage}
-              handleDelete={handleDelete}
+              setSueloData={setSueloData}
               setCurrentPage={setCurrentPage}
             />
           </Col>

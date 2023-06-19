@@ -6,11 +6,11 @@ import ListVariedades from "./List";
 
 const Index = () => {
   const {
-    getDistanciaSiembras,
-    distanciaSiembras,
-    postData,
     putData,
+    postData,
     isLoading,
+    distanciaSiembras,
+    getDistanciaSiembras,
   } = useContext(DistanciaSiembraContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
@@ -19,31 +19,33 @@ const Index = () => {
   const [distanciaSiembrasData, setDistanciaSiembrasData] = useState({
     descripcion: "",
     id: "",
-  });
+  })
 
   const handleSave = async () => {
     await postData(distanciaSiembrasData);
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
-  };
+  }
+
   const onSearchChange = ({ target }) => {
     setCurrentPage(0);
     setSearch(target.value);
-  };
+  }
+
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
-  };
-
+  }
+  
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
         {isFormPost ? (
           <FormPost
+          onSubmit={handleSave}
             isFormPost={isFormPost}
-            setIsFormPost={setIsFormPost}
             data={distanciaSiembrasData}
+            setIsFormPost={setIsFormPost}
             setData={setDistanciaSiembrasData}
-            onSubmit={handleSave}
           />
         ) : null}
         <Row>
@@ -52,17 +54,15 @@ const Index = () => {
               <div className="flex items-center">
                 <p className="text-2xl mr-2">Inicio</p>
                 <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">
-                  Lista Distancia Siembras
-                </p>
+                <p className="text-2xl ml-2 text-green-700">Lista Distancia Siembras</p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
                   type="text"
-                  className="form-control"
-                  placeholder="Buscar por descripcion"
                   value={search}
+                  className="form-control"
                   onChange={onSearchChange}
+                  placeholder="Buscar por descripcion"
                 />
               </div>
               <button
@@ -73,15 +73,15 @@ const Index = () => {
               </button>
             </div>
             <ListVariedades
+              search={search}
+              putData={putData}
+              isLoading={isLoading}
+              updateOrAdd={updateOrAdd}
+              currentPage={currentPage}
+              setUpdateOrAdd={setUpdateOrAdd}
+              setCurrentPage={setCurrentPage}
               getDistanciaSiembras={getDistanciaSiembras}
               distanciaSiembras={distanciaSiembras}
-              putData={putData}
-              updateOrAdd={updateOrAdd}
-              setUpdateOrAdd={setUpdateOrAdd}
-              isLoading={isLoading}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-              search={search}
             />
           </Col>
         </Row>

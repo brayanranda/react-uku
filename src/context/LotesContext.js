@@ -17,14 +17,14 @@ const LotesProvider = ({ children }) => {
     setIsLoading(false)
   }
 
-  const postLote = async (data) => {
+  const postLote = async (data, idFinca) => {
     setIsLoading(true);
     let newData = data;
     let options = {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.post(url, options).then((res) => {
+    await api.post(`${REACT_APP_API_URL}lote/${idFinca}`, options).then((res) => {
       if (!res.err) {
         console.log("Registrado");
         setIsLoading(false);
@@ -35,13 +35,13 @@ const LotesProvider = ({ children }) => {
     })
   }
 
-  const pusLote = async (data) => {
+  const putLote = async (data, idLote) => {
     let newData = data;
     let options = {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.put(url, options).then((res) => {
+    await api.put(`${REACT_APP_API_URL}lote/${idLote}`, options).then((res) => {
       if (!res.err) {
         console.log("Actualizado");
       } else {
@@ -50,13 +50,30 @@ const LotesProvider = ({ children }) => {
     })
   }
 
+    
+  const deleteLote = async (idLote) => {
+    let endpoint = `${REACT_APP_API_URL}lote/${idLote}`
+    let options = {body: "", headers: { "content-type": "application/json" }}
+    
+    const res = await api.del(endpoint, options)
+    if (res.err) {
+      console.log("Eliminado")
+      // toast.error(res.statusText)
+      return res.err
+    } else {
+      console.log("No eliminado")
+      // toast.success("Success")
+    }
+  }
+
   const data = {
     lotes,
-    pusLote,
+    putLote,
     postLote,
     setLotes,
     getLotes,
     isLoading,
+    deleteLote,
     setIsLoading,
   };
 

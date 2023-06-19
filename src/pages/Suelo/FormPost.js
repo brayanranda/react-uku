@@ -2,24 +2,24 @@ import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
 const FormPost = ({ 
-  loteData,
+  sueloData,
   isFormPost,
   handleSave,
-  setLoteData,
+  setSueloData,
   setIsFormPost,
   toggleFormPost,
  }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setLoteData({ ...loteData, [name]: value });
+    setSueloData({ ...sueloData, [name]: value });
   }
 
   return (
     <React.Fragment>
       <Modal size="lg" isOpen={isFormPost} toggle={() => { toggleFormPost() }}>
         <div className="modal-header">
-          <h5 className="modal-title mt-0 text-xl font-medium">Registrar Lote</h5>
+          <h5 className="modal-title mt-0 text-xl font-medium">Registrar Suelo</h5>
           <button
             type="button"
             aria-label="Close"
