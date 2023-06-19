@@ -39,6 +39,7 @@ const Index = () => {
     idCorregimiento: { idCorregimiento: "" },
     idMunicipio: { idMunicipio: "" },
     idVereda: { idVereda: "" },
+    precipitacion: "",
   })
 
   const clearForm = () => {
@@ -82,9 +83,10 @@ const Index = () => {
 
   const handleLocationSave = (location) => {
     // Aquí puedes enviar la ubicación al servidor para guardarla
-    console.log('Ubicación guardada:', location);
+    let {lat, lng} = location;
+    setFincaData({...fincaData, geolocalizacion: `${lat},${lng}`});
   };
-
+  useEffect(()=>{console.log(fincaData)},[fincaData])
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">

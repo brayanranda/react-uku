@@ -74,15 +74,15 @@ const FormPost = ({
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "idCorregimiento") {
-      setData({ ...data, [name]: getCorregimiento(Number(value)) });
+      setData({ ...data, [name]: { idCorregimiento: value } });
       return;
     }
     if (name === "idMunicipio") {
-      setData({ ...data, [name]: getMunicipio(Number(value)) });
+      setData({ ...data, [name]: { idMunicipio: value } });
       return;
     }
     if (name === "idVereda") {
-      setData({ ...data, [name]: getVereda(Number(value)) });
+      setData({ ...data, [name]: { idVereda: value } });
       return;
     }
     setData({ ...data, [name]: value });
@@ -149,11 +149,11 @@ const FormPost = ({
                     <Col xs={8}>
                       <Input
                         type="text"
-                        disabled="true"
+                        disabled={true}
                         name="geolocalizacion"
                         onChange={handleChange}
                         className="form-control"
-                        value={data.geolocalizacion}
+                        value={data?.geolocalizacion}
                       />
                     </Col>
                     <Col xs={4}>
@@ -221,10 +221,10 @@ const FormPost = ({
                 <Col sm={9}>
                   <select
                     type="select"
-                    name="idVereda"
+                    name="precipitacion"
                     className="form-select"
                     onChange={handleChange}
-                    // value={data?.idVereda?.idVereda}
+                    value={data?.precipitacion}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     <option>Lluvioso</option>
