@@ -1,4 +1,4 @@
-import img from "../../assets/images/avatar.jpg";
+import img from "../../assets/images/avatar.png";
 
 const Avatar = ({ setIsAvatar, isAvatar }) => {
   const handleAvatar = () => {
@@ -6,10 +6,11 @@ const Avatar = ({ setIsAvatar, isAvatar }) => {
   };
   return (
     <img
-      onClick={handleAvatar}
-      className="rounded-3xl"
+      width={50}
       src={img}
       alt="avatar"
+      onClick={handleAvatar}
+      className="rounded-3xl"
     />
   );
 };

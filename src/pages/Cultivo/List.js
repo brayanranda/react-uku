@@ -5,6 +5,7 @@ import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import { useParams } from "react-router-dom";
+import NoFoundData from "../../UI/atom/NoFoundData";
 
 const Index = ({
   fincas,
@@ -137,7 +138,7 @@ const Index = ({
                 ))
               ) : (
                 <tr>
-                  <td>No found data</td>
+                  <td colSpan={9} className="text-center"><NoFoundData /></td>
                 </tr>
               )}
             </tbody>

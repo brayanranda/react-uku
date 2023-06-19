@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
+  faFlaskVial,
   faChevronLeft,
   faChevronRight,
   faCircleExclamation,
-  faSquarePollHorizontal,
+  faBook,
 } from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
@@ -14,6 +15,7 @@ import Preview from "./Preview";
 import FormPost from "../Elemento/FormPost";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import NoFoundData from "../../UI/atom/NoFoundData";
 
 const Index = ({
   search,
@@ -200,30 +202,34 @@ const Index = ({
                     <td>{elemento.phSuelo}</td>
                     <td>{elemento.conductividadElectrica}</td>
                     <td>{elemento.intercambioCationico}</td>
-                    <td>
+                    <td className="grid grid-cols-2">
                       <FontAwesomeIcon
                         icon={faEdit}
                         onClick={() => { toggleFormPut(elemento) }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                        className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       />
                       <FontAwesomeIcon
                         icon={faCircleExclamation}
                         onClick={() => { toggleFormPreview(elemento) }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                        className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       />
                       <Link to={`/results/${elemento.idAnalisisSuelo}`}>
                         <FontAwesomeIcon
-                          icon={faSquarePollHorizontal}
-                          className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                          icon={faFlaskVial}
+                          className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                        />
+                      </Link>
+                      <Link to={`/recomendaciones/${elemento.idAnalisisSuelo}`}>
+                        <FontAwesomeIcon
+                          icon={faBook}
+                          className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         />
                       </Link>
                     </td>
                   </tr>
                 ))
               ) : (
-                <tr>
-                  <td>No found data</td>
-                </tr>
+                  <tr><td colSpan={13} className="text-center"><NoFoundData /></td></tr>
               )}
             </tbody>
           </table>

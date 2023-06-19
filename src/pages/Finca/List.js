@@ -5,6 +5,7 @@ import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import Preview from "./Preview";
+import NoFoundData from "../../UI/atom/NoFoundData";
 const Index = ({
   search,
   fincas,
@@ -66,7 +67,7 @@ const Index = ({
     );
     return result;
   };
-  
+
   const filteredFincas = () => {
     if (search.length === 0) return fincas.slice(currentPage, currentPage + 5);
 
@@ -159,7 +160,7 @@ const Index = ({
                 ))
               ) : (
                 <tr>
-                  <td>No found data</td>
+                  <td colSpan={9} className="text-center"><NoFoundData /></td>
                 </tr>
               )}
             </tbody>

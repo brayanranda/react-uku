@@ -4,9 +4,11 @@ import logo from "../../assets/images/logo.png";
 import Avatar from "../atom/Avatar";
 import AvatarOptions from "../molecule/AvatarOptions";
 import { useLocation } from "react-router-dom";
+
 const Nav = () => {
   const [isAvatar, setIsAvatar] = useState(false);
   let location = useLocation();
+
   useEffect(() => {
     if (isAvatar) {
       setIsAvatar(false);
@@ -22,7 +24,7 @@ const Nav = () => {
         <ul className="flex items-center justify-end col-10">
           <li className="cursor-pointer position-relative">
             <Avatar isAvatar={isAvatar} setIsAvatar={setIsAvatar} />
-            {isAvatar ? <AvatarOptions /> : ""}
+            {isAvatar && <AvatarOptions />}
           </li>
         </ul>
       </Row>

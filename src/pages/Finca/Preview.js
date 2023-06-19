@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faMountainSun, faWheatAwn } from "@fortawesome/free-solid-svg-icons";
 import { Col, CardBody, Modal, Card, CardHeader, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -67,14 +67,11 @@ const Preview = ({ data, setIsFormPreview, isFormPreview }) => {
           </Card>
 
           <div className="flex items-center gap-1">
-            <Link to={`/lote/${data.idFinca}`} className="bg-green-700 rounded-md py-1 px-2 text-white hover:text-white hover:bg-green-800 flex items-center gap-2 font-sm">
-                <FontAwesomeIcon className="cursor-pointer" icon={faEye}/> Ver Lotes
+            <Link to={`/cultivo/${data.idFinca}`} className="bg-green-700 rounded-md py-1 px-2 text-white hover:text-white hover:bg-green-800 flex items-center gap-2 font-sm">
+                <FontAwesomeIcon className="cursor-pointer" icon={faWheatAwn}/> Ver Cultivos
             </Link>
-            <Link to={`/cultivo/${data.idFinca}`} className="bg-slate-400 rounded-md py-1 px-2 text-white hover:bg-slate-500 flex items-center gap-2 font-sm">
-                <FontAwesomeIcon className="cursor-pointer" icon={faEye}/> Ver Cultivos
-            </Link>
-            <Link to="/analisis-suelo" className="bg-slate-400 rounded-md py-1 px-2 text-white hover:bg-slate-500 flex items-center gap-2 font-sm">
-                <FontAwesomeIcon className="cursor-pointer" icon={faEye}/> Ver Estudios Realizados
+            <Link to={`/lote/${data.idFinca}`} className="bg-slate-400 rounded-md py-1 px-2 text-white hover:bg-slate-500 flex items-center gap-2 font-sm">
+                <FontAwesomeIcon className="cursor-pointer" icon={faMountainSun}/> Ver Lotes
             </Link>
           </div>
         </div>
