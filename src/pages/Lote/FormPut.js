@@ -1,5 +1,7 @@
 import React from "react";
-import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
+import { Form, Label, Input, CardBody, Modal } from "reactstrap";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const FormPut = ({ 
   loteData,
@@ -17,9 +19,10 @@ const FormPut = ({
 
   return (
     <React.Fragment>
-      <Modal size="lg" isOpen={isFormPut} toggle={() => { toggleFormPut() }}>
+      <Modal size="md" isOpen={isFormPut} toggle={() => { toggleFormPut() }}>
         <div className="modal-header">
-          <h5 className="modal-title mt-0 text-xl font-medium">Registrar Lote</h5>
+          <ToastContainer />
+          <h5 className="modal-title mt-0 text-xl font-medium">Editar Lote</h5>
           <button
             type="button"
             aria-label="Close"
@@ -34,8 +37,8 @@ const FormPut = ({
           <CardBody>
             <Form className="row">
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Descripción</Label>
-                <Col sm={9}>
+                <Label className="col-form-label">Descripción</Label>
+                <div className="w-100">
                   <Input
                     type="textarea"
                     name="descripcion"
@@ -43,16 +46,11 @@ const FormPut = ({
                     className="form-control"                   
                     value={loteData.descripcion}
                   />
-                </Col>
+                </div>
               </div>
-              
-              <div className="row justify-content-end">
-                <Col sm={9}>
-                  <div className="flex items-center gap-1">
-                    <button onClick={() => { handlePut() }} type="button" className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4" > Save </button>
-                    <button onClick={toggleFormPut} className="bg-gray-300 rounded-md hover:bg-gray-300" > Cancel </button>
-                  </div>
-                </Col>
+              <div className="flex items-center gap-1">
+                <button onClick={() => { handlePut() }} type="button" className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4" > Save </button>
+                <button onClick={toggleFormPut} className="bg-gray-300 rounded-md hover:bg-gray-300" > Cancel </button>
               </div>
             </Form>
           </CardBody>

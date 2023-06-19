@@ -8,7 +8,6 @@ import logoUfps from "../../assets/images/logoUfps.jpg";
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import RecomendacionLabranza from "./RecomendacionLabranza";
 import AnalisisSueloContext from "../../context/AnalisisSueloContext";
 import DosisNutrientes from "./DosisNutrientes";
 
@@ -153,7 +152,14 @@ const Index = () => {
                 
                 <div>
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de Labranza</p>
-                  <RecomendacionLabranza analisisSuelo={analisisSuelo} />
+                  <div className="rounded-2xl bg-white shadow-sm flex items-center gap-4 p-4">
+                    <p className="font-bold">Tipo de labranza: </p>
+                    {
+                      analisisSuelo && analisisSuelo.recomendacionCollection && 
+                      analisisSuelo.recomendacionCollection.length !== 0 &&
+                        <p>{analisisSuelo?.recomendacionCollection[0]?.labranza}</p>
+                    }
+                  </div>
                 </div>
               </div>
             </div>

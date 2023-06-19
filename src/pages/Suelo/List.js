@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight, faChevronLeft, faEdit, faTableList, faWater, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { Toaster } from "react-hot-toast";
+import { faChevronRight, faChevronLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "reactstrap";
 import NoFoundData from "../../UI/atom/NoFoundData";
 import FormPut from "./FormPut";
@@ -12,14 +11,16 @@ const Index = ({
   sueloData,
   isLoading,
   handlePut,
+  isFormPut,
   setIdSuelo,
   currentPage,
+  setIsFormPut,
   setSueloData,
   setCurrentPage,
 }) => {
-  const [isFormPut, setIsFormPut] = useState(false)
 
-  const toggleFormPut = () => {
+  const toggleFormPut = (suelo) => {
+    setSueloData({"descripcion": suelo.descripcion})
     setIsFormPut(!isFormPut);
   }
 
@@ -48,7 +49,6 @@ const Index = ({
 
   return (
     <>
-      <Toaster />
       {
           isFormPut &&
             <FormPut
@@ -80,7 +80,7 @@ const Index = ({
                         <td className="text-end flex items-center justify-end gap-2">
                           <FontAwesomeIcon
                               icon={faEdit}
-                              onClick={() => { toggleFormPut(); setIdSuelo(suelo.id)}}
+                              onClick={() => { toggleFormPut(suelo); setIdSuelo(suelo.id)}}
                               className="cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
                           />
                         </td>

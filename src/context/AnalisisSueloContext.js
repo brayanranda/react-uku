@@ -1,6 +1,7 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const AnalisisSueloContext = createContext();
 
@@ -48,17 +49,18 @@ const AnalisisSueloProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.post(url, options).then((res) => {
-      if (!res.err) {
-        setIsLoading(false);
-        if(res && Object.entries(res).length !== 0 && res.idAnalisisSuelo !== "") {
-          navigate(`/results/${res.data.idAnalisisSuelo}`)
-        }
-      } else {
-        console.log("No Registrado");
-        setIsLoading(false);
+    const res = await api.post(url, options)
+    if (!res.err) {
+      setIsLoading(false);
+      if(res && Object.entries(res).length !== 0 && res.idAnalisisSuelo !== "") {
+        navigate(`/results/${res.data.idAnalisisSuelo}`)
       }
-    });
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   };
 
   const putData = async (data) => {
@@ -67,13 +69,15 @@ const AnalisisSueloProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.put(url, options).then((res) => {
-      if (!res.err) {
-        console.log("Actualizado");
-      } else {
-        console.log("No Actualizado");
-      }
-    });
+    const res = await api.put(url, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   };
 
   const data = {

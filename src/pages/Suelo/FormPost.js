@@ -17,7 +17,7 @@ const FormPost = ({
 
   return (
     <React.Fragment>
-      <Modal size="lg" isOpen={isFormPost} toggle={() => { toggleFormPost() }}>
+      <Modal size="md" isOpen={isFormPost} toggle={() => { toggleFormPost() }}>
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Suelo</h5>
           <button
@@ -33,24 +33,18 @@ const FormPost = ({
         <div className="modal-body">
           <CardBody>
             <Form className="row">
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Descripción</Label>
-                <Col sm={9}>
-                  <Input
-                    type="textarea"
-                    name="descripcion"
-                    onChange={handleChange}
-                    className="form-control"
-                  />
-                </Col>
+              <Label className="col-form-label">Descripción</Label>
+              <div className="w-100">
+                <Input
+                  type="textarea"
+                  name="descripcion"
+                  onChange={handleChange}
+                  className="form-control"
+                />
               </div>
-              <div className="row justify-content-end">
-                <Col sm={9}>
-                  <div className="flex items-center gap-1">
-                    <button onClick={() => { handleSave() }} type="button" className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4" > Save </button>
-                    <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300" > Cancel </button>
-                  </div>
-                </Col>
+              <div className="flex items-center gap-1 mt-4">
+                <button onClick={() => { handleSave() }} type="button" className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4" > Save </button>
+                <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300" > Cancel </button>
               </div>
             </Form>
           </CardBody>

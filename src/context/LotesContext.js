@@ -1,5 +1,6 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
+import { toast } from 'react-toastify';
 
 const LotesContext = createContext();
 
@@ -24,15 +25,16 @@ const LotesProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.post(`${REACT_APP_API_URL}lote/${idFinca}`, options).then((res) => {
-      if (!res.err) {
-        console.log("Registrado");
-        setIsLoading(false);
-      } else {
-        console.log("No Registrado");
-        setIsLoading(false);
-      }
-    })
+    const res = await api.post(`${REACT_APP_API_URL}lote/${idFinca}`, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      // toast.error(res.statusText)
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   }
 
   const putLote = async (data, idLote) => {
@@ -41,13 +43,15 @@ const LotesProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.put(`${REACT_APP_API_URL}lote/${idLote}`, options).then((res) => {
-      if (!res.err) {
-        console.log("Actualizado");
-      } else {
-        console.log("No Actualizado");
-      }
-    })
+    const res = await api.put(`${REACT_APP_API_URL}lote/${idLote}`, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   }
 
     
@@ -56,13 +60,13 @@ const LotesProvider = ({ children }) => {
     let options = {body: "", headers: { "content-type": "application/json" }}
     
     const res = await api.del(endpoint, options)
-    if (res.err) {
-      console.log("Eliminado")
-      // toast.error(res.statusText)
-      return res.err
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
     } else {
-      console.log("No eliminado")
-      // toast.success("Success")
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
     }
   }
 

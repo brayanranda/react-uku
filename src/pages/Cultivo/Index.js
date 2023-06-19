@@ -9,6 +9,8 @@ import FormPost from "./FormPost";
 import ListCultivo from "./List";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Index = () => {
   const {
@@ -67,6 +69,7 @@ const Index = () => {
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
+        <ToastContainer />
         {isFormPost &&
           <FormPost
             fincas={fincas}

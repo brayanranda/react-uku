@@ -1,6 +1,7 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
 import { getUser } from "../hooks/useGetUser";
+import { toast } from 'react-toastify';
 
 const CultivoContext = createContext();
 
@@ -44,15 +45,15 @@ const CultivoProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.post(url, options).then((res) => {
-      if (!res.err) {
-        console.log("Registrado");
-        setIsLoading(false);
-      } else {
-        console.log("No Registrado");
-        setIsLoading(false);
-      }
-    });
+    const res = await api.post(url, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   };
 
   const putData = async (data) => {
@@ -61,29 +62,31 @@ const CultivoProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.put(url, options).then((res) => {
-      if (!res.err) {
-        console.log("Actualizado");
-      } else {
-        console.log("No Actualizado");
-      }
-    });
+    const res = await api.put(url, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   };
 
   const data = {
-    postData,
-    putData,
-    getCultivo,
-    getCultivos,
-    getEtapasFenologicas,
-    setCultivos,
-    setCultivo,
-    setEtapasFenologicas,
-    cultivos,
     cultivo,
-    etapasFenologicas,
+    putData,
+    postData,
+    cultivos,
     isLoading,
+    getCultivo,
+    setCultivo,
+    getCultivos,
+    setCultivos,
     setIsLoading,
+    etapasFenologicas,
+    setEtapasFenologicas,
+    getEtapasFenologicas,
   };
 
   return (

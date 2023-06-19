@@ -1,5 +1,6 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
+import { toast } from 'react-toastify';
 
 const SuelosContext = createContext();
 
@@ -24,15 +25,15 @@ const SuelosProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.post(`${url}${idLote}`, options).then((res) => {
-      if (!res.err) {
-        console.log("Registrado");
-        setIsLoading(false);
-      } else {
-        console.log("No Registrado");
-        setIsLoading(false);
-      }
-    })
+    const res = await api.post(`${url}${idLote}`, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   }
 
   const putSuelo = async (data, idSuelo) => {
@@ -41,13 +42,15 @@ const SuelosProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.put(`${url}${idSuelo}`, options).then((res) => {
-      if (!res.err) {
-        console.log("Actualizado");
-      } else {
-        console.log("No Actualizado");
-      }
-    })
+    const res = await api.put(`${url}${idSuelo}`, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   }
 
   const data = {

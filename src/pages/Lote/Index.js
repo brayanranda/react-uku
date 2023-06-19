@@ -7,10 +7,14 @@ import FormPost from "./FormPost";
 import LotesContext from "../../context/LotesContext";
 import { useParams } from "react-router-dom";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Index = () => {
   let { idFinca } = useParams()
   const { getLotes, lotes, postLote, putLote, deleteLote } = useContext(LotesContext)
   const [isFormPost, setIsFormPost] = useState(false)
+  const [isFormPut, setIsFormPut] = useState(false)
   const [idLote, setIdLote] = useState("")
   
   const [currentPage, setCurrentPage] = useState(0)
@@ -40,7 +44,7 @@ const Index = () => {
   const handlePut = async () => {
     await putLote(loteData, idLote)
     clearForm();
-    setIsFormPost(!isFormPost);
+    setIsFormPut(!isFormPut);
     await getLotes(idFinca)
   }
 
@@ -53,6 +57,7 @@ const Index = () => {
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
+        <ToastContainer />
         {
           isFormPost &&
             <FormPost
@@ -90,11 +95,14 @@ const Index = () => {
             <ListaLote
               lotes={lotes}
               search={search}
+              idLote={idLote}
               loteData={loteData}
+              isFormPut={isFormPut}
               setIdLote={setIdLote}
               handlePut={handlePut}
               setLoteData={setLoteData}
               currentPage={currentPage}
+              setIsFormPut={setIsFormPut}
               handleDelete={handleDelete}
               setCurrentPage={setCurrentPage}
             />
