@@ -99,24 +99,24 @@ const Index = ({
                         <td>{lote.descripcion}</td>
                         <td className="text-end flex items-center justify-end gap-2">
                           <Link to={`/suelo/${lote.id}`}
-                              className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-amber-400 hover:bg-amber-200 hover:text-amber-900 p-1.5"
+                              className="btn flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-amber-400 hover:bg-amber-200 hover:text-amber-900"
                           >
                               <FontAwesomeIcon icon={faWater} /> Suelos
                           </Link>
                           <Link to={`/analisis-suelo/${lote.id}`}
-                              className="flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-gray-200 hover:bg-gray-50 hover:text-blue-900 p-1.5"
+                              className="btn flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-gray-200 hover:bg-gray-50 hover:text-blue-900"
                           >
                               <FontAwesomeIcon icon={faTableList} /> Análisis de suelo
                           </Link>
                           <FontAwesomeIcon
                               icon={faEdit}
                               onClick={() => { toggleFormPut(lote); setIdLote(lote.id) }}
-                              className="cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
+                              className="btn cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
                           />
                           <FontAwesomeIcon
                               icon={faTrash}
                               onClick={() => { toggleModalDelete(); setIdLote(lote.id) }}
-                              className="cursor-pointer duration-300 transform rounded-md bg-red-200 hover:text-red-800 p-2.5"
+                              className="btn cursor-pointer duration-300 transform rounded-md bg-red-200 hover:text-red-800 p-2.5"
                           />
                         </td>
                       </tr>

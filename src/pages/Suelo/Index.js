@@ -72,13 +72,16 @@ const Index = () => {
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control rounded-full"
                   placeholder="Buscar por nombre"
                 />
               </div>
-              <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
+              <button
+                onClick={() => toggleFormPost()}
+                className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
+              >
                 <FontAwesomeIcon
-                  className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                  className="duration-300 transform text-white hover:text-green-800"
                   icon={faPlus}
                 />
                 Agregar Suelo

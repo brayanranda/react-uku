@@ -1,7 +1,9 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
-import { inputs, ranges, validarTerreno } from "../../utils/ranges.utils";
+import { inputs, validarTerreno } from "../../utils/ranges.utils";
 import { Toaster, toast } from "react-hot-toast";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const FormPost = ({
   data,
@@ -18,11 +20,6 @@ const FormPost = ({
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);
-    removeBodyCss();
-  };
-
-  function removeBodyCss() {
-    document.body.classList.add("no_padding");
   }
 
   const handleChange = (isValid, e) => {
@@ -49,28 +46,26 @@ const FormPost = ({
       return;
     }
     setData({ ...data, [name]: value });
-  };
+  }
+
   const handleElement = (element, value) => {
     setData((prevState) => {
       const copyState = { ...prevState };
       copyState.analisisElementoCollection[element].valor = Number(value);
       return { ...copyState };
     });
-  };
+  }
+
   return (
     <React.Fragment>
       <Modal
         size="lg"
         isOpen={isFormPost}
-        toggle={() => {
-          toggleFormPost();
-        }}
+        toggle={() => { toggleFormPost() }}
       >
         <Toaster />
         <div className="modal-header">
-          <h5 className="modal-title mt-0 text-xl font-medium">
-            Registrar Análisis Suelo
-          </h5>
+          <h5 className="modal-title mt-0 text-xl font-medium">Registrar Análisis Suelo</h5>
           <button
             type="button"
             className="close"
@@ -446,29 +441,33 @@ const FormPost = ({
                 </Col>
               </Row>
 
-              <div className="flex items-center gap-1 mt-4">
-                <button
-                  type="button"
-                  className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
-                  onClick={() => {
-                    if (
-                      !validarTerreno(
-                        data.porcentArena,
-                        data.porcentLimos,
-                        data.porcentArcilla
-                      )
-                    ) {
-                      toast.error(
-                        "Oops! Error, por favor revisa la informacion"
-                      );
-                      return;
-                    }
-                    onSubmit();
-                  }}
-                >
-                  Save
-                </button>
-                <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300">Cancel</button>
+              <div className="row gap-2 mt-4">
+                <Col xs={4} className="px-0 mx-0">
+                  <button
+                    type="button"
+                    className="btn bg-green-700 text-white hover:bg-green-800 w-full"
+                    onClick={() => {
+                      if (
+                        !validarTerreno(
+                          data.porcentArena,
+                          data.porcentLimos,
+                          data.porcentArcilla
+                        )
+                      ) {
+                        toast.error(
+                          "Oops! Error, por favor revisa la informacion"
+                        );
+                        return;
+                      }
+                      onSubmit();
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
+                  </button>
+                </Col>
+                <Col xs={4} className="px-0 mx-0">
+                  <button onClick={toggleFormPost} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white">Cancelar</button>
+                </Col>
               </div>
             </Form>
           </CardBody>

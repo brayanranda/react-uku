@@ -108,3 +108,13 @@ tr:last-child td {
 .border-none-last:last-child {
   border: 0px;
 }
+
+/* .form-control, .form-select,  */
+.btn {
+  border-radius: 44rem !important;
+}
+
+/* input[type="textarea"]{
+  border-radius: 0.25rem !important;
+  resize: none;
+} */
