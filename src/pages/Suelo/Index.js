@@ -6,12 +6,15 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import FormPost from "./FormPost";
 import SuelosContext from "../../context/SuelosContext";
 import { useParams } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Index = () => {
   let { idLote } = useParams()
   const { getSuelos, suelos, postSuelo, putSuelo } = useContext(SuelosContext)
   const [isFormPost, setIsFormPost] = useState(false)
   const [idSuelo, setIdSuelo] = useState("")
+  const [isFormPut, setIsFormPut] = useState(false)
   
   const [currentPage, setCurrentPage] = useState(0)
   const [search, setSearch] = useState("")
@@ -39,13 +42,14 @@ const Index = () => {
   const handlePut = async () => {
     await putSuelo(sueloData, idSuelo)
     clearForm();
-    setIsFormPost(!isFormPost);
+    setIsFormPut(!isFormPut)
     await getSuelos(idLote)
   }
 
   return (
     <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
+      <ToastContainer />
         {
           isFormPost &&
             <FormPost
@@ -83,10 +87,12 @@ const Index = () => {
             <ListaSuelo
               suelos={suelos}
               search={search}
+              isFormPut={isFormPut}
               sueloData={sueloData}
               handlePut={handlePut}
               setIdSuelo={setIdSuelo}
               currentPage={currentPage}
+              setIsFormPut={setIsFormPut}
               setSueloData={setSueloData}
               setCurrentPage={setCurrentPage}
             />

@@ -1,5 +1,6 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
+import { toast } from 'react-toastify';
 
 const LotesContext = createContext();
 
@@ -7,13 +8,15 @@ const LotesProvider = ({ children }) => {
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "finca/";
-  const [lotes, setLotes] = useState(true);
+  const [lotes, setLotes] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   const getLotes = async (idFinca) => {
     setIsLoading(true)
-    const res = await api.get(`${url}${idFinca}/lotes`)
-    setLotes(res)
+    if(idFinca) {
+      const res = await api.get(`${url}${idFinca}/lotes`)
+      setLotes(res)
+    }
     setIsLoading(false)
   }
 
@@ -24,15 +27,16 @@ const LotesProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.post(`${REACT_APP_API_URL}lote/${idFinca}`, options).then((res) => {
-      if (!res.err) {
-        console.log("Registrado");
-        setIsLoading(false);
-      } else {
-        console.log("No Registrado");
-        setIsLoading(false);
-      }
-    })
+    const res = await api.post(`${REACT_APP_API_URL}lote/${idFinca}`, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      // toast.error(res.statusText)
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   }
 
   const putLote = async (data, idLote) => {
@@ -41,13 +45,15 @@ const LotesProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     }
-    await api.put(`${REACT_APP_API_URL}lote/${idLote}`, options).then((res) => {
-      if (!res.err) {
-        console.log("Actualizado");
-      } else {
-        console.log("No Actualizado");
-      }
-    })
+    const res = await api.put(`${REACT_APP_API_URL}lote/${idLote}`, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   }
 
     
@@ -56,13 +62,13 @@ const LotesProvider = ({ children }) => {
     let options = {body: "", headers: { "content-type": "application/json" }}
     
     const res = await api.del(endpoint, options)
-    if (res.err) {
-      console.log("Eliminado")
-      // toast.error(res.statusText)
-      return res.err
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Success")
     } else {
-      console.log("No eliminado")
-      // toast.success("Success")
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
     }
   }
 

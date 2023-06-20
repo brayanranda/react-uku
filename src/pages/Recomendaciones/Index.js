@@ -8,7 +8,6 @@ import logoUfps from "../../assets/images/logoUfps.jpg";
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import RecomendacionLabranza from "./RecomendacionLabranza";
 import AnalisisSueloContext from "../../context/AnalisisSueloContext";
 import DosisNutrientes from "./DosisNutrientes";
 
@@ -90,17 +89,13 @@ const Index = () => {
                   </div>
                 </div>
 
-                {/* <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de materia orgánica (M.O.)</p>
-                <div className="w-100 flex gap-4 items-end">
-                  <div className="w-100">
-                    <p className="font-bold mb-4">Calculo del peso del suelo (kg/ha)</p>
-                    <p>Densidad aparente * 10000*Prof. Suelo * 1000</p>
+                <div className="bg-white">
+                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de materia orgánica (M.O.)</p>
+                  <div className="bg-white flex items-center gap-4 p-4">
+                    <p className="font-bold">Materia orgánica (kg /ha): </p>
+                    <p>{analisisSuelo?.materiaOrganica}</p>
                   </div>
-                  <div className="w-100">
-                    <p className="font-bold mb-4">Materia orgánica (kg /ha)</p>
-                    <p>Peso del suelo * Diferencial entre la M.O. / 100</p>
-                  </div>
-                </div> */}
+                </div>
 
                 <div className="bg-white">
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
@@ -151,9 +146,16 @@ const Index = () => {
                   <DosisNutrientes analisisSuelo={analisisSuelo} />
                 </div>
                 
-                <div>
+                <div className="bg-white">
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de Labranza</p>
-                  <RecomendacionLabranza analisisSuelo={analisisSuelo} />
+                  <div className="bg-white flex items-center gap-4 p-4">
+                    <p className="font-bold">Tipo de labranza: </p>
+                    {
+                      analisisSuelo && analisisSuelo.recomendacionCollection && 
+                      analisisSuelo.recomendacionCollection.length !== 0 &&
+                        <p>{analisisSuelo?.recomendacionCollection[0]?.labranza}</p>
+                    }
+                  </div>
                 </div>
               </div>
             </div>
