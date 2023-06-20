@@ -6,6 +6,8 @@ import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import { useParams } from "react-router-dom";
 import NoFoundData from "../../UI/atom/NoFoundData";
+import { LotesProvider } from "../../context/LotesContext";
+import { SuelosProvider } from "../../context/SuelosContext";
 
 const Index = ({
   fincas,
@@ -83,19 +85,24 @@ const Index = ({
   return (
     <>
       <Toaster />
-      {isFormPut &&
-        <FormPut
-          fincas={fincas}
-          data={cultivoData}
-          onSubmit={handlePut}
-          isFormPut={isFormPut}
-          variedades={variedades}
-          setData={setCultivoData}
-          topografias={topografias}
-          setIsFormPut={setIsFormPut}
-          distanciaSiembras={distanciaSiembras}
-          etapasFenologicas={etapasFenologicas}
-        />
+      {
+        isFormPut &&
+          <LotesProvider>
+            <SuelosProvider>
+              <FormPut
+                fincas={fincas}
+                data={cultivoData}
+                onSubmit={handlePut}
+                isFormPut={isFormPut}
+                variedades={variedades}
+                setData={setCultivoData}
+                topografias={topografias}
+                setIsFormPut={setIsFormPut}
+                distanciaSiembras={distanciaSiembras}
+                etapasFenologicas={etapasFenologicas}
+              />
+          </SuelosProvider>
+        </LotesProvider>
       }
       <div className="rounded-2xl bg-white shadow-sm">
         <div className="table-responsive fs-14">

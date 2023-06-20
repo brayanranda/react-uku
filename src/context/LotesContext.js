@@ -8,13 +8,15 @@ const LotesProvider = ({ children }) => {
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "finca/";
-  const [lotes, setLotes] = useState(true);
+  const [lotes, setLotes] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   const getLotes = async (idFinca) => {
     setIsLoading(true)
-    const res = await api.get(`${url}${idFinca}/lotes`)
-    setLotes(res)
+    if(idFinca) {
+      const res = await api.get(`${url}${idFinca}/lotes`)
+      setLotes(res)
+    }
     setIsLoading(false)
   }
 

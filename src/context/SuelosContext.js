@@ -8,13 +8,15 @@ const SuelosProvider = ({ children }) => {
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "suelo/";
-  const [suelos, setSuelos] = useState(true);
+  const [suelos, setSuelos] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   const getSuelos = async (idLote) => {
     setIsLoading(true)
-    const res = await api.get(`${REACT_APP_API_URL}lote/${idLote}/suelos`)
-    setSuelos(res)
+    if(idLote) {
+      const res = await api.get(`${REACT_APP_API_URL}lote/${idLote}/suelos`)
+      setSuelos(res)
+    }
     setIsLoading(false)
   }
 

@@ -11,6 +11,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SuelosContext, { SuelosProvider } from "../../context/SuelosContext";
+import LotesContext, { LotesProvider } from "../../context/LotesContext";
 
 const Index = () => {
   const {
@@ -22,16 +24,16 @@ const Index = () => {
     etapasFenologicas,
     getEtapasFenologicas,
   } = useContext(CultivoContext);
-
+   
   const { getFincas, fincas } = useContext(FincaContext);
   const { getVariedades, variedades } = useContext(VariedadContext);
   const { getTopografias, topografias } = useContext(TopografiaContext);
   const { getDistanciaSiembras, distanciaSiembras } = useContext(DistanciaSiembraContext);
   
+  const [search, setSearch] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [search, setSearch] = useState("");
   const [cultivoData, setCultivoData] = useState({
     descripcion: "",
     plantasPorHectarea: 0,
@@ -40,8 +42,10 @@ const Index = () => {
     idFinca: {},
     idTopografia: {},
     idVariedad: {},
-    // rendimiento: 0,
+    rendimiento: 0,
+    idSuelo: {}
   })
+
 
   useEffect(() => {
     getDistanciaSiembras();
@@ -50,6 +54,7 @@ const Index = () => {
     getTopografias();
     getVariedades();
   }, [])
+
 
   const handleSave = async () => {
     await postData(cultivoData);
@@ -71,18 +76,22 @@ const Index = () => {
       <div className="w-100 mt-16">
         <ToastContainer />
         {isFormPost &&
-          <FormPost
-            fincas={fincas}
-            data={cultivoData}
-            onSubmit={handleSave}
-            isFormPost={isFormPost}
-            variedades={variedades}
-            setData={setCultivoData}
-            topografias={topografias}
-            setIsFormPost={setIsFormPost}
-            distanciaSiembras={distanciaSiembras}
-            etapasFenologicas={etapasFenologicas}
-          />
+          <LotesProvider>
+            <SuelosProvider>
+              <FormPost
+                fincas={fincas}
+                data={cultivoData}
+                onSubmit={handleSave}
+                isFormPost={isFormPost}
+                variedades={variedades}
+                setData={setCultivoData}
+                topografias={topografias}
+                setIsFormPost={setIsFormPost}
+                distanciaSiembras={distanciaSiembras}
+                etapasFenologicas={etapasFenologicas}
+              />
+            </SuelosProvider>
+          </LotesProvider>
         }
         <Row>
           <Col className="col-uku">
