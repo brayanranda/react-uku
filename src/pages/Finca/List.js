@@ -20,6 +20,7 @@ const Index = ({
   corregimientos,
   setUpdateOrAdd,
   setCurrentPage,
+  handleModalMapa,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [isFormPreview, setIsFormPreview] = useState(false);
@@ -32,17 +33,17 @@ const Index = ({
     idCorregimiento: { idCorregimiento: 1 },
     idMunicipio: { idMunicipio: 1 },
     idVereda: { idVereda: 1 },
-  });
+  })
 
   const toggleFormPut = (finca) => {
     setFincaData(finca);
     setIsFormPut(!isFormPut);
-  };
+  }
 
   const toggleFormPreview = (finca) => {
     setFincaData(finca);
     setIsFormPreview(!isFormPreview);
-  };
+  }
 
   useEffect(() => {
     if (updateOrAdd) {
@@ -66,26 +67,26 @@ const Index = ({
       finca.nombre.toLowerCase().includes(search.toLowerCase())
     );
     return result;
-  };
+  }
 
   const filteredFincas = () => {
     if (search.length === 0) return fincas.slice(currentPage, currentPage + 5);
 
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
-  };
+  }
 
   const nextPage = () => {
     if (filter().length > currentPage + 5) {
       setCurrentPage(currentPage + 5);
     }
-  };
+  }
 
   const prevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 5);
     }
-  };
+  }
 
   return (
     <>
@@ -101,6 +102,7 @@ const Index = ({
           setIsFormPut={setIsFormPut}
           agricultores={agricultores}
           corregimientos={corregimientos}
+          handleModalMapa={handleModalMapa}
         />
       }
       {isFormPreview &&
@@ -141,9 +143,9 @@ const Index = ({
                     <td>{finca.areaTotal}</td>
                     <td>{finca.areaEnUso}</td>
                     <td>{finca.geolocalizacion}</td>
-                    <td>{finca.idAgricultor.nombres + " " +finca.idAgricultor.apellidos}</td>
-                    <td>{finca.idCorregimiento.nombre}</td>
-                    <td>{finca.idMunicipio.nombre}</td>
+                    <td>{finca?.idAgricultor?.nombres + " " + finca?.idAgricultor?.apellidos}</td>
+                    <td>{finca?.idCorregimiento?.nombre}</td>
+                    <td>{finca?.idMunicipio?.nombre}</td>
                     <td>
                       <FontAwesomeIcon
                         icon={faEdit}

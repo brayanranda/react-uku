@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row, Button } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 const FormPost = ({
   data,
@@ -235,15 +237,19 @@ const FormPost = ({
               </div>
               <div className="row justify-content-end">
                 <Col sm={9}>
-                  <div className="flex items-center gap-1">
-                    <button
-                      type="button"
-                      onClick={() => { onSubmit() }}
-                      className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
-                    >
-                      Save
-                    </button>
-                    <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300">Cancel</button>
+                  <div className="row gap-2">
+                    <Col xs={4} className="px-0 mx-0">
+                      <button
+                        type="button"
+                        onClick={() => { onSubmit() }}
+                        className="btn bg-green-700 text-white hover:bg-green-800 w-full"
+                      >
+                        <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
+                      </button>
+                    </Col>
+                    <Col xs={4} className="px-0 mx-0">
+                      <button onClick={toggleFormPost} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white">Cancelar</button>
+                    </Col>
                   </div>
                 </Col>
               </div>

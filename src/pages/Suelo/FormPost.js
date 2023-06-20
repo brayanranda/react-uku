@@ -1,5 +1,7 @@
 import React from "react";
-import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
+import { Form, Label, Input, CardBody, Modal } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 const FormPost = ({ 
   sueloData,
@@ -42,9 +44,14 @@ const FormPost = ({
                   className="form-control"
                 />
               </div>
-              <div className="flex items-center gap-1 mt-4">
-                <button onClick={() => { handleSave() }} type="button" className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4" > Save </button>
-                <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300" > Cancel </button>
+              <div className="flex items-center gap-1 mt-2 w-2/3">
+                <button 
+                  onClick={() => { handleSave() }}
+                  type="button" className="btn bg-green-700 text-white hover:bg-green-800 w-full"
+                >
+                  <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
+                </button>
+                <button onClick={toggleFormPost} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white" > Cancelar </button>
               </div>
             </Form>
           </CardBody>

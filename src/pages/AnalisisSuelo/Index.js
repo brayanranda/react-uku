@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnalisisSueloContext from "../../context/AnalisisSueloContext";
@@ -150,20 +150,20 @@ const Index = () => {
                 <input
                   type="text"
                   value={search}
-                  className="form-control"
+                  className="form-control rounded-full"
                   onChange={onSearchChange}
                   placeholder="Buscar por clase textural"
                 />
               </div>
               <button
                 onClick={() => toggleFormPost()}
-                className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm"
+                className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
               >
                 <FontAwesomeIcon
-                  className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                  className="duration-300 transform text-white hover:text-green-800"
                   icon={faPlus}
                 />
-                Agregar Análisis Suelo
+                Agregar Análisis Suelos
               </button>
             </div>
             <ListAnalisisSuelo

@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/context/AuthContext";
 import FormRequestPassword from "../../pages/Profile/FormRequestPassword";
 import { useForm } from "../../hooks/useForm";
+import { faKey, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AvatarOptions = () => {
   const { forgotPassword, logout, isOk } = useContext(AuthContext);
@@ -34,7 +36,7 @@ const AvatarOptions = () => {
   }
 
   return (
-    <ul className="bg-white shadow-md rounded-3xl position-absolute top-20 right-0 w-48 py-3">
+    <ul className="bg-white shadow-xl rounded-xl position-absolute top-18 right-0 w-60 py-3">
       {isFormPost &&
         <FormRequestPassword
           email={email}
@@ -45,16 +47,18 @@ const AvatarOptions = () => {
         />
       }
       <li
-        className="py-2 px-3 hover:bg-gray-100"
+        className="py-2 px-3 hover:bg-gray-100 flex gap-4 items-center"
         onClick={() => { toggleFormPost() }}
       >
+        <FontAwesomeIcon icon={faKey} />
         Cambiar contraseña
       </li>
       <li
         onClick={() => { logout() }}
-        className="py-2 px-3 hover:bg-gray-100"
+        className="py-2 px-3 hover:bg-red-50 flex gap-4 items-center"
       >
-        <i className="fas fa-user"></i> Cerrar sesión
+        <FontAwesomeIcon icon={faRightFromBracket} />
+        Cerrar sesión
       </li>
     </ul>
   );

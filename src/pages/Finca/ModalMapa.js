@@ -7,7 +7,7 @@ const ModalMapa = ({ handleModalMapa, handleLocationSave, setModalMapa, modalMap
   return (
     <React.Fragment>
       <Modal
-        size="lg"
+        size="xl"
         isOpen={modalMapa}
         toggle={() => { handleModalMapa() }}
       >
@@ -28,6 +28,7 @@ const ModalMapa = ({ handleModalMapa, handleLocationSave, setModalMapa, modalMap
                 location={location}
                 setLocation={setLocation}
                 onSave={handleLocationSave}
+                setModalMapa={setModalMapa}
             />
         </div>
       </Modal>

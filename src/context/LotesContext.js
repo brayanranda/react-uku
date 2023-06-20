@@ -15,7 +15,6 @@ const LotesProvider = ({ children }) => {
     setIsLoading(true)
     if(idFinca) {
       const res = await api.get(`${url}${idFinca}/lotes`)
-      console.log(res);
       setLotes(res)
     }
     setIsLoading(false)
