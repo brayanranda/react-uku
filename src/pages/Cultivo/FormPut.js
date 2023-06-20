@@ -19,13 +19,13 @@ const FormPut = ({
   const { getSuelos, suelos } = useContext(SuelosContext)
   const [idLote, setIdLote] = useState("")
 
-  const handleLote = (e) => {
-    setIdLote(e.target.value)
-  }
-
   const toggleFormPut = () => {
     setIsFormPut(!isFormPut);
     removeBodyCss();
+  }
+
+  const handleLote = (e) => {
+    setIdLote(e.target.value)
   }
 
   function removeBodyCss() {
@@ -48,6 +48,7 @@ const FormPut = ({
       getSuelos(idLote)
     }
   }, [idLote])
+
 
   return (
     <React.Fragment>
@@ -110,8 +111,8 @@ const FormPut = ({
                     >
                       <option value="">Seleccionar </option>
                       {distanciaSiembras && distanciaSiembras.length > 0 &&
-                        distanciaSiembras.map((tipo, index) => (
-                          <option key={index} value={tipo.id}>{tipo.descripcion}</option>
+                        distanciaSiembras.map((distancia, index) => (
+                          <option key={index} value={distancia.id}>{distancia.descripcion}</option>
                         ))}
                     </select>
                   </div>
@@ -128,8 +129,8 @@ const FormPut = ({
                     >
                       <option value="">Seleccionar </option>
                       {etapasFenologicas && etapasFenologicas.length > 0 &&
-                        etapasFenologicas.map((tipo, index) => (
-                          <option key={index} value={tipo.id}>{tipo.descripcion}</option>
+                        etapasFenologicas.map((etapa, index) => (
+                          <option key={index} value={etapa.id}>{etapa.descripcion}</option>
                         ))}
                     </select>
                   </div>
@@ -148,8 +149,8 @@ const FormPut = ({
                       >
                         <option value="">Seleccionar </option>
                         {topografias && topografias.length > 0 &&
-                          topografias.map((tipo, index) => (
-                            <option key={index} value={tipo.id}>{tipo.descripcion}</option>
+                          topografias.map((topografia, index) => (
+                            <option key={index} value={topografia.id}>{topografia.descripcion}</option>
                           ))}
                       </select>
                     </div>
@@ -166,8 +167,8 @@ const FormPut = ({
                     >
                       <option value="">Seleccionar </option>
                       {variedades && variedades.length > 0 &&
-                        variedades.map((tipo, index) => (
-                          <option key={index} value={tipo.id}>{tipo.descripcion}</option>
+                        variedades.map((variedad, index) => (
+                          <option key={index} value={variedad.id}>{variedad.descripcion}</option>
                         ))}
                     </select>
                   </div>
@@ -179,9 +180,10 @@ const FormPut = ({
                     <div className="w-100">
                       <select
                         type="select"
-                        name="idVariedad"
+                        name="rendimiento"
                         className="form-select"
                         onChange={handleChange}
+                        value={data.rendimiento}
                       >
                         <option value="">Seleccionar </option>
                         {
@@ -192,72 +194,6 @@ const FormPut = ({
                       </select>
                     </div>
                 </Col>
-                <Col md={6}>
-                  <Label className="col-form-label">Finca</Label>
-                  <div className="w-100">
-                    <select
-                      type="select"
-                      name="idFinca"
-                      className="form-select"
-                      onChange={handleChange}
-                      value={data?.idFinca?.idFinca}
-                    >
-                      <option value="">Seleccionar </option>
-                      {fincas && fincas.length > 0 &&
-                        fincas.map((tipo, index) => (
-                          <option key={index} value={tipo.idFinca}>{tipo.nombre}</option>
-                        ))}
-                    </select>
-                  </div>
-                </Col>
-              </Row>
-              <Row>
-                {
-                  lotes && lotes.length > 0 &&
-                    <Col md={6}>
-                      <Label className="col-form-label">Lote</Label>
-                      <div className="w-100">
-                        <select
-                          type="select"
-                          value={idLote}
-                          className="form-select"
-                          onChange={handleLote}
-                        >
-                          <option value="" hidden>Seleccionar </option>
-                          {
-                            lotes && lotes.length > 0 ?
-                              lotes.map((lote, index) =>
-                                <option key={index} value={lote.id}>{lote.descripcion}</option>
-                              )
-                              : <option>No se encontraron lotes.</option>
-                          }
-                        </select>
-                      </div>
-                    </Col>
-                }
-                {
-                  suelos && suelos.length > 0 &&
-                    <Col md={6}>
-                      <Label className="col-form-label">Suelo</Label>
-                      <div className="w-100">
-                        <select
-                          type="select"
-                          name="idSuelo"
-                          className="form-select"
-                          onChange={handleChange}
-                        >
-                          <option value="" hidden>Seleccionar </option>
-                          {
-                            suelos && suelos.length > 0 ?
-                              suelos.map((suelo, index) => 
-                                <option key={index} value={suelo.id}>{suelo.descripcion}</option>
-                              )
-                              : <option>No se encontraron suelos.</option>
-                          }
-                        </select>
-                      </div>
-                    </Col>
-                }
               </Row>
 
               <div className="flex items-center gap-1 mt-4">

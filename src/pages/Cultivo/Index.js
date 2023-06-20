@@ -11,8 +11,8 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import SuelosContext, { SuelosProvider } from "../../context/SuelosContext";
-import LotesContext, { LotesProvider } from "../../context/LotesContext";
+import { LotesProvider } from "../../context/LotesContext";
+import { SuelosProvider } from "../../context/SuelosContext";
 
 const Index = () => {
   const {
@@ -43,9 +43,8 @@ const Index = () => {
     idTopografia: {},
     idVariedad: {},
     rendimiento: 0,
-    idSuelo: {}
+    idSuelo: {},
   })
-
 
   useEffect(() => {
     getDistanciaSiembras();
@@ -54,7 +53,6 @@ const Index = () => {
     getTopografias();
     getVariedades();
   }, [])
-
 
   const handleSave = async () => {
     await postData(cultivoData);
