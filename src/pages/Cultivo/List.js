@@ -34,6 +34,8 @@ const Index = ({
     idFinca: {},
     idTopografia: {},
     idVariedad: {},
+    rendimiento: 0,
+    idSuelo: {},
   });
 
   const toggleFormPut = (cultivo) => {
@@ -52,36 +54,40 @@ const Index = ({
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
+
   const handlePut = async () => {
     await putData(cultivoData);
     setIsFormPut(!isFormPut);
     setUpdateOrAdd(true);
-  };
+  }
+
   const filter = () => {
     const result = cultivos.filter((cultivo) =>
       cultivo.descripcion.toLowerCase().includes(search.toLowerCase())
     );
     return result;
-  };
+  }
+
   const filteredcultivos = () => {
     if (search.length === 0)
       return cultivos.slice(currentPage, currentPage + 5);
 
     const filtered = filter();
     return filtered.slice(currentPage, currentPage + 5);
-  };
+  }
 
   const nextPage = () => {
     if (filter().length > currentPage + 5) {
       setCurrentPage(currentPage + 5);
     }
-  };
+  }
 
   const prevPage = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 5);
     }
-  };
+  }
+
   return (
     <>
       <Toaster />
@@ -131,7 +137,7 @@ const Index = ({
                     <td>{cultivo?.idEtapaFenologica?.descripcion}</td>
                     <td>{cultivo?.idFinca?.nombre}</td>
                     <td>{cultivo?.idTopografia?.descripcion}</td>
-                    <td>{cultivo?.descripcion}</td>
+                    <td>{cultivo?.idVariedad?.descripcion}</td>
                     <td>
                       <FontAwesomeIcon
                         onClick={() => {
@@ -154,14 +160,14 @@ const Index = ({
       </div>
       <div className="flex mt-3">
         <div
-          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
           onClick={prevPage}
+          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faChevronLeft} />
         </div>
         <div
-          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
           onClick={nextPage}
+          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
         >
           <FontAwesomeIcon icon={faChevronRight} />
         </div>

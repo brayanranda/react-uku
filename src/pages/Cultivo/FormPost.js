@@ -3,7 +3,6 @@ import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import LotesContext from "../../context/LotesContext";
 import SuelosContext from "../../context/SuelosContext";
 
-
 const FormPost = ({
   data,
   fincas,
@@ -31,12 +30,6 @@ const FormPost = ({
   useEffect(() => {
     if(data && data.idFinca.idFinca !== "") {
       getLotes(data?.idFinca?.idFinca)
-    }
-  }, [data])
-
-  useEffect(() => {
-    if(data) {
-      console.log(data)
     }
   }, [data])
 
@@ -250,7 +243,7 @@ const FormPost = ({
                   <div className="w-100">
                     <select
                       type="select"
-                      name="idVariedad"
+                      name="rendimiento"
                       className="form-select"
                       onChange={handleChange}
                     >
