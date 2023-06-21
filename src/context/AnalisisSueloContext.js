@@ -1,7 +1,7 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 
 const AnalisisSueloContext = createContext();
 
@@ -55,7 +55,7 @@ const AnalisisSueloProvider = ({ children }) => {
       if(res && Object.entries(res).length !== 0 && res.idAnalisisSuelo !== "") {
         navigate(`/results/${res.data.idAnalisisSuelo}`)
       }
-      toast.success("Success")
+      toast.success("Análisis de suelo registrado.")
     } else {
       toast.error("Error")
       setIsLoading(false);
@@ -72,7 +72,7 @@ const AnalisisSueloProvider = ({ children }) => {
     const res = await api.put(url, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Análisis de suelo modificado.")
     } else {
       toast.error("Error")
       setIsLoading(false);
@@ -81,20 +81,20 @@ const AnalisisSueloProvider = ({ children }) => {
   };
 
   const data = {
-    postData,
     putData,
-    getAnalisisSuelo,
-    getAnalisisSuelos,
-    getClaseTextural,
-    getProfundidad,
-    setAnalisisSuelos,
-    setAnalisisSuelo,
-    analisisSuelos,
-    analisisSuelo,
-    claseTextural,
-    profundidad,
+    postData,
     isLoading,
+    profundidad,
     setIsLoading,
+    claseTextural,
+    analisisSuelo,
+    analisisSuelos,
+    getProfundidad,
+    getAnalisisSuelo,
+    getClaseTextural,
+    setAnalisisSuelo,
+    getAnalisisSuelos,
+    setAnalisisSuelos,
   };
 
   return (

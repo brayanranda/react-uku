@@ -6,7 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import FormPost from "./FormPost";
 import SuelosContext from "../../context/SuelosContext";
 import { useParams } from "react-router-dom";
-import { ToastContainer } from 'react-toastify';
+import { Toaster, toast } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Index = () => {
@@ -33,76 +33,92 @@ const Index = () => {
   }, [])
 
   const handleSave = async () => {
-    await postSuelo(sueloData, idLote)
-    clearForm();
-    setIsFormPost(!isFormPost);
-    await getSuelos(idLote)
+    if(sueloData.descripcion !== "") {
+      await postSuelo(sueloData, idLote)
+      clearForm();
+      setIsFormPost(!isFormPost);
+      await getSuelos(idLote)
+    } else {
+      toast.error("Oops! Error, por favor revisa los campos");
+    }
   }
 
   const handlePut = async () => {
-    await putSuelo(sueloData, idSuelo)
-    clearForm();
-    setIsFormPut(!isFormPut)
-    await getSuelos(idLote)
+    if(sueloData.descripcion !== "") {
+      await putSuelo(sueloData, idSuelo)
+      clearForm();
+      setIsFormPut(!isFormPut)
+      await getSuelos(idLote)
+    } else {
+      toast.error("Oops! Error, por favor revisa los campos");
+    }
+  }
+
+  const onSearchChange = ({ target }) => {
+    setCurrentPage(0);
+    setSearch(target.value);
   }
 
   return (
-    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
-      <div className="w-100 mt-16">
-      <ToastContainer />
-        {
-          isFormPost &&
-            <FormPost
-              sueloData={sueloData}
-              isFormPost={isFormPost}
-              handleSave={handleSave}
-              setSueloData={setSueloData}
-              setIsFormPost={setIsFormPost}
-              toggleFormPost={toggleFormPost}
-            />
-        }
-        <Row>
-          <Col className="col-uku">
-            <div className="flex items-center mb-4 justify-between w-100 mt-3">
-              <div className="flex items-center">
-                <p className="text-2xl mr-2">Inicio</p>
-                <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">Lista Suelos</p>
+    <>
+      <Toaster />
+      <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+        <div className="w-100 mt-16">
+          {
+            isFormPost &&
+              <FormPost
+                sueloData={sueloData}
+                isFormPost={isFormPost}
+                handleSave={handleSave}
+                setSueloData={setSueloData}
+                setIsFormPost={setIsFormPost}
+                toggleFormPost={toggleFormPost}
+              />
+          }
+          <Row>
+            <Col className="col-uku">
+              <div className="flex items-center mb-4 justify-between w-100 mt-3">
+                <div className="flex items-center">
+                  <p className="text-2xl mr-2">Inicio</p>
+                  <p className="text-2xl">/</p>
+                  <p className="text-2xl ml-2 text-green-700">Lista Suelos</p>
+                </div>
+                <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
+                  <input
+                    type="text"
+                    onChange={onSearchChange}
+                    placeholder="Buscar por nombre"
+                    className="form-control rounded-full"
+                  />
+                </div>
+                <button
+                  onClick={() => toggleFormPost()}
+                  className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
+                >
+                  <FontAwesomeIcon
+                    className="duration-300 transform text-white hover:text-green-800"
+                    icon={faPlus}
+                  />
+                  Agregar Suelo
+                </button>
               </div>
-              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
-                <input
-                  type="text"
-                  className="form-control rounded-full"
-                  placeholder="Buscar por nombre"
-                />
-              </div>
-              <button
-                onClick={() => toggleFormPost()}
-                className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
-              >
-                <FontAwesomeIcon
-                  className="duration-300 transform text-white hover:text-green-800"
-                  icon={faPlus}
-                />
-                Agregar Suelo
-              </button>
-            </div>
-            <ListaSuelo
-              suelos={suelos}
-              search={search}
-              isFormPut={isFormPut}
-              sueloData={sueloData}
-              handlePut={handlePut}
-              setIdSuelo={setIdSuelo}
-              currentPage={currentPage}
-              setIsFormPut={setIsFormPut}
-              setSueloData={setSueloData}
-              setCurrentPage={setCurrentPage}
-            />
-          </Col>
-        </Row>
+              <ListaSuelo
+                suelos={suelos}
+                search={search}
+                isFormPut={isFormPut}
+                sueloData={sueloData}
+                handlePut={handlePut}
+                setIdSuelo={setIdSuelo}
+                currentPage={currentPage}
+                setIsFormPut={setIsFormPut}
+                setSueloData={setSueloData}
+                setCurrentPage={setCurrentPage}
+              />
+            </Col>
+          </Row>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

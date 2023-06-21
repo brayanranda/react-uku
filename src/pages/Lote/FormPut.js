@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Label, Input, CardBody, Modal } from "reactstrap";
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
@@ -21,8 +20,7 @@ const FormPut = ({
 
   return (
     <React.Fragment>
-      <Modal size="md" isOpen={isFormPut} toggle={() => { toggleFormPut() }}>
-        <ToastContainer />
+      <Modal size="md" centered isOpen={isFormPut} toggle={() => { toggleFormPut() }}>
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Editar Lote</h5>
           <button

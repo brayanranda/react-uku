@@ -1,6 +1,6 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 
 const SuelosContext = createContext();
 
@@ -30,7 +30,7 @@ const SuelosProvider = ({ children }) => {
     const res = await api.post(`${url}${idLote}`, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Suelo registrado")
     } else {
       toast.error("Error")
       setIsLoading(false);
@@ -47,7 +47,7 @@ const SuelosProvider = ({ children }) => {
     const res = await api.put(`${url}${idSuelo}`, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Suelo modificado")
     } else {
       toast.error("Error")
       setIsLoading(false);

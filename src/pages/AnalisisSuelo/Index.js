@@ -7,6 +7,7 @@ import CultivoContext from "../../context/CultivoContext";
 import DensidadContext from "../../context/DensidadContext";
 import FormPost from "./FormPost";
 import ListAnalisisSuelo from "./List";
+import { Toaster } from "react-hot-toast";
 
 const Index = () => {
   const {
@@ -122,69 +123,72 @@ const Index = () => {
   }
 
   return (
-    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
-      <div className="w-100 mt-16">
-        {isFormPost &&
-          <FormPost
-            data={elementoData}
-            cultivos={cultivos}
-            onSubmit={handleSave}
-            isFormPost={isFormPost}
-            densidades={densidades}
-            setData={setElementoData}
-            profundidad={profundidad}
-            inputsStates={inputsStates}
-            setIsFormPost={setIsFormPost}
-            setInputsStates={setInputsStates}
-          />
-        }
-        <Row>
-          <Col className="col-uku">
-            <div className="flex items-center mb-4 justify-between w-100">
-              <div className="flex items-center">
-                <p className="text-2xl mr-2">Inicio</p>
-                <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">Lista Análisis Suelo</p>
-              </div>
-              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
-                <input
-                  type="text"
-                  value={search}
-                  className="form-control rounded-full"
-                  onChange={onSearchChange}
-                  placeholder="Buscar por clase textural"
-                />
-              </div>
-              <button
-                onClick={() => toggleFormPost()}
-                className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
-              >
-                <FontAwesomeIcon
-                  className="duration-300 transform text-white hover:text-green-800"
-                  icon={faPlus}
-                />
-                Agregar Análisis Suelos
-              </button>
-            </div>
-            <ListAnalisisSuelo
-              search={search}
-              putData={putData}
+    <>
+      <Toaster />
+      <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+        <div className="w-100 mt-16">
+          {isFormPost &&
+            <FormPost
+              data={elementoData}
               cultivos={cultivos}
-              isLoading={isLoading}
+              onSubmit={handleSave}
+              isFormPost={isFormPost}
               densidades={densidades}
-              updateOrAdd={updateOrAdd}
-              currentPage={currentPage}
+              setData={setElementoData}
               profundidad={profundidad}
-              claseTextural={claseTextural}
-              analisisSuelos={analisisSuelos}
-              setUpdateOrAdd={setUpdateOrAdd}
-              setCurrentPage={setCurrentPage}
-              getAnalisisSuelos={getAnalisisSuelos}
+              inputsStates={inputsStates}
+              setIsFormPost={setIsFormPost}
+              setInputsStates={setInputsStates}
             />
-          </Col>
-        </Row>
+          }
+          <Row>
+            <Col className="col-uku">
+              <div className="flex items-center mb-4 justify-between w-100">
+                <div className="flex items-center">
+                  <p className="text-2xl mr-2">Inicio</p>
+                  <p className="text-2xl">/</p>
+                  <p className="text-2xl ml-2 text-green-700">Lista Análisis Suelo</p>
+                </div>
+                <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
+                  <input
+                    type="text"
+                    value={search}
+                    className="form-control rounded-full"
+                    onChange={onSearchChange}
+                    placeholder="Buscar por clase textural"
+                  />
+                </div>
+                <button
+                  onClick={() => toggleFormPost()}
+                  className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
+                >
+                  <FontAwesomeIcon
+                    className="duration-300 transform text-white hover:text-green-800"
+                    icon={faPlus}
+                  />
+                  Agregar Análisis Suelos
+                </button>
+              </div>
+              <ListAnalisisSuelo
+                search={search}
+                putData={putData}
+                cultivos={cultivos}
+                isLoading={isLoading}
+                densidades={densidades}
+                updateOrAdd={updateOrAdd}
+                currentPage={currentPage}
+                profundidad={profundidad}
+                claseTextural={claseTextural}
+                analisisSuelos={analisisSuelos}
+                setUpdateOrAdd={setUpdateOrAdd}
+                setCurrentPage={setCurrentPage}
+                getAnalisisSuelos={getAnalisisSuelos}
+              />
+            </Col>
+          </Row>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
