@@ -39,14 +39,14 @@ const Index = () => {
   }, [id])
 
   return (
-    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+    <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
         <Row>
-          <Col className="col-uku">
-            <div className="flex items-center mb-4 justify-between w-100 mt-3">
+           <Col>
+            <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
               <div className="flex items-center">
-                <p className="text-2xl mr-2">Inicio</p>
-                <p className="text-2xl">/</p>
+                
+                
                 <p className="text-2xl ml-2 text-green-700">Interpretación</p>
               </div>
               <button onClick={generarPDF} className="btn bg-green-700 rounded-md text-white hover:bg-green-800 flex items-center gap-2 font-sm">

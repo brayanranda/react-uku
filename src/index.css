@@ -66,10 +66,10 @@ a:hover {
   transition: all 0.5s ease;
   opacity: 0.85;
 }
-.col-uku {
+/* .  {
   padding-bottom: calc(var(--bs-gutter-x) * 0.5);
   padding-top: calc(var(--bs-gutter-x) * 0.5);
-}
+} */
 tr > * {
   padding: 0.4rem !important;
 }
@@ -109,12 +109,15 @@ tr:last-child td {
   border: 0px;
 }
 
-/* .form-control, .form-select,  */
-.btn {
+.form-control, .form-select, .btn {
   border-radius: 44rem !important;
 }
 
-/* input[type="textarea"]{
+textarea.form-control {
   border-radius: 0.25rem !important;
   resize: none;
-} */
+}
+
+.logo-ukulima {
+  width: 150px !important;
+}

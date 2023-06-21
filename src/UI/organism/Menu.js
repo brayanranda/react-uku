@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const Menu = () => {
   return (
-    <aside className="bg-white col-2 flex flex-col justify-between shadow-xl fixed left-0 top-0 px-4 pb-2 pt-36 h-full">
+    <aside className="bg-white col-2 hidden lg:flex flex-col justify-between shadow-xl fixed left-0 top-0 px-2 lg:px-4 pb-2 pt-36 h-full">
       <ul className="overflow-y-scroll h-full">
         {routes.map((route, index) => (
           <li className="`mr-1 text-lg cursor-pointer" key={index}>

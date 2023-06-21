@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import Preview from "./Preview";
 import NoFoundData from "../../UI/atom/NoFoundData";
+
 const Index = ({
   search,
   fincas,

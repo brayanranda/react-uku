@@ -2,8 +2,9 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../auth/context/AuthContext";
 import FormRequestPassword from "../../pages/Profile/FormRequestPassword";
 import { useForm } from "../../hooks/useForm";
-import { faKey, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faKey, faRightFromBracket, faWheatAwn, faHouseChimneyWindow } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 const AvatarOptions = () => {
   const { forgotPassword, logout, isOk } = useContext(AuthContext);
@@ -46,6 +47,22 @@ const AvatarOptions = () => {
           onInputChange={onInputChange}
         />
       }
+      <Link
+        to="/finca"
+        className="lg:hidden py-2 px-3 hover:bg-gray-100 flex gap-4 items-center"
+        onClick={() => { toggleFormPost() }}
+      >
+        <FontAwesomeIcon icon={faHouseChimneyWindow} />
+        Finca
+      </Link>
+      <Link
+        to="/cultivo"
+        className="lg:hidden py-2 px-3 hover:bg-gray-100 flex gap-4 items-center"
+        onClick={() => { toggleFormPost() }}
+      >
+        <FontAwesomeIcon icon={faWheatAwn} />
+        Cultivo
+      </Link>
       <li
         className="py-2 px-3 hover:bg-gray-100 flex gap-4 items-center"
         onClick={() => { toggleFormPost() }}

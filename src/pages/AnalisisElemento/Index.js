@@ -42,7 +42,7 @@ const Index = () => {
   };
 
   return (
-    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+    <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
         {isFormPost ? (
           <FormPost
@@ -56,30 +56,32 @@ const Index = () => {
           />
         ) : null}
         <Row>
-          <Col className="col-uku">
-            <div className="flex items-center mb-4 justify-between w-100">
+           <Col>
+            <div className="md:flex items-center mb-4 justify-between w-100 mt-">
               <div className="flex items-center">
-                <p className="text-2xl mr-2">Inicio</p>
-                <p className="text-2xl">/</p>
+                
+                
                 <p className="text-2xl ml-2 text-green-700">
                   Lista Análisis Elementos
                 </p>
               </div>
-              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Buscar por elemento"
-                  value={search}
-                  onChange={onSearchChange}
-                />
+              <div className="flex items-center mt-3 mb:mt-0">
+                <div className="w-52 md:w-96 mr-4">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Buscar por elemento"
+                    value={search}
+                    onChange={onSearchChange}
+                  />
+                </div>
+                <button
+                  onClick={() => toggleFormPost()}
+                  className="bg-green-700 rounded-md text-white hover:bg-green-700"
+                >
+                  Agregar Analisis Elemento
+                </button>
               </div>
-              <button
-                onClick={() => toggleFormPost()}
-                className="bg-green-700 rounded-md text-white hover:bg-green-700"
-              >
-                Agregar Analisis Elemento
-              </button>
             </div>
             <ListVariedades
               getAnalisisElementos={getAnalisisElementos}

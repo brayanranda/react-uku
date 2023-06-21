@@ -46,7 +46,7 @@ const Index = () => {
   };
 
   return (
-    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+    <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
         {isFormPost ? (
           <FormPost
@@ -58,11 +58,11 @@ const Index = () => {
           />
         ) : null}
         <Row>
-          <Col className="col-uku">
+           <Col>
             <div className="flex items-center mb-2 justify-between w-100 mt-3">
               <div className="flex items-center">
-                <p className="text-2xl mr-2">Inicio</p>
-                <p className="text-2xl">/</p>
+                
+                
                 <p className="text-2xl ml-2 text-green-700">
                   Lista Agricultores
                 </p>
