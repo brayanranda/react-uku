@@ -24,14 +24,15 @@ const Index = () => {
     getCorregimientos,
   } = useContext(FincaContext);
 
-  const [showErros, setShowErrors] = useState(false)
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
-  const [isFormPost, setIsFormPost] = useState(false);
-  const [modalMapa, setModalMapa] = useState(false);
-  const [updateOrAdd, setUpdateOrAdd] = useState(true);
-  const [currentPage, setCurrentPage] = useState(0);
+
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [modalMapa, setModalMapa] = useState(false);
+  const [showErros, setShowErrors] = useState(false)
+  const [isFormPost, setIsFormPost] = useState(false);
+  const [updateOrAdd, setUpdateOrAdd] = useState(true);
 
   const [fincaData, setFincaData] = useState({
     nombre: "",
@@ -176,17 +177,22 @@ const Index = () => {
               <ListFinca
                 fincas={fincas}
                 search={search}
-                putFinca={putFinca}
                 veredas={veredas}
+                putFinca={putFinca}
                 getFincas={getFincas}
+                showErros={showErros}
+                clearForm={clearForm}
                 isLoading={isLoading}
                 municipios={municipios}
                 currentPage={currentPage}
                 updateOrAdd={updateOrAdd}
                 agricultores={agricultores}
+                inputsStates={inputsStates}
+                setShowErrors={setShowErrors}
                 setUpdateOrAdd={setUpdateOrAdd}
                 setCurrentPage={setCurrentPage}
                 corregimientos={corregimientos}
+                setInputsStates={setInputsStates}
                 handleModalMapa={handleModalMapa}
               />
             </Col>

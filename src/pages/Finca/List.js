@@ -14,13 +14,18 @@ const Index = ({
   putFinca,
   getFincas,
   isLoading,
+  showErros,
+  clearForm,
   municipios,
   updateOrAdd,
   currentPage,
   agricultores,
+  inputsStates,
+  setShowErrors,
   corregimientos,
   setUpdateOrAdd,
   setCurrentPage,
+  setInputsStates,
   handleModalMapa,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
@@ -37,6 +42,7 @@ const Index = ({
   })
 
   const toggleFormPut = (finca) => {
+    setShowErrors(false)
     setFincaData(finca);
     setIsFormPut(!isFormPut);
   }
@@ -57,10 +63,23 @@ const Index = ({
     return <Spinner color="success">Loading...</Spinner>;
   }
 
+  const isvalidateInput = () => {
+      const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+      const validateSecondInputs = arrInputsStates.every(key => key)
+      return validateSecondInputs
+  }
+
   const handlePut = async () => {
+    setShowErrors(true)
+    const validate = isvalidateInput()
+    if (!validate) return
+
     await putFinca(fincaData);
+    clearForm();
     setIsFormPut(!isFormPut);
     setUpdateOrAdd(true);
+    setShowErrors(false)
+    setInputsStates({})
   };
 
   const filter = () => {
@@ -98,11 +117,14 @@ const Index = ({
           veredas={veredas}
           onSubmit={handlePut}
           isFormPut={isFormPut}
+          showErros={showErros}
           setData={setFincaData}
           municipios={municipios}
+          inputsStates={inputsStates}
           setIsFormPut={setIsFormPut}
           agricultores={agricultores}
           corregimientos={corregimientos}
+          setInputsStates={setInputsStates}
           handleModalMapa={handleModalMapa}
         />
       }

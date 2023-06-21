@@ -41,7 +41,6 @@ const Index = ({
 
   const [isFormPut, setIsFormPut] = useState(false);
   const [inputsStates, setInputsStates] = useState({});
-  const [isFormPreview, setIsFormPreview] = useState(false);
   const [analisisData, setAnalisisData] = useState({
     fecha: "",
     idClaseTextural: { idClaseTextural: "" },
@@ -116,11 +115,6 @@ const Index = ({
     }
   }
 
-  const toggleFormPreview = (element) => {
-    setAnalisisData(element);
-    setIsFormPreview(!isFormPreview);
-  }
-
   const handleSaveElemento = async () => {
     console.log(elementoData);
   }
@@ -145,15 +139,6 @@ const Index = ({
           profundidad={profundidad}
           inputsStates={inputsStates}
           setInputsStates={setInputsStates}
-        />
-      }
-      {isFormPreview &&
-        <Preview
-          isFormPreview={isFormPreview}
-          setIsFormPreview={setIsFormPreview}
-          data={analisisData}
-          setData={setAnalisisData}
-          toggleFormPost={toggleFormPost}
         />
       }
       {isFormPost &&
@@ -204,11 +189,6 @@ const Index = ({
                       <FontAwesomeIcon
                         icon={faEdit}
                         onClick={() => { toggleFormPut(elemento) }}
-                        className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                      />
-                      <FontAwesomeIcon
-                        icon={faCircleExclamation}
-                        onClick={() => { toggleFormPreview(elemento) }}
                         className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                       />
                       <Link to={`/results/${elemento.idAnalisisSuelo}`}>

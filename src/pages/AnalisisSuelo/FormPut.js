@@ -55,7 +55,15 @@ const FormPut = ({
       return;
     }
     setData({ ...data, [name]: value });
-  };
+  }
+
+  const handleElement = (element, value) => {
+    setData((prevState) => {
+      const copyState = { ...prevState };
+      copyState.analisisElementoCollection[element].valor = Number(value);
+      return { ...copyState };
+    });
+  }
 
   return (
     <React.Fragment>
@@ -118,9 +126,7 @@ const FormPut = ({
                       <option value="">Seleccionar </option>
                       {cultivos && cultivos.length > 0 &&
                         cultivos.map((tipo, index) => (
-                          <option key={index} value={tipo.idCultivo}>
-                            {tipo.descripcion}
-                          </option>
+                          <option key={index} value={tipo.idCultivo}>{tipo.descripcion}</option>
                         ))}
                     </select>
                   </div>
@@ -351,6 +357,7 @@ const FormPut = ({
                       type="text"
                       name="fosforo"
                       className="form-control"
+                      onChange={(e) => handleElement(0, e.target.value)}
                     />
                   </div>
                 </Col>
@@ -361,6 +368,7 @@ const FormPut = ({
                       type="text"
                       name="potasio"
                       className="form-control"
+                      onChange={(e) => handleElement(1, e.target.value)}
                     />
                   </div>
                 </Col>
@@ -371,6 +379,7 @@ const FormPut = ({
                       type="text"
                       name="magnesio"
                       className="form-control"
+                      onChange={(e) => handleElement(2, e.target.value)}
                     />
                   </div>
                 </Col>
@@ -384,6 +393,7 @@ const FormPut = ({
                       type="text"
                       name="calcio"
                       className="form-control"
+                      onChange={(e) => handleElement(3, e.target.value)}
                     />
                   </div>
                 </Col>
@@ -394,6 +404,12 @@ const FormPut = ({
                       type="text"
                       name="azufre"
                       className="form-control"
+                      onChange={(e) =>
+                        handleElement(
+                          4,
+                          !e.target.value.trim() ? 100000 : e.target.value
+                        )
+                      }
                     />
                   </div>
                 </Col>
@@ -401,9 +417,15 @@ const FormPut = ({
                   <Label className="col-sm-3 col-form-label">Sodio</Label>
                   <div className="w-100">
                     <Input
-                      name="sodio"
                       type="text"
+                      name="sodio"
                       className="form-control"
+                      onChange={(e) =>
+                        handleElement(
+                          5,
+                          !e.target.value.trim() ? 100000 : e.target.value
+                        )
+                      }
                     />
                   </div>
                 </Col>
@@ -417,6 +439,7 @@ const FormPut = ({
                       type="text"
                       name="boro"
                       className="form-control"
+                      onChange={(e) => handleElement(6, e.target.value)}
                     />
                   </div>
                 </Col>
@@ -427,6 +450,7 @@ const FormPut = ({
                       type="text"
                       name="azufre"
                       className="form-control"
+                      onChange={(e) => handleElement(7, e.target.value)}
                     />
                   </div>
                 </Col>

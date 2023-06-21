@@ -72,30 +72,30 @@ const Index = () => {
         },
       },
       {
-        valor: 100000,
+        valor: 0.1,
         idElemento: {
           id: 6,
           nombre: "AZUFRE (S)",
         },
       },
       {
-        valor: 100000,
+        valor: 0.1,
         idElemento: {
           id: 8,
           nombre: "SODIO (Na)",
         },
       },
       {
-        valor: 100000,
+        valor: 0.1,
         idElemento: {
-          id: 8,
+          id: 14,
           nombre: "BORO (B)",
         },
       },
       {
-        valor: 100000,
+        valor: 0.1,
         idElemento: {
-          id: 8,
+          id: 13,
           nombre: "COBRE (Cu)",
         },
       },
