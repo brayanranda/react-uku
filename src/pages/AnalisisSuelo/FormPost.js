@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import { inputs, validarTerreno } from "../../utils/ranges.utils";
 import { Toaster, toast } from "react-hot-toast";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useParams } from "react-router-dom";
+import SuelosContext from "../../context/SuelosContext";
 
 const FormPost = ({
   data,
@@ -17,6 +19,15 @@ const FormPost = ({
   setIsFormPost,
   setInputsStates,
 }) => {
+  let { idLote } = useParams()
+  const { getSuelos, suelos } = useContext(SuelosContext)
+
+  useEffect(() => {
+    if(idLote && idLote !== "") {
+      getSuelos(idLote)
+    }
+  }, [idLote])
+
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);
@@ -34,6 +45,10 @@ const FormPost = ({
     }
     if (name === "idProfundidad") {
       setData({ ...data, [name]: { idProfundidadMuestra: Number(value) } });
+      return;
+    }
+    if (name === "idSuelo") {
+      setData({ ...data, [name]: { id: Number(value) } });
       return;
     }
     if (inputs.includes(name)) {
@@ -295,7 +310,7 @@ const FormPost = ({
               </Row>
 
               <Row>
-                <Col md={6}>
+                <Col md={4}>
                   <Label className="col-form-label">Aluminio Intercambiable</Label>
                   <div className="w-100">
                     <Input
@@ -313,7 +328,7 @@ const FormPost = ({
                     />
                   </div>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
                   <Label className="col-form-label">Materia Organica</Label>
                   <div className="w-100">
                     <Input
@@ -330,6 +345,31 @@ const FormPost = ({
                       className="form-control"
                     />
                   </div>
+                </Col>
+                <Col md={4}>
+                  {
+                    suelos && suelos.length > 0 &&
+                      <>
+                        <Label className="col-form-label">Suelo</Label>
+                        <div className="w-100">
+                          <select
+                            type="select"
+                            name="idSuelo"
+                            className="form-select"
+                            onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                          >
+                            <option value="" hidden>Seleccionar </option>
+                            {
+                              suelos && suelos.length > 0 ?
+                                suelos.map((suelo, index) => 
+                                  <option key={index} value={suelo.id}>{suelo.descripcion}</option>
+                                )
+                                : <option>No se encontraron suelos.</option>
+                            }
+                          </select>
+                        </div>  
+                      </>
+                  }
                 </Col>
               </Row>
 
