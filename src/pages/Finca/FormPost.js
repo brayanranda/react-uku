@@ -8,86 +8,38 @@ const FormPost = ({
   setData,
   veredas,
   onSubmit,
-  location,
   isFormPost,
   municipios,
-  agricultores,
+  showErros,
+  inputsStates,
   setIsFormPost,
   corregimientos,
+  setInputsStates,
   handleModalMapa,
 }) => {
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
-    removeBodyCss();
   }
 
-  function removeBodyCss() {
-    document.body.classList.add("no_padding");
-  }
-
-  useEffect(() => {
-    if(location) {
-      // setData({ ...data, [name]: getVereda(Number(value)) });
-      console.log(typeof location);
-      console.log(location);
-    }
-  }, [location])
-
-  const getAgricultor = (value) => {
-    let el = {};
-    agricultores.forEach((element) => {
-      if (element.identificacion === value) {
-        el = element;
-      }
-    });
-    return el;
-  }
-
-  const getCorregimiento = (value) => {
-    let el = {};
-    corregimientos.forEach((element) => {
-      if (element.idCorregimiento === value) {
-        el = element;
-      }
-    });
-    return el;
-  }
-
-  const getMunicipio = (value) => {
-    let el = {};
-    municipios.forEach((element) => {
-      if (element.idMunicipio === value) {
-        el = element;
-      }
-    });
-    return el;
-  }
-
-  const getVereda = (value) => {
-    let el = {};
-    veredas.forEach((element) => {
-      if (element.idVereda === value) {
-        el = element;
-      }
-    });
-    return el;
-  }
-
-  const handleChange = (e) => {
+  const handleChange = (isValid, e) => {
     const { name, value } = e.target;
     if (name === "idCorregimiento") {
       setData({ ...data, [name]: { idCorregimiento: value } });
+      setInputsStates({ ...inputsStates, [name]: { idCorregimiento: isValid } })
       return;
     }
     if (name === "idMunicipio") {
       setData({ ...data, [name]: { idMunicipio: value } });
+      setInputsStates({ ...inputsStates, [name]: { idMunicipio: isValid } })
       return;
     }
     if (name === "idVereda") {
       setData({ ...data, [name]: { idVereda: value } });
+      setInputsStates({ ...inputsStates, [name]: { idVereda: isValid } })
       return;
     }
     setData({ ...data, [name]: value });
+    setInputsStates({ ...inputsStates, [name]: isValid })
   }
 
   return (
@@ -106,7 +58,7 @@ const FormPost = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Nombre</Label>
@@ -115,9 +67,16 @@ const FormPost = ({
                     type="text"
                     name="nombre"
                     value={data.nombre}
-                    onChange={handleChange}
                     className="form-control"
+                    valid={inputsStates?.nombre === true}
+                    onChange={e => handleChange(e.target.value.length > 4, e)}
+                    invalid={ showErros && (inputsStates?.nombre === false || !data?.nombre)}
                   />
+                  {
+                    showErros && (inputsStates?.nombre === false || !data?.nombre) 
+                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      : null
+                  }
                 </Col>
               </div>
               <div className="row mb-4">
@@ -127,9 +86,16 @@ const FormPost = ({
                     type="text"
                     name="areaTotal"
                     value={data.areaTotal}
-                    onChange={handleChange}
                     className="form-control col-lg-9"
+                    valid={inputsStates?.areaTotal === true}
+                    onChange={e => handleChange(e.target.value.length > 0, e)}
+                    invalid={ showErros && (inputsStates?.areaTotal === false || !data?.areaTotal)}
                   />
+                  {
+                    showErros && (inputsStates?.areaTotal === false || !data?.areaTotal) 
+                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      : null
+                  }
                 </Col>
               </div>
               <div className="row mb-4">
@@ -139,26 +105,38 @@ const FormPost = ({
                     type="text"
                     name="areaEnUso"
                     value={data.areaEnUso}
-                    onChange={handleChange}
                     className="form-control col-lg-9"
+                    valid={inputsStates?.areaEnUso === true}
+                    onChange={e => handleChange(e.target.value.length > 0, e)}
+                    invalid={ showErros && (inputsStates?.areaEnUso === false || !data?.areaEnUso)}
                   />
+                  {
+                    showErros && (inputsStates?.areaEnUso === false || !data?.areaEnUso) 
+                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      : null
+                  }
                 </Col>
               </div>
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Geolocalización</Label>
                 <Col sm={9}>
                   <Row>
-                    <Col xs={8}>
+                    <Col xs={12} lg={8}>
                       <Input
                         type="text"
                         disabled={true}
                         name="geolocalizacion"
-                        onChange={handleChange}
                         className="form-control"
                         value={data?.geolocalizacion}
+                        invalid={ showErros && !data?.geolocalizacion}
                       />
+                      {
+                        showErros && (!data?.geolocalizacion) 
+                          ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                          : null
+                      }
                     </Col>
-                    <Col xs={4}>
+                    <Col xs={12} lg={4} className="m-0">
                       <Button color="warning" className="w-100" onClick={() => { handleModalMapa() }}>Mostrar Mapa</Button>
                     </Col>
                   </Row>
@@ -171,8 +149,10 @@ const FormPost = ({
                     type="select"
                     name="idCorregimiento"
                     className="form-select"
-                    onChange={handleChange}
                     value={data?.idCorregimiento?.idCorregimiento}
+                    valid={inputsStates?.idCorregimiento?.idCorregimiento === true}
+                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                    invalid={ showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     {corregimientos && corregimientos.length > 0 &&
@@ -180,6 +160,11 @@ const FormPost = ({
                         <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
                       ))}
                   </select>
+                  {
+                    showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento) 
+                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      : null
+                  }
                 </Col>
               </div>
               <div className="row mb-4">
@@ -189,8 +174,10 @@ const FormPost = ({
                     type="select"
                     name="idMunicipio"
                     className="form-select"
-                    onChange={handleChange}
                     value={data?.idMunicipio?.idMunicipio}
+                    valid={inputsStates?.idMunicipio?.idMunicipio === true}
+                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                    invalid={ showErros && (inputsStates?.idMunicipio?.idMunicipio === false || !data?.idMunicipio?.idMunicipio)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     {municipios && municipios.length > 0 &&
@@ -198,6 +185,11 @@ const FormPost = ({
                         <option key={index} value={municipio.idMunicipio}>{municipio.nombre}</option>
                       ))}
                   </select>
+                  {
+                    showErros && (inputsStates?.idMunicipio?.idMunicipio === false || !data?.idMunicipio?.idMunicipio) 
+                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      : null
+                  }
                 </Col>
               </div>
               <div className="row mb-4">
@@ -207,8 +199,10 @@ const FormPost = ({
                     type="select"
                     name="idVereda"
                     className="form-select"
-                    onChange={handleChange}
                     value={data?.idVereda?.idVereda}
+                    valid={inputsStates?.idVereda?.idVereda === true}
+                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                    invalid={ showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     {veredas && veredas.length > 0 &&
@@ -216,6 +210,11 @@ const FormPost = ({
                         <option key={index} value={vereda.idVereda}>{vereda.nombre}</option>
                       ))}
                   </select>
+                  {
+                    showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda) 
+                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      : null
+                  }
                 </Col>
               </div>
               <div className="row mb-4">
@@ -225,20 +224,27 @@ const FormPost = ({
                     type="select"
                     name="precipitacion"
                     className="form-select"
-                    onChange={handleChange}
                     value={data?.precipitacion}
+                    valid={inputsStates?.precipitacion === true}
+                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                    invalid={ showErros && (inputsStates?.precipitacion === false || !data?.precipitacion)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     <option>Lluvioso</option>
                     <option>Medio</option>
                     <option>Seco</option>
                   </select>
+                  {
+                    showErros && (inputsStates?.precipitacion === false || !data?.precipitacion) 
+                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      : null
+                  }
                 </Col>
               </div>
               <div className="row justify-content-end">
                 <Col sm={9}>
                   <div className="row gap-2">
-                    <Col xs={4} className="px-0 mx-0">
+                    <Col xs={6} md={4} className="px-0 mx-0">
                       <button
                         type="button"
                         onClick={() => { onSubmit() }}

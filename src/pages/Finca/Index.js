@@ -24,6 +24,7 @@ const Index = () => {
     getCorregimientos,
   } = useContext(FincaContext);
 
+  const [showErros, setShowErrors] = useState(false)
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [modalMapa, setModalMapa] = useState(false);
@@ -41,6 +42,17 @@ const Index = () => {
     idMunicipio: { idMunicipio: "" },
     idVereda: { idVereda: "" },
     precipitacion: "",
+  })
+
+  const [inputsStates, setInputsStates] = useState({
+      nombre: false,
+      areaTotal: false,
+      areaEnUso: false,
+      geolocalizacion: true,
+      idCorregimiento: { idCorregimiento: false },
+      idMunicipio: { idMunicipio: false },
+      idVereda: { idVereda: false },
+      precipitacion: false,
   })
 
   const clearForm = () => {
@@ -66,11 +78,24 @@ const Index = () => {
     getVeredas();
   }, [])
 
+  const isvalidateInput = () => {
+      const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+      const validateSecondInputs = arrInputsStates.every(key => key)
+      return validateSecondInputs
+  }
+
   const handleSave = async () => {
+    setShowErrors(true)
+    const validate = isvalidateInput()
+    if (!validate) return
+
     await postFinca(fincaData);
     clearForm();
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
+
+    setShowErrors(false)
+    setInputsStates({})
   }
 
   const onSearchChange = ({ target }) => {
@@ -99,13 +124,16 @@ const Index = () => {
                 veredas={veredas}
                 location={location}
                 onSubmit={handleSave}
+                showErros={showErros}
                 setData={setFincaData}
                 isFormPost={isFormPost}
                 municipios={municipios}
+                inputsStates={inputsStates}
                 agricultores={agricultores}
                 setIsFormPost={setIsFormPost}
                 corregimientos={corregimientos}
                 handleModalMapa={handleModalMapa}
+                setInputsStates={setInputsStates}
               />
           }
           {

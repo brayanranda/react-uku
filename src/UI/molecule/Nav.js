@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Row } from "reactstrap";
 import logo from "../../assets/images/logo.png";
 import Avatar from "../atom/Avatar";
 import AvatarOptions from "../molecule/AvatarOptions";
@@ -22,11 +21,11 @@ const Nav = () => {
       <ul className="flex items-center justify-end">
         <li className="cursor-pointer position-relative">
           <div
-            className="flex items-center bg-gray-100 hover:bg-green-100 duration-300 rounded-full"
             onClick={() => setIsAvatar(!isAvatar)}
+            className="flex items-center bg-gray-100 hover:bg-green-100 duration-300 rounded-full"
           >
             <Avatar isAvatar={isAvatar} setIsAvatar={setIsAvatar} />
-            <p className="px-3">{getUser()}</p>
+            <p className="px-3 hidden sm:block">{getUser()}</p>
           </div>
           
           {isAvatar && <AvatarOptions />}

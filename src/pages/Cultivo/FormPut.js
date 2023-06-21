@@ -72,7 +72,7 @@ const FormPut = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <Row>
                 <Col md={6}>
@@ -198,7 +198,7 @@ const FormPut = ({
                 </Col>
               </Row>
 
-              <div className="flex items-center gap-1 w-2/3 mt-4">
+              <div className="flex items-center gap-1 md:w-2/3 mt-4">
                 <button onClick={() => { onSubmit() }} type="button" className="btn bg-green-700 text-white hover:bg-green-800 w-full" >
                   <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
                 </button>

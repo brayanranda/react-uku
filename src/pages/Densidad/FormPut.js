@@ -56,7 +56,7 @@ const FormPut = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <div className="row mb-4">
                 <Label

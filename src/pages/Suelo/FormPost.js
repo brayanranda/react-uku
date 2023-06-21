@@ -33,7 +33,7 @@ const FormPost = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <Label className="col-form-label">Descripción</Label>
               <div className="w-100">

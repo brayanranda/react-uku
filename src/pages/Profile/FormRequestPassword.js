@@ -48,7 +48,7 @@ const FormRequestPassword = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row" onSubmit={onSubmit}>
               <div className="flex items-center mb-4">
                 <Label className="col-sm-3 col-form-label">Correo electronico</Label>

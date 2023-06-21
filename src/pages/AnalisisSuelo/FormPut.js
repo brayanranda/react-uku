@@ -77,7 +77,7 @@ const FormPut = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <Row>
                 <Col md={6}>
@@ -433,7 +433,7 @@ const FormPut = ({
               </Row>
 
               <div className="row gap-2 mt-4">
-                <Col xs={4} className="px-0 mx-0">
+                <Col xs={6} md={4} className="px-0 mx-0">
                   <button
                     type="button"
                     onClick={() => { onSubmit() }}

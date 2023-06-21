@@ -141,7 +141,7 @@ const FormPost = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <Row>
                 <Col md={6}>
@@ -327,7 +327,7 @@ const FormPost = ({
                     </Col>
                 }
               </Row>
-              <div className="flex items-center gap-1 mt-4 w-2/3">
+              <div className="flex items-center gap-1 mt-4 md:w-2/3">
                 <button
                   onClick={() => { onSubmit() }}
                   type="button" className="btn bg-green-700 text-white hover:bg-green-800 w-full"

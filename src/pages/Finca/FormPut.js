@@ -11,7 +11,6 @@ const FormPut = ({
   isFormPut,
   municipios,
   setIsFormPut,
-  agricultores,
   corregimientos,
   handleModalMapa,
 }) => {
@@ -22,16 +21,6 @@ const FormPut = ({
 
   function removeBodyCss() {
     document.body.classList.add("no_padding");
-  }
-
-  const getAgricultor = (value) => {
-    let el = {};
-    agricultores.forEach((element) => {
-      if (element.identificacion === value) {
-        el = element;
-      }
-    });
-    return el;
   }
 
   const getCorregimiento = (value) => {
@@ -66,10 +55,6 @@ const FormPut = ({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "idAgricultor") {
-      setData({ ...data, [name]: getAgricultor(Number(value)) });
-      return;
-    }
     if (name === "idCorregimiento") {
       setData({ ...data, [name]: getCorregimiento(Number(value)) });
       return;
@@ -105,7 +90,7 @@ const FormPut = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Nombre</Label>
@@ -147,7 +132,7 @@ const FormPut = ({
                 <Label className="col-sm-3 col-form-label">Geolocalización</Label>
                 <Col sm={9}>
                   <Row>
-                    <Col xs={12}>
+                    <Col xs={12} md={12}>
                       <Input
                         type="text"
                         disabled={true}
@@ -157,7 +142,7 @@ const FormPut = ({
                         value={data?.geolocalizacion}
                       />
                     </Col>
-                    <Col xs={4}>
+                    <Col xs={12} md={4} className="mt-2">
                       {/* <Button color="warning" className="w-100" onClick={() => { handleModalMapa() }}>Mostrar Mapa</Button> */}
                     </Col>
                   </Row>
@@ -237,7 +222,7 @@ const FormPut = ({
               <div className="row justify-content-end">
                 <Col sm={9}>
                   <div className="row gap-2">
-                    <Col xs={4} className="px-0 mx-0">
+                    <Col xs={6} md={4} className="px-0 mx-0">
                       <button
                         type="button"
                         onClick={() => { onSubmit() }}

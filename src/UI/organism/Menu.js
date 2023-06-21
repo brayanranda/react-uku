@@ -10,7 +10,7 @@ const Menu = () => {
               className={({ isActive }) =>
                 isActive
                   ? "bg-yellow-400 py-2 px-3 hover:bg-yellow-400 duration-300 transform hover:scale-110 flex justify-center hover:text-black mb-1 text-center"
-                  : "py-2 px-3 hover:bg-yellow-100 duration-300 flex transform hover:scale-110 justify-center hover:text-black mb-1 text-center"
+                  : "py-2 px-3 hover:bg-gray-100 duration-300 flex transform hover:scale-110 justify-center hover:text-black mb-1 text-center"
               }
               to={route.to}
               end
