@@ -2,16 +2,21 @@ import React, { useContext, useEffect, useState } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import LotesContext from "../../context/LotesContext";
 import SuelosContext from "../../context/SuelosContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 const FormPost = ({
   data,
   fincas,
   setData,
   onSubmit,
+  showErros,
   isFormPost,
   variedades,
   topografias,
+  inputsStates,
   setIsFormPost,
+  setInputsStates,
   distanciaSiembras,
   etapasFenologicas,
 }) => {
@@ -89,34 +94,40 @@ const FormPost = ({
     return el;
   }
 
-  const handleChange = (e) => {
+  const handleChange = (isValid, e) => {
     const { name, value } = e.target;
     if (name === "idDistanciaSiembra") {
       setData({ ...data, [name]: getDistanciaSiembras(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
     if (name === "idEtapaFenologica") {
       setData({ ...data, [name]: getEtapasFenologicas(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
     if (name === "idFinca") {
-      console.log("entre?");
       setData({ ...data, [name]: getFincas(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
     if (name === "idSuelo") {
       setData({ ...data, "idSuelo": {"id": 1} });
+      setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
     if (name === "idTopografia") {
       setData({ ...data, [name]: getTopografias(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
     if (name === "idVariedad") {
       setData({ ...data, [name]: getVariedades(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
     setData({ ...data, [name]: value });
+    setInputsStates({ ...inputsStates, [name]: isValid })
   }
 
   return (
@@ -139,18 +150,26 @@ const FormPost = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row">
               <Row>
                 <Col md={6}>
                   <Label className="col-form-label" >Descripción</Label>
                   <div className="w-100">
                     <Input
-                      name="descripcion"
                       type="text"
-                      onChange={handleChange}
+                      name="descripcion"
                       className="form-control"
+                      valid={inputsStates?.descripcion === true}
+                      onChange={e => handleChange(e.target.value.length > 4, e)}
+                      invalid={ showErros && (inputsStates?.descripcion === false || !data?.descripcion)}
+
                     />
+                    {
+                      showErros && (inputsStates?.descripcion === false || !data?.descripcion) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
                 <Col md={6}>
@@ -159,9 +178,16 @@ const FormPost = ({
                     <Input
                       type="text"
                       name="plantasPorHectarea"
-                      onChange={handleChange}
                       className="form-control"
+                      valid={inputsStates?.plantasPorHectarea === true}
+                      onChange={e => handleChange(e.target.value.length > 0, e)}
+                      invalid={ showErros && (inputsStates?.plantasPorHectarea === false || !data?.plantasPorHectarea)}
                     />
+                    {
+                      showErros && (inputsStates?.plantasPorHectarea === false || !data?.plantasPorHectarea) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
               </Row>
@@ -173,7 +199,9 @@ const FormPost = ({
                       type="select"
                       className="form-select"
                       name="idDistanciaSiembra"
-                      onChange={handleChange}
+                      valid={inputsStates?.idDistanciaSiembra === true}
+                      onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                      invalid={ showErros && (inputsStates?.idDistanciaSiembra === false || !data?.idDistanciaSiembra)}
                     >
                       <option value="" hidden>Seleccionar </option>
                       {distanciaSiembras && distanciaSiembras.length > 0 &&
@@ -181,6 +209,11 @@ const FormPost = ({
                           <option key={index} value={distancia.id}>{distancia.descripcion}</option>
                         ))}
                     </select>
+                    {
+                      showErros && (inputsStates?.idDistanciaSiembra === false || !data?.idDistanciaSiembra) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
                 <Col md={6}>
@@ -190,7 +223,9 @@ const FormPost = ({
                       type="select"
                       className="form-select"
                       name="idEtapaFenologica"
-                      onChange={handleChange}
+                      valid={inputsStates?.idEtapaFenologica === true}
+                      onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                      invalid={ showErros && (inputsStates?.idEtapaFenologica === false || !data?.idEtapaFenologica)}
                     >
                       <option value="" hidden>Seleccionar </option>
                       {etapasFenologicas && etapasFenologicas.length > 0 &&
@@ -198,6 +233,11 @@ const FormPost = ({
                           <option key={index} value={etapa.id}>{etapa.descripcion}</option>
                         ))}
                     </select>
+                    {
+                      showErros && (inputsStates?.idEtapaFenologica === false || !data?.idEtapaFenologica) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
               </Row>
@@ -209,7 +249,9 @@ const FormPost = ({
                       type="select"
                       name="idTopografia"
                       className="form-select"
-                      onChange={handleChange}
+                      valid={inputsStates?.idTopografia === true}
+                      onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                      invalid={ showErros && (inputsStates?.idTopografia === false || !data?.idTopografia)}
                     >
                       <option value="" hidden>Seleccionar </option>
                       {topografias && topografias.length > 0 &&
@@ -217,6 +259,11 @@ const FormPost = ({
                           <option key={index} value={topografia.id}>{topografia.descripcion}</option>
                         ))}
                     </select>
+                    {
+                      showErros && (inputsStates?.idTopografia === false || !data?.idTopografia) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
                 <Col md={6}>
@@ -226,7 +273,9 @@ const FormPost = ({
                       type="select"
                       name="idVariedad"
                       className="form-select"
-                      onChange={handleChange}
+                      valid={inputsStates?.idVariedad === true}
+                      onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                      invalid={ showErros && (inputsStates?.idVariedad === false || !data?.idVariedad)}
                     >
                       <option value="" hidden>Seleccionar </option>
                       {variedades && variedades.length > 0 &&
@@ -234,6 +283,11 @@ const FormPost = ({
                           <option key={index} value={variedad.id}>{variedad.descripcion}</option>
                       ))}
                     </select>
+                    {
+                      showErros && (inputsStates?.idVariedad === false || !data?.idVariedad) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
               </Row>
@@ -245,7 +299,9 @@ const FormPost = ({
                       type="select"
                       name="rendimiento"
                       className="form-select"
-                      onChange={handleChange}
+                      valid={inputsStates?.rendimiento === true}
+                      onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                      invalid={ showErros && (inputsStates?.rendimiento === false || !data?.rendimiento)}
                     >
                       <option value="" hidden>Seleccionar </option>
                       {
@@ -254,6 +310,11 @@ const FormPost = ({
                         )
                       }
                     </select>
+                    {
+                      showErros && (inputsStates?.rendimiento === false || !data?.rendimiento) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
                 <Col md={6}>
@@ -263,7 +324,9 @@ const FormPost = ({
                       type="select"
                       name="idFinca"
                       className="form-select"
-                      onChange={handleChange}
+                      valid={inputsStates?.idFinca === true}
+                      onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                      invalid={ showErros && (inputsStates?.idFinca === false || !data?.idFinca)}
                     >
                       <option value="" hidden>Seleccionar </option>
                       {
@@ -274,6 +337,11 @@ const FormPost = ({
                           : <option>No se encontraron fincas.</option>
                       }
                     </select>
+                    {
+                      showErros && (inputsStates?.idFinca === false || !data?.idFinca) 
+                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                        : null
+                    }
                   </div>
                 </Col>
               </Row>
@@ -310,7 +378,9 @@ const FormPost = ({
                           type="select"
                           name="idSuelo"
                           className="form-select"
-                          onChange={handleChange}
+                          valid={inputsStates?.idSuelo === true}
+                          onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                          invalid={ showErros && (inputsStates?.idSuelo === false || !data?.idSuelo)}
                         >
                           <option value="" hidden>Seleccionar </option>
                           {
@@ -321,20 +391,24 @@ const FormPost = ({
                               : <option>No se encontraron suelos.</option>
                           }
                         </select>
+                        {
+                          showErros && (inputsStates?.idSuelo === false || !data?.idSuelo) 
+                            ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                            : null
+                        }
                       </div>
                     </Col>
                 }
               </Row>
-                <div className="flex items-center gap-1 mt-4">
-                  <button
-                    type="button"
-                    onClick={() => { onSubmit() }}
-                    className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4"
-                  >
-                    Save
-                  </button>
-                  <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300" >Cancel</button>
-                </div>
+              <div className="flex items-center gap-1 mt-4 md:w-2/3">
+                <button
+                  onClick={() => { onSubmit() }}
+                  type="button" className="btn bg-green-700 text-white hover:bg-green-800 w-full"
+                >
+                  <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
+                </button>
+                <button onClick={toggleFormPost} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white" > Cancelar </button>
+              </div>
             </Form>
           </CardBody>
         </div>

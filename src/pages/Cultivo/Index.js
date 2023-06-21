@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 import { LotesProvider } from "../../context/LotesContext";
 import { SuelosProvider } from "../../context/SuelosContext";
+import { useParams } from "react-router-dom";
 
 const Index = () => {
   const {
@@ -24,16 +25,17 @@ const Index = () => {
     etapasFenologicas,
     getEtapasFenologicas,
   } = useContext(CultivoContext);
-   
+  
+  let { idFinca } = useParams()
   const { getFincas, fincas } = useContext(FincaContext);
   const { getVariedades, variedades } = useContext(VariedadContext);
   const { getTopografias, topografias } = useContext(TopografiaContext);
   const { getDistanciaSiembras, distanciaSiembras } = useContext(DistanciaSiembraContext);
+  const [showErros, setShowErrors] = useState(false)
   
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [isFormPost, setIsFormPost] = useState(false);
-  const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [cultivoData, setCultivoData] = useState({
     descripcion: "",
     plantasPorHectarea: 0,
@@ -46,6 +48,37 @@ const Index = () => {
     idSuelo: {},
   })
 
+  const [inputsStates, setInputsStates] = useState({
+    descripcion: false,
+    plantasPorHectarea: false,
+    idDistanciaSiembra: false,
+    idEtapaFenologica: false,
+    idFinca: false,
+    idTopografia: false,
+    idVariedad: false,
+    rendimiento: false,
+    idSuelo: false,
+  })
+
+  const clearForm = () => {
+    setCultivoData({
+      descripcion: "",
+      plantasPorHectarea: 0,
+      idDistanciaSiembra: {},
+      idEtapaFenologica: {},
+      idFinca: {},
+      idTopografia: {},
+      idVariedad: {},
+      rendimiento: 0,
+      idSuelo: {},
+    });
+  }
+  const isvalidateInput = () => {
+      const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+      const validateSecondInputs = arrInputsStates.every(key => key)
+      return validateSecondInputs
+  }
+
   useEffect(() => {
     getDistanciaSiembras();
     getEtapasFenologicas();
@@ -55,9 +88,21 @@ const Index = () => {
   }, [])
 
   const handleSave = async () => {
+    setShowErrors(true)
+    const validate = isvalidateInput()
+    if (!validate) return
+
     await postData(cultivoData);
+    if(!idFinca) {
+      await getCultivos()
+    } else {
+      await getCultivos(idFinca)
+    }
+    clearForm();
     setIsFormPost(!isFormPost);
-    setUpdateOrAdd(true);
+
+    setShowErrors(false)
+    setInputsStates({})
   }
 
   const onSearchChange = ({ target }) => {
@@ -72,7 +117,7 @@ const Index = () => {
   return (
     <>
       <Toaster />
-      <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+      <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
         <div className="w-100 mt-16">
           {isFormPost &&
             <LotesProvider>
@@ -80,12 +125,15 @@ const Index = () => {
                 <FormPost
                   fincas={fincas}
                   data={cultivoData}
+                  showErros={showErros}
                   onSubmit={handleSave}
                   isFormPost={isFormPost}
                   variedades={variedades}
                   setData={setCultivoData}
                   topografias={topografias}
+                  inputsStates={inputsStates}
                   setIsFormPost={setIsFormPost}
+                  setInputsStates={setInputsStates}
                   distanciaSiembras={distanciaSiembras}
                   etapasFenologicas={etapasFenologicas}
                 />
@@ -93,29 +141,30 @@ const Index = () => {
             </LotesProvider>
           }
           <Row>
-            <Col className="col-uku">
-              <div className="flex items-center mb-4 justify-between w-100">
-                <div className="flex items-center">
-                  <p className="text-2xl mr-2">Inicio</p>
-                  <p className="text-2xl">/</p>
-                  <p className="text-2xl ml-2 text-green-700">Lista Cultivo</p>
-                </div>
-                <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
-                  <input
-                    type="text"
-                    value={search}
-                    className="form-control"
-                    onChange={onSearchChange}
-                    placeholder="Buscar por descripcion"
-                  />
-                </div>
-                <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
+            <Col>
+              <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
+                <p className="text-2xl ml-2 text-green-700">Lista Cultivos</p>
+                <div className="flex items-center mt-3 mb:mt-0">
+                  <div className="w-52 md:w-96 mr-4">
+                    <input
+                      type="text"
+                      value={search}
+                      onChange={onSearchChange}
+                      placeholder="Buscar por descripcion"
+                      className="form-control rounded-full"
+                    />
+                  </div>
+                  <button
+                    onClick={() => toggleFormPost()}
+                    className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
+                  >
                     <FontAwesomeIcon
-                      className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                      className="duration-300 transform text-white hover:text-green-800"
                       icon={faPlus}
                     />
-                  Agregar Cultivo
-                </button>
+                    Agregar
+                  </button>
+                </div>
               </div>
               <ListCultivo
                 search={search}
@@ -125,11 +174,9 @@ const Index = () => {
                 isLoading={isLoading}
                 variedades={variedades}
                 topografias={topografias}
-                updateOrAdd={updateOrAdd}
                 getCultivos={getCultivos}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                setUpdateOrAdd={setUpdateOrAdd}
                 distanciaSiembras={distanciaSiembras}
                 etapasFenologicas={etapasFenologicas}
               />

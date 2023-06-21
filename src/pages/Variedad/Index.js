@@ -45,7 +45,7 @@ const Index = () => {
   }
 
   return (
-    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+    <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
         {isFormPost ? (
           <FormPost
@@ -58,10 +58,10 @@ const Index = () => {
           />
         ) : null}
         <Row>
-          <Col className="col-uku">
+           <Col>
             <div className="flex items-center mb-4 justify-between w-100">
               <div className="flex items-center">
-                <p className="text-2xl mr-2">Inicio</p>
+                
                 <p className="text-2xl ml-2 text-green-700">Lista Variedades</p>
               </div>
               <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
@@ -78,7 +78,7 @@ const Index = () => {
                   className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
                   icon={faPlus}
                 />
-                Agregar Cultivo
+                Agregar variedad
               </button>
             </div>
             <ListVariedades

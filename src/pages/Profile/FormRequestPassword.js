@@ -48,7 +48,7 @@ const FormRequestPassword = ({
           </button>
         </div>
         <div className="modal-body">
-          <CardBody>
+          <CardBody className="p-0 md:p-3">
             <Form className="row" onSubmit={onSubmit}>
               <div className="flex items-center mb-4">
                 <Label className="col-sm-3 col-form-label">Correo electronico</Label>
@@ -66,8 +66,8 @@ const FormRequestPassword = ({
               <div className="row justify-content-end">
                 <Col sm={9}>
                   <div className="flex">
-                    <button type="submit" className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4 me-2">Solicitar</button>
-                    <button onClick={toggleFormPost} className="bg-gray-300 rounded-md hover:bg-gray-300">Cancel</button>
+                    <button type="submit" className="btn bg-green-700 rounded-md text-white hover:bg-green-700 px-4 me-2">Solicitar</button>
+                    <button onClick={toggleFormPost} className="btn bg-gray-300 rounded-md hover:bg-gray-300">Cancel</button>
                   </div>
                 </Col>
               </div>

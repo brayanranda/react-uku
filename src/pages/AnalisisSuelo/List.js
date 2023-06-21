@@ -173,7 +173,6 @@ const Index = ({
               <tr>
                 <th>Id</th>
                 <th>Clase Textural</th>
-                <th>Cultivo</th>
                 <th>% Arena</th>
                 <th>% Limos</th>
                 <th>% Arcilla</th>
@@ -192,7 +191,6 @@ const Index = ({
                   <tr key={x}>
                     <td>{elemento.idAnalisisSuelo}</td>
                     <td>{elemento?.idClaseTextural?.nombre}</td>
-                    <td>{elemento?.idCultivo?.idCultivo}</td>
                     <td>{elemento.porcentArena}</td>
                     <td>{elemento.porcentLimos}</td>
                     <td>{elemento.porcentArcilla}</td>

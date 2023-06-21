@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Col, Row } from "reactstrap";
 import FincaContext from "../../context/FincaContext";
 import FormPost from "./FormPost";
-import ListVariedad from "./List";
+import ListFinca from "./List";
 import AgricultorContext from "../../context/AgricultorContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -24,6 +24,7 @@ const Index = () => {
     getCorregimientos,
   } = useContext(FincaContext);
 
+  const [showErros, setShowErrors] = useState(false)
   const { getAgricultores, agricultores } = useContext(AgricultorContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [modalMapa, setModalMapa] = useState(false);
@@ -41,6 +42,17 @@ const Index = () => {
     idMunicipio: { idMunicipio: "" },
     idVereda: { idVereda: "" },
     precipitacion: "",
+  })
+
+  const [inputsStates, setInputsStates] = useState({
+      nombre: false,
+      areaTotal: false,
+      areaEnUso: false,
+      geolocalizacion: true,
+      idCorregimiento: { idCorregimiento: false },
+      idMunicipio: { idMunicipio: false },
+      idVereda: { idVereda: false },
+      precipitacion: false,
   })
 
   const clearForm = () => {
@@ -66,11 +78,24 @@ const Index = () => {
     getVeredas();
   }, [])
 
+  const isvalidateInput = () => {
+      const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+      const validateSecondInputs = arrInputsStates.every(key => key)
+      return validateSecondInputs
+  }
+
   const handleSave = async () => {
+    setShowErrors(true)
+    const validate = isvalidateInput()
+    if (!validate) return
+
     await postFinca(fincaData);
     clearForm();
     setIsFormPost(!isFormPost);
     setUpdateOrAdd(true);
+
+    setShowErrors(false)
+    setInputsStates({})
   }
 
   const onSearchChange = ({ target }) => {
@@ -90,7 +115,7 @@ const Index = () => {
   return (
     <>
       <Toaster />
-      <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+      <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
         <div className="w-100 mt-16">
           {
             isFormPost &&
@@ -99,13 +124,16 @@ const Index = () => {
                 veredas={veredas}
                 location={location}
                 onSubmit={handleSave}
+                showErros={showErros}
                 setData={setFincaData}
                 isFormPost={isFormPost}
                 municipios={municipios}
+                inputsStates={inputsStates}
                 agricultores={agricultores}
                 setIsFormPost={setIsFormPost}
                 corregimientos={corregimientos}
                 handleModalMapa={handleModalMapa}
+                setInputsStates={setInputsStates}
               />
           }
           {
@@ -120,34 +148,32 @@ const Index = () => {
               />
           }
           <Row>
-            <Col className="col-uku">
-              <div className="flex items-center mb-4 justify-between w-100 mt-3">
-                <div className="flex items-center">
-                  <p className="text-2xl mr-2">Inicio</p>
-                  <p className="text-2xl">/</p>
-                  <p className="text-2xl ml-2 text-green-700">Lista Fincas</p>
+             <Col>
+              <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
+                <p className="text-2xl ml-2 text-green-700">Lista Fincas</p>
+                <div className="flex items-center mt-3 mb:mt-0">
+                  <div className="w-52 md:w-96 mr-4">
+                    <input
+                      type="text"
+                      value={search}
+                      className="form-control rounded-full"
+                      onChange={onSearchChange}
+                      placeholder="Buscar por nombre"
+                    />
+                  </div>
+                  <button
+                    onClick={() => toggleFormPost()}
+                    className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
+                  >
+                    <FontAwesomeIcon
+                      className="duration-300 transform text-white hover:text-green-800"
+                      icon={faPlus}
+                    />
+                    Agregar
+                  </button>
                 </div>
-                <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
-                  <input
-                    type="text"
-                    value={search}
-                    className="form-control rounded-full"
-                    onChange={onSearchChange}
-                    placeholder="Buscar por nombre"
-                  />
-                </div>
-                <button
-                  onClick={() => toggleFormPost()}
-                  className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
-                >
-                  <FontAwesomeIcon
-                    className="duration-300 transform text-white hover:text-green-800"
-                    icon={faPlus}
-                  />
-                  Agregar Finca
-                </button>
               </div>
-              <ListVariedad
+              <ListFinca
                 fincas={fincas}
                 search={search}
                 putFinca={putFinca}

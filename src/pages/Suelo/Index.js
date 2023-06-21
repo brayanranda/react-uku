@@ -62,7 +62,7 @@ const Index = () => {
   return (
     <>
       <Toaster />
-      <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+      <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
         <div className="w-100 mt-16">
           {
             isFormPost &&
@@ -76,31 +76,29 @@ const Index = () => {
               />
           }
           <Row>
-            <Col className="col-uku">
-              <div className="flex items-center mb-4 justify-between w-100 mt-3">
-                <div className="flex items-center">
-                  <p className="text-2xl mr-2">Inicio</p>
-                  <p className="text-2xl">/</p>
-                  <p className="text-2xl ml-2 text-green-700">Lista Suelos</p>
+             <Col>
+              <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
+                <p className="text-2xl ml-2 text-green-700">Lista Suelos</p>
+                <div className="flex items-center mt-3 mb:mt-0">
+                  <div className="w-52 md:w-96 mr-4">
+                    <input
+                      type="text"
+                      onChange={onSearchChange}
+                      placeholder="Buscar por nombre"
+                      className="form-control rounded-full"
+                    />
+                  </div>
+                  <button
+                    onClick={() => toggleFormPost()}
+                    className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
+                  >
+                    <FontAwesomeIcon
+                      className="duration-300 transform text-white hover:text-green-800"
+                      icon={faPlus}
+                    />
+                    Agregar
+                  </button>
                 </div>
-                <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
-                  <input
-                    type="text"
-                    onChange={onSearchChange}
-                    placeholder="Buscar por nombre"
-                    className="form-control rounded-full"
-                  />
-                </div>
-                <button
-                  onClick={() => toggleFormPost()}
-                  className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
-                >
-                  <FontAwesomeIcon
-                    className="duration-300 transform text-white hover:text-green-800"
-                    icon={faPlus}
-                  />
-                  Agregar Suelo
-                </button>
               </div>
               <ListaSuelo
                 suelos={suelos}
