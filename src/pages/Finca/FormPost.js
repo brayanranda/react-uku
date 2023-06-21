@@ -74,7 +74,7 @@ const FormPost = ({
                   />
                   {
                     showErros && (inputsStates?.nombre === false || !data?.nombre) 
-                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
                 </Col>
@@ -93,7 +93,7 @@ const FormPost = ({
                   />
                   {
                     showErros && (inputsStates?.areaTotal === false || !data?.areaTotal) 
-                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
                 </Col>
@@ -112,7 +112,7 @@ const FormPost = ({
                   />
                   {
                     showErros && (inputsStates?.areaEnUso === false || !data?.areaEnUso) 
-                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
                 </Col>
@@ -132,7 +132,7 @@ const FormPost = ({
                       />
                       {
                         showErros && (!data?.geolocalizacion) 
-                          ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                          ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                           : null
                       }
                     </Col>
@@ -162,7 +162,7 @@ const FormPost = ({
                   </select>
                   {
                     showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento) 
-                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
                 </Col>
@@ -187,7 +187,7 @@ const FormPost = ({
                   </select>
                   {
                     showErros && (inputsStates?.idMunicipio?.idMunicipio === false || !data?.idMunicipio?.idMunicipio) 
-                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
                 </Col>
@@ -212,7 +212,7 @@ const FormPost = ({
                   </select>
                   {
                     showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda) 
-                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
                 </Col>
@@ -236,7 +236,7 @@ const FormPost = ({
                   </select>
                   {
                     showErros && (inputsStates?.precipitacion === false || !data?.precipitacion) 
-                      ? <span className="text-danger text-small d-block pt-1">You need this field</span>
+                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
                 </Col>

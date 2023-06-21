@@ -13,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 import { LotesProvider } from "../../context/LotesContext";
 import { SuelosProvider } from "../../context/SuelosContext";
+import { useParams } from "react-router-dom";
 
 const Index = () => {
   const {
@@ -24,16 +25,17 @@ const Index = () => {
     etapasFenologicas,
     getEtapasFenologicas,
   } = useContext(CultivoContext);
-   
+  
+  let { idFinca } = useParams()
   const { getFincas, fincas } = useContext(FincaContext);
   const { getVariedades, variedades } = useContext(VariedadContext);
   const { getTopografias, topografias } = useContext(TopografiaContext);
   const { getDistanciaSiembras, distanciaSiembras } = useContext(DistanciaSiembraContext);
+  const [showErros, setShowErrors] = useState(false)
   
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [isFormPost, setIsFormPost] = useState(false);
-  const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [cultivoData, setCultivoData] = useState({
     descripcion: "",
     plantasPorHectarea: 0,
@@ -46,6 +48,37 @@ const Index = () => {
     idSuelo: {},
   })
 
+  const [inputsStates, setInputsStates] = useState({
+    descripcion: false,
+    plantasPorHectarea: false,
+    idDistanciaSiembra: false,
+    idEtapaFenologica: false,
+    idFinca: false,
+    idTopografia: false,
+    idVariedad: false,
+    rendimiento: false,
+    idSuelo: false,
+  })
+
+  const clearForm = () => {
+    setCultivoData({
+      descripcion: "",
+      plantasPorHectarea: 0,
+      idDistanciaSiembra: {},
+      idEtapaFenologica: {},
+      idFinca: {},
+      idTopografia: {},
+      idVariedad: {},
+      rendimiento: 0,
+      idSuelo: {},
+    });
+  }
+  const isvalidateInput = () => {
+      const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+      const validateSecondInputs = arrInputsStates.every(key => key)
+      return validateSecondInputs
+  }
+
   useEffect(() => {
     getDistanciaSiembras();
     getEtapasFenologicas();
@@ -55,9 +88,21 @@ const Index = () => {
   }, [])
 
   const handleSave = async () => {
+    setShowErrors(true)
+    const validate = isvalidateInput()
+    if (!validate) return
+
     await postData(cultivoData);
+    if(!idFinca) {
+      await getCultivos()
+    } else {
+      await getCultivos(idFinca)
+    }
+    clearForm();
     setIsFormPost(!isFormPost);
-    setUpdateOrAdd(true);
+
+    setShowErrors(false)
+    setInputsStates({})
   }
 
   const onSearchChange = ({ target }) => {
@@ -80,12 +125,15 @@ const Index = () => {
                 <FormPost
                   fincas={fincas}
                   data={cultivoData}
+                  showErros={showErros}
                   onSubmit={handleSave}
                   isFormPost={isFormPost}
                   variedades={variedades}
                   setData={setCultivoData}
                   topografias={topografias}
+                  inputsStates={inputsStates}
                   setIsFormPost={setIsFormPost}
+                  setInputsStates={setInputsStates}
                   distanciaSiembras={distanciaSiembras}
                   etapasFenologicas={etapasFenologicas}
                 />
@@ -126,11 +174,9 @@ const Index = () => {
                 isLoading={isLoading}
                 variedades={variedades}
                 topografias={topografias}
-                updateOrAdd={updateOrAdd}
                 getCultivos={getCultivos}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
-                setUpdateOrAdd={setUpdateOrAdd}
                 distanciaSiembras={distanciaSiembras}
                 etapasFenologicas={etapasFenologicas}
               />
