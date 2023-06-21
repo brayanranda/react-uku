@@ -78,7 +78,7 @@ const Index = () => {
                   className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
                   icon={faPlus}
                 />
-                Agregar Cultivo
+                Agregar variedad
               </button>
             </div>
             <ListVariedades

@@ -2,11 +2,11 @@ import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal } from "reactstrap";
 
 const FormPut = ({
-  onSubmit,
   data,
   setData,
-  setIsFormPut,
+  onSubmit,
   isFormPut,
+  setIsFormPut,
   tiposcultivos,
 }) => {
   const toggleFormPut = () => {
@@ -33,9 +33,7 @@ const FormPut = ({
         }}
       >
         <div className="modal-header">
-          <h5 className="modal-title mt-0 text-xl font-medium">
-            Editar Cultivo
-          </h5>
+          <h5 className="modal-title mt-0 text-xl font-medium">Editar variedad</h5>
           <button
             onClick={() => {
               setIsFormPut(false);
@@ -52,12 +50,7 @@ const FormPut = ({
           <CardBody>
             <Form className="row">
               <div className="row mb-4">
-                <Label
-                  htmlFor="horizontal-password-Input"
-                  className="col-sm-3 col-form-label"
-                >
-                  Descripción
-                </Label>
+                <Label className="col-sm-3 col-form-label">Descripción</Label>
                 <Col sm={9}>
                   <Input
                     name="descripcion"
@@ -94,18 +87,11 @@ const FormPut = ({
                     <button
                       type="button"
                       className="bg-green-700 rounded-md text-white hover:bg-green-700 px-4 me-2"
-                      onClick={() => {
-                        onSubmit();
-                      }}
+                      onClick={() => { onSubmit() }}
                     >
                       Save
                     </button>
-                    <button
-                      onClick={toggleFormPut}
-                      className="bg-gray-300 rounded-md hover:bg-gray-300"
-                    >
-                      Cancel
-                    </button>
+                    <button onClick={toggleFormPut} className="bg-gray-300 rounded-md hover:bg-gray-300" >Cancel</button>
                   </div>
                 </Col>
               </div>

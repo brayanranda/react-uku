@@ -85,6 +85,20 @@ const Index = () => {
           nombre: "SODIO (Na)",
         },
       },
+      {
+        valor: 100000,
+        idElemento: {
+          id: 8,
+          nombre: "BORO (B)",
+        },
+      },
+      {
+        valor: 100000,
+        idElemento: {
+          id: 8,
+          nombre: "COBRE (Cu)",
+        },
+      },
     ],
   });
 

@@ -104,17 +104,20 @@ const Index = () => {
                   <input
                     type="text"
                     value={search}
-                    className="form-control"
                     onChange={onSearchChange}
                     placeholder="Buscar por descripcion"
+                    className="form-control rounded-full"
                   />
                 </div>
-                <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
-                    <FontAwesomeIcon
-                      className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
-                      icon={faPlus}
-                    />
-                  Agregar Cultivo
+                <button
+                  onClick={() => toggleFormPost()}
+                  className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
+                >
+                  <FontAwesomeIcon
+                    className="duration-300 transform text-white hover:text-green-800"
+                    icon={faPlus}
+                  />
+                  Agregar Lote
                 </button>
               </div>
               <ListCultivo
