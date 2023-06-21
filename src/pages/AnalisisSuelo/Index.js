@@ -8,6 +8,7 @@ import DensidadContext from "../../context/DensidadContext";
 import FormPost from "./FormPost";
 import ListAnalisisSuelo from "./List";
 import { Toaster } from "react-hot-toast";
+import { SuelosProvider } from "../../context/SuelosContext";
 
 const Index = () => {
   const {
@@ -32,6 +33,7 @@ const Index = () => {
   const [elementoData, setElementoData] = useState({
     fecha: "",
     idCultivo: { idCultivo: "" },
+    idSuelo: { id: "" },
     idProfundidad: { idProfundidadMuestra: "" },
     idDensidad: { idDensidad: "" },
     porcentArcilla: "",
@@ -142,18 +144,20 @@ const Index = () => {
       <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
         <div className="w-100 mt-16">
           {isFormPost &&
-            <FormPost
-              data={elementoData}
-              cultivos={cultivos}
-              onSubmit={handleSave}
-              isFormPost={isFormPost}
-              densidades={densidades}
-              setData={setElementoData}
-              profundidad={profundidad}
-              inputsStates={inputsStates}
-              setIsFormPost={setIsFormPost}
-              setInputsStates={setInputsStates}
-            />
+            <SuelosProvider>
+              <FormPost
+                data={elementoData}
+                cultivos={cultivos}
+                onSubmit={handleSave}
+                isFormPost={isFormPost}
+                densidades={densidades}
+                setData={setElementoData}
+                profundidad={profundidad}
+                inputsStates={inputsStates}
+                setIsFormPost={setIsFormPost}
+                setInputsStates={setInputsStates}
+              />
+            </SuelosProvider>
           }
           <Row>
              <Col>
@@ -183,16 +187,10 @@ const Index = () => {
               </div>
               <ListAnalisisSuelo
                 search={search}
-                putData={putData}
-                cultivos={cultivos}
                 isLoading={isLoading}
-                densidades={densidades}
                 updateOrAdd={updateOrAdd}
                 currentPage={currentPage}
-                profundidad={profundidad}
-                claseTextural={claseTextural}
                 analisisSuelos={analisisSuelos}
-                setUpdateOrAdd={setUpdateOrAdd}
                 setCurrentPage={setCurrentPage}
                 getAnalisisSuelos={getAnalisisSuelos}
               />

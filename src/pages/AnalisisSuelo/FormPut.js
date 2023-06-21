@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import { inputs, ranges, inRange } from "../../utils/ranges.utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import SuelosContext from "../../context/SuelosContext";
+import { useParams } from "react-router-dom";
 
 const FormPut = ({
   data,
@@ -14,17 +16,20 @@ const FormPut = ({
   profundidad,
   setIsFormPut,
   inputsStates,
-  claseTextural,
   setInputsStates,
 }) => {
+  let { idLote } = useParams()
+  const { getSuelos, suelos } = useContext(SuelosContext)
+
+  useEffect(() => {
+    if(idLote && idLote !== "") {
+      getSuelos(idLote)
+    }
+  }, [idLote])
+
   const toggleFormPut = () => {
     setInputsStates({});
     setIsFormPut(!isFormPut);
-    removeBodyCss();
-  };
-
-  function removeBodyCss() {
-    document.body.classList.add("no_padding");
   }
 
   const handleChange = (isValid, e) => {
@@ -64,7 +69,7 @@ const FormPut = ({
       return { ...copyState };
     });
   }
-
+  
   return (
     <React.Fragment>
       <Modal
@@ -87,31 +92,6 @@ const FormPut = ({
         <div className="modal-body">
           <CardBody className="p-0 md:p-3">
             <Form className="row">
-              <Row>
-                <Col md={6}>
-                  <Label className="col-form-label">Aluminio Intercambiable</Label>
-                  <div className="w-100">
-                    <Input
-                      type="text"
-                      className="form-control"
-                      name="aluminioIntercambiable"
-                      invalid={inputsStates.aluminioIntercambiable === false}
-                    />
-                  </div>
-                </Col>
-                <Col md={6}>
-                  <Label className="col-form-label">Materia Organica</Label>
-                  <div className="w-100">
-                    <Input
-                      type="text"
-                      name="materiaOrganica"
-                      className="form-control"
-                      invalid={inputsStates.materiaOrganica === false}
-                    />
-                  </div>
-                </Col>
-              </Row>
-
               <Row>
                 <Col md={6}>
                   <Label className="col-sm-3 col-form-label">Cultivo</Label>
@@ -151,6 +131,51 @@ const FormPut = ({
                       }}
                     />
                   </div>
+                </Col>
+              </Row>
+
+              <Row className="mt-2">
+                <Col md={6}>
+                  <Label className="col-form-label">Densidad</Label>
+                  <div className="w-100">
+                    <select
+                      type="select"
+                      className="form-select"
+                      name="idDensidad"
+                      value={data?.idDensidad?.idDensidad}
+                      onChange={(e) => { handleChange(e.selectedIndex != 0, e) }}
+                    >
+                      <option value="">Seleccionar </option>
+                      {densidades && densidades.length > 0 &&
+                        densidades.map((tipo, index) => (
+                          <option key={index} value={tipo.idDensidad}>
+                            {tipo.valor}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                </Col>
+                <Col md={6}>
+                  <Label className="col-form-label">Profundidad</Label>
+                  <div className="w-100">
+                    <select
+                      type="select"
+                      className="form-select"
+                      name="idProfundidad"
+                      value={data.idProfundidad.idProfundidadMuestra}
+                      onChange={(e) => {
+                        handleChange(e.selectedIndex != 0, e);
+                      }}
+                    >
+                      <option value="">Seleccionar </option>
+                      {profundidad && profundidad.length > 0 &&
+                        profundidad.map((tipo, index) => (
+                          <option key={index} value={tipo.idProfundidadMuestra}>
+                            {tipo.profundidad}
+                          </option>
+                        ))}
+                    </select>
+                  </div>                  
                 </Col>
               </Row>
 
@@ -244,7 +269,7 @@ const FormPut = ({
                 </Col>
               </Row>
 
-              <Row className="mt-2">
+              <Row>
                 <Col md={4}>
                   <Label className="col-form-label">PH Suelo</Label>
                   <div className="w-100">
@@ -304,48 +329,56 @@ const FormPut = ({
                 </Col>
               </Row>
               
-              <Row className="mt-2">
-                <Col md={6}>
-                  <Label className="col-form-label">Densidad</Label>
+              <Row>
+                <Col md={4}>
+                  <Label className="col-form-label">Aluminio Intercambiable</Label>
                   <div className="w-100">
-                    <select
-                      type="select"
-                      className="form-select"
-                      name="idDensidad"
-                      value={data?.idDensidad?.idDensidad}
-                      onChange={(e) => { handleChange(e.selectedIndex != 0, e) }}
-                    >
-                      <option value="">Seleccionar </option>
-                      {densidades && densidades.length > 0 &&
-                        densidades.map((tipo, index) => (
-                          <option key={index} value={tipo.idDensidad}>
-                            {tipo.valor}
-                          </option>
-                        ))}
-                    </select>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      name="aluminioIntercambiable"
+                      value={data.aluminioIntercambiable}
+                      invalid={inputsStates.aluminioIntercambiable === false}
+                    />
                   </div>
                 </Col>
-                <Col md={6}>
-                  <Label className="col-form-label">Profundidad</Label>
+                <Col md={4}>
+                  <Label className="col-form-label">Materia Organica</Label>
                   <div className="w-100">
-                    <select
-                      type="select"
-                      className="form-select"
-                      name="idProfundidad"
-                      value={data.idProfundidad.idProfundidadMuestra}
-                      onChange={(e) => {
-                        handleChange(e.selectedIndex != 0, e);
-                      }}
-                    >
-                      <option value="">Seleccionar </option>
-                      {profundidad && profundidad.length > 0 &&
-                        profundidad.map((tipo, index) => (
-                          <option key={index} value={tipo.idProfundidadMuestra}>
-                            {tipo.profundidad}
-                          </option>
-                        ))}
-                    </select>
-                  </div>                  
+                    <Input
+                      type="text"
+                      name="materiaOrganica"
+                      className="form-control"
+                      value={data.materiaOrganica}
+                      invalid={inputsStates.materiaOrganica === false}
+                    />
+                  </div>
+                </Col>
+                <Col md={4}>
+                  {
+                    suelos && suelos.length > 0 &&
+                      <>
+                        <Label className="col-form-label">Suelo</Label>
+                        <div className="w-100">
+                          <select
+                            type="select"
+                            name="idSuelo"
+                            className="form-select"
+                            value={data?.idSuelo?.id}
+                            onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                          >
+                            <option value="" hidden>Seleccionar </option>
+                            {
+                              suelos && suelos.length > 0 ?
+                                suelos.map((suelo, index) => 
+                                  <option key={index} value={suelo.id}>{suelo.descripcion}</option>
+                                )
+                                : <option>No se encontraron suelos.</option>
+                            }
+                          </select>
+                        </div>  
+                      </>
+                  }
                 </Col>
               </Row>
 
