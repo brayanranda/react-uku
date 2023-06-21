@@ -71,12 +71,6 @@ const FormPost = ({
     });
   }
 
-  useEffect(() => {
-    if(data) {
-      console.log('data: ', data);
-    }
-  }, [data])
-
   return (
     <React.Fragment>
       <Modal

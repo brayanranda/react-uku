@@ -187,16 +187,10 @@ const Index = () => {
               </div>
               <ListAnalisisSuelo
                 search={search}
-                putData={putData}
-                cultivos={cultivos}
                 isLoading={isLoading}
-                densidades={densidades}
                 updateOrAdd={updateOrAdd}
                 currentPage={currentPage}
-                profundidad={profundidad}
-                claseTextural={claseTextural}
                 analisisSuelos={analisisSuelos}
-                setUpdateOrAdd={setUpdateOrAdd}
                 setCurrentPage={setCurrentPage}
                 getAnalisisSuelos={getAnalisisSuelos}
               />

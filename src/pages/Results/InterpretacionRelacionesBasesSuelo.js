@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const Index = ({analisisSuelo}) => {
-
-  useEffect(() => {
-    if(analisisSuelo) console.log(analisisSuelo);
-  }, [analisisSuelo])
   
   return (
     <>
@@ -17,7 +13,7 @@ const Index = ({analisisSuelo}) => {
                 {
                     analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
                       analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) =>
-                              <th key={index}>{`Relación ${element?.idRelacionBase?.formula.split("=")[1]}`}</th>
+                        <th key={index}>{`Relación ${element?.idRelacionBase?.formula.split("=")[1]}`}</th>
                     )
                 }
               </tr>
@@ -28,7 +24,7 @@ const Index = ({analisisSuelo}) => {
                 {
                     analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
                       analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) =>
-                              <td key={index}>{element?.valor}</td>
+                        <td key={index}>{element?.valor}</td>
                     )
                 }
               </tr>
@@ -37,7 +33,7 @@ const Index = ({analisisSuelo}) => {
                 {
                     analisisSuelo.analisisSueloRelacionBaseEntities && analisisSuelo.analisisSueloRelacionBaseEntities !== 0 &&
                       analisisSuelo.analisisSueloRelacionBaseEntities.map((element, index) =>
-                              <td key={index}>{element?.idRelacionBase?.interpretacion}</td>
+                        <td key={index}>{element?.idRelacionBase?.interpretacion}</td>
                     )
                 }
               </tr>
