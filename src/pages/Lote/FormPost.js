@@ -19,7 +19,7 @@ const FormPost = ({
 
   return (
     <React.Fragment>
-      <Modal size="md" isOpen={isFormPost} toggle={() => { toggleFormPost() }}>
+      <Modal size="md" centered isOpen={isFormPost} toggle={() => { toggleFormPost() }}>
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Lote</h5>
           <button

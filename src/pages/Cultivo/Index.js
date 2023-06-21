@@ -9,7 +9,7 @@ import FormPost from "./FormPost";
 import ListCultivo from "./List";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css';
 import { LotesProvider } from "../../context/LotesContext";
 import { SuelosProvider } from "../../context/SuelosContext";
@@ -70,72 +70,74 @@ const Index = () => {
   }
 
   return (
-    <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
-      <div className="w-100 mt-16">
-        <ToastContainer />
-        {isFormPost &&
-          <LotesProvider>
-            <SuelosProvider>
-              <FormPost
+    <>
+      <Toaster />
+      <div className="col-10 fixed top-0 right-0 p-5 overflow-y-scroll max-h-screen">
+        <div className="w-100 mt-16">
+          {isFormPost &&
+            <LotesProvider>
+              <SuelosProvider>
+                <FormPost
+                  fincas={fincas}
+                  data={cultivoData}
+                  onSubmit={handleSave}
+                  isFormPost={isFormPost}
+                  variedades={variedades}
+                  setData={setCultivoData}
+                  topografias={topografias}
+                  setIsFormPost={setIsFormPost}
+                  distanciaSiembras={distanciaSiembras}
+                  etapasFenologicas={etapasFenologicas}
+                />
+              </SuelosProvider>
+            </LotesProvider>
+          }
+          <Row>
+            <Col className="col-uku">
+              <div className="flex items-center mb-4 justify-between w-100">
+                <div className="flex items-center">
+                  <p className="text-2xl mr-2">Inicio</p>
+                  <p className="text-2xl">/</p>
+                  <p className="text-2xl ml-2 text-green-700">Lista Cultivo</p>
+                </div>
+                <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
+                  <input
+                    type="text"
+                    value={search}
+                    className="form-control"
+                    onChange={onSearchChange}
+                    placeholder="Buscar por descripcion"
+                  />
+                </div>
+                <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
+                    <FontAwesomeIcon
+                      className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
+                      icon={faPlus}
+                    />
+                  Agregar Cultivo
+                </button>
+              </div>
+              <ListCultivo
+                search={search}
                 fincas={fincas}
-                data={cultivoData}
-                onSubmit={handleSave}
-                isFormPost={isFormPost}
+                putData={putData}
+                cultivos={cultivos}
+                isLoading={isLoading}
                 variedades={variedades}
-                setData={setCultivoData}
                 topografias={topografias}
-                setIsFormPost={setIsFormPost}
+                updateOrAdd={updateOrAdd}
+                getCultivos={getCultivos}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                setUpdateOrAdd={setUpdateOrAdd}
                 distanciaSiembras={distanciaSiembras}
                 etapasFenologicas={etapasFenologicas}
               />
-            </SuelosProvider>
-          </LotesProvider>
-        }
-        <Row>
-          <Col className="col-uku">
-            <div className="flex items-center mb-4 justify-between w-100">
-              <div className="flex items-center">
-                <p className="text-2xl mr-2">Inicio</p>
-                <p className="text-2xl">/</p>
-                <p className="text-2xl ml-2 text-green-700">Lista Cultivo</p>
-              </div>
-              <div className="md:w-25 lg:w-2/6 xl:w-50 mr-4 ml-auto">
-                <input
-                  type="text"
-                  value={search}
-                  className="form-control"
-                  onChange={onSearchChange}
-                  placeholder="Buscar por descripcion"
-                />
-              </div>
-              <button onClick={() => toggleFormPost()} className="bg-green-700 rounded-md py-1 px-2 text-white hover:bg-green-700 flex items-center gap-2 font-sm">
-                  <FontAwesomeIcon
-                    className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800"
-                    icon={faPlus}
-                  />
-                Agregar Cultivo
-              </button>
-            </div>
-            <ListCultivo
-              search={search}
-              fincas={fincas}
-              putData={putData}
-              cultivos={cultivos}
-              isLoading={isLoading}
-              variedades={variedades}
-              topografias={topografias}
-              updateOrAdd={updateOrAdd}
-              getCultivos={getCultivos}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              setUpdateOrAdd={setUpdateOrAdd}
-              distanciaSiembras={distanciaSiembras}
-              etapasFenologicas={etapasFenologicas}
-            />
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

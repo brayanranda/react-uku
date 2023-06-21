@@ -1,6 +1,7 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
 import { getUser } from "../hooks/useGetUser";
+import { toast } from "react-hot-toast";
 
 const FincaContext = createContext();
 
@@ -45,7 +46,6 @@ const FincaProvider = ({ children }) => {
     setVeredas(res);
   }
 
-
   const postFinca = async (data) => {
     setIsLoading(true);
     let newData = data;
@@ -53,15 +53,16 @@ const FincaProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.post(`${url}/${getUser()}`, options).then((res) => {
-      if (!res.err) {
-        console.log("Registrado");
-        setIsLoading(false);
-      } else {
-        console.log("No Registrado");
-        setIsLoading(false);
-      }
-    });
+    const res = await api.post(`${url}/${getUser()}`, options)
+
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Finca registrada.")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   };
 
   const putFinca = async (data) => {
@@ -70,13 +71,15 @@ const FincaProvider = ({ children }) => {
       body: newData,
       headers: { "content-type": "application/json" },
     };
-    await api.put(url, options).then((res) => {
-      if (!res.err) {
-        console.log("Actualizado");
-      } else {
-        console.log("No Actualizado");
-      }
-    });
+    const res = await api.put(url, options)
+    if (!res.err) {
+      setIsLoading(false);
+      toast.success("Finca modificada.")
+    } else {
+      toast.error("Error")
+      setIsLoading(false);
+      return res.err
+    }
   };
 
   const data = {

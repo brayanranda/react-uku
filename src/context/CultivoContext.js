@@ -1,7 +1,7 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
 import { getUser } from "../hooks/useGetUser";
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 
 const CultivoContext = createContext();
 
@@ -48,7 +48,7 @@ const CultivoProvider = ({ children }) => {
     const res = await api.post(url, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Cultivo registrado")
     } else {
       toast.error("Error")
       setIsLoading(false);
@@ -65,7 +65,7 @@ const CultivoProvider = ({ children }) => {
     const res = await api.put(url, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Lote modificado")
     } else {
       toast.error("Error")
       setIsLoading(false);

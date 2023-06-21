@@ -40,6 +40,13 @@ const Index = ({
     return result;
   }
 
+  const filteredLotes = () => {
+    if (search.length === 0) return lotes.slice(currentPage, currentPage + 5);
+
+    const filtered = filter();
+    return filtered.slice(currentPage, currentPage + 5);
+  }
+
   const nextPage = () => {
     if (filter().length > currentPage + 5) {
       setCurrentPage(currentPage + 5);
@@ -92,8 +99,8 @@ const Index = ({
             </thead>
             <tbody>
                 {
-                  lotes && lotes.length > 0 ?
-                    lotes.map((lote, x) => 
+                  !isLoading && lotes.length > 0 ?
+                    filteredLotes().map((lote, x) => 
                       <tr key={x} className="card-text placeholder-glow">
                         <td>{lote.id}</td>
                         <td>{lote.descripcion}</td>

@@ -17,11 +17,11 @@ const FormPut = ({
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSueloData({ ...sueloData, [name]: value, "idLote": idLote });
-  };
+  }
 
   return (
     <React.Fragment>
-      <Modal size="md" isOpen={isFormPut} toggle={() => { toggleFormPut() }}>
+      <Modal size="md" isOpen={isFormPut} centered toggle={() => { toggleFormPut() }}>
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Editar Suelo</h5>
           <button
@@ -47,7 +47,7 @@ const FormPut = ({
                   value={sueloData.descripcion}
                 />
               </div>
-              <div className="flex items-center gap-1 mt-2 w-2/3">
+              <div className="flex items-center gap-1 w-2/3 mt-4">
                 <button 
                   onClick={() => { handlePut() }} type="button"
                   className="btn bg-green-700 text-white hover:bg-green-800 w-full"

@@ -1,6 +1,6 @@
 import { helpHttp } from "../helpers/helpHttp";
 import { createContext, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-hot-toast";
 
 const LotesContext = createContext();
 
@@ -30,7 +30,7 @@ const LotesProvider = ({ children }) => {
     const res = await api.post(`${REACT_APP_API_URL}lote/${idFinca}`, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Lote registrado")
     } else {
       // toast.error(res.statusText)
       toast.error("Error")
@@ -48,7 +48,7 @@ const LotesProvider = ({ children }) => {
     const res = await api.put(`${REACT_APP_API_URL}lote/${idLote}`, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Lote modificado")
     } else {
       toast.error("Error")
       setIsLoading(false);
@@ -64,7 +64,7 @@ const LotesProvider = ({ children }) => {
     const res = await api.del(endpoint, options)
     if (!res.err) {
       setIsLoading(false);
-      toast.success("Success")
+      toast.success("Lote eliminado")
     } else {
       toast.error("Error")
       setIsLoading(false);

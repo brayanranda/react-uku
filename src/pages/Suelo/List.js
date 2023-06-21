@@ -29,17 +29,24 @@ const Index = ({
   }
 
   const filter = () => {
-    const result = suelos.filter((variedad) =>
-      variedad.descripcion.toLowerCase().includes(search.toLowerCase())
-    );
+    const result = suelos.filter((suelo) =>
+      suelo.descripcion.toLowerCase().includes(search.toLowerCase())
+    )
     return result;
-  };
+  }
+
+  const filteredSuelos = () => {
+    if (search.length === 0) return suelos.slice(currentPage, currentPage + 5);
+
+    const filtered = filter();
+    return filtered.slice(currentPage, currentPage + 5);
+  }
 
   const nextPage = () => {
     if (filter().length > currentPage + 5) {
       setCurrentPage(currentPage + 5);
     }
-  };
+  }
 
   const prevPage = () => {
     if (currentPage > 0) {
@@ -72,8 +79,8 @@ const Index = ({
             </thead>
             <tbody>
                 {
-                  suelos && suelos.length > 0 ?
-                    suelos.map((suelo, x) => 
+                  !isLoading && suelos.length > 0 ? 
+                    filteredSuelos().map((suelo, x) => 
                       <tr key={x} className="card-text placeholder-glow">
                         <td>{suelo.id}</td>
                         <td>{suelo.descripcion}</td>

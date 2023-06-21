@@ -19,7 +19,7 @@ const FormPost = ({
 
   return (
     <React.Fragment>
-      <Modal size="md" isOpen={isFormPost} toggle={() => { toggleFormPost() }}>
+      <Modal size="md" centered isOpen={isFormPost} toggle={() => { toggleFormPost() }}>
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Suelo</h5>
           <button
@@ -44,7 +44,7 @@ const FormPost = ({
                   className="form-control"
                 />
               </div>
-              <div className="flex items-center gap-1 mt-2 w-2/3">
+              <div className="flex items-center gap-1 w-2/3 mt-4">
                 <button 
                   onClick={() => { handleSave() }}
                   type="button" className="btn bg-green-700 text-white hover:bg-green-800 w-full"
