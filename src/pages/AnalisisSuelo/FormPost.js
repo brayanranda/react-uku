@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import { inputs, validarTerreno } from "../../utils/ranges.utils";
 import { Toaster, toast } from "react-hot-toast";
@@ -56,6 +56,12 @@ const FormPost = ({
     });
   }
 
+  useEffect(() => {
+    if(data) {
+      console.log('data: ', data);
+    }
+  }, [data])
+
   return (
     <React.Fragment>
       <Modal
@@ -94,9 +100,7 @@ const FormPost = ({
                       <option value="">Seleccionar </option>
                       {cultivos && cultivos.length > 0 &&
                         cultivos.map((tipo, index) => (
-                          <option key={index} value={tipo.idCultivo}>
-                            {tipo.idCultivo}
-                          </option>
+                          <option key={index} value={tipo.idCultivo}>{tipo.descripcion}</option>
                         ))}
                     </select>
                   </div>
@@ -356,10 +360,10 @@ const FormPost = ({
                   <Label className="col-sm-3 col-form-label">Magnesio</Label>
                   <div className="w-100">
                     <Input
-                      name="magnesio"
-                      onChange={(e) => handleElement(2, e.target.value)}
                       type="text"
+                      name="magnesio"
                       className="form-control"
+                      onChange={(e) => handleElement(2, e.target.value)}
                     />
                   </div>
                 </Col>
@@ -419,7 +423,7 @@ const FormPost = ({
                       type="text"
                       name="boro"
                       className="form-control"
-                      onChange={(e) => handleElement(3, e.target.value)}
+                      onChange={(e) => handleElement(6, e.target.value)}
                     />
                   </div>
                 </Col>
@@ -428,14 +432,9 @@ const FormPost = ({
                   <div className="w-100">
                     <Input
                       type="text"
-                      name="azufre"
+                      name="cobre"
                       className="form-control"
-                      onChange={(e) =>
-                        handleElement(
-                          4,
-                          !e.target.value.trim() ? 100000 : e.target.value
-                        )
-                      }
+                      onChange={(e) => handleElement(7, e.target.value)}
                     />
                   </div>
                 </Col>
