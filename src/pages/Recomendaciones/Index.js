@@ -69,7 +69,11 @@ const Index = () => {
 
               <div className="p-3 pb-0 space-y-8">
                 <div className="bg-white">
-                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
+                  <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
+                  <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
+                    Nota: Seleccione a su consideración una de las siguientes recomendaciones.
+                  </p>
+
                   <div className="w-100 flex gap-4 p-4">
                     {
                       analisisSuelo && analisisSuelo.recomendacionCollection && 
@@ -94,7 +98,10 @@ const Index = () => {
                 </div>
 
                 <div className="bg-white">
-                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
+                  <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de abono orgánico (Encalado del suelo)</p>
+                  <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
+                    Nota: Seleccione a su consideración una de las siguientes recomendaciones.
+                  </p>
                   <div className="w-100 flex gap-4 p-4">
                     {
                       analisisSuelo && analisisSuelo.recomendacionCollection && 
@@ -102,7 +109,7 @@ const Index = () => {
                       analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.length > 0 &&
                         analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.map((element, index) => 
                           <div key={index} className="w-1/4 border-r-2 border-none-last">
-                            <p className="font-bold">{element?.idAbonoOrganico?.descripcion}</p>
+                            <p className="font-bold">{element?.idAbonoOrganico?.descripcion} (Kg/Ha)</p>
                             <p>{element.cantidad}</p>
                           </div>
                         )

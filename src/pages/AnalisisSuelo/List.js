@@ -71,16 +71,8 @@ const Index = ({
               <tr>
                 <th>Id</th>
                 <th>Clase Textural</th>
-                <th>% Arena</th>
-                <th>% Limos</th>
-                <th>% Arcilla</th>
                 <th>Fecha</th>
-                <th>Densidad</th>
-                <th>Profundidad</th>
-                <th>PH Suelo</th>
-                <th>Conductividad Electrica</th>
-                <th>Intercambio Cationico</th>
-                <th>Acciones</th>
+                <th>Reportes</th>
               </tr>
             </thead>
             <tbody>
@@ -89,15 +81,7 @@ const Index = ({
                   <tr key={x}>
                     <td>{elemento.idAnalisisSuelo}</td>
                     <td>{elemento?.idClaseTextural?.nombre}</td>
-                    <td>{elemento.porcentArena}</td>
-                    <td>{elemento.porcentLimos}</td>
-                    <td>{elemento.porcentArcilla}</td>
                     <td>{elemento.fecha}</td>
-                    <td>{elemento.idDensidad.valor}</td>
-                    <td>{elemento?.idProfundidad?.profundidad}</td>
-                    <td>{elemento.phSuelo}</td>
-                    <td>{elemento.conductividadElectrica}</td>
-                    <td>{elemento.intercambioCationico}</td>
                     <td className="grid grid-cols-2">
                       <Link to={`/results/${elemento.idAnalisisSuelo}`}>
                         <FontAwesomeIcon

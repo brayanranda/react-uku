@@ -95,8 +95,33 @@ const FormPost = ({
           <CardBody className="p-0 md:p-3">
             <Form className="row">
               <Row>
-                <Col md={6}>
-                  <Label className="col-sm-3 col-form-label">Cultivo</Label>
+                <Col md={4}>
+                  {
+                    suelos && suelos.length > 0 &&
+                      <>
+                        <Label className="col-form-label">Suelo del lote</Label>
+                        <div className="w-100">
+                          <select
+                            type="select"
+                            name="idSuelo"
+                            className="form-select"
+                            onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
+                          >
+                            <option value="" hidden>Seleccionar </option>
+                            {
+                              suelos && suelos.length > 0 ?
+                                suelos.map((suelo, index) => 
+                                  <option key={index} value={suelo.id}>{suelo.descripcion}</option>
+                                )
+                                : <option>No se encontraron suelos.</option>
+                            }
+                          </select>
+                        </div>  
+                      </>
+                  }
+                </Col>
+                <Col md={4}>
+                  <Label className="col-form-label">Cultivo</Label>
                   <div className="w-100">
                     <select
                       type="select"
@@ -114,8 +139,8 @@ const FormPost = ({
                     </select>
                   </div>
                 </Col>
-                <Col md={6}>
-                    <Label className="col-sm-3 col-form-label">Fecha</Label>
+                <Col md={4}>
+                    <Label className="col-form-label">Fecha</Label>
                     <div className="w-100">
                       <Input
                         name="fecha"
@@ -138,7 +163,7 @@ const FormPost = ({
               
               <Row>
                 <Col md={6}>
-                  <Label className="col-sm-3 col-form-label">Densidad</Label>
+                  <Label className="col-form-label">Densidad aparente del suelo (opcional)</Label>
                   <div className="w-100">
                     <select
                       type="select"
@@ -159,7 +184,7 @@ const FormPost = ({
                   </div>
                 </Col>
                 <Col md={6}>
-                    <Label className="col-sm-3 col-form-label">Profundidad</Label>
+                    <Label className="col-form-label">Profundidad de muestreo</Label>
                     <div className="w-100">
                       <select
                         type="select"
@@ -247,8 +272,8 @@ const FormPost = ({
               </Row>
 
               <Row>
-                <Col md={4}>
-                  <Label className="col-form-label">PH Suelo</Label>
+                <Col md={3}>
+                  <Label className="col-form-label">pH Suelo</Label>
                   <div className="w-100">
                     <Input
                       invalid={inputsStates.phSuelo === false}
@@ -265,7 +290,7 @@ const FormPost = ({
                     />
                   </div>
                 </Col>
-                <Col md={4}>
+                <Col md={3}>
                   <Label className="col-form-label">Conductividad Electrica</Label>
                   <div className="w-100">
                     <Input
@@ -283,8 +308,8 @@ const FormPost = ({
                     />
                   </div>
                 </Col>
-                <Col md={4}>
-                  <Label className="col-form-label">Intercambio Cationico</Label>
+                <Col md={6}>
+                  <Label className="col-form-label">Capacidad de Intercambio Cationico</Label>
                   <div className="w-100">
                     <Input
                       invalid={inputsStates.intercambioCationico === false}
@@ -304,7 +329,7 @@ const FormPost = ({
               </Row>
 
               <Row>
-                <Col md={4}>
+                <Col md={6}>
                   <Label className="col-form-label">Aluminio Intercambiable</Label>
                   <div className="w-100">
                     <Input
@@ -322,7 +347,7 @@ const FormPost = ({
                     />
                   </div>
                 </Col>
-                <Col md={4}>
+                <Col md={6}>
                   <Label className="col-form-label">Materia Organica</Label>
                   <div className="w-100">
                     <Input
@@ -339,31 +364,6 @@ const FormPost = ({
                       className="form-control"
                     />
                   </div>
-                </Col>
-                <Col md={4}>
-                  {
-                    suelos && suelos.length > 0 &&
-                      <>
-                        <Label className="col-form-label">Suelo</Label>
-                        <div className="w-100">
-                          <select
-                            type="select"
-                            name="idSuelo"
-                            className="form-select"
-                            onChange={(e) => {handleChange(e.selectedIndex != 0, e)}}
-                          >
-                            <option value="" hidden>Seleccionar </option>
-                            {
-                              suelos && suelos.length > 0 ?
-                                suelos.map((suelo, index) => 
-                                  <option key={index} value={suelo.id}>{suelo.descripcion}</option>
-                                )
-                                : <option>No se encontraron suelos.</option>
-                            }
-                          </select>
-                        </div>  
-                      </>
-                  }
                 </Col>
               </Row>
 
@@ -391,7 +391,7 @@ const FormPost = ({
                   </div>
                 </Col>
                 <Col xs={4}>
-                  <Label className="col-sm-3 col-form-label">Magnesio</Label>
+                  <Label className="col-form-label">Magnesio</Label>
                   <div className="w-100">
                     <Input
                       type="text"
@@ -405,7 +405,7 @@ const FormPost = ({
 
               <Row>
                 <Col xs={4}>
-                  <Label className="col-sm-3 col-form-label">Calcio</Label>
+                  <Label className="col-form-label">Calcio</Label>
                   <div className="w-100">
                     <Input
                       type="text"
@@ -416,7 +416,7 @@ const FormPost = ({
                   </div>
                 </Col>
                 <Col xs={4}>
-                  <Label className="col-sm-3 col-form-label">Azufre</Label>
+                  <Label className="col-form-label">Azufre</Label>
                   <div className="w-100">
                     <Input
                       type="text"
@@ -432,7 +432,7 @@ const FormPost = ({
                   </div>
                 </Col>
                 <Col xs={4}>
-                  <Label className="col-sm-3 col-form-label">Sodio</Label>
+                  <Label className="col-form-label">Sodio</Label>
                   <div className="w-100">
                     <Input
                       name="sodio"
@@ -451,7 +451,7 @@ const FormPost = ({
 
               <Row>
                 <Col XS={4}>
-                  <Label className="col-sm-3 col-form-label">Boro</Label>
+                  <Label className="col-form-label">Boro</Label>
                   <div className="w-100">
                     <Input
                       type="text"
@@ -462,7 +462,7 @@ const FormPost = ({
                   </div>
                 </Col>
                 <Col XS={4}>
-                  <Label className="col-sm-3 col-form-label">Cobre</Label>
+                  <Label className="col-form-label">Cobre</Label>
                   <div className="w-100">
                     <Input
                       type="text"

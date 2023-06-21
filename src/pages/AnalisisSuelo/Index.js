@@ -162,7 +162,7 @@ const Index = () => {
           <Row>
              <Col>
               <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
-                <p className="text-2xl ml-2 text-green-700">Lista Análisis Suelos</p>
+                <p className="text-2xl ml-2 text-green-700">Lista Análisis Suelos (agregar nombre finca)</p>
                 <div className="flex items-center mt-3 mb:mt-0">
                   <div className="w-52 md:w-80 mr-4">
                     <input

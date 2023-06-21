@@ -151,7 +151,6 @@ const Index = ({
                 <th>Area total</th>
                 <th>Area en uso</th>
                 <th>Geolocalización</th>
-                <th>Agricultor</th>
                 <th>Corregimiento</th>
                 <th>Municipio</th>
                 <th>Acciones</th>
@@ -166,7 +165,6 @@ const Index = ({
                     <td>{finca.areaTotal}</td>
                     <td>{finca.areaEnUso}</td>
                     <td>{finca.geolocalizacion}</td>
-                    <td>{finca?.idAgricultor?.nombres + " " + finca?.idAgricultor?.apellidos}</td>
                     <td>{finca?.idCorregimiento?.nombre}</td>
                     <td>{finca?.idMunicipio?.nombre}</td>
                     <td>

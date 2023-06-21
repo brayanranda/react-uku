@@ -37,7 +37,7 @@ const Index = ({analisisSuelo}) => {
                   analisisSuelo && analisisSuelo.analisisElementoCollection && analisisSuelo.analisisElementoCollection.lenght !== 0 &&
                     analisisSuelo.analisisElementoCollection.map((element, index) => 
                       <td key={index} className="text-center">
-                        {element.valor} {element?.idAnalisisElementoInterpretacion?.idElemento?.unidad}
+                        {element.valor}
                       </td>
                     )
                 }
