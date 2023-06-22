@@ -1,6 +1,17 @@
 import React from "react";
 
 const Index = ({analisisSuelo}) => {
+  const color = (data) => {
+    const interpretacion = {
+      ["Muy bajo"]: "bg-red-500",
+      Medio: "bg-yellow-500",
+      Bajo: "bg-orange-500",
+      Alto: "bg-green-500",
+    }
+
+    const defaultColor = "bg-gray-100"
+    return interpretacion[data] || defaultColor
+  }
 
   return (
       <div className="rounded-2xl bg-white shadow-sm">
@@ -48,7 +59,10 @@ const Index = ({analisisSuelo}) => {
                   analisisSuelo && analisisSuelo.analisisElementoCollection && analisisSuelo.analisisElementoCollection.lenght !== 0 &&
                     analisisSuelo.analisisElementoCollection.map((element, index) => 
                       <td key={index} className="text-center">
-                        {element?.idAnalisisElementoInterpretacion?.interpretacion}
+                        <p className="mx-auto flex items-center gap-2 justify-center bg-slate-200 rounded-full w-fit px-2 py-1">
+                          <span className={`flex w-5 h-5 rounded-full ${color(element?.idAnalisisElementoInterpretacion?.interpretacion)}`}></span>
+                          {element?.idAnalisisElementoInterpretacion?.interpretacion}s
+                        </p>
                       </td>
                     )
                 }
