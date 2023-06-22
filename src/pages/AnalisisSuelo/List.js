@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-  faFlaskVial,
-  faChevronLeft,
-  faChevronRight,
-  faCircleExclamation,
-  faBook,
-} from "@fortawesome/free-solid-svg-icons";
+import {faFlaskVial,faChevronLeft,faChevronRight,faBook} from "@fortawesome/free-solid-svg-icons";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
@@ -56,11 +49,12 @@ const Index = ({
   }
 
   const prevPage = () => {
+    console.log(analisisSuelos);
     if (currentPage > 0) {
       setCurrentPage(currentPage - 5)
     }
   }
-
+  
   return (
     <>
       <Toaster />
@@ -70,9 +64,11 @@ const Index = ({
             <thead>
               <tr>
                 <th>Id</th>
-                <th>Clase Textural</th>
+                <th>Lote</th>
+                <th>Suelo</th>
                 <th>Fecha</th>
-                <th>Reportes</th>
+                <th className="text-center">Interpretación</th>
+                <th className="text-center">Recomendación</th>
               </tr>
             </thead>
             <tbody>
@@ -80,15 +76,18 @@ const Index = ({
                 filteredElementos().map((elemento, x) => (
                   <tr key={x}>
                     <td>{elemento.idAnalisisSuelo}</td>
-                    <td>{elemento?.idClaseTextural?.nombre}</td>
+                    <td>{elemento.idSuelo?.idLote?.descripcion}</td>
+                    <td>{elemento.idSuelo?.descripcion}</td>
                     <td>{elemento.fecha}</td>
-                    <td className="grid grid-cols-2">
+                    <td className="text-center">
                       <Link to={`/results/${elemento.idAnalisisSuelo}`}>
                         <FontAwesomeIcon
                           icon={faFlaskVial}
                           className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         />
                       </Link>
+                    </td>
+                    <td className="text-center">
                       <Link to={`/recomendaciones/${elemento.idAnalisisSuelo}`}>
                         <FontAwesomeIcon
                           icon={faBook}

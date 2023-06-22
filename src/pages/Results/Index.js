@@ -61,8 +61,8 @@ const Index = () => {
                 </div>
                 <div className="flex justify-between">
                   <div>
-                    <p><b>Nombre: </b> Nombre Finca</p>
-                    <p><b>Finca/Lote: </b> Lote 001</p>
+                    <p><b>Nombre: </b> {analisisSuelo.idSuelo?.idLote?.idFinca?.nombre}</p>
+                    <p><b>Lote</b>  {analisisSuelo.idSuelo?.descripcion} | <b>Suelo</b> {analisisSuelo.idSuelo?.idLote?.descripcion}</p>
                   </div>
                   <div>
                     <p><b>Fecha: </b>{new Date().toLocaleDateString()}</p>
