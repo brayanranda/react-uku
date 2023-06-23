@@ -58,52 +58,51 @@ const Index = ({
   return (
     <>
       <Toaster />
-      <div className="rounded-2xl bg-white shadow-sm">
-        <div className="table-responsive fs-14">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Lote</th>
-                <th>Suelo</th>
-                <th>Fecha</th>
-                <th className="text-center">Interpretación</th>
-                <th className="text-center">Recomendación</th>
-              </tr>
-            </thead>
-            <tbody>
-              {!isLoading && analisisSuelos.length > 0 ? (
-                filteredElementos().map((elemento, x) => (
-                  <tr key={x}>
-                    <td>{elemento.idAnalisisSuelo}</td>
-                    <td>{elemento.idSuelo?.idLote?.descripcion}</td>
-                    <td>{elemento.idSuelo?.descripcion}</td>
-                    <td>{elemento.fecha}</td>
-                    <td className="text-center">
-                      <Link to={`/results/${elemento.idAnalisisSuelo}`}>
+      {
+        !isLoading && analisisSuelos.length > 0 
+          ?
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
+              {
+                filteredElementos().map((elemento, x) => 
+                  <div key={x} className="bg-white shadow-lg p-4 rounded-md">
+                    <p><b>Identificador: </b> {elemento.idAnalisisSuelo}</p>
+                    <p><b>Lote: </b> {elemento.idSuelo?.idLote?.descripcion}</p>
+                    <p><b>Suelo: </b> {elemento.idSuelo?.descripcion}</p>
+                    <p><b>Fecha: </b> {elemento.fecha}</p>
+                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
+                      <Link
+                        to={`/results/${elemento.idAnalisisSuelo}`}
+                        className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300 w-fit mt-3"
+                      >
                         <FontAwesomeIcon
                           icon={faFlaskVial}
                           className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         />
+                        Interpretación
                       </Link>
-                    </td>
-                    <td className="text-center">
-                      <Link to={`/recomendaciones/${elemento.idAnalisisSuelo}`}>
+                      <Link
+                        to={`/recomendaciones/${elemento.idAnalisisSuelo}`}
+                        className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300 w-fit mt-3"
+                      >
                         <FontAwesomeIcon
                           icon={faBook}
                           className="text-xl cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
                         />
+                        Recomendación
                       </Link>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                  <tr><td colSpan={13} className="text-center"><NoFoundData /></td></tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                    </div>
+                  </div>
+                )
+              }
+            </div>
+          :
+            <div className="bg-white h-96 text-center w-full flex items-center justify-center">
+              <div>
+                <NoFoundData />
+                <p>No se encontraron análisis de suelo registradas.</p>
+              </div>
+            </div>
+      }
       <div className="flex mt-3">
         <div
           onClick={prevPage}

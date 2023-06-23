@@ -110,54 +110,42 @@ const Index = ({
           </SuelosProvider>
         </LotesProvider>
       }
-      <div className="rounded-2xl bg-white shadow-sm">
-        <div className="table-responsive fs-14">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Descripción</th>
-                <th>Plantas por Hectárea</th>
-                <th>Distancia Siembra</th>
-                <th>Etapa Fenológica</th>
-                <th>Finca</th>
-                <th>Topografía</th>
-                <th>Variedad</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {!isLoading && cultivos.length > 0 ? (
-                filteredcultivos().map((cultivo, x) => (
-                  <tr key={x}>
-                    <td>{cultivo.idCultivo}</td>
-                    <td>{cultivo.descripcion}</td>
-                    <td>{cultivo.plantasPorHectarea}</td>
-                    <td>{cultivo?.idDistanciaSiembra?.descripcion}</td>
-                    <td>{cultivo?.idEtapaFenologica?.descripcion}</td>
-                    <td>{cultivo?.idFinca?.nombre}</td>
-                    <td>{cultivo?.idTopografia?.descripcion}</td>
-                    <td>{cultivo?.idVariedad?.descripcion}</td>
-                    <td>
-                      <FontAwesomeIcon
-                        onClick={() => {
-                          toggleFormPut(cultivo);
-                        }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                        icon={faEdit}
-                      />
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={9} className="text-center"><NoFoundData /></td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {
+        !isLoading && cultivos.length > 0 
+          ?
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
+              {
+                filteredcultivos().map((cultivo, x) => 
+                  <div key={x} className="bg-white shadow-lg p-4 rounded-md">
+                    <p><b>Identificador: </b> {cultivo.idCultivo}</p>
+                    <p><b>Descripción del cultivo: </b> {cultivo.descripcion}</p>
+                    <p><b>Plantas por Hectárea: </b> {cultivo.plantasPorHectarea}</p>
+                    <p><b>Distancia Siembra: </b> {cultivo?.idDistanciaSiembra?.descripcion}</p>
+                    <p><b>Etapa Fenológica: </b> {cultivo?.idEtapaFenologica?.descripcion}</p>
+                    <p><b>Finca: </b> {cultivo?.idFinca?.nombre}</p>
+                    <p><b>Topografía: </b> {cultivo?.idTopografia?.descripcion}</p>
+                    <p><b>Variedad: </b> {cultivo?.idVariedad?.descripcion}</p>
+                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
+                      <p
+                        onClick={() => { toggleFormPut(cultivo) }}
+                        className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300"
+                      >
+                        <FontAwesomeIcon icon={faEdit}/>
+                        Editar
+                      </p>
+                    </div>
+                  </div>
+                )
+              }
+            </div>
+          :
+            <div className="bg-white h-96 text-center w-full flex items-center justify-center">
+              <div>
+                <NoFoundData />
+                <p>No se encontraron lotes registradas.</p>
+              </div>
+            </div>
+      }
       <div className="flex mt-3">
         <div
           onClick={prevPage}

@@ -90,21 +90,21 @@ const Index = ({
   }
 
   const filteredFincas = () => {
-    if (search.length === 0) return fincas.slice(currentPage, currentPage + 5);
+    if (search.length === 0) return fincas.slice(currentPage, currentPage + 9);
 
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 9);
   }
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 9) {
+      setCurrentPage(currentPage + 9);
     }
   }
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 9);
     }
   }
 
@@ -141,55 +141,48 @@ const Index = ({
           setIsFormPreview={setIsFormPreview}
         />
       }
-      <div className="rounded-2xl bg-white shadow-sm">
-        <div className="table-responsive fs-14">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Area total</th>
-                <th>Area en uso</th>
-                <th>Geolocalización</th>
-                <th>Corregimiento</th>
-                <th>Municipio</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {!isLoading && fincas.length > 0 ? (
-                filteredFincas().map((finca, x) => (
-                  <tr key={x}>
-                    <td>{finca.idFinca}</td>
-                    <td>{finca.nombre}</td>
-                    <td>{finca.areaTotal}</td>
-                    <td>{finca.areaEnUso}</td>
-                    <td>{finca.geolocalizacion}</td>
-                    <td>{finca?.idCorregimiento?.nombre}</td>
-                    <td>{finca?.idMunicipio?.nombre}</td>
-                    <td>
-                      <FontAwesomeIcon
-                        icon={faEdit}
+      {
+        !isLoading && fincas.length > 0 
+          ?
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
+              {
+                filteredFincas().map((finca, x) => 
+                  <div className="bg-white shadow-lg p-4 rounded-md">
+                    <p><b>Identificador: </b> {finca.idFinca}</p>
+                    <p><b>Nombre de Finca: </b> {finca.nombre}</p>
+                    <p><b>Area total: </b> {finca.areaTotal}</p>
+                    <p><b>Area en uso: </b> {finca.areaEnUso}</p>
+                    <p><b>Geolocalización: </b> {finca.geolocalizacion}</p>
+                    <p><b>Corregimiento: </b> {finca?.idCorregimiento?.nombre}</p>
+                    <p><b>Municipio: </b> {finca?.idMunicipio?.nombre}</p>
+                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
+                      <p
                         onClick={() => { toggleFormPut(finca) }}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
-                      />
-                      <FontAwesomeIcon
-                        icon={faCircleExclamation}
-                        className="cursor-pointer duration-300 transform hover:scale-105 rounded-md hover:bg-green-200 hover:text-green-800 p-2"
+                        className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300"
+                      >
+                        <FontAwesomeIcon icon={faEdit}/>
+                        Editar
+                      </p>
+                      <p
                         onClick={() => { toggleFormPreview(finca) }}
-                      />
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={9} className="text-center"><NoFoundData /></td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                        className="cursor-pointer hover:bg-gray-200 flex items-center gap-2 px-3 py-1 bg-gray-300 rounded-full duration-300"
+                      >
+                        <FontAwesomeIcon icon={faCircleExclamation}/>
+                        Ver detalle
+                      </p>
+                    </div>
+                  </div>
+                )
+              }
+            </div>
+          :
+            <div className="bg-white h-96 text-center w-full flex items-center justify-center">
+              <div>
+                <NoFoundData />
+                <p>No se encontraron fincas registradas.</p>
+              </div>
+            </div>
+      }      
       <div className="flex mt-3">
         <div
           onClick={prevPage}

@@ -28,6 +28,12 @@ const FormPost = ({
     }
   }, [idLote])
 
+  useEffect(() => {
+    if(cultivos) {
+      console.log(cultivos);
+    }
+  }, [cultivos])
+
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);

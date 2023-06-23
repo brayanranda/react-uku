@@ -21,13 +21,16 @@ const CultivoProvider = ({ children }) => {
   };
 
   const getCultivos = async (idFinca) => {
+    console.log("entre 1");
     let endpoint = `${url}/${getUser()}/cultivos`
     if(idFinca && idFinca !== "") {
       endpoint = `${url}/${idFinca}`
+      console.log("entre 2");
     }
     setIsLoading(true);
     const res = await api.get(endpoint);
     setCultivos(res);
+    console.log('res cultivos', res);
     setIsLoading(false);
   };
 

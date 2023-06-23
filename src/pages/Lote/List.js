@@ -87,53 +87,51 @@ const Index = ({
               toggleFormPut={toggleFormPut}
             />
       }
-      <div className="rounded-2xl bg-white shadow-sm">
-        <div className="table-responsive fs-14">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Identificador</th>
-                <th>Descripcion</th>
-                <th className="text-end">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-                {
-                  !isLoading && lotes.length > 0 ?
-                    filteredLotes().map((lote, x) => 
-                      <tr key={x} className="card-text placeholder-glow">
-                        <td>{lote.id}</td>
-                        <td>{lote.descripcion}</td>
-                        <td className="text-end flex items-center justify-end gap-2">
-                          <Link to={`/suelo/${lote.id}`}
-                              className="btn flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-amber-400 hover:bg-amber-200 hover:text-amber-900"
-                          >
-                              <FontAwesomeIcon icon={faWater} /> Suelos
-                          </Link>
-                          <Link to={`/analisis-suelo/${lote.id}`}
-                              className="btn flex items-center gap-2 cursor-pointer duration-300 transform rounded-md bg-gray-200 hover:bg-gray-50 hover:text-blue-900"
-                          >
-                              <FontAwesomeIcon icon={faTableList} /> Análisis de suelo
-                          </Link>
-                          <FontAwesomeIcon
-                              icon={faEdit}
-                              onClick={() => { toggleFormPut(lote); setIdLote(lote.id) }}
-                              className="btn cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
-                          />
-                          <FontAwesomeIcon
-                              icon={faTrash}
-                              onClick={() => { toggleModalDelete(); setIdLote(lote.id) }}
-                              className="btn cursor-pointer duration-300 transform rounded-md bg-red-200 hover:text-red-800 p-2.5"
-                          />
-                        </td>
-                      </tr>
-                    )
-                    : <tr><td colSpan={3} className="text-center"><NoFoundData /></td></tr>
-                }
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {
+        !isLoading && lotes.length > 0 
+          ?
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
+              {
+                filteredLotes().map((lote, x) => 
+                  <div key={x} className="bg-white shadow-lg p-4 rounded-md">
+                    <p><b>Identificador: </b> {lote.id}</p>
+                    <p><b>Descripción del lote: </b> {lote.descripcion}</p>
+                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
+                      <Link
+                        to={`/suelo/${lote.id}`}
+                        className="cursor-pointer hover:bg-amber-300 flex items-center gap-2 px-3 py-1 hover:text-amber-900 bg-amber-400 rounded-full duration-300"
+                      >
+                          <FontAwesomeIcon icon={faWater} /> Suelos
+                      </Link>
+                      <Link
+                        to={`/analisis-suelo/${lote.id}`}
+                        className="cursor-pointer hover:bg-gray-300 flex items-center gap-2 px-3 py-1 bg-gray-200 rounded-full duration-300"
+                      >
+                          <FontAwesomeIcon icon={faTableList} /> Análisis de suelo
+                      </Link>
+                      <FontAwesomeIcon
+                          icon={faEdit}
+                          onClick={() => { toggleFormPut(lote); setIdLote(lote.id) }}
+                          className="btn cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
+                      />
+                      <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={() => { toggleModalDelete(); setIdLote(lote.id) }}
+                          className="btn cursor-pointer duration-300 transform rounded-md bg-red-200 hover:text-red-800 p-2.5"
+                      />
+                    </div>
+                  </div>
+                )
+              }
+            </div>
+          :
+            <div className="bg-white h-96 text-center w-full flex items-center justify-center">
+              <div>
+                <NoFoundData />
+                <p>No se encontraron lotes registradas.</p>
+              </div>
+            </div>
+      }
       <div className="flex mt-3">
         <div
           className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
