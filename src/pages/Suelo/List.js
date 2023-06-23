@@ -67,38 +67,34 @@ const Index = ({
               toggleFormPut={toggleFormPut}
             />
       }
-      <div className="rounded-2xl bg-white shadow-sm">
-        <div className="table-responsive fs-14">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Identificador</th>
-                <th>Descripcion</th>
-                <th className="text-end">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-                {
-                  !isLoading && suelos.length > 0 ? 
-                    filteredSuelos().map((suelo, x) => 
-                      <tr key={x} className="card-text placeholder-glow">
-                        <td>{suelo.id}</td>
-                        <td>{suelo.descripcion}</td>
-                        <td className="text-end flex items-center justify-end gap-2">
-                          <FontAwesomeIcon
-                              icon={faEdit}
-                              onClick={() => { toggleFormPut(suelo); setIdSuelo(suelo.id)}}
-                              className="cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
-                          />
-                        </td>
-                      </tr>
-                    )
-                    : <tr><td colSpan={3} className="text-center"><NoFoundData /></td></tr>
-                }
-            </tbody>
-          </table>
-        </div>
-      </div>
+      {
+        !isLoading && suelos.length > 0 
+          ?
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
+              {
+                filteredSuelos().map((suelo, x) => 
+                  <div key={x} className="bg-white shadow-lg p-4 rounded-md">
+                    <p><b>Identificador: </b> {suelo.id}</p>
+                    <p><b>Descripción del suelo: </b> {suelo.descripcion}</p>
+                    <p
+                      onClick={() => { toggleFormPut(suelo); setIdSuelo(suelo.id)}}
+                      className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300 w-fit mt-3"
+                    >
+                      <FontAwesomeIcon icon={faEdit} />
+                      Editar
+                    </p>
+                  </div>
+                )
+              }
+            </div>
+          :
+            <div className="bg-white h-96 text-center w-full flex items-center justify-center">
+              <div>
+                <NoFoundData />
+                <p>No se encontraron lotes registradas.</p>
+              </div>
+            </div>
+      }
       <div className="flex mt-3">
         <div
           className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
