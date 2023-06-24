@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMountainSun, faWheatAwn } from "@fortawesome/free-solid-svg-icons";
+import { faMountainSun, faWheatAwn, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Col, CardBody, Modal, Card, CardHeader, Row } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -22,15 +22,15 @@ const Preview = ({ data, setIsFormPreview, isFormPreview }) => {
         toggle={() => { toggleFormPut() }}
       >
         <div className="modal-header">
-          <h5 id="myLargeModalLabel" className="modal-title mt-0 text-xl font-medium">Ukulima</h5>
+          <h5 id="myLargeModalLabel" className="modal-title mt-0 text-xl font-medium">Información de la Finca</h5>
           <button
             type="button"
             aria-label="Close"
             data-dismiss="modal"
-            className="close text-xl p-0"
-            onClick={() => { setIsFormPreview(false) }}
+            className="btn bg-red-500 text-white"
+            onClick={() => { setIsFormPreview(false)} }
           >
-            <span aria-hidden="true">&times;</span>
+            <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
         <div className="modal-body p-4">
