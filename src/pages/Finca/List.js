@@ -123,6 +123,7 @@ const Index = ({
           inputsStates={inputsStates}
           setIsFormPut={setIsFormPut}
           agricultores={agricultores}
+          setShowErrors={setShowErrors}
           corregimientos={corregimientos}
           setInputsStates={setInputsStates}
           handleModalMapa={handleModalMapa}
@@ -147,7 +148,7 @@ const Index = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
               {
                 filteredFincas().map((finca, x) => 
-                  <div className="bg-white shadow-md p-4 rounded-md">
+                  <div key={x} className="bg-white shadow-md p-4 rounded-md">
                     <p><b>Identificador: </b> {finca.idFinca}</p>
                     <p><b>Nombre de Finca: </b> {finca.nombre}</p>
                     <p><b>Area total: </b> {finca.areaTotal}</p>

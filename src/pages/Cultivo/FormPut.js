@@ -7,13 +7,13 @@ import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 const FormPut = ({
   data,
-  fincas,
   setData,
   onSubmit,
   isFormPut,
   variedades,
   topografias,
   setIsFormPut,
+  setShowErrors,
   distanciaSiembras,
   etapasFenologicas,
 }) => {
@@ -57,7 +57,7 @@ const FormPut = ({
       <Modal
         size="lg"
         isOpen={isFormPut}
-        toggle={() => { toggleFormPut() }}
+        toggle={() => { toggleFormPut(); setShowErrors(false) }}
       >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Editar Cultivo</h5>
@@ -66,7 +66,7 @@ const FormPut = ({
             className="close"
             aria-label="Close"
             data-dismiss="modal"
-            onClick={() => { setIsFormPut(false) }}
+            onClick={() => { setIsFormPut(false); setShowErrors(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -202,7 +202,7 @@ const FormPut = ({
                 <button onClick={() => { onSubmit() }} type="button" className="btn bg-green-700 text-white hover:bg-green-800 w-full" >
                   <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
                 </button>
-                <button onClick={toggleFormPut} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white" > Cancelar </button>
+                <button onClick={() => { toggleFormPut(); setShowErrors(false) }} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white" > Cancelar </button>
               </div>
             </Form>
           </CardBody>

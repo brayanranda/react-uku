@@ -36,21 +36,21 @@ const Index = ({
   }
 
   const filteredSuelos = () => {
-    if (search.length === 0) return suelos.slice(currentPage, currentPage + 5);
+    if (search.length === 0) return suelos.slice(currentPage, currentPage + 12);
 
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 12);
   }
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 12) {
+      setCurrentPage(currentPage + 12);
     }
   }
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 12);
     }
   };
 

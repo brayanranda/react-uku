@@ -15,6 +15,7 @@ const FormPost = ({
   variedades,
   topografias,
   inputsStates,
+  setShowErrors,
   setIsFormPost,
   setInputsStates,
   distanciaSiembras,
@@ -53,6 +54,12 @@ const FormPost = ({
       getSuelos(idLote)
     }
   }, [idLote])
+
+  useEffect(() => {
+    if(suelos) {
+      console.log('suelos: ', suelos);
+    }
+  }, [suelos])
 
   const getDistanciaSiembras = (value) => {
     let el = {};
@@ -117,14 +124,13 @@ const FormPost = ({
       return;
     }
     if (name === "idFinca") {
-      console.log("entt");
       setStateLote(true)
       setData({ ...data, [name]: getFincas(Number(value)) });
       setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
     if (name === "idSuelo") {
-      setData({ ...data, "idSuelo": {"id": 1} });
+      setData({ ...data, "idSuelo": {"id": Number(value)} });
       setInputsStates({ ...inputsStates, [name]: isValid})
       return;
     }
@@ -147,7 +153,7 @@ const FormPost = ({
       <Modal
         size="lg"
         isOpen={isFormPost}
-        toggle={() => { toggleFormPost() }}
+        toggle={() => { toggleFormPost(); setShowErrors(false) }}
       >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Cultivo</h5>
@@ -156,7 +162,7 @@ const FormPost = ({
             className="close"
             aria-label="Close"
             data-dismiss="modal"
-            onClick={() => { setIsFormPost(false) }}
+            onClick={() => { setIsFormPost(false); setShowErrors(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -172,7 +178,7 @@ const FormPost = ({
                       type="text"
                       name="descripcion"
                       className="form-control"
-                      valid={inputsStates?.descripcion === true}
+                      valid={showErros && inputsStates?.descripcion === true}
                       onChange={e => handleChange(e.target.value.length > 4, e)}
                       invalid={ showErros && (inputsStates?.descripcion === false || !data?.descripcion)}
 
@@ -191,7 +197,7 @@ const FormPost = ({
                       type="text"
                       name="plantasPorHectarea"
                       className="form-control"
-                      valid={inputsStates?.plantasPorHectarea === true}
+                      valid={showErros && inputsStates?.plantasPorHectarea === true}
                       onChange={e => handleChange(e.target.value.length > 0, e)}
                       invalid={ showErros && (inputsStates?.plantasPorHectarea === false || !data?.plantasPorHectarea)}
                     />
@@ -211,7 +217,7 @@ const FormPost = ({
                       type="select"
                       className="form-select"
                       name="idDistanciaSiembra"
-                      valid={inputsStates?.idDistanciaSiembra === true}
+                      valid={showErros && inputsStates?.idDistanciaSiembra === true}
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idDistanciaSiembra === false || !data?.idDistanciaSiembra)}
                     >
@@ -235,7 +241,7 @@ const FormPost = ({
                       type="select"
                       className="form-select"
                       name="idEtapaFenologica"
-                      valid={inputsStates?.idEtapaFenologica === true}
+                      valid={showErros && inputsStates?.idEtapaFenologica === true}
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idEtapaFenologica === false || !data?.idEtapaFenologica)}
                     >
@@ -261,7 +267,7 @@ const FormPost = ({
                       type="select"
                       name="idTopografia"
                       className="form-select"
-                      valid={inputsStates?.idTopografia === true}
+                      valid={showErros && inputsStates?.idTopografia === true}
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idTopografia === false || !data?.idTopografia)}
                     >
@@ -285,7 +291,7 @@ const FormPost = ({
                       type="select"
                       name="idVariedad"
                       className="form-select"
-                      valid={inputsStates?.idVariedad === true}
+                      valid={showErros && inputsStates?.idVariedad === true}
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idVariedad === false || !data?.idVariedad)}
                     >
@@ -311,7 +317,7 @@ const FormPost = ({
                       type="select"
                       name="rendimiento"
                       className="form-select"
-                      valid={inputsStates?.rendimiento === true}
+                      valid={showErros && inputsStates?.rendimiento === true}
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.rendimiento === false || !data?.rendimiento)}
                     >
@@ -336,7 +342,7 @@ const FormPost = ({
                       type="select"
                       name="idFinca"
                       className="form-select"
-                      valid={inputsStates?.idFinca === true}
+                      valid={showErros && inputsStates?.idFinca === true}
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idFinca === false || !data?.idFinca)}
                     >
@@ -390,7 +396,7 @@ const FormPost = ({
                           name="idSuelo"
                           className="form-select"
                           // disabled={`${stateSuelo}`}
-                          valid={inputsStates?.idSuelo === true}
+                          valid={showErros && inputsStates?.idSuelo === true}
                           onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                           invalid={ showErros && (inputsStates?.idSuelo === false || !data?.idSuelo)}
                         >
@@ -419,7 +425,7 @@ const FormPost = ({
                 >
                   <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
                 </button>
-                <button onClick={toggleFormPost} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white" > Cancelar </button>
+                <button onClick={() => { toggleFormPost(); setShowErrors(false) }} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white" > Cancelar </button>
               </div>
             </Form>
           </CardBody>
