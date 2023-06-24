@@ -27,6 +27,7 @@ const Index = ({
   setUpdateOrAdd,
   setCurrentPage,
   setInputsStates,
+  handleModalHelp,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
   const [modalMapa, setModalMapa] = useState(false);
@@ -145,6 +146,7 @@ const handlePut = async () => {
           agricultores={agricultores}
           setShowErrors={setShowErrors}
           corregimientos={corregimientos}
+          handleModalHelp={handleModalHelp}
           setInputsStates={setInputsStates}
           handleModalMapa={handleModalMapa}
         />

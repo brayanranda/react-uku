@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import ModalMapa from "./ModalMapa";
 import { Toaster } from "react-hot-toast";
+import ModalAyuda from "../../UI/organism/ModalAyuda";
 
 const Index = () => {
   const {
@@ -30,9 +31,29 @@ const Index = () => {
   const [location, setLocation] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [modalMapa, setModalMapa] = useState(false);
-  const [showErros, setShowErrors] = useState(false)
+  const [modalHelp, setModalHelp ] = useState(false);
+  const [showErros, setShowErrors] = useState(false);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
+
+  const textoForm = [
+    {
+      title: "NOMBRE: ",
+      description: "Ingresar el nombre de la finca o de la unidad de producción."
+    },
+    {
+      title: "AREA TOTAL: ",
+      description: "Ingresar en número el área total de la finca en hectáreas."
+    },
+    {
+      title: "AREA EN USO: ",
+      description: "Ingresar en número el área en uso para el cultivo expresada en hectáreas."
+    },
+    {
+      title: "GEOLOCALIZACIÓN: ",
+      description: "Corresponde a las coordenadas geográficas expresadas en metros. Se determinan ubicando con el cursor la finca en el mapa mostrado por el geo- navegador usado en el sistema."
+    },
+  ]
 
   const [fincaData, setFincaData] = useState({
     nombre: "",
@@ -65,6 +86,10 @@ const Index = () => {
       idMunicipio: { idMunicipio: "" },
       idVereda: { idVereda: "" },
     });
+  }
+  
+  const handleModalHelp = () => {
+    setModalHelp(!modalHelp)
   }
 
   const handleModalMapa = () => {
@@ -133,8 +158,18 @@ const Index = () => {
                 setShowErrors={setShowErrors}
                 setIsFormPost={setIsFormPost}
                 corregimientos={corregimientos}
+                handleModalHelp={handleModalHelp}
                 handleModalMapa={handleModalMapa}
                 setInputsStates={setInputsStates}
+              />
+          }
+          {
+            modalHelp &&
+              <ModalAyuda
+                modalHelp={modalHelp}
+                textoForm={textoForm}
+                setModalHelp={setModalHelp}
+                handleModalHelp={handleModalHelp}
               />
           }
           {
@@ -192,6 +227,7 @@ const Index = () => {
                 setUpdateOrAdd={setUpdateOrAdd}
                 setCurrentPage={setCurrentPage}
                 corregimientos={corregimientos}
+                handleModalHelp={handleModalHelp}
                 setInputsStates={setInputsStates}
                 handleModalMapa={handleModalMapa}
               />

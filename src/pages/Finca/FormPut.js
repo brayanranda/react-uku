@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const FormPut = ({
   data,
@@ -17,6 +17,7 @@ const FormPut = ({
   corregimientos,
   setInputsStates,
   handleModalMapa,
+  handleModalHelp,
 }) => {
   const toggleFormPut = () => {
     setIsFormPut(!isFormPut);
@@ -82,15 +83,24 @@ const FormPut = ({
       >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Editar Finca</h5>
-          <button
-            type="button"
-            aria-label="Close"
-            data-dismiss="modal"
-            className="close text-xl p-0"
-            onClick={() => { setIsFormPut(false); setShowErrors(false) }}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="btn bg-gray-200"
+              onClick={() => { handleModalHelp() }}
+            >
+              <FontAwesomeIcon icon={faQuestion} />
+            </button>
+            <button
+              type="button"
+              aria-label="Close"
+              data-dismiss="modal"
+              className="btn bg-red-500 text-white"
+              onClick={() => { setIsFormPut(false); setShowErrors(false) }}
+            >
+              <FontAwesomeIcon icon={faXmark} />
+            </button>
+          </div>
         </div>
         <div className="modal-body">
           <CardBody className="p-0 md:p-3">

@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Label, Input, CardBody, Modal } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const FormPost = ({ 
   sueloData,
@@ -26,10 +26,10 @@ const FormPost = ({
             type="button"
             aria-label="Close"
             data-dismiss="modal"
-            className="close text-xl p-0"
-            onClick={() => { setIsFormPost(false) }}
+            className="btn bg-red-500 text-white"
+            onClick={() => { setIsFormPost(false)}}
           >
-            <span aria-hidden="true">&times;</span>
+            <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
         <div className="modal-body">

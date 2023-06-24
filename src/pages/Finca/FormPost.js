@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const FormPost = ({
   data,
@@ -16,7 +16,28 @@ const FormPost = ({
   corregimientos,
   setInputsStates,
   handleModalMapa,
+  handleModalHelp,
 }) => {
+
+  const textoForm = [
+    {
+      title: "NOMBRE: ",
+      description: "Ingresar el nombre de la finca o de la unidad de producción."
+    },
+    {
+      title: "AREA TOTAL: ",
+      description: "Ingresar en número el área total de la finca en hectáreas."
+    },
+    {
+      title: "AREA EN USO: ",
+      description: "Ingresar en número el área en uso para el cultivo expresada en hectáreas."
+    },
+    {
+      title: "GEOLOCALIZACIÓN: ",
+      description: "Corresponde a las coordenadas geográficas expresadas en metros. Se determinan ubicando con el cursor la finca en el mapa mostrado por el geo- navegador usado en el sistema."
+    },
+  ]
+
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
   }
@@ -47,15 +68,24 @@ const FormPost = ({
       <Modal size="lg" isOpen={isFormPost} toggle={() => { toggleFormPost() }} >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Finca</h5>
-          <button
-            type="button"
-            aria-label="Close"
-            data-dismiss="modal"
-            className="close text-xl p-0"
-            onClick={() => { setIsFormPost(false) }}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="btn bg-gray-200"
+              onClick={() => { handleModalHelp() }}
+            >
+              <FontAwesomeIcon icon={faQuestion} />
+            </button>
+            <button
+              type="button"
+              aria-label="Close"
+              data-dismiss="modal"
+              className="btn bg-red-500 text-white"
+              onClick={() => { setIsFormPost(false)}}
+            >
+              <FontAwesomeIcon icon={faXmark} />
+            </button>
+          </div>
         </div>
         <div className="modal-body">
           <CardBody className="p-0 md:p-3">
@@ -83,12 +113,18 @@ const FormPost = ({
                 <Label className="col-sm-3 col-form-label">Área total</Label>
                 <Col sm={9}>
                   <Input
-                    type="text"
+                    type="number"
                     name="areaTotal"
                     value={data.areaTotal}
                     className="form-control col-lg-9"
                     valid={inputsStates?.areaTotal === true}
-                    onChange={e => handleChange(e.target.value.length > 0, e)}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
                     invalid={ showErros && (inputsStates?.areaTotal === false || !data?.areaTotal)}
                   />
                   {
@@ -102,12 +138,18 @@ const FormPost = ({
                 <Label className="col-sm-3 col-form-label">Área en uso</Label>
                 <Col sm={9}>
                   <Input
-                    type="text"
+                    type="number"
                     name="areaEnUso"
                     value={data.areaEnUso}
                     className="form-control col-lg-9"
                     valid={inputsStates?.areaEnUso === true}
-                    onChange={e => handleChange(e.target.value.length > 0, e)}
+                    onChange={(e) =>
+                      handleChange(
+                        e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
+                          e.target.value.length > 0,
+                        e
+                      )
+                    }
                     invalid={ showErros && (inputsStates?.areaEnUso === false || !data?.areaEnUso)}
                   />
                   {

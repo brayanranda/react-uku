@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button, Col, Row } from "reactstrap";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row } from "reactstrap";
+import { faPlus, faQuestion } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnalisisSueloContext from "../../context/AnalisisSueloContext";
 import CultivoContext from "../../context/CultivoContext";
@@ -20,6 +20,8 @@ const Index = () => {
     getClaseTextural,
     getAnalisisSuelos,
   } = useContext(AnalisisSueloContext);
+  const [modalHelpList, setModalHelpList ] = useState(false);
+  const [modalHelpPost, setModalHelpPost ] = useState(false);
 
   const { getCultivosBySuelo, cultivosBySuelo } = useContext(CultivoContext);
   const { getDensidades, densidades } = useContext(DensidadContext);
@@ -108,6 +110,10 @@ const Index = () => {
     getProfundidad();
   }, []);
 
+  const handleModalHelp = () => {
+    setModalHelpList(!modalHelpList)
+  }
+
   useEffect(() => {
     if(elementoData && Object.entries(elementoData).length !== 0 && elementoData?.idSuelo?.id) {
       getCultivosBySuelo(elementoData.idSuelo.id)
@@ -165,21 +171,33 @@ const Index = () => {
           <Row>
              <Col>
               <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
-                <p className="text-2xl ml-2 text-green-700">
-                  Lista Análisis Suelos
-                  {
-                    analisisSuelos && analisisSuelos.length > 0 &&
-                      ` (${analisisSuelos[0]?.idSuelo?.idLote?.idFinca?.nombre})`
-                  }
-                </p>
+                <div className="flex items-center gap-2">
+                  <div className="text-2xl flex items-center gap-2">
+                    <p className="text-green-700">Lista Análisis Suelos</p>
+                    <p className="font-light text-black">
+                      {
+                        analisisSuelos && analisisSuelos.length > 0 &&
+                          ` (${analisisSuelos[0]?.idSuelo?.idLote?.idFinca?.nombre})`
+                      }
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn bg-gray-200"
+                    onClick={() => { handleModalHelp() }}
+                  >
+                    <FontAwesomeIcon icon={faQuestion} />
+                  </button>
+                </div>
+                
                 <div className="flex items-center mt-3 mb:mt-0">
                   <div className="w-52 md:w-80 mr-4">
                     <input
                       type="text"
                       value={search}
-                      className="form-control rounded-full"
                       onChange={onSearchChange}
                       placeholder="Buscar..."
+                      className="form-control rounded-full"
                     />
                   </div>
                   <button
@@ -187,8 +205,8 @@ const Index = () => {
                     className="btn bg-green-700 hover:bg-green-800 rounded-full text-white duration-300 flex items-center gap-2 cursor-pointer"
                   >
                     <FontAwesomeIcon
-                      className="duration-300 transform text-white hover:text-green-800"
                       icon={faPlus}
+                      className="duration-300 transform text-white hover:text-green-800"
                     />
                     Agregar
                   </button>
@@ -198,9 +216,11 @@ const Index = () => {
                 search={search}
                 isLoading={isLoading}
                 updateOrAdd={updateOrAdd}
+                modalHelpList={modalHelpList}
                 currentPage={currentPage}
                 analisisSuelos={analisisSuelos}
                 setCurrentPage={setCurrentPage}
+                setModalHelpList={setModalHelpList}
                 getAnalisisSuelos={getAnalisisSuelos}
               />
             </Col>
