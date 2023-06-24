@@ -21,7 +21,6 @@ const Index = ({
   getCultivos,
   inputsStates,
   setShowErrors,
-  setUpdateOrAdd,
   setCurrentPage,
   setInputsStates,
   distanciaSiembras,
@@ -48,7 +47,17 @@ const Index = ({
   })
 
   const toggleFormPut = (cultivo) => {
+    let tempiptState = {...inputsStates}
+    setShowErrors(false)
     setCultivoData(cultivo);
+    Object.entries(cultivo).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        tempiptState[key] = true
+      }else{
+        tempiptState[key] = false
+      }
+    })
+    setInputsStates(tempiptState)
     setIsFormPut(!isFormPut);
   }
 
@@ -82,7 +91,6 @@ const Index = ({
     setIsFormPut(!isFormPut);
     setShowErrors(false)
     setInputsStates({})
-    setUpdateOrAdd(true);
   }
 
   const filter = () => {

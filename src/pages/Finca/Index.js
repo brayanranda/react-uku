@@ -60,7 +60,7 @@ const Index = () => {
     areaTotal: "",
     areaEnUso: "",
     geolocalizacion: "",
-    idCorregimiento: { idCorregimiento: "" },
+    idCorregimiento: { idCorregimiento: 1 },
     idMunicipio: { idMunicipio: "" },
     idVereda: { idVereda: "" },
     precipitacion: "",
@@ -70,7 +70,7 @@ const Index = () => {
       nombre: false,
       areaTotal: false,
       areaEnUso: false,
-      geolocalizacion: true,
+      geolocalizacion: false,
       idMunicipio: false ,
       idVereda: false ,
       precipitacion: false,
@@ -82,7 +82,7 @@ const Index = () => {
       areaTotal: "",
       areaEnUso: "",
       geolocalizacion: "",
-      idCorregimiento: { idCorregimiento: "" },
+      idCorregimiento: { idCorregimiento: 1 },
       idMunicipio: { idMunicipio: "" },
       idVereda: { idVereda: "" },
     });
@@ -120,7 +120,13 @@ const Index = () => {
     setUpdateOrAdd(true);
 
     setShowErrors(false)
-    setInputsStates({})
+    setInputsStates({nombre: false,
+      areaTotal: false,
+      areaEnUso: false,
+      geolocalizacion: false,
+      idMunicipio: false ,
+      idVereda: false ,
+      precipitacion: false,})
   }
 
   const onSearchChange = ({ target }) => {
@@ -129,11 +135,19 @@ const Index = () => {
   }
 
   const toggleFormPost = () => {
+    setInputsStates({nombre: false,
+      areaTotal: false,
+      areaEnUso: false,
+      geolocalizacion: false,
+      idMunicipio: false ,
+      idVereda: false ,
+      precipitacion: false,})
     setIsFormPost(!isFormPost);
   }
 
   const handleLocationSave = (location) => {
     let {lat, lng} = location;
+    setInputsStates({...inputsStates, geolocalizacion:true})
     setFincaData({...fincaData, geolocalizacion: `${lat},${lng}`});
   }
 
@@ -156,11 +170,11 @@ const Index = () => {
                 inputsStates={inputsStates}
                 agricultores={agricultores}
                 setShowErrors={setShowErrors}
-                setIsFormPost={setIsFormPost}
                 corregimientos={corregimientos}
                 handleModalHelp={handleModalHelp}
                 handleModalMapa={handleModalMapa}
                 setInputsStates={setInputsStates}
+                toggleFormPost={toggleFormPost}
               />
           }
           {

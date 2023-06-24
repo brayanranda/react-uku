@@ -20,6 +20,7 @@ const FormPut = ({
   handleModalHelp,
 }) => {
   const toggleFormPut = () => {
+    setInputsStates({})
     setIsFormPut(!isFormPut);
   }
 

@@ -16,7 +16,7 @@ const FormPost = ({
   topografias,
   inputsStates,
   setShowErrors,
-  setIsFormPost,
+  toggleFormPost,
   setInputsStates,
   distanciaSiembras,
   etapasFenologicas,
@@ -30,9 +30,6 @@ const FormPost = ({
   const { getSuelos, suelos } = useContext(SuelosContext)
   const [idLote, setIdLote] = useState("")
 
-  const toggleFormPost = () => {
-    setIsFormPost(!isFormPost);
-  }
 
   const handleLote = (e) => {
     setIdLote(e.target.value)
@@ -100,7 +97,7 @@ const FormPost = ({
             className="close"
             aria-label="Close"
             data-dismiss="modal"
-            onClick={() => { setIsFormPost(false); setShowErrors(false) }}
+            onClick={() => { toggleFormPost(); setShowErrors(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -276,7 +273,7 @@ const FormPost = ({
                 <Col md={6}>
                   <Label className="col-form-label">Finca</Label>
                   <div className="w-100">
-                    <select
+                    <Input
                       type="select"
                       name="idFinca"
                       className="form-select"
@@ -292,7 +289,7 @@ const FormPost = ({
                           )
                           : <option disabled="true">No se encontraron fincas.</option>
                       }
-                    </select>
+                    </Input>
                     {
                       showErros && (inputsStates?.idFinca === false || !data?.idFinca) 
                         ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
@@ -306,11 +303,13 @@ const FormPost = ({
                   <Col md={6}>
                     <Label className="col-form-label">Lote</Label>
                     <div className="w-100">
-                      <select
+                      <Input
                         type="select"
                         value={idLote}
                         className="form-select"
                         onChange={handleLote}
+                        valid={showErros && idLote !== ""}
+                        invalid={ showErros && idLote == ""}  
                       >
                         <option value="" hidden>Seleccionar...</option>
                         {
@@ -320,7 +319,12 @@ const FormPost = ({
                               )
                               : <option disabled="true">No se encontraron lotes.</option>
                         }
-                      </select>
+                      </Input>
+                      {
+                          showErros && idLote == ""
+                            ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
+                            : null
+                        }
                     </div>
                   </Col>
                 }
@@ -328,7 +332,7 @@ const FormPost = ({
                     <Col md={6}>
                       <Label className="col-form-label">Suelo</Label>
                       <div className="w-100">
-                        <select
+                        <Input
                           type="select"
                           name="idSuelo"
                           className="form-select"
@@ -344,7 +348,7 @@ const FormPost = ({
                               )
                               : <option disabled="true">No se encontraron suelos.</option>
                           }
-                        </select>
+                        </Input>
                         {
                           showErros && (inputsStates?.idSuelo === false || !data?.idSuelo) 
                             ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
