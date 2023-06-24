@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faEdit,faChevronRight,faChevronLeft} from "@fortawesome/free-solid-svg-icons";
+import {faEdit, faChevronRight, faChevronLeft} from "@fortawesome/free-solid-svg-icons";
 import FormPut from "./FormPut";
 import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
@@ -19,6 +19,7 @@ const Index = ({
   currentPage,
   topografias,
   getCultivos,
+  setShowErrors,
   setUpdateOrAdd,
   setCurrentPage,
   distanciaSiembras,
@@ -125,17 +126,17 @@ const Index = ({
                     <p><b>Distancia Siembra: </b> {cultivo?.idDistanciaSiembra?.descripcion}</p>
                     <p><b>Etapa Fenológica: </b> {cultivo?.idEtapaFenologica?.descripcion}</p>
                     <p><b>Finca: </b> {cultivo?.idFinca?.nombre}</p>
+                    <p><b>Lote: </b> {cultivo?.idSuelo?.idLote?.descripcion}</p>
+                    <p><b>Suelo: </b> {cultivo?.idSuelo?.descripcion}</p>
                     <p><b>Topografía: </b> {cultivo?.idTopografia?.descripcion}</p>
                     <p><b>Variedad: </b> {cultivo?.idVariedad?.descripcion}</p>
-                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
-                      <p
-                        onClick={() => { toggleFormPut(cultivo) }}
-                        className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300"
-                      >
-                        <FontAwesomeIcon icon={faEdit}/>
-                        Editar
-                      </p>
-                    </div>
+                    <p
+                      onClick={() => { toggleFormPut(cultivo) }}
+                      className="w-fit mt-3 cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300"
+                    >
+                      <FontAwesomeIcon icon={faEdit}/>
+                      Editar
+                    </p>
                   </div>
                 )
               }

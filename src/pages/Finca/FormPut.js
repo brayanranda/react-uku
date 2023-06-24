@@ -13,17 +13,13 @@ const FormPut = ({
   municipios,
   inputsStates,
   setIsFormPut,
+  setShowErrors,
   corregimientos,
   setInputsStates,
   handleModalMapa,
 }) => {
   const toggleFormPut = () => {
     setIsFormPut(!isFormPut);
-    removeBodyCss();
-  }
-
-  function removeBodyCss() {
-    document.body.classList.add("no_padding");
   }
 
   const getCorregimiento = (value) => {
@@ -82,7 +78,7 @@ const FormPut = ({
       <Modal
         size="lg"
         isOpen={isFormPut}
-        toggle={() => { toggleFormPut() }}
+        toggle={() => { toggleFormPut(); setShowErrors(false) }}
       >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Editar Finca</h5>
@@ -91,7 +87,7 @@ const FormPut = ({
             aria-label="Close"
             data-dismiss="modal"
             className="close text-xl p-0"
-            onClick={() => { setIsFormPut(false) }}
+            onClick={() => { setIsFormPut(false); setShowErrors(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -293,7 +289,7 @@ const FormPut = ({
                       </button>
                     </Col>
                     <Col xs={4} className="px-0 mx-0">
-                      <button onClick={toggleFormPut} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white">Cancelar</button>
+                      <button onClick={() => { toggleFormPut(); setShowErrors(false) }} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white">Cancelar</button>
                     </Col>
                   </div>
                 </Col>

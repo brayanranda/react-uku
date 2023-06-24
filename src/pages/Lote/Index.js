@@ -15,6 +15,7 @@ const Index = () => {
   const { getLotes, lotes, postLote, putLote, deleteLote } = useContext(LotesContext)
   const [isFormPost, setIsFormPost] = useState(false)
   const [isFormPut, setIsFormPut] = useState(false)
+  const [showErrors, setShowErrors] = useState(false)
   const [idLote, setIdLote] = useState("")
   
   const [currentPage, setCurrentPage] = useState(0)
@@ -28,7 +29,6 @@ const Index = () => {
   const toggleFormPost = () => {
     setIsFormPost(!isFormPost);
   }
-
 
   useEffect(() => {
     getLotes(idFinca)
@@ -120,6 +120,7 @@ const Index = () => {
                 currentPage={currentPage}
                 setIsFormPut={setIsFormPut}
                 handleDelete={handleDelete}
+                setShowErrors={setShowErrors}
                 setCurrentPage={setCurrentPage}
               />
             </Col>
