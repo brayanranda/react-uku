@@ -26,9 +26,6 @@ const FormPost = ({
   methodVariedades,
   methodFincas,
 }) => {
-  
-  const [stateLote, setStateLote] = useState(false)
-  const [stateSuelo, setStateSuelo] = useState(false)
   const { getLotes, lotes } = useContext(LotesContext)
   const { getSuelos, suelos } = useContext(SuelosContext)
   const [idLote, setIdLote] = useState("")
@@ -38,7 +35,6 @@ const FormPost = ({
   }
 
   const handleLote = (e) => {
-    setStateSuelo(true)
     setIdLote(e.target.value)
   }
   
@@ -67,7 +63,6 @@ const FormPost = ({
       return;
     }
     if (name === "idFinca") {
-      setStateLote(true)
       setData({ ...data, [name]: methodFincas(Number(value)) });
       setInputsStates({ ...inputsStates, [name]: isValid})
       return;
@@ -295,7 +290,7 @@ const FormPost = ({
                           fincas.map((finca, index) =>
                             <option key={index} value={finca.idFinca}>{finca.nombre}</option>
                           )
-                          : <option>No se encontraron fincas.</option>
+                          : <option disabled="true">No se encontraron fincas.</option>
                       }
                     </select>
                     {
@@ -316,7 +311,6 @@ const FormPost = ({
                         value={idLote}
                         className="form-select"
                         onChange={handleLote}
-                        // disabled={`${stateLote}`}
                       >
                         <option value="" hidden>Seleccionar...</option>
                         {
@@ -324,7 +318,7 @@ const FormPost = ({
                               lotes.map((lote, index) =>
                                 <option key={index} value={lote.id}>{lote.descripcion}</option>
                               )
-                              : <option>No se encontraron lotes.</option>
+                              : <option disabled="true">No se encontraron lotes.</option>
                         }
                       </select>
                     </div>
@@ -338,7 +332,6 @@ const FormPost = ({
                           type="select"
                           name="idSuelo"
                           className="form-select"
-                          // disabled={`${stateSuelo}`}
                           valid={showErros && inputsStates?.idSuelo === true}
                           onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                           invalid={ showErros && (inputsStates?.idSuelo === false || !data?.idSuelo)}
@@ -349,7 +342,7 @@ const FormPost = ({
                               suelos.map((suelo, index) => 
                                 <option key={index} value={suelo.id}>{suelo.descripcion}</option>
                               )
-                              : <option>No se encontraron suelos.</option>
+                              : <option disabled="true">No se encontraron suelos.</option>
                           }
                         </select>
                         {

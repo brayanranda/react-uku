@@ -77,6 +77,7 @@ const Index = () => {
   const isvalidateInput = () => {
       const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
       const validateSecondInputs = arrInputsStates.every(key => key)
+      // console.log('validateSecondInputs: ', validateSecondInputs);
       return validateSecondInputs
   }
 

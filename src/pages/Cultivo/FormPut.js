@@ -139,7 +139,7 @@ const FormPut = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idDistanciaSiembra === false || !data?.idDistanciaSiembra)}
                     >
-                      <option value="">Seleccionar </option>
+                      <option value="" hidden>Seleccionar </option>
                       {distanciaSiembras && distanciaSiembras.length > 0 &&
                         distanciaSiembras.map((distancia, index) => (
                           <option key={index} value={distancia.id}>{distancia.descripcion}</option>
@@ -164,7 +164,7 @@ const FormPut = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idEtapaFenologica === false || !data?.idEtapaFenologica)}
                     >
-                      <option value="">Seleccionar </option>
+                      <option value="" hidden>Seleccionar </option>
                       {etapasFenologicas && etapasFenologicas.length > 0 &&
                         etapasFenologicas.map((etapa, index) => (
                           <option key={index} value={etapa.id}>{etapa.descripcion}</option>
@@ -191,7 +191,7 @@ const FormPut = ({
                         onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                         invalid={ showErros && (inputsStates?.idTopografia === false || !data?.idTopografia)}  
                       >
-                        <option value="">Seleccionar </option>
+                        <option value="" hidden>Seleccionar </option>
                         {topografias && topografias.length > 0 &&
                           topografias.map((topografia, index) => (
                             <option key={index} value={topografia.id}>{topografia.descripcion}</option>
@@ -216,7 +216,7 @@ const FormPut = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idVariedad === false || !data?.idVariedad)}
                     >
-                      <option value="">Seleccionar </option>
+                      <option value="" hidden>Seleccionar </option>
                       {variedades && variedades.length > 0 &&
                         variedades.map((variedad, index) => (
                           <option key={index} value={variedad.id}>{variedad.descripcion}</option>
@@ -243,7 +243,7 @@ const FormPut = ({
                         onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                         invalid={ showErros && (inputsStates?.rendimiento === false || !data?.rendimiento)}  
                       >
-                        <option value="">Seleccionar </option>
+                        <option value="" hidden>Seleccionar </option>
                         {
                           [...Array(8)].map((e, x) => 
                             <option key={x}>{x+3}</option>
