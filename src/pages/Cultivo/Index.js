@@ -77,7 +77,6 @@ const Index = () => {
   const isvalidateInput = () => {
       const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
       const validateSecondInputs = arrInputsStates.every(key => key)
-      // console.log('validateSecondInputs: ', validateSecondInputs);
       return validateSecondInputs
   }
 
@@ -104,7 +103,17 @@ const Index = () => {
     setIsFormPost(!isFormPost);
 
     setShowErrors(false)
-    setInputsStates({})
+    setInputsStates({
+      descripcion: false,
+      plantasPorHectarea: false,
+      idDistanciaSiembra: false,
+      idEtapaFenologica: false,
+      idFinca: false,
+      idTopografia: false,
+      idVariedad: false,
+      rendimiento: false,
+      idSuelo: false,
+    })
   }
 
   const onSearchChange = ({ target }) => {
@@ -113,6 +122,17 @@ const Index = () => {
   }
 
   const toggleFormPost = () => {
+    setInputsStates({
+      descripcion: false,
+      plantasPorHectarea: false,
+      idDistanciaSiembra: false,
+      idEtapaFenologica: false,
+      idFinca: false,
+      idTopografia: false,
+      idVariedad: false,
+      rendimiento: false,
+      idSuelo: false,
+    })
     setIsFormPost(!isFormPost);
   }
 
@@ -180,6 +200,7 @@ const Index = () => {
                   showErros={showErros}
                   onSubmit={handleSave}
                   isFormPost={isFormPost}
+                  toggleFormPost={toggleFormPost}
                   variedades={variedades}
                   setData={setCultivoData}
                   topografias={topografias}

@@ -25,6 +25,7 @@ const FormPut = ({
 }) => {
 
   const toggleFormPut = () => {
+    setInputsStates({})
     setIsFormPut(!isFormPut);
   }
 
@@ -78,7 +79,7 @@ const FormPut = ({
             className="close"
             aria-label="Close"
             data-dismiss="modal"
-            onClick={() => { setIsFormPut(false); setShowErrors(false) }}
+            onClick={() => { toggleFormPut(); setShowErrors(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
