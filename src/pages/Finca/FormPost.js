@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -6,17 +6,16 @@ import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-i
 const FormPost = ({
   data,
   setData,
-  veredas,
   onSubmit,
   showErros,
-  setShowErrors,
   isFormPost,
   municipios,
   inputsStates,
-  corregimientos,
-  setInputsStates,
-  toggleFormPost,
+  setShowErrors,
   setIsFormPost,
+  corregimientos,
+  toggleFormPost,
+  setInputsStates,
   handleModalMapa,
   handleModalHelp,
 }) => {
@@ -31,11 +30,6 @@ const FormPost = ({
     if (name === "idMunicipio") {
       setData({ ...data, [name]: { idMunicipio: value } });
       setInputsStates({ ...inputsStates, [name]: { idMunicipio: isValid } })
-      return;
-    }
-    if (name === "idVereda") {
-      setData({ ...data, [name]: { idVereda: value } });
-      setInputsStates({ ...inputsStates, [name]: { idVereda: isValid } })
       return;
     }
     setData({ ...data, [name]: value });
@@ -60,8 +54,8 @@ const FormPost = ({
               type="button"
               aria-label="Close"
               data-dismiss="modal"
-              className="btn bg-red-500 text-white"
               onClick={() => { setIsFormPost(false)}}
+              className="btn bg-red-500 text-white"
             >
               <FontAwesomeIcon icon={faXmark} />
             </button>
@@ -190,7 +184,7 @@ const FormPost = ({
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Corregimiento</Label>
+                <Label className="col-sm-3 col-form-label">Vereda</Label>
                 <Col sm={9}>
                   <Input
                     type="select"
@@ -199,36 +193,16 @@ const FormPost = ({
                     value={data?.idCorregimiento?.idCorregimiento}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                   >
-                    {corregimientos && corregimientos.length > 0 &&
-                      corregimientos.map((corregimiento, index) => (
-                        <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
-                      ))}
+                    <option value="" hidden>Seleccionar...</option>
+                    {
+                      corregimientos && corregimientos.length > 0 
+                        ?
+                          corregimientos.map((corregimiento, index) => (
+                            <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
+                          ))
+                        : <option disabled="true">No se encontraron veredas.</option>
+                    }
                   </Input>
-                </Col>
-              </div>
-              <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Vereda</Label>
-                <Col sm={9}>
-                  <Input
-                    type="select"
-                    name="idVereda"
-                    className="form-select"
-                    value={data?.idVereda?.idVereda}
-                    valid={inputsStates?.idVereda === true}
-                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda)}
-                  >
-                    <option value="" hidden>Seleccionar ...</option>
-                    {veredas && veredas.length > 0 &&
-                      veredas.map((vereda, index) => (
-                        <option key={index} value={vereda.idVereda}>{vereda.nombre}</option>
-                      ))}
-                  </Input>
-                  {
-                    showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda) 
-                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
-                      : null
-                  }
                 </Col>
               </div>
               <div className="row mb-4">

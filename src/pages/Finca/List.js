@@ -40,7 +40,6 @@ const Index = ({
     geolocalizacion: "",
     idCorregimiento: { idCorregimiento: 1 },
     idMunicipio: { idMunicipio: "" },
-    idVereda: { idVereda: "" },
   })
 
   const toggleFormPut = (finca) => {
@@ -136,7 +135,6 @@ const handlePut = async () => {
       {isFormPut &&
         <FormPut
           data={fincaData}
-          veredas={veredas}
           onSubmit={handlePut}
           isFormPut={isFormPut}
           showErros={showErros}
@@ -188,7 +186,7 @@ const handlePut = async () => {
                     <p><b>Area total: </b> {finca.areaTotal}</p>
                     <p><b>Area en uso: </b> {finca.areaEnUso}</p>
                     <p><b>Geolocalización: </b> {finca.geolocalizacion}</p>
-                    <p><b>Corregimiento: </b> {finca?.idCorregimiento?.nombre}</p>
+                    <p><b>Vereda: </b> {finca?.idCorregimiento?.nombre}</p>
                     <p><b>Municipio: </b> {finca?.idMunicipio?.nombre}</p>
                     <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
                       <p

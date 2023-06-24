@@ -13,13 +13,11 @@ import ModalAyuda from "../../UI/organism/ModalAyuda";
 const Index = () => {
   const {
     fincas,
-    veredas,
     putFinca,
     postFinca,
     getFincas,
     isLoading,
     municipios,
-    getVeredas,
     getMunicipios,
     corregimientos,
     getCorregimientos,
@@ -62,7 +60,7 @@ const Index = () => {
     geolocalizacion: "",
     idCorregimiento: { idCorregimiento: 1 },
     idMunicipio: { idMunicipio: "" },
-    idVereda: { idVereda: "" },
+    idVereda: { idVereda: 1},
     precipitacion: "",
   })
 
@@ -72,7 +70,6 @@ const Index = () => {
       areaEnUso: false,
       geolocalizacion: false,
       idMunicipio: false ,
-      idVereda: false ,
       precipitacion: false,
   })
 
@@ -84,7 +81,8 @@ const Index = () => {
       geolocalizacion: "",
       idCorregimiento: { idCorregimiento: 1 },
       idMunicipio: { idMunicipio: "" },
-      idVereda: { idVereda: "" },
+      idVereda: { idVereda: 1},
+      precipitacion: "",
     });
   }
   
@@ -98,10 +96,14 @@ const Index = () => {
 
   useEffect(() => {
     getAgricultores();
-    getCorregimientos();
     getMunicipios();
-    getVeredas();
   }, [])
+
+  useEffect(() => {
+    if(fincaData && Object.entries(fincaData).length !== 0 && fincaData.idMunicipio.idMunicipio) {
+      getCorregimientos(fincaData.idMunicipio.idMunicipio);
+    }
+  }, [fincaData])
 
   const isvalidateInput = () => {
       const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
@@ -125,7 +127,6 @@ const Index = () => {
       areaEnUso: false,
       geolocalizacion: false,
       idMunicipio: false ,
-      idVereda: false ,
       precipitacion: false,})
   }
 
@@ -139,8 +140,7 @@ const Index = () => {
       areaTotal: false,
       areaEnUso: false,
       geolocalizacion: false,
-      idMunicipio: false ,
-      idVereda: false ,
+      idMunicipio: false,
       precipitacion: false,})
     setIsFormPost(!isFormPost);
   }
@@ -160,7 +160,6 @@ const Index = () => {
             isFormPost &&
               <FormPost
                 data={fincaData}
-                veredas={veredas}
                 location={location}
                 onSubmit={handleSave}
                 showErros={showErros}
@@ -227,7 +226,6 @@ const Index = () => {
               <ListFinca
                 fincas={fincas}
                 search={search}
-                veredas={veredas}
                 putFinca={putFinca}
                 getFincas={getFincas}
                 showErros={showErros}
