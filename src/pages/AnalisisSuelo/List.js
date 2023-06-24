@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faFlaskVial,faChevronLeft,faChevronRight,faBook} from "@fortawesome/free-solid-svg-icons";
 import { Toaster } from "react-hot-toast";
@@ -6,16 +6,35 @@ import { Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import NoFoundData from "../../UI/atom/NoFoundData";
+import ModalAyuda from "../../UI/organism/ModalAyuda";
 
 const Index = ({
   search,
   isLoading,
   currentPage,
+  modalHelpList,
   analisisSuelos,
   setCurrentPage,
+  setModalHelpList,
   getAnalisisSuelos,
+  handleModalHelpList,
 }) => {
   let { idLote } = useParams()
+
+  const textoForm = [
+    {
+      title: "",
+      description: "Esta ventana permite agregar los datos del análisis de suelo para un lote y obtener la interpretación del análisis y la recomendación de manejo sostenible del suelo."
+    },
+    {
+      title: "",
+      description: "REPORTE INTERPRETACION: Genera el reporte con la interpretación de los datos del análisis de suelo. Se puede descargar como archivo PDF."
+    },
+    {
+      title: "",
+      description: "REPORTE RECOMENDACIONES: Genera el reporte con las recomendaciones de manejo sostenible de suelo, de acuerdo a los datos del análisis de suelo. Se puede descargar como archivo PDF."
+    },  
+  ]
 
   useEffect(() => {
       getAnalisisSuelos(idLote);
@@ -57,6 +76,15 @@ const Index = ({
   
   return (
     <>
+      {
+        modalHelpList &&
+          <ModalAyuda
+            textoForm={textoForm}
+            modalHelp={modalHelpList}
+            setModalHelp={setModalHelpList}
+            handleModalHelp={handleModalHelpList}
+          />
+      }
       <Toaster />
       {
         !isLoading && analisisSuelos.length > 0 

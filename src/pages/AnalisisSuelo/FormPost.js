@@ -1,25 +1,49 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import { inputs, validarTerreno } from "../../utils/ranges.utils";
 import { Toaster, toast } from "react-hot-toast";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import SuelosContext from "../../context/SuelosContext";
+import ModalAyuda from "../../UI/organism/ModalAyuda";
 
 const FormPost = ({
   data,
   setData,
   onSubmit,
-  cultivosBySuelo,
   isFormPost,
   profundidad,
   inputsStates,
   setIsFormPost,
   setInputsStates,
+  cultivosBySuelo,
 }) => {
   let { idLote } = useParams()
+  const [modalHelp, setModalHelp ] = useState(false)
   const { getSuelos, suelos } = useContext(SuelosContext)
+  const textoForm = [
+    {
+      title: "SUELO DEL LOTE: ",
+      description: "Considerando que un lote puede tener varios ambientes con su respectivo análisis de suelo. Indique a cual corresponde este análisis de suelo (Ejm. Suelo 1, Suelo 2, o Piscina 1, Piscina 2, etc.)"
+    },
+    {
+      title: "CULTIVO: ",
+      description: "Seleccionar la variedad o material genético del cultivo sembrado."
+    },
+    {
+      title: "DENSIDAD APARENTE DEL SUELO (opcional): ",
+      description: "Si dispone del dato de la densidad aparente del suelo, introduzca el valor. Recuerde separar los decimales con punto. Si no dispone del dato dejar en blanco y el sistema estima el valor"
+    },
+    {
+      title: "PROFUNDIDAD DE MUESTREO: ",
+      description: "Debe seleccionar la profundidad de suelo a la cual se realizó el muestreo de suelo."
+    },
+    {
+      title: "TODOS LOS PARAMETROS: ",
+      description: "Ingresar solo el valor en número y recuerda separar los decimales con punto. Si el campo se vuelve al color rojo, debe corregir el dato ingresado."
+    },
+  ]
 
   useEffect(() => {
     if(idLote && idLote !== "") {
@@ -30,6 +54,10 @@ const FormPost = ({
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);
+  }
+
+  const handleModalHelp = () => {
+    setModalHelp(!modalHelp)
   }
 
   const handleChange = (isValid, e) => {
@@ -67,7 +95,7 @@ const FormPost = ({
       const copyState = { ...prevState };
       copyState.analisisElementoCollection[element].valor = Number(value);
       return { ...copyState };
-    });
+    })
   }
 
   return (
@@ -77,18 +105,36 @@ const FormPost = ({
         isOpen={isFormPost}
         toggle={() => { toggleFormPost() }}
       >
+        {
+          modalHelp &&
+            <ModalAyuda 
+              modalHelp={modalHelp}
+              textoForm={textoForm}
+              setModalHelp={setModalHelp}
+              handleModalHelp={handleModalHelp}
+            />
+        }
         <Toaster />
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Análisis Suelo</h5>
-          <button
-            type="button"
-            className="close"
-            aria-label="Close"
-            data-dismiss="modal"
-            onClick={() => { setIsFormPost(false)}}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              className="btn bg-gray-200"
+              onClick={() => { handleModalHelp() }}
+            >
+              <FontAwesomeIcon icon={faQuestion} />
+            </button>
+            <button
+              type="button"
+              aria-label="Close"
+              data-dismiss="modal"
+              className="btn bg-red-500 text-white"
+              onClick={() => { setIsFormPost(false)}}
+            >
+              <FontAwesomeIcon icon={faXmark} />
+            </button>
+          </div>
         </div>
         <div className="modal-body">
           <CardBody className="p-0 md:p-3">
