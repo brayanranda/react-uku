@@ -50,8 +50,8 @@ const Index = () => {
       areaTotal: false,
       areaEnUso: false,
       geolocalizacion: true,
-      idMunicipio: { idMunicipio: false },
-      idVereda: { idVereda: false },
+      idMunicipio: false ,
+      idVereda: false ,
       precipitacion: false,
   })
 

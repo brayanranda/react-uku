@@ -150,7 +150,7 @@ const FormPost = ({
                     name="idMunicipio"
                     className="form-select"
                     value={data?.idMunicipio?.idMunicipio}
-                    valid={inputsStates?.idMunicipio?.idMunicipio === true}
+                    valid={inputsStates?.idMunicipio === true}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                     invalid={ showErros && (inputsStates?.idMunicipio?.idMunicipio === false || !data?.idMunicipio?.idMunicipio)}
                   >
@@ -193,7 +193,7 @@ const FormPost = ({
                     name="idVereda"
                     className="form-select"
                     value={data?.idVereda?.idVereda}
-                    valid={inputsStates?.idVereda?.idVereda === true}
+                    valid={inputsStates?.idVereda === true}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                     invalid={ showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda)}
                   >

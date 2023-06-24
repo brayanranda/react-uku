@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
+import { Form, Label, Input, Col, CardBody, Modal, Row, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
@@ -107,7 +107,7 @@ const FormPut = ({
                     name="nombre"
                     value={data.nombre}
                     className="form-control"
-                    valid={inputsStates?.nombre === true}
+                    valid={showErros && inputsStates?.nombre === true}
                     onChange={e => handleChange(e.target.value.length > 4, e)}
                     invalid={ showErros && (inputsStates?.nombre === false || !data?.nombre)}
                   />
@@ -126,7 +126,7 @@ const FormPut = ({
                     name="areaTotal"
                     value={data.areaTotal}
                     className="form-control col-lg-9"
-                    valid={inputsStates?.areaTotal === true}
+                    valid={showErros && inputsStates?.areaTotal === true}
                     onChange={e => handleChange(e.target.value.length > 0, e)}
                     invalid={ showErros && (inputsStates?.areaTotal === false || !data?.areaTotal)}
                   />
@@ -145,7 +145,7 @@ const FormPut = ({
                     name="areaEnUso"
                     value={data.areaEnUso}
                     className="form-control col-lg-9"
-                    valid={inputsStates?.areaEnUso === true}
+                    valid={showErros && inputsStates?.areaEnUso === true}
                     onChange={e => handleChange(e.target.value.length > 0, e)}
                     invalid={ showErros && (inputsStates?.areaEnUso === false || !data?.areaEnUso)}
                   />
@@ -160,7 +160,7 @@ const FormPut = ({
                 <Label className="col-sm-3 col-form-label">Geolocalización</Label>
                 <Col sm={9}>
                   <Row>
-                    <Col xs={12} md={12}>
+                    <Col xs={12} lg={8}>
                       <Input
                         type="text"
                         disabled={true}
@@ -175,8 +175,8 @@ const FormPut = ({
                           : null
                       }
                     </Col>
-                    <Col xs={12} md={4} className="mt-2">
-                      {/* <Button color="warning" className="w-100" onClick={() => { handleModalMapa() }}>Mostrar Mapa</Button> */}
+                    <Col xs={12} lg={4} className="m-0">
+                      <Button color="warning" className="w-100" onClick={() => { handleModalMapa() }}>Mostrar Mapa</Button>
                     </Col>
                   </Row>
                 </Col>
@@ -184,21 +184,21 @@ const FormPut = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Corregimiento</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="idCorregimiento"
                     className="form-select"
                     value={data.idCorregimiento.idCorregimiento}
-                    valid={inputsStates?.idCorregimiento?.idCorregimiento === true}
+                    valid={showErros && inputsStates?.idCorregimiento === true}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento)}
+                    invalid={ showErros && (inputsStates?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     {corregimientos && corregimientos.length > 0 &&
                       corregimientos.map((corregimiento, index) => (
                         <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
                       ))}
-                  </select>
+                  </Input>
                   {
                     showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
@@ -209,21 +209,21 @@ const FormPut = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Municipio</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="idMunicipio"
                     className="form-select"
                     value={data.idMunicipio.idMunicipio}
-                    valid={inputsStates?.idMunicipio?.idMunicipio === true}
+                    valid={showErros && inputsStates?.idMunicipio === true}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idMunicipio?.idMunicipio === false || !data?.idMunicipio?.idMunicipio)}
+                    invalid={ showErros && (inputsStates?.idMunicipio === false || !data?.idMunicipio?.idMunicipio)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     {municipios && municipios.length > 0 &&
                       municipios.map((municipio, index) => (
                         <option key={index} value={municipio.idMunicipio}>{municipio.nombre}</option>
                       ))}
-                  </select>
+                  </Input>
                   {
                     showErros && (inputsStates?.idMunicipio?.idMunicipio === false || !data?.idMunicipio?.idMunicipio) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
@@ -234,21 +234,21 @@ const FormPut = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Vereda</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="idVereda"
                     className="form-select"
                     value={data.idVereda.idVereda}
-                    valid={inputsStates?.idVereda?.idVereda === true}
+                    valid={showErros && inputsStates?.idVereda === true}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda)}
+                    invalid={ showErros && (inputsStates?.idVereda === false || !data?.idVereda?.idVereda)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
                     {veredas && veredas.length > 0 &&
                       veredas.map((vereda, index) => (
                         <option key={index} value={vereda.idVereda}>{vereda.nombre}</option>
                     ))}
-                  </select>
+                  </Input>
                   {
                     showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
@@ -259,12 +259,12 @@ const FormPut = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Precipitación anual</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="precipitacion"
                     className="form-select"
                     value={data?.precipitacion}
-                    valid={inputsStates?.precipitacion === true}
+                    valid={showErros && inputsStates?.precipitacion === true}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                     invalid={ showErros && (inputsStates?.precipitacion === false || !data?.precipitacion)}
                   >
@@ -272,7 +272,7 @@ const FormPut = ({
                     <option>Lluvioso</option>
                     <option>Medio</option>
                     <option>Seco</option>
-                  </select>
+                  </Input>
                   {
                     showErros && (inputsStates?.precipitacion === false || !data?.precipitacion) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>

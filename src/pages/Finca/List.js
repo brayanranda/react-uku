@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import Preview from "./Preview";
 import NoFoundData from "../../UI/atom/NoFoundData";
+import ModalMapa from "./ModalMapa";
 
 const Index = ({
   search,
@@ -26,9 +27,10 @@ const Index = ({
   setUpdateOrAdd,
   setCurrentPage,
   setInputsStates,
-  handleModalMapa,
 }) => {
   const [isFormPut, setIsFormPut] = useState(false);
+  const [modalMapa, setModalMapa] = useState(false);
+  const [location, setLocation] = useState(null);
   const [isFormPreview, setIsFormPreview] = useState(false);
   const [fincaData, setFincaData] = useState({
     nombre: "",
@@ -42,8 +44,20 @@ const Index = ({
   })
 
   const toggleFormPut = (finca) => {
+    let tempiptState = {...inputsStates}
     setShowErrors(false)
     setFincaData(finca);
+    Object.entries(finca).forEach(([key, value]) => {
+      if(key === "loteEntityCollection"){
+        return;
+      }
+      if (value !== undefined && value !== null && value !== "") {
+        tempiptState[key] = true
+      }else{
+        tempiptState[key] = false
+      }
+    })
+    setInputsStates(tempiptState)
     setIsFormPut(!isFormPut);
   }
 
@@ -107,7 +121,13 @@ const Index = ({
       setCurrentPage(currentPage - 9);
     }
   }
-
+  const handleModalMapa = () => {
+    setModalMapa(!modalMapa)
+  }
+  const handleLocationSave = (location) => {
+    let {lat, lng} = location;
+    setFincaData({...fincaData, geolocalizacion: `${lat},${lng}`});
+  }
   return (
     <>
       <Toaster />
@@ -142,12 +162,23 @@ const Index = ({
         />
       }
       {
+        modalMapa &&
+          <ModalMapa
+            location={location}
+            modalMapa={modalMapa}
+            setLocation={setLocation}
+            setModalMapa={setModalMapa}
+            handleModalMapa={handleModalMapa}
+            handleLocationSave={handleLocationSave}
+          />
+      }
+      {
         !isLoading && fincas.length > 0 
           ?
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
               {
                 filteredFincas().map((finca, x) => 
-                  <div className="bg-white shadow-md p-4 rounded-md">
+                  <div key={x} className="bg-white shadow-md p-4 rounded-md">
                     <p><b>Identificador: </b> {finca.idFinca}</p>
                     <p><b>Nombre de Finca: </b> {finca.nombre}</p>
                     <p><b>Area total: </b> {finca.areaTotal}</p>
