@@ -9,17 +9,16 @@ const FormPost = ({
   veredas,
   onSubmit,
   showErros,
+  setShowErrors,
   isFormPost,
   municipios,
   inputsStates,
-  setIsFormPost,
   corregimientos,
   setInputsStates,
   handleModalMapa,
+  toggleFormPost
 }) => {
-  const toggleFormPost = () => {
-    setIsFormPost(!isFormPost);
-  }
+  
 
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
@@ -44,7 +43,7 @@ const FormPost = ({
 
   return (
     <React.Fragment>
-      <Modal size="lg" isOpen={isFormPost} toggle={() => { toggleFormPost() }} >
+      <Modal size="lg" isOpen={isFormPost} toggle={() => { toggleFormPost(); setShowErrors(false)}} >
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Finca</h5>
           <button
@@ -52,7 +51,7 @@ const FormPost = ({
             aria-label="Close"
             data-dismiss="modal"
             className="close text-xl p-0"
-            onClick={() => { setIsFormPost(false) }}
+            onClick={() => { toggleFormPost(); setShowErrors(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
@@ -145,7 +144,7 @@ const FormPost = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Municipio</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="idMunicipio"
                     className="form-select"
@@ -159,7 +158,7 @@ const FormPost = ({
                       municipios.map((municipio, index) => (
                         <option key={index} value={municipio.idMunicipio}>{municipio.nombre}</option>
                       ))}
-                  </select>
+                  </Input>
                   {
                     showErros && (inputsStates?.idMunicipio?.idMunicipio === false || !data?.idMunicipio?.idMunicipio) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
@@ -170,25 +169,24 @@ const FormPost = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Corregimiento</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="idCorregimiento"
                     className="form-select"
                     value={data?.idCorregimiento?.idCorregimiento}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                   >
-                    <option value="" hidden>Seleccionar ...</option>
                     {corregimientos && corregimientos.length > 0 &&
                       corregimientos.map((corregimiento, index) => (
                         <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
                       ))}
-                  </select>
+                  </Input>
                 </Col>
               </div>
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Vereda</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="idVereda"
                     className="form-select"
@@ -202,7 +200,7 @@ const FormPost = ({
                       veredas.map((vereda, index) => (
                         <option key={index} value={vereda.idVereda}>{vereda.nombre}</option>
                       ))}
-                  </select>
+                  </Input>
                   {
                     showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
@@ -213,7 +211,7 @@ const FormPost = ({
               <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Precipitación anual</Label>
                 <Col sm={9}>
-                  <select
+                  <Input
                     type="select"
                     name="precipitacion"
                     className="form-select"
@@ -226,7 +224,7 @@ const FormPost = ({
                     <option>Lluvioso</option>
                     <option>Medio</option>
                     <option>Seco</option>
-                  </select>
+                  </Input>
                   {
                     showErros && (inputsStates?.precipitacion === false || !data?.precipitacion) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
@@ -247,7 +245,7 @@ const FormPost = ({
                       </button>
                     </Col>
                     <Col xs={4} className="px-0 mx-0">
-                      <button onClick={toggleFormPost} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white">Cancelar</button>
+                      <button onClick={()=> {toggleFormPost(); setShowErrors(false)}} className="bg-gray-300 btn hover:bg-gray-400 w-full hover:text-white">Cancelar</button>
                     </Col>
                   </div>
                 </Col>

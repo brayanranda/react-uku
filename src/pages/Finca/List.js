@@ -38,8 +38,8 @@ const Index = ({
     areaEnUso: 0,
     geolocalizacion: "",
     idCorregimiento: { idCorregimiento: 1 },
-    idMunicipio: { idMunicipio: 1 },
-    idVereda: { idVereda: 1 },
+    idMunicipio: { idMunicipio: "" },
+    idVereda: { idVereda: "" },
   })
 
   const toggleFormPut = (finca) => {
@@ -126,6 +126,7 @@ const handlePut = async () => {
   }
   const handleLocationSave = (location) => {
     let {lat, lng} = location;
+    setInputsStates({...inputsStates, geolocalizacion:true})
     setFincaData({...fincaData, geolocalizacion: `${lat},${lng}`});
   }
   return (

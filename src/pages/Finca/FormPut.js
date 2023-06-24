@@ -19,6 +19,7 @@ const FormPut = ({
   handleModalMapa,
 }) => {
   const toggleFormPut = () => {
+    setInputsStates({})
     setIsFormPut(!isFormPut);
   }
 
@@ -87,7 +88,7 @@ const FormPut = ({
             aria-label="Close"
             data-dismiss="modal"
             className="close text-xl p-0"
-            onClick={() => { setIsFormPut(false); setShowErrors(false) }}
+            onClick={() => { toggleFormPut(); setShowErrors(false) }}
           >
             <span aria-hidden="true">&times;</span>
           </button>
