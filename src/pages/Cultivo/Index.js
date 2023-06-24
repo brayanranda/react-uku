@@ -77,6 +77,7 @@ const Index = () => {
   const isvalidateInput = () => {
       const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
       const validateSecondInputs = arrInputsStates.every(key => key)
+      // console.log('validateSecondInputs: ', validateSecondInputs);
       return validateSecondInputs
   }
 
@@ -115,6 +116,56 @@ const Index = () => {
     setIsFormPost(!isFormPost);
   }
 
+  const methodDistanciaSiembras = (value) => {
+    let el = {};
+    distanciaSiembras.forEach((element) => {
+      if (element.id === value) {
+        el = element;
+      }
+    });
+    return el;
+  }
+
+  const methodEtapasFenologicas = (value) => {
+    let el = {};
+    etapasFenologicas.forEach((element) => {
+      if (element.id === value) {
+        el = element;
+      }
+    });
+    return el;
+  }
+
+  const methodFincas = (value) => {
+    let el = {};
+    fincas.forEach((element) => {
+      if (element.idFinca === value) {
+        el = element;
+      }
+    });
+    return el;
+  }
+
+  const methodTopografias = (value) => {
+    let el = {};
+    topografias.forEach((element) => {
+      if (element.id === value) {
+        el = element;
+      }
+    });
+    return el;
+  }
+
+  const methodVariedades = (value) => {
+    let el = {};
+    variedades.forEach((element) => {
+      if (element.id === value) {
+        el = element;
+      }
+    });
+    return el;
+  }
+
   return (
     <>
       <Toaster />
@@ -138,6 +189,11 @@ const Index = () => {
                   setInputsStates={setInputsStates}
                   distanciaSiembras={distanciaSiembras}
                   etapasFenologicas={etapasFenologicas}
+                  methodDistanciaSiembras={methodDistanciaSiembras}
+                  methodEtapasFenologicas={methodEtapasFenologicas}
+                  methodTopografias={methodTopografias}
+                  methodVariedades={methodVariedades}
+                  methodFincas={methodFincas}
                 />
               </SuelosProvider>
             </LotesProvider>
@@ -173,15 +229,24 @@ const Index = () => {
                 fincas={fincas}
                 putData={putData}
                 cultivos={cultivos}
+                clearForm={clearForm}
                 isLoading={isLoading}
+                showErros={showErros}
                 variedades={variedades}
                 topografias={topografias}
                 getCultivos={getCultivos}
                 currentPage={currentPage}
+                inputsStates={inputsStates}
                 setShowErrors={setShowErrors}
                 setCurrentPage={setCurrentPage}
+                setInputsStates={setInputsStates}
                 distanciaSiembras={distanciaSiembras}
                 etapasFenologicas={etapasFenologicas}
+                methodDistanciaSiembras={methodDistanciaSiembras}
+                methodEtapasFenologicas={methodEtapasFenologicas}
+                methodTopografias={methodTopografias}
+                methodVariedades={methodVariedades}
+                methodFincas={methodFincas}
               />
             </Col>
           </Row>

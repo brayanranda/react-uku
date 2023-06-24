@@ -112,7 +112,7 @@ const FormPost = ({
                                 suelos.map((suelo, index) => 
                                   <option key={index} value={suelo.id}>{suelo.descripcion}</option>
                                 )
-                                : <option>No se encontraron suelos.</option>
+                                : <option disabled="true">No se encontraron suelos.</option>
                             }
                           </select>
                         </div>  
@@ -275,7 +275,8 @@ const FormPost = ({
                           e
                         )
                       }
-                      type="text"
+                      type="number"
+                      min="0" max="14"
                       className="form-control"
                     />
                   </div>
