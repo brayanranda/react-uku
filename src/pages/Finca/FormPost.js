@@ -15,13 +15,11 @@ const FormPost = ({
   inputsStates,
   corregimientos,
   setInputsStates,
+  toggleFormPost,
+  setIsFormPost,
   handleModalMapa,
   handleModalHelp,
 }) => {
-
-  const toggleFormPost = () => {
-    setIsFormPost(!isFormPost);
-  }
 
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
