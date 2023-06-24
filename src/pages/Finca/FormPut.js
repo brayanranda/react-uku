@@ -5,7 +5,6 @@ import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-i
 
 const FormPut = ({
   data,
-  veredas,
   setData,
   onSubmit,
   isFormPut,
@@ -44,16 +43,6 @@ const FormPut = ({
     return el;
   }
 
-  const getVereda = (value) => {
-    let el = {};
-    veredas.forEach((element) => {
-      if (element.idVereda === value) {
-        el = element;
-      }
-    });
-    return el;
-  }
-
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
     if (name === "idCorregimiento") {
@@ -64,11 +53,6 @@ const FormPut = ({
     if (name === "idMunicipio") {
       setData({ ...data, [name]: getMunicipio(Number(value)) });
       setInputsStates({ ...inputsStates, [name]: { idMunicipio: isValid } })
-      return;
-    }
-    if (name === "idVereda") {
-      setData({ ...data, [name]: getVereda(Number(value)) });
-      setInputsStates({ ...inputsStates, [name]: { idVereda: isValid } })
       return;
     }
     setData({ ...data, [name]: value });
@@ -189,31 +173,6 @@ const FormPut = ({
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Corregimiento</Label>
-                <Col sm={9}>
-                  <Input
-                    type="select"
-                    name="idCorregimiento"
-                    className="form-select"
-                    value={data.idCorregimiento.idCorregimiento}
-                    valid={showErros && inputsStates?.idCorregimiento === true}
-                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento)}
-                  >
-                    <option value="" hidden>Seleccionar ...</option>
-                    {corregimientos && corregimientos.length > 0 &&
-                      corregimientos.map((corregimiento, index) => (
-                        <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
-                      ))}
-                  </Input>
-                  {
-                    showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento) 
-                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
-                      : null
-                  }
-                </Col>
-              </div>
-              <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Municipio</Label>
                 <Col sm={9}>
                   <Input
@@ -243,21 +202,21 @@ const FormPut = ({
                 <Col sm={9}>
                   <Input
                     type="select"
-                    name="idVereda"
+                    name="idCorregimiento"
                     className="form-select"
-                    value={data.idVereda.idVereda}
-                    valid={showErros && inputsStates?.idVereda === true}
+                    value={data.idCorregimiento.idCorregimiento}
+                    valid={showErros && inputsStates?.idCorregimiento === true}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idVereda === false || !data?.idVereda?.idVereda)}
+                    invalid={ showErros && (inputsStates?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
-                    {veredas && veredas.length > 0 &&
-                      veredas.map((vereda, index) => (
-                        <option key={index} value={vereda.idVereda}>{vereda.nombre}</option>
-                    ))}
+                    {corregimientos && corregimientos.length > 0 &&
+                      corregimientos.map((corregimiento, index) => (
+                        <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
+                      ))}
                   </Input>
                   {
-                    showErros && (inputsStates?.idVereda?.idVereda === false || !data?.idVereda?.idVereda) 
+                    showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento) 
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }

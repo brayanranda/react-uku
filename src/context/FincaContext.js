@@ -9,7 +9,6 @@ const FincaProvider = ({ children }) => {
   let api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
   let url = REACT_APP_API_URL + "finca";
-  let urlCorregimiento = REACT_APP_API_URL + "corregimiento";
   let urlMunicipio = REACT_APP_API_URL + "municipio";
   let urlVereda = REACT_APP_API_URL + "vereda";
   const [finca, setFinca] = useState([]);
@@ -31,8 +30,8 @@ const FincaProvider = ({ children }) => {
     setIsLoading(false);
   }
 
-  const getCorregimientos = async () => {
-    const res = await api.get(urlCorregimiento);
+  const getCorregimientos = async (idMunicipio) => {
+    const res = await api.get(`${REACT_APP_API_URL}corregimiento/${idMunicipio}`);
     setCorregimientos(res);
   }
 
