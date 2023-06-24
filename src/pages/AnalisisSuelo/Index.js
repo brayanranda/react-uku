@@ -21,7 +21,7 @@ const Index = () => {
     getAnalisisSuelos,
   } = useContext(AnalisisSueloContext);
 
-  const { getCultivos, cultivos } = useContext(CultivoContext);
+  const { getCultivosBySuelo, cultivosBySuelo } = useContext(CultivoContext);
   const { getDensidades, densidades } = useContext(DensidadContext);
   const [isFormPost, setIsFormPost] = useState(false);
   const [updateOrAdd, setUpdateOrAdd] = useState(true);
@@ -33,7 +33,7 @@ const Index = () => {
     idCultivo: { idCultivo: "" },
     idSuelo: { id: "" },
     idProfundidad: { idProfundidadMuestra: "" },
-    idDensidad: { idDensidad: "" },
+    idDensidad: "",
     porcentArcilla: "",
     porcentArena: "",
     porcentLimos: "",
@@ -103,11 +103,16 @@ const Index = () => {
   });
 
   useEffect(() => {
-    getCultivos();
     getDensidades();
     getClaseTextural();
     getProfundidad();
   }, []);
+
+  useEffect(() => {
+    if(elementoData && Object.entries(elementoData).length !== 0 && elementoData?.idSuelo?.id) {
+      getCultivosBySuelo(elementoData.idSuelo.id)
+    }
+  }, [elementoData])
 
   const validateInput = () => {
     const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
@@ -145,7 +150,7 @@ const Index = () => {
             <SuelosProvider>
               <FormPost
                 data={elementoData}
-                cultivos={cultivos}
+                cultivosBySuelo={cultivosBySuelo}
                 onSubmit={handleSave}
                 isFormPost={isFormPost}
                 densidades={densidades}
@@ -174,7 +179,7 @@ const Index = () => {
                       value={search}
                       className="form-control rounded-full"
                       onChange={onSearchChange}
-                      placeholder="Buscar por clase textural"
+                      placeholder="Buscar..."
                     />
                   </div>
                   <button

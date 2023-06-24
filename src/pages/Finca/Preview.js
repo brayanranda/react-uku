@@ -40,29 +40,35 @@ const Preview = ({ data, setIsFormPreview, isFormPreview }) => {
               <Row>
                 <Col md={8} className="mb-3">
                   <p className="d-block">Corregimiento</p>
-                  <p className="text-xl font-semibold">{data.idCorregimiento.nombre}</p>
+                  <p className="text-xl font-semibold">{data?.idCorregimiento?.nombre}</p>
                 </Col>
                 <Col md={4} className="mb-3">
                   <p className="d-block">Area en uso</p>
-                  <p className="text-xl font-semibold">{data.areaEnUso}</p>
+                  <p className="text-xl font-semibold">{data?.areaEnUso}</p>
                 </Col>
               </Row>
               <Row>
                 <Col md={8} className="mb-3">
                   <p className="d-block">Municipio</p>
-                  <p className="text-xl font-semibold">{data.idMunicipio.nombre}</p>
+                  <p className="text-xl font-semibold">{data?.idMunicipio?.nombre}</p>
                 </Col>
                 <Col md={4} className="mb-3">
                   <p className="d-block">Agricultor</p>
                   <p className="text-xl font-semibold">
-                    {data.idAgricultor.nombres + " " + data.idAgricultor.nombres}
+                    {data?.idAgricultor?.nombres + " " + data?.idAgricultor?.nombres}
                   </p>
                 </Col>
               </Row>
               <Row>
-                <p className="d-block">Vereda</p>
-                <p className="text-xl font-semibold">{data.idVereda.nombre}</p>
-              </Row>
+                <Col md={8} className="mb-3">
+                  <p className="d-block">Vereda</p>
+                  <p className="text-xl font-semibold">{data?.idVereda?.nombre}</p>
+                </Col>
+                <Col md={4} className="mb-3">
+                  <p className="d-block">Geolocalización</p>
+                  <p className="text-xl font-semibold">{data?.geolocalizacion}</p>
+                </Col>
+              </Row>              
             </CardBody>
           </Card>
 

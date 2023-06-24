@@ -20,6 +20,9 @@ const FormPost = ({
   distanciaSiembras,
   etapasFenologicas,
 }) => {
+  
+  const [stateLote, setStateLote] = useState(false)
+  const [stateSuelo, setStateSuelo] = useState(false)
   const { getLotes, lotes } = useContext(LotesContext)
   const { getSuelos, suelos } = useContext(SuelosContext)
   const [idLote, setIdLote] = useState("")
@@ -28,7 +31,14 @@ const FormPost = ({
     setIsFormPost(!isFormPost);
   }
 
+  useEffect(() => {
+    if(stateLote) {
+      console.log(stateLote);
+    }
+  }, [stateLote])
+
   const handleLote = (e) => {
+    setStateSuelo(true)
     setIdLote(e.target.value)
   }
   
@@ -107,6 +117,8 @@ const FormPost = ({
       return;
     }
     if (name === "idFinca") {
+      console.log("entt");
+      setStateLote(true)
       setData({ ...data, [name]: getFincas(Number(value)) });
       setInputsStates({ ...inputsStates, [name]: isValid})
       return;
@@ -203,7 +215,7 @@ const FormPost = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idDistanciaSiembra === false || !data?.idDistanciaSiembra)}
                     >
-                      <option value="" hidden>Seleccionar </option>
+                      <option value="" hidden>Seleccionar... </option>
                       {distanciaSiembras && distanciaSiembras.length > 0 &&
                         distanciaSiembras.map((distancia, index) => (
                           <option key={index} value={distancia.id}>{distancia.descripcion}</option>
@@ -227,7 +239,7 @@ const FormPost = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idEtapaFenologica === false || !data?.idEtapaFenologica)}
                     >
-                      <option value="" hidden>Seleccionar </option>
+                      <option value="" hidden>Seleccionar... </option>
                       {etapasFenologicas && etapasFenologicas.length > 0 &&
                         etapasFenologicas.map((etapa, index) => (
                           <option key={index} value={etapa.id}>{etapa.descripcion}</option>
@@ -253,7 +265,7 @@ const FormPost = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idTopografia === false || !data?.idTopografia)}
                     >
-                      <option value="" hidden>Seleccionar </option>
+                      <option value="" hidden>Seleccionar... </option>
                       {topografias && topografias.length > 0 &&
                         topografias.map((topografia, index) => (
                           <option key={index} value={topografia.id}>{topografia.descripcion}</option>
@@ -277,7 +289,7 @@ const FormPost = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idVariedad === false || !data?.idVariedad)}
                     >
-                      <option value="" hidden>Seleccionar </option>
+                      <option value="" hidden>Seleccionar... </option>
                       {variedades && variedades.length > 0 &&
                         variedades.map((variedad, index) => (
                           <option key={index} value={variedad.id}>{variedad.descripcion}</option>
@@ -303,7 +315,7 @@ const FormPost = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.rendimiento === false || !data?.rendimiento)}
                     >
-                      <option value="" hidden>Seleccionar </option>
+                      <option value="" hidden>Seleccionar... </option>
                       {
                         [...Array(8)].map((e, x) => 
                           <option key={x}>{x+3}</option>
@@ -328,7 +340,7 @@ const FormPost = ({
                       onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                       invalid={ showErros && (inputsStates?.idFinca === false || !data?.idFinca)}
                     >
-                      <option value="" hidden>Seleccionar </option>
+                      <option value="" hidden>Seleccionar... </option>
                       {
                         fincas && fincas.length > 0 ?
                           fincas.map((finca, index) =>
@@ -347,30 +359,29 @@ const FormPost = ({
               </Row>
               <Row>
                 {
-                  lotes && lotes.length > 0 &&
-                    <Col md={6}>
-                      <Label className="col-form-label">Lote</Label>
-                      <div className="w-100">
-                        <select
-                          type="select"
-                          value={idLote}
-                          className="form-select"
-                          onChange={handleLote}
-                        >
-                          <option value="" hidden>Seleccionar </option>
-                          {
+                  <Col md={6}>
+                    <Label className="col-form-label">Lote</Label>
+                    <div className="w-100">
+                      <select
+                        type="select"
+                        value={idLote}
+                        className="form-select"
+                        onChange={handleLote}
+                        // disabled={`${stateLote}`}
+                      >
+                        <option value="" hidden>Seleccionar...</option>
+                        {
                             lotes && lotes.length > 0 ?
                               lotes.map((lote, index) =>
                                 <option key={index} value={lote.id}>{lote.descripcion}</option>
                               )
                               : <option>No se encontraron lotes.</option>
-                          }
-                        </select>
-                      </div>
-                    </Col>
+                        }
+                      </select>
+                    </div>
+                  </Col>
                 }
                 {
-                  suelos && suelos.length > 0 &&
                     <Col md={6}>
                       <Label className="col-form-label">Suelo</Label>
                       <div className="w-100">
@@ -378,11 +389,12 @@ const FormPost = ({
                           type="select"
                           name="idSuelo"
                           className="form-select"
+                          // disabled={`${stateSuelo}`}
                           valid={inputsStates?.idSuelo === true}
                           onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
                           invalid={ showErros && (inputsStates?.idSuelo === false || !data?.idSuelo)}
                         >
-                          <option value="" hidden>Seleccionar </option>
+                          <option value="" hidden>Seleccionar... </option>
                           {
                             suelos && suelos.length > 0 ?
                               suelos.map((suelo, index) => 

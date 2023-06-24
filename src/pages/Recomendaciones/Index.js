@@ -93,7 +93,10 @@ const Index = () => {
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de materia orgánica (M.O.)</p>
                   <div className="bg-white flex items-center gap-4 p-4">
                     <p className="font-bold">Materia orgánica (kg /ha): </p>
-                    <p>{analisisSuelo?.materiaOrganica}</p>
+                    {
+                      analisisSuelo && analisisSuelo.recomendacionCollection && analisisSuelo.recomendacionCollection.length > 0 && 
+                        <p>{analisisSuelo?.recomendacionCollection[0]?.materiaOrganica}</p>
+                    }
                   </div>
                 </div>
 
