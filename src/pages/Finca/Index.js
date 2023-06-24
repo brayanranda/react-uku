@@ -169,6 +169,7 @@ const Index = () => {
                 municipios={municipios}
                 inputsStates={inputsStates}
                 agricultores={agricultores}
+                setIsFormPost={setIsFormPost}
                 setShowErrors={setShowErrors}
                 corregimientos={corregimientos}
                 handleModalHelp={handleModalHelp}
