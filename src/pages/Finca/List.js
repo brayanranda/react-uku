@@ -37,7 +37,6 @@ const Index = ({
     areaTotal: 0,
     areaEnUso: 0,
     geolocalizacion: "",
-    ideAgricultor: { identificacion: 0 },
     idCorregimiento: { idCorregimiento: 1 },
     idMunicipio: { idMunicipio: 1 },
     idVereda: { idVereda: 1 },
@@ -71,30 +70,31 @@ const Index = ({
       getFincas();
       setUpdateOrAdd(false);
     }
-  }, [updateOrAdd]);
+  }, [updateOrAdd])
+
+  const isvalidateInput = () => {
+    const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+    const validateSecondInputs = arrInputsStates.every(key => key)
+    return validateSecondInputs
+  }
+
+const handlePut = async () => {
+  setShowErrors(true)
+  const validate = isvalidateInput()
+  if (!validate) return
+
+  await putFinca(fincaData);
+  clearForm();
+  setIsFormPut(!isFormPut);
+  setUpdateOrAdd(true);
+
+  setShowErrors(false)
+  setInputsStates({})
+}
 
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
-
-  const isvalidateInput = () => {
-      const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
-      const validateSecondInputs = arrInputsStates.every(key => key)
-      return validateSecondInputs
-  }
-
-  const handlePut = async () => {
-    setShowErrors(true)
-    const validate = isvalidateInput()
-    if (!validate) return
-
-    await putFinca(fincaData);
-    clearForm();
-    setIsFormPut(!isFormPut);
-    setUpdateOrAdd(true);
-    setShowErrors(false)
-    setInputsStates({})
-  };
 
   const filter = () => {
     const result = fincas.filter((finca) =>

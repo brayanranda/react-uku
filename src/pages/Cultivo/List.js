@@ -6,8 +6,6 @@ import { Toaster } from "react-hot-toast";
 import { Spinner } from "reactstrap";
 import { useParams } from "react-router-dom";
 import NoFoundData from "../../UI/atom/NoFoundData";
-import { LotesProvider } from "../../context/LotesContext";
-import { SuelosProvider } from "../../context/SuelosContext";
 
 const Index = ({
   fincas,
@@ -15,15 +13,24 @@ const Index = ({
   putData,
   cultivos,
   isLoading,
+  clearForm,
+  showErros,
   variedades,
   currentPage,
   topografias,
   getCultivos,
+  inputsStates,
   setShowErrors,
   setUpdateOrAdd,
   setCurrentPage,
+  setInputsStates,
   distanciaSiembras,
   etapasFenologicas,
+  methodDistanciaSiembras,
+  methodEtapasFenologicas,
+  methodTopografias,
+  methodVariedades,
+  methodFincas,
 }) => {
   
   let { idFinca } = useParams()
@@ -57,10 +64,24 @@ const Index = ({
     return <Spinner color="success">Loading...</Spinner>;
   }
 
+  const isvalidateInput = () => {
+      const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+      const validateSecondInputs = arrInputsStates.every(key => key)
+      return validateSecondInputs
+  }
+
   const handlePut = async () => {
+    setShowErrors(true)
+    const validate = isvalidateInput()
+    if (!validate) return
+
     await putData(cultivoData);
     await getCultivos()
+
+    clearForm();
     setIsFormPut(!isFormPut);
+    setShowErrors(false)
+    setInputsStates({})
     setUpdateOrAdd(true);
   }
 
@@ -96,22 +117,27 @@ const Index = ({
       <Toaster />
       {
         isFormPut &&
-          <LotesProvider>
-            <SuelosProvider>
-              <FormPut
-                fincas={fincas}
-                data={cultivoData}
-                onSubmit={handlePut}
-                isFormPut={isFormPut}
-                variedades={variedades}
-                setData={setCultivoData}
-                topografias={topografias}
-                setIsFormPut={setIsFormPut}
-                distanciaSiembras={distanciaSiembras}
-                etapasFenologicas={etapasFenologicas}
-              />
-          </SuelosProvider>
-        </LotesProvider>
+          <FormPut
+            fincas={fincas}
+            data={cultivoData}
+            onSubmit={handlePut}
+            showErros={showErros}
+            isFormPut={isFormPut}
+            variedades={variedades}
+            setData={setCultivoData}
+            topografias={topografias}
+            setIsFormPut={setIsFormPut}
+            inputsStates={inputsStates}
+            setShowErrors={setShowErrors}
+            setInputsStates={setInputsStates}
+            distanciaSiembras={distanciaSiembras}
+            etapasFenologicas={etapasFenologicas}
+            methodDistanciaSiembras={methodDistanciaSiembras}
+            methodEtapasFenologicas={methodEtapasFenologicas}
+            methodTopografias={methodTopografias}
+            methodVariedades={methodVariedades}
+            methodFincas={methodFincas}
+          />
       }
       {
         !isLoading && cultivos.length > 0 
