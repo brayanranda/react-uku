@@ -13,7 +13,7 @@ const Index = ({analisisSuelo}) => {
           </thead>
           <tbody>
                 <tr>
-                  <td>{analisisSuelo?.idDensidad?.valor} g/cm3</td>
+                  <td>{analisisSuelo?.idDensidad} g/cm3</td>
                 </tr>
           </tbody>
         </table>

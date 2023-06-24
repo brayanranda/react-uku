@@ -78,47 +78,62 @@ const Index = () => {
                     {
                       analisisSuelo && analisisSuelo.recomendacionCollection && 
                       analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection &&
-                      analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection.length > 0 &&
+                      analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection.length > 0 ?
                         analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection.map((element, index) => 
                           <div key={index} className="w-1/4 border-r-2 border-none-last">
                             <p className="font-bold">{element?.enmienda?.nombre}</p>
                             <p>{element.valor}</p>
                           </div>
-                        )
+                        ) : <p>No se recomienda aplicar encalado debido a que su pH del suelo no necesita corregir su acidez.</p>
                     }
                   </div>
                 </div>
 
-                <div className="bg-white">
-                  <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de materia orgánica (M.O.)</p>
-                  <div className="bg-white flex items-center gap-4 p-4">
-                    <p className="font-bold">Materia orgánica (kg /ha): </p>
-                    {
-                      analisisSuelo && analisisSuelo.recomendacionCollection && analisisSuelo.recomendacionCollection.length > 0 && 
-                        <p>{analisisSuelo?.recomendacionCollection[0]?.materiaOrganica}</p>
-                    }
-                  </div>
-                </div>
-
-                <div className="bg-white">
-                  <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de abono orgánico (Encalado del suelo)</p>
-                  <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
-                    Nota: Seleccione a su consideración una de las siguientes recomendaciones.
-                  </p>
-                  <div className="w-100 flex gap-4 p-4">
-                    {
-                      analisisSuelo && analisisSuelo.recomendacionCollection && 
-                      analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection &&
-                      analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.length > 0 &&
-                        analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.map((element, index) => 
-                          <div key={index} className="w-1/4 border-r-2 border-none-last">
-                            <p className="font-bold">{element?.idAbonoOrganico?.descripcion} (Kg/Ha)</p>
-                            <p>{element.cantidad}</p>
-                          </div>
-                        )
-                    }
-                  </div>
-                </div>
+                <Row>
+                  <Col md={6}>
+                    <div className="bg-white">
+                      <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de abono orgánico (Encalado del suelo)</p>
+                      <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
+                        Nota: Seleccione a su consideración una de las siguientes recomendaciones.
+                      </p>
+                      <div className="w-100 flex gap-4 p-4">
+                        {
+                          analisisSuelo && analisisSuelo.recomendacionCollection && 
+                          analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection &&
+                          analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.length > 0 &&
+                            analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.map((element, index) => 
+                              <div key={index} className="w-1/4 border-r-2 border-none-last">
+                                <p className="font-bold">{element?.idAbonoOrganico?.descripcion} (Kg/Ha)</p>
+                                <p>{element.cantidad}</p>
+                              </div>
+                            )
+                        }
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div className="bg-white">
+                      <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de materia orgánica (M.O.)</p>
+                      <div className="bg-white flex gap-4 p-4">
+                        <p className="font-bold">Materia orgánica (kg /ha): </p>
+                        {
+                          analisisSuelo && analisisSuelo.recomendacionCollection && analisisSuelo.recomendacionCollection.length > 0 && 
+                            <div className="flex flex-col">
+                              <p className="font-bold">
+                                {analisisSuelo?.recomendacionCollection[0]?.materiaOrganica}
+                              </p>
+                              {
+                                analisisSuelo?.recomendacionCollection[0]?.materiaOrganica === 0 &&
+                                  <p>
+                                    (No se recomienda aplicar materia organica debido a que la interpretación de la Materia orgánica es ALTA.)
+                                  </p>
+                              }
+                            </div> 
+                        }
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
                 
                 <div className="bg-white">
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de Uso de Bioinsumos:</p>
