@@ -3,7 +3,7 @@ import { Form, Label, Input, Col, CardBody, Modal, Row, Select } from "reactstra
 import LotesContext from "../../context/LotesContext";
 import SuelosContext from "../../context/SuelosContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const FormPost = ({
   data,
@@ -93,14 +93,14 @@ const FormPost = ({
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Registrar Cultivo</h5>
           <button
-            type="button"
-            className="close"
-            aria-label="Close"
-            data-dismiss="modal"
-            onClick={() => { toggleFormPost(); setShowErrors(false) }}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+              type="button"
+              aria-label="Close"
+              data-dismiss="modal"
+              className="btn bg-red-500 text-white"
+              onClick={() => { toggleFormPost(); setShowErrors(false) }}
+            >
+              <FontAwesomeIcon icon={faXmark} />
+            </button>
         </div>
         <div className="modal-body">
           <CardBody className="p-0 md:p-3">

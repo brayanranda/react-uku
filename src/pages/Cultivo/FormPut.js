@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row, Select } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faXmark } from "@fortawesome/free-solid-svg-icons";
 
 const FormPut = ({
   data,
@@ -75,14 +75,14 @@ const FormPut = ({
         <div className="modal-header">
           <h5 className="modal-title mt-0 text-xl font-medium">Editar Cultivo</h5>
           <button
-            type="button"
-            className="close"
-            aria-label="Close"
-            data-dismiss="modal"
-            onClick={() => { toggleFormPut(); setShowErrors(false) }}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
+              type="button"
+              aria-label="Close"
+              data-dismiss="modal"
+              className="btn bg-red-500 text-white"
+              onClick={() => { toggleFormPut(); setShowErrors(false) }}
+            >
+              <FontAwesomeIcon icon={faXmark} />
+            </button>
         </div>
         <div className="modal-body">
           <CardBody className="p-0 md:p-3">
