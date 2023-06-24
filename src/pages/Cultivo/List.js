@@ -24,6 +24,7 @@ const Index = ({
   distanciaSiembras,
   etapasFenologicas,
 }) => {
+  
   let { idFinca } = useParams()
   const [isFormPut, setIsFormPut] = useState(false);
   const [cultivoData, setCultivoData] = useState({
@@ -36,12 +37,12 @@ const Index = ({
     idVariedad: {},
     rendimiento: 0,
     idSuelo: {},
-  });
+  })
 
   const toggleFormPut = (cultivo) => {
     setCultivoData(cultivo);
     setIsFormPut(!isFormPut);
-  };
+  }
 
   useEffect(() => {
       if(!idFinca) {
@@ -49,7 +50,7 @@ const Index = ({
       } else {
         getCultivos(idFinca)
       }
-  }, []);
+  }, [])
 
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
@@ -57,6 +58,7 @@ const Index = ({
 
   const handlePut = async () => {
     await putData(cultivoData);
+    await getCultivos()
     setIsFormPut(!isFormPut);
     setUpdateOrAdd(true);
   }
@@ -70,21 +72,21 @@ const Index = ({
 
   const filteredcultivos = () => {
     if (search.length === 0)
-      return cultivos.slice(currentPage, currentPage + 5);
+      return cultivos.slice(currentPage, currentPage + 9);
 
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 9);
   }
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 9) {
+      setCurrentPage(currentPage + 9);
     }
   }
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 9);
     }
   }
 
@@ -116,7 +118,7 @@ const Index = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
               {
                 filteredcultivos().map((cultivo, x) => 
-                  <div key={x} className="bg-white shadow-lg p-4 rounded-md">
+                  <div key={x} className="bg-white shadow-md p-4 rounded-md">
                     <p><b>Identificador: </b> {cultivo.idCultivo}</p>
                     <p><b>Descripción del cultivo: </b> {cultivo.descripcion}</p>
                     <p><b>Plantas por Hectárea: </b> {cultivo.plantasPorHectarea}</p>
@@ -142,7 +144,7 @@ const Index = ({
             <div className="bg-white h-96 text-center w-full flex items-center justify-center">
               <div>
                 <NoFoundData />
-                <p>No se encontraron lotes registradas.</p>
+                <p>No se encontraron cultivos registrados.</p>
               </div>
             </div>
       }

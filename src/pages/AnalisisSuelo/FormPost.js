@@ -11,9 +11,8 @@ const FormPost = ({
   data,
   setData,
   onSubmit,
-  cultivos,
+  cultivosBySuelo,
   isFormPost,
-  densidades,
   profundidad,
   inputsStates,
   setIsFormPost,
@@ -28,12 +27,6 @@ const FormPost = ({
     }
   }, [idLote])
 
-  useEffect(() => {
-    if(cultivos) {
-      console.log(cultivos);
-    }
-  }, [cultivos])
-
   const toggleFormPost = () => {
     setInputsStates({});
     setIsFormPost(!isFormPost);
@@ -46,7 +39,7 @@ const FormPost = ({
       return;
     }
     if (name === "idDensidad") {
-      setData({ ...data, [name]: { idDensidad: Number(value) } });
+      setData({ ...data, [name]: Number(value) });
       return;
     }
     if (name === "idProfundidad") {
@@ -137,11 +130,12 @@ const FormPost = ({
                         handleChange(e.selectedIndex != 0, e);
                       }}
                     >
-                      <option value="">Seleccionar </option>
-                      {cultivos && cultivos.length > 0 &&
-                        cultivos.map((tipo, index) => (
-                          <option key={index} value={tipo.idCultivo}>{tipo.descripcion}</option>
-                        ))}
+                      <option value="" hidden>Seleccionar </option>
+                      {cultivosBySuelo && cultivosBySuelo.length > 0 ?
+                        cultivosBySuelo.map((cultivo, index) => (
+                          <option key={index} value={cultivo.idCultivo}>{cultivo.descripcion}</option>
+                        )) : <option disabled="false">No hay cultivos en el suelo.</option>
+                      }
                     </select>
                   </div>
                 </Col>
@@ -171,22 +165,12 @@ const FormPost = ({
                 <Col md={6}>
                   <Label className="col-form-label">Densidad aparente del suelo (opcional)</Label>
                   <div className="w-100">
-                    <select
-                      type="select"
-                      className="form-select"
+                    <Input
+                      type="text"
+                      className="form-control"
                       name="idDensidad"
-                      onChange={(e) => {
-                        handleChange(e.selectedIndex != 0, e);
-                      }}
-                    >
-                      <option value="">Seleccionar </option>
-                      {densidades && densidades.length > 0 &&
-                        densidades.map((tipo, index) => (
-                          <option key={index} value={tipo.idDensidad}>
-                            {tipo.valor}
-                          </option>
-                        ))}
-                    </select>
+                      onChange={e => handleChange(e.target.value.length > 4, e)}
+                    />
                   </div>
                 </Col>
                 <Col md={6}>
@@ -200,7 +184,7 @@ const FormPost = ({
                           handleChange(e.selectedIndex != 0, e);
                         }}
                       >
-                        <option value="">Seleccionar </option>
+                        <option value="" hidden>Seleccionar </option>
                         {profundidad && profundidad.length > 0 &&
                           profundidad.map((tipo, index) => (
                             <option key={index} value={tipo.idProfundidadMuestra}>

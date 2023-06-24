@@ -50,7 +50,6 @@ const Index = () => {
       areaTotal: false,
       areaEnUso: false,
       geolocalizacion: true,
-      idCorregimiento: { idCorregimiento: false },
       idMunicipio: { idMunicipio: false },
       idVereda: { idVereda: false },
       precipitacion: false,
@@ -159,7 +158,7 @@ const Index = () => {
                       value={search}
                       onChange={onSearchChange}
                       className="form-control rounded-full"
-                      placeholder="Buscar por nombre"
+                      placeholder="Buscar..."
                     />
                   </div>
                   <button

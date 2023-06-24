@@ -93,7 +93,7 @@ const Index = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
               {
                 filteredLotes().map((lote, x) => 
-                  <div key={x} className="bg-white shadow-lg p-4 rounded-md">
+                  <div key={x} className="bg-white shadow-md p-4 rounded-md">
                     <p><b>Identificador: </b> {lote.id}</p>
                     <p><b>Descripción del lote: </b> {lote.descripcion}</p>
                     <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
@@ -128,7 +128,7 @@ const Index = ({
             <div className="bg-white h-96 text-center w-full flex items-center justify-center">
               <div>
                 <NoFoundData />
-                <p>No se encontraron lotes registradas.</p>
+                <p>No se encontraron lotes registrados.</p>
               </div>
             </div>
       }

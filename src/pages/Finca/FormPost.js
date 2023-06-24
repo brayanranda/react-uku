@@ -143,31 +143,6 @@ const FormPost = ({
                 </Col>
               </div>
               <div className="row mb-4">
-                <Label className="col-sm-3 col-form-label">Corregimiento</Label>
-                <Col sm={9}>
-                  <select
-                    type="select"
-                    name="idCorregimiento"
-                    className="form-select"
-                    value={data?.idCorregimiento?.idCorregimiento}
-                    valid={inputsStates?.idCorregimiento?.idCorregimiento === true}
-                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento)}
-                  >
-                    <option value="" hidden>Seleccionar ...</option>
-                    {corregimientos && corregimientos.length > 0 &&
-                      corregimientos.map((corregimiento, index) => (
-                        <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
-                      ))}
-                  </select>
-                  {
-                    showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento) 
-                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
-                      : null
-                  }
-                </Col>
-              </div>
-              <div className="row mb-4">
                 <Label className="col-sm-3 col-form-label">Municipio</Label>
                 <Col sm={9}>
                   <select
@@ -190,6 +165,24 @@ const FormPost = ({
                       ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
                       : null
                   }
+                </Col>
+              </div>
+              <div className="row mb-4">
+                <Label className="col-sm-3 col-form-label">Corregimiento</Label>
+                <Col sm={9}>
+                  <select
+                    type="select"
+                    name="idCorregimiento"
+                    className="form-select"
+                    value={data?.idCorregimiento?.idCorregimiento}
+                    onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
+                  >
+                    <option value="" hidden>Seleccionar ...</option>
+                    {corregimientos && corregimientos.length > 0 &&
+                      corregimientos.map((corregimiento, index) => (
+                        <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
+                      ))}
+                  </select>
                 </Col>
               </div>
               <div className="row mb-4">

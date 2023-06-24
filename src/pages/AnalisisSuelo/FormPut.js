@@ -39,7 +39,7 @@ const FormPut = ({
       return;
     }
     if (name === "idDensidad") {
-      setData({ ...data, [name]: { idDensidad: Number(value) } });
+      setData({ ...data, [name]: Number(value) });
       return;
     }
     if (name === "idClaseTextural") {

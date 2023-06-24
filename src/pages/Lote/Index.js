@@ -92,7 +92,7 @@ const Index = () => {
                     <input
                       type="text"
                       onChange={onSearchChange}
-                      placeholder="Buscar por nombre"
+                      placeholder="Buscar..."
                       className="form-control rounded-full"
                     />
                   </div>

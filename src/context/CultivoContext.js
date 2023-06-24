@@ -12,6 +12,7 @@ const CultivoProvider = ({ children }) => {
   let urlEtapa = REACT_APP_API_URL + "etapafenologica";
   const [cultivo, setCultivo] = useState([]);
   const [cultivos, setCultivos] = useState([]);
+  const [cultivosBySuelo, setCultivosBySuelo] = useState({});
   const [etapasFenologicas, setEtapasFenologicas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,17 +22,23 @@ const CultivoProvider = ({ children }) => {
   };
 
   const getCultivos = async (idFinca) => {
-    console.log("entre 1");
     let endpoint = `${url}/${getUser()}/cultivos`
     if(idFinca && idFinca !== "") {
       endpoint = `${url}/${idFinca}`
-      console.log("entre 2");
     }
     setIsLoading(true);
     const res = await api.get(endpoint);
     setCultivos(res);
-    console.log('res cultivos', res);
     setIsLoading(false);
+  };
+
+  const getCultivosBySuelo = async (idSuelo) => {
+    if(idSuelo && idSuelo !== "") {
+      setIsLoading(true);
+      const res = await api.get(`${REACT_APP_API_URL}suelo/${idSuelo}/cultivos`);
+      setCultivosBySuelo(res);
+      setIsLoading(false);
+    }
   };
 
   const getEtapasFenologicas = async () => {
@@ -87,7 +94,10 @@ const CultivoProvider = ({ children }) => {
     getCultivos,
     setCultivos,
     setIsLoading,
+    cultivosBySuelo,
     etapasFenologicas,
+    setCultivosBySuelo,
+    getCultivosBySuelo,
     setEtapasFenologicas,
     getEtapasFenologicas,
   };

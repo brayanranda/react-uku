@@ -73,7 +73,7 @@ const Index = ({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
               {
                 filteredSuelos().map((suelo, x) => 
-                  <div key={x} className="bg-white shadow-lg p-4 rounded-md">
+                  <div key={x} className="bg-white shadow-md p-4 rounded-md">
                     <p><b>Identificador: </b> {suelo.id}</p>
                     <p><b>Descripción del suelo: </b> {suelo.descripcion}</p>
                     <p
