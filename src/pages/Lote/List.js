@@ -29,6 +29,10 @@ const Index = ({
     setIsFormPut(!isFormPut);
   }
 
+  const toggleModalDelete = () => {
+    setModalDelete(!modalDelete)
+  }
+
   if (isLoading) {
     return <Spinner color="success">Loading...</Spinner>;
   }
@@ -41,26 +45,22 @@ const Index = ({
   }
 
   const filteredLotes = () => {
-    if (search.length === 0) return lotes.slice(currentPage, currentPage + 5);
+    if (search.length === 0) return lotes.slice(currentPage, currentPage + 9);
 
     const filtered = filter();
-    return filtered.slice(currentPage, currentPage + 5);
+    return filtered.slice(currentPage, currentPage + 9);
   }
 
   const nextPage = () => {
-    if (filter().length > currentPage + 5) {
-      setCurrentPage(currentPage + 5);
+    if (filter().length > currentPage + 9) {
+      setCurrentPage(currentPage + 9);
     }
   }
 
   const prevPage = () => {
     if (currentPage > 0) {
-      setCurrentPage(currentPage - 5);
+      setCurrentPage(currentPage - 9);
     }
-  }
-
-  const toggleModalDelete = () => {
-    setModalDelete(!modalDelete)
   }
 
   return (
@@ -96,7 +96,7 @@ const Index = ({
                   <div key={x} className="bg-white shadow-md p-4 rounded-md">
                     <p><b>Identificador: </b> {lote.id}</p>
                     <p><b>Descripción del lote: </b> {lote.descripcion}</p>
-                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
+                    <div className="bg-gray-100 p-2 rounded-md flex items-center gap-2 mt-3 flex-wrap">
                       <Link
                         to={`/suelo/${lote.id}`}
                         className="cursor-pointer hover:bg-amber-300 flex items-center gap-2 px-3 py-1 hover:text-amber-900 bg-amber-400 rounded-full duration-300"

@@ -73,6 +73,7 @@ const Index = () => {
       idSuelo: {},
     });
   }
+
   const isvalidateInput = () => {
       const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
       const validateSecondInputs = arrInputsStates.every(key => key)
@@ -132,6 +133,7 @@ const Index = () => {
                   setData={setCultivoData}
                   topografias={topografias}
                   inputsStates={inputsStates}
+                  setShowErrors={setShowErrors}
                   setIsFormPost={setIsFormPost}
                   setInputsStates={setInputsStates}
                   distanciaSiembras={distanciaSiembras}
@@ -176,6 +178,7 @@ const Index = () => {
                 topografias={topografias}
                 getCultivos={getCultivos}
                 currentPage={currentPage}
+                setShowErrors={setShowErrors}
                 setCurrentPage={setCurrentPage}
                 distanciaSiembras={distanciaSiembras}
                 etapasFenologicas={etapasFenologicas}

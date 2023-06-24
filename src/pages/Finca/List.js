@@ -143,6 +143,7 @@ const Index = ({
           inputsStates={inputsStates}
           setIsFormPut={setIsFormPut}
           agricultores={agricultores}
+          setShowErrors={setShowErrors}
           corregimientos={corregimientos}
           setInputsStates={setInputsStates}
           handleModalMapa={handleModalMapa}
