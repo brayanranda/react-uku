@@ -5,9 +5,9 @@ const Index = ({analisisSuelo}) => {
   return (
     <div className="rounded-2xl bg-white shadow-sm">
       <div className="table-responsive fs-14">
-        <table className="table bg-white">
+        <table className="table bg-white ">
           <thead>
-            <tr>
+            <tr >
               <th>% Arena</th>
               <th>% Limo</th>
               <th>% Arcilla</th>
@@ -16,7 +16,7 @@ const Index = ({analisisSuelo}) => {
             </tr>
           </thead>
           <tbody>
-                <tr>
+                <tr >
                   <td>{analisisSuelo?.porcentArena}</td>
                   <td>{analisisSuelo?.porcentLimos}</td>
                   <td>{analisisSuelo?.porcentArcilla}</td>
