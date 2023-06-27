@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faFlaskVial } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import imgTabla from "../../assets/images/tabla.JPG";
 import logoUfps from "../../assets/images/logoUfps.jpg";
 
 import jsPDF from 'jspdf';
@@ -206,6 +207,8 @@ const Index = () => {
                     }
                   </div>
                 </div>
+                
+                <img className="w-full lg:w-2/3" src={imgTabla} alt="" />
               </div>
             </div>
           </Col>
