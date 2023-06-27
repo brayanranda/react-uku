@@ -204,22 +204,19 @@ const FormPut = ({
                     type="select"
                     name="idCorregimiento"
                     className="form-select"
-                    value={data.idCorregimiento.idCorregimiento}
-                    valid={showErros && inputsStates?.idCorregimiento === true}
+                    value={data?.idCorregimiento?.idCorregimiento}
                     onChange={e => handleChange(e.target.selectedIndex !== 0, e )}
-                    invalid={ showErros && (inputsStates?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento)}
                   >
                     <option value="" hidden>Seleccionar ...</option>
-                    {corregimientos && corregimientos.length > 0 &&
-                      corregimientos.map((corregimiento, index) => (
-                        <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
-                      ))}
+                    {
+                      corregimientos && corregimientos.length > 0 
+                        ?
+                          corregimientos.map((corregimiento, index) => (
+                            <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
+                          ))
+                        : <option disabled={true}>No se encontraron veredas.</option>
+                    }
                   </Input>
-                  {
-                    showErros && (inputsStates?.idCorregimiento?.idCorregimiento === false || !data?.idCorregimiento?.idCorregimiento) 
-                      ? <span className="text-danger text-small d-block pt-1">Necesitas este campo</span>
-                      : null
-                  }
                 </Col>
               </div>
               <div className="row mb-4">

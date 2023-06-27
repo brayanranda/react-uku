@@ -100,6 +100,7 @@ const Index = () => {
   }, [])
 
   useEffect(() => {
+    // console.log(fincaData);
     if(fincaData && Object.entries(fincaData).length !== 0 && fincaData.idMunicipio.idMunicipio) {
       getCorregimientos(fincaData.idMunicipio.idMunicipio);
     }
