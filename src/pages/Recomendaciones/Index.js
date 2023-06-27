@@ -2,8 +2,8 @@ import React, { useRef, useContext, useEffect } from "react";
 import { useReactToPrint } from 'react-to-print';
 import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
-import { useParams } from "react-router-dom";
+import { faDownload, faFlaskVial } from "@fortawesome/free-solid-svg-icons";
+import { Link, useParams } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import logoUfps from "../../assets/images/logoUfps.jpg";
 
@@ -58,9 +58,18 @@ const Index = () => {
               <div className="flex items-center">
                 <p className="text-2xl ml-2 text-green-700">Recomendación</p>
               </div>
-              <button onClick={handlePrint} className="btn bg-green-700 rounded-md text-white hover:bg-green-800 flex items-center gap-2 font-sm">
-                  <FontAwesomeIcon icon={faDownload} /> Descargar
-              </button>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  to={`/results/${id}`}
+                  className="btn bg-gray-700 rounded-md text-white hover:bg-gray-800 md:flex items-center gap-2 font-sm"
+                >
+                  <FontAwesomeIcon icon={faFlaskVial} />
+                  Ver Interpretación
+                </Link>
+                <button onClick={handlePrint} className="hidden btn bg-green-700 rounded-md text-white hover:bg-green-800 md:flex items-center gap-2 font-sm">
+                    <FontAwesomeIcon icon={faDownload} /> Descargar
+                </button>
+              </div>
             </div>
             <div ref={componentRef}>
               <div className="bg-white p-3 mb-2 rounded-md space-y-5">

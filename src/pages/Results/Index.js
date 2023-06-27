@@ -3,13 +3,13 @@ import { useReactToPrint } from 'react-to-print';
 
 import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faDownload } from "@fortawesome/free-solid-svg-icons";
 import ListClaseTextural from "./ListClaseTextural";
 import ListDensidadSuelo from "./ListDensidadSuelo";
 import InterpretaciónpHSuelo from "./InterpretaciónpHSuelo";
 import InterpretacionDisponibilidadNutrientes from "./InterpretacionDisponibilidadNutrientes";
 import InterpretacionRelacionesBasesSuelo from "./InterpretacionRelacionesBasesSuelo";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import logoUfps from "../../assets/images/logoUfps.jpg";
 
@@ -64,12 +64,20 @@ const Index = () => {
               <div className="flex items-center">
                 <p className="text-xl md:text-2xl ml-2 text-green-700">Interpretación</p>
               </div>
-              <button
-                  //  onClick={generarPDF}
-                    onClick={() => {handlePrint()}}
-                   className="btn bg-green-700 rounded-md text-white hover:bg-green-800 flex items-center gap-2 font-sm">
-                  <FontAwesomeIcon icon={faDownload} /> Descargar
-              </button>
+              <div className="flex flex-wrap gap-2">
+                <Link
+                  to={`/recomendaciones/${id}`}
+                  className="btn bg-gray-700 rounded-md text-white hover:bg-gray-800 md:flex items-center gap-2 font-sm"
+                >
+                  <FontAwesomeIcon icon={faBook} />
+                  Ver Recomendación
+                </Link>
+                <button
+                      onClick={() => {handlePrint()}}
+                    className="hidden btn bg-green-700 rounded-md text-white hover:bg-green-800 md:flex items-center gap-2 font-sm">
+                    <FontAwesomeIcon icon={faDownload} /> Descargar
+                </button>
+              </div>
             </div>
             
             <div ref={componentRef}>

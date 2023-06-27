@@ -18,17 +18,6 @@ const DosisNutrientes = ({analisisSuelo}) => {
                                         <th key={index}>{element?.elemento?.nombre}</th>
                                     )
                                 }
-                                </tr>
-                            <tr>
-                                <th>Unidad</th>
-                                {
-                                    analisisSuelo && analisisSuelo.recomendacionCollection && 
-                                    analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities &&
-                                    analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.length > 0 &&
-                                    analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.map((element, index) => 
-                                        <th key={index}>{element?.elemento?.unidad}</th>
-                                    )
-                                }
                             </tr>
                         </thead>
                         <tbody>

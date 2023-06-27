@@ -55,7 +55,7 @@ const Preview = ({ data, setIsFormPreview, isFormPreview }) => {
                 <Col md={4} className="mb-3">
                   <p className="d-block">Agricultor</p>
                   <p className="text-xl font-semibold">
-                    {data?.idAgricultor?.nombres + " " + data?.idAgricultor?.nombres}
+                    {data?.idAgricultor?.nombres}
                   </p>
                 </Col>
               </Row>
