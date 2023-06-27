@@ -33,8 +33,8 @@ const Preview = ({ data, setIsFormPreview, isFormPreview }) => {
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
-        <div className="modal-body p-4">
-          <Card className="rounded-2xl shadow-md mb-3 overflow-hidden">
+        <div className="modal-body p-2">
+          <Card className="md:rounded-2xl md:shadow-md mb-3 overflow-hidden">
             <CardHeader className="px-4 py-3 font-semibold text-lg">Finca / {data.nombre}</CardHeader>
             <CardBody className="p-4">
               <Row>
@@ -72,7 +72,7 @@ const Preview = ({ data, setIsFormPreview, isFormPreview }) => {
             </CardBody>
           </Card>
 
-          <div className="flex items-center gap-1">
+          <div className="flex flex-wrap items-center gap-1 mb-2">
             <Link to={`/cultivo/${data.idFinca}`} className="btn bg-green-700 rounded-md text-white hover:text-white hover:bg-green-800 flex items-center gap-2 font-sm">
                 <FontAwesomeIcon className="cursor-pointer" icon={faWheatAwn}/> Ver Cultivos
             </Link>

@@ -182,15 +182,15 @@ const handlePut = async () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gray-100 gap-4">
               {
                 filteredFincas().map((finca, x) => 
-                  <div key={x} className="bg-white shadow-md p-4 rounded-md">
+                  <div key={x} className="bg-white shadow-md p-4 rounded-md overflow-hidden">
                     <p><b>Identificador: </b> {finca.idFinca}</p>
                     <p><b>Nombre de Finca: </b> {finca.nombre}</p>
                     <p><b>Area total: </b> {finca.areaTotal}</p>
                     <p><b>Area en uso: </b> {finca.areaEnUso}</p>
-                    <p><b>Geolocalización: </b> {finca.geolocalizacion}</p>
+                    <p className="flex flex-wrap"><b>Geolocalización: </b> {finca.geolocalizacion}</p>
                     <p><b>Vereda: </b> {finca?.idCorregimiento?.nombre}</p>
                     <p><b>Municipio: </b> {finca?.idMunicipio?.nombre}</p>
-                    <div className="flex items-center gap-2 mt-3">
+                    <div className="flex items-center flex-wrap gap-2 mt-3">
                       <p
                         onClick={() => { toggleFormPut(finca) }}
                         className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300"

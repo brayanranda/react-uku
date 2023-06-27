@@ -47,7 +47,7 @@ const FormPut = ({
                   value={sueloData.descripcion}
                 />
               </div>
-              <div className="flex items-center gap-1 w-2/3 mt-4">
+              <div className="flex items-center gap-1 md:w-2/3 mt-4">
                 <button 
                   onClick={() => { handlePut() }} type="button"
                   className="btn bg-green-700 text-white hover:bg-green-800 w-full"
