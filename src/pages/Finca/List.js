@@ -188,7 +188,7 @@ const handlePut = async () => {
                     <p><b>Geolocalización: </b> {finca.geolocalizacion}</p>
                     <p><b>Vereda: </b> {finca?.idCorregimiento?.nombre}</p>
                     <p><b>Municipio: </b> {finca?.idMunicipio?.nombre}</p>
-                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
+                    <div className="flex items-center gap-2 mt-3">
                       <p
                         onClick={() => { toggleFormPut(finca) }}
                         className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300"

@@ -287,7 +287,7 @@ const FormPost = ({
                           fincas.map((finca, index) =>
                             <option key={index} value={finca.idFinca}>{finca.nombre}</option>
                           )
-                          : <option disabled="true">No se encontraron fincas.</option>
+                          : <option disabled={true}>No se encontraron fincas.</option>
                       }
                     </Input>
                     {
@@ -317,7 +317,7 @@ const FormPost = ({
                               lotes.map((lote, index) =>
                                 <option key={index} value={lote.id}>{lote.descripcion}</option>
                               )
-                              : <option disabled="true">No se encontraron lotes.</option>
+                              : <option disabled={true}>No se encontraron lotes.</option>
                         }
                       </Input>
                       {
@@ -346,7 +346,7 @@ const FormPost = ({
                               suelos.map((suelo, index) => 
                                 <option key={index} value={suelo.id}>{suelo.descripcion}</option>
                               )
-                              : <option disabled="true">No se encontraron suelos.</option>
+                              : <option disabled={true}>No se encontraron suelos.</option>
                           }
                         </Input>
                         {

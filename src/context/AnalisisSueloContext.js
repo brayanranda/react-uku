@@ -24,24 +24,25 @@ const AnalisisSueloProvider = ({ children }) => {
       const res = await api.get(url + `/${id}`);
       setAnalisisSuelo(res);
     }
-  };
+  }
 
   const getAnalisisSuelos = async (idLote) => {
     setIsLoading(true);
     const res = await api.get(`${url}/${idLote}/analisisLotes`);
     setAnalisisSuelos(res);
     setIsLoading(false);
-  };
+  }
 
   const getClaseTextural = async () => {
     const res = await api.get(urlClase);
     setClaseTextural(res);
-  };
+  }
 
   const getProfundidad = async () => {
     const res = await api.get(urlProfundidad);
     setProfundidad(res);
-  };
+  }
+
   const postData = async (data) => {
     setIsLoading(true);
     let newData = data;
@@ -61,7 +62,7 @@ const AnalisisSueloProvider = ({ children }) => {
       setIsLoading(false);
       return res.err
     }
-  };
+  }
 
   const putData = async (data) => {
     let newData = data;
@@ -78,7 +79,7 @@ const AnalisisSueloProvider = ({ children }) => {
       setIsLoading(false);
       return res.err
     }
-  };
+  }
 
   const data = {
     putData,
