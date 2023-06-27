@@ -233,12 +233,21 @@ const Index = () => {
     return true
   }
 
+  const validatePhSuelo = () => {
+    if(!elementoData.phSuelo || elementoData.phSuelo === "" || !(elementoData.phSuelo > 0 && elementoData.phSuelo <= 14)) {
+      return false
+    }
+    return true
+  }
+
   const handleSave = async () => {
     setShowErrors(true)
     const validate = isvalidateInput()
     if (!validate) return
     const validateCollection = validateArray()
     if (!validateCollection) return
+    const validatePh = validatePhSuelo()
+    if (!validatePh) return
 
     await postData(elementoData);
 
