@@ -108,7 +108,6 @@ const Index = () => {
     idCultivo: false,
     idSuelo: false,
     idProfundidad: false,
-    idDensidad: false,
     porcentArcilla: false,
     porcentArena: false,
     porcentLimos: false,
@@ -220,17 +219,29 @@ const Index = () => {
   }, [elementoData])
 
   const isvalidateInput = () => {
-    console.log(Object.keys(inputsStates).map(key => inputsStates[key]));
     const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
-    console.log(arrInputsStates.every(key => console.log(key)));
     const validateSecondInputs = arrInputsStates.every(key => key)
     return validateSecondInputs
+  }
+
+  const validateArray = () => {
+    elementoData.analisisElementoCollection.forEach((elemento) => {
+      if (elemento.valor === "" && elemento.valor <= 0) {
+        return false
+      }
+    })
+    return true
   }
 
   const handleSave = async () => {
     setShowErrors(true)
     const validate = isvalidateInput()
     if (!validate) return
+    console.log("Pase1");
+    const validateCollection = validateArray()
+    if (!validateCollection) return
+    console.log("Pase2");
+
     await postData(elementoData);
 
     // clearForm();

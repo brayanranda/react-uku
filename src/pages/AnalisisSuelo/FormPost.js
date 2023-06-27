@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row } from "reactstrap";
 import { Toaster, toast } from "react-hot-toast";
-import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faEyeSlash, faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import SuelosContext from "../../context/SuelosContext";
@@ -22,6 +22,8 @@ const FormPost = ({
 }) => {
   let { idLote } = useParams()
   const [modalHelp, setModalHelp ] = useState(false)
+  const [showMsj, setShowMsj ] = useState(true)
+
   const { getSuelos, suelos } = useContext(SuelosContext)
   const textoForm = [
     {
@@ -75,7 +77,6 @@ const FormPost = ({
     }
     if (name === "idDensidad") {
       setData({ ...data, [name]: Number(value) });
-      setInputsStates({ ...inputsStates, [name]: isValid });
       return;
     }
     if (name === "idProfundidad") {
@@ -90,23 +91,15 @@ const FormPost = ({
     }
     setData({ ...data, [name]: Number(value) });
     setInputsStates({ ...inputsStates, [name]: isValid });
-
-    // potasio
-    // magnesio
-    // calcio
-    // azufre
-    // sodio
-    // boro
-    // cobre
-
   }
 
-  const handleElement = (element, value) => {
+  const handleElement = (element, value, name) => {
     setData((prevState) => {
       const copyState = { ...prevState };
       copyState.analisisElementoCollection[element].valor = Number(value);
       return { ...copyState };
     });
+    setInputsStates({ ...inputsStates, [name]: true });
   }
 
   return (
@@ -140,7 +133,7 @@ const FormPost = ({
               aria-label="Close"
               data-dismiss="modal"
               className="btn bg-red-500 text-white"
-              onClick={() => { setIsFormPost(false)}}
+              onClick={() => { setIsFormPost(false); setShowErrors(false) }}
             >
               <FontAwesomeIcon icon={faXmark} />
             </button>
@@ -245,20 +238,13 @@ const FormPost = ({
                       type="number"
                       name="idDensidad"
                       className="form-control"
-                      valid={inputsStates?.idDensidad === true}
                       onChange={(e) =>
                         handleChange(
                           e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null,
                           e
                         )
                       }
-                      invalid={ showErros && (inputsStates?.idDensidad === false || !data?.idDensidad)}  
                     />
-                    {
-                      showErros && (inputsStates?.idDensidad === false || !data?.idDensidad) 
-                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo.</span>
-                        : null
-                    }
                   </div>
                 </Col>
                 <Col md={6}>
@@ -363,6 +349,17 @@ const FormPost = ({
                   </div>
                 </Col>
               </Row>
+              
+              {
+                showMsj &&
+                  <div
+                    onClick={() => { setShowMsj(false) }}
+                    className="bg-gray-100 rounded-md p-2 flex items-center justify-center cursor-pointer hover:bg-gray-200 duration-300 gap-2"
+                  >
+                      <FontAwesomeIcon icon={faEyeSlash} />
+                      <p className="text-sm text-center">La suma total de los 3 porcentajes debe estar entre 0 a 100.</p>
+                  </div>
+              }
 
               <Row className="mb-2">
                 <Col md={3}>
@@ -375,7 +372,7 @@ const FormPost = ({
                       name="phSuelo"
                       className="form-control"
                       valid={showErros && inputsStates?.phSuelo === true}
-                      invalid={ showErros && (inputsStates?.phSuelo === false || !data?.phSuelo)}
+                      invalid={ showErros && (inputsStates?.phSuelo === false || !data?.phSuelo || !(data.phSuelo >= 0 && data.phSuelo <= 14))}
                       onChange={(e) =>
                         handleChange(
                           e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
@@ -385,9 +382,11 @@ const FormPost = ({
                       }
                     />
                     {
-                      showErros && (inputsStates?.phSuelo === false || !data?.phSuelo) 
-                        ? <span className="text-danger text-small d-block pt-1">Necesitas este campo.</span>
-                        : null
+                      showErros && !(data.phSuelo >= 0 && data.phSuelo <= 14)
+                        ? <span className="text-danger text-small d-block pt-1">pH suelo debe estar entre 0 a 14.</span>
+                        : showErros && (inputsStates?.phSuelo === false || !data?.phSuelo) 
+                          ? <span className="text-danger text-small d-block pt-1">Necesitas este campo.</span>
+                          : null
                     }
                   </div>
                 </Col>
@@ -501,7 +500,7 @@ const FormPost = ({
                       name="fosforo"
                       className="form-control"
                       valid={showErros && inputsStates?.fosforo === true}
-                      onChange={(e) => handleElement(0, e.target.value)}
+                      onChange={(e) => handleElement(0, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.fosforo === false || !data?.analisisElementoCollection[0]?.valor)}    
                       // onChange={(e) =>
                       //   handleChange(
@@ -525,7 +524,7 @@ const FormPost = ({
                       name="potasio"
                       className="form-control"
                       valid={showErros && inputsStates?.potasio === true}
-                      onChange={(e) => handleElement(1, e.target.value)}
+                      onChange={(e) => handleElement(1, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.potasio === false || !data?.analisisElementoCollection[1]?.valor)}    
                       // onChange={(e) =>
                       //   handleChange(
@@ -549,7 +548,7 @@ const FormPost = ({
                       name="magnesio"
                       className="form-control"
                       valid={showErros && inputsStates?.magnesio === true}
-                      onChange={(e) => handleElement(2, e.target.value)}
+                      onChange={(e) => handleElement(2, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.magnesio === false || !data?.analisisElementoCollection[2]?.valor)}
                       // onChange={(e) =>
                       //   handleChange(
@@ -576,7 +575,7 @@ const FormPost = ({
                       name="calcio"
                       className="form-control"
                       valid={showErros && inputsStates?.calcio === true}
-                      onChange={(e) => handleElement(3, e.target.value)}
+                      onChange={(e) => handleElement(3, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.calcio === false || !data?.analisisElementoCollection[3]?.valor)}
                       // onChange={(e) =>
                       //   handleChange(
@@ -600,7 +599,7 @@ const FormPost = ({
                       name="azufre"
                       className="form-control"
                       valid={showErros && inputsStates?.azufre === true}
-                      onChange={(e) => handleElement(4, e.target.value)}
+                      onChange={(e) => handleElement(4, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.azufre === false || !data?.analisisElementoCollection[4]?.valor)}
                       // onChange={(e) =>
                       //   handleChange(
@@ -624,7 +623,7 @@ const FormPost = ({
                       name="sodio"
                       className="form-control"
                       valid={showErros && inputsStates?.sodio === true}
-                      onChange={(e) => handleElement(5, e.target.value)}
+                      onChange={(e) => handleElement(5, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.sodio === false || !data?.analisisElementoCollection[5]?.valor)}
                       // onChange={(e) =>
                       //   handleChange(
@@ -651,7 +650,7 @@ const FormPost = ({
                       name="boro"
                       className="form-control"
                       valid={showErros && inputsStates?.boro === true}
-                      onChange={(e) => handleElement(6, e.target.value)}
+                      onChange={(e) => handleElement(6, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.boro === false || !data?.analisisElementoCollection[6]?.valor)}
                       // onChange={(e) =>
                       //   handleChange(
@@ -675,7 +674,7 @@ const FormPost = ({
                       name="cobre"
                       className="form-control"
                       valid={showErros && inputsStates?.cobre === true}
-                      onChange={(e) => handleElement(7, e.target.value)}
+                      onChange={(e) => handleElement(7, e.target.value, e.target.name)}
                       invalid={ showErros && (inputsStates?.cobre === false || !data?.analisisElementoCollection[7]?.valor)}
                       // onChange={(e) =>
                       //   handleChange(

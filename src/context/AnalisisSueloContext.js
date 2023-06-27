@@ -51,6 +51,7 @@ const AnalisisSueloProvider = ({ children }) => {
       headers: { "content-type": "application/json" },
     };
     const res = await api.post(url, options)
+    console.log(res);
     if (!res.err) {
       setIsLoading(false);
       if(res && Object.entries(res).length !== 0 && res.idAnalisisSuelo !== "") {
@@ -58,7 +59,8 @@ const AnalisisSueloProvider = ({ children }) => {
       }
       toast.success("Análisis de suelo registrado.")
     } else {
-      toast.error("Error")
+      console.log(res.statusText.mensaje);
+      toast.error(`Error, ${res.statusText.mensaje}`)
       setIsLoading(false);
       return res.err
     }
