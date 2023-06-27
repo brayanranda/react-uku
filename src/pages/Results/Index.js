@@ -39,15 +39,13 @@ const Index = () => {
   }, [id])
 
   return (
-    <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
+    <div className="col-12 col-lg-10 fixed top-0 right-0 md:p-4 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
         <Row>
            <Col>
-            <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
+            <div className="flex gap-3 items-center mb-6 justify-between w-100 mt-10 md:mt-6">
               <div className="flex items-center">
-                
-                
-                <p className="text-2xl ml-2 text-green-700">Interpretación</p>
+                <p className="text-xl md:text-2xl ml-2 text-green-700">Interpretación</p>
               </div>
               <button onClick={generarPDF} className="btn bg-green-700 rounded-md text-white hover:bg-green-800 flex items-center gap-2 font-sm">
                   <FontAwesomeIcon icon={faDownload} /> Descargar
@@ -55,14 +53,15 @@ const Index = () => {
             </div>
             <div id="tabla">
               <div className="bg-white p-3 mb-2 rounded-md space-y-5">
-                <div className="flex items-center justify-between">
-                  <img className="w-52" src={logo} />
-                  <img className="w-60" src={logoUfps} />
+                <div className="flex flex-col sm:flex-row items-center justify-center md:justify-between">
+                  <img className="w-36 md:w-52 mb-4 md:mb-0" src={logo} />
+                  <img className="w-36 md:w-60" src={logoUfps} />
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-col md:flex-row">
                   <div>
                     <p><b>Nombre: </b> {analisisSuelo.idSuelo?.idLote?.idFinca?.nombre}</p>
-                    <p><b>Lote</b>  {analisisSuelo.idSuelo?.descripcion} | <b>Suelo</b> {analisisSuelo.idSuelo?.idLote?.descripcion}</p>
+                    <p><b>Lote</b>  {analisisSuelo.idSuelo?.descripcion}</p>
+                    <p><b>Suelo</b> {analisisSuelo.idSuelo?.idLote?.descripcion}</p>
                   </div>
                   <div>
                     <p><b>Fecha: </b>{new Date().toLocaleDateString()}</p>
@@ -71,14 +70,14 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="p-3 pb-0 space-y-8">
+              <div className="md:p-3 pb-0 space-y-8">
                 <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Reporte del análisis de suelo</p>
-                <div className="w-100 flex gap-4 items-end">
-                  <div className="w-3/4">
+                <div className="w-100 md:flex gap-4 items-end">
+                  <div className="w-full md:w-3/4">
                     <p className="font-bold mb-4">Textura del suelo</p>
                     <ListClaseTextural analisisSuelo={analisisSuelo} />
                   </div>
-                  <div className="w-1/4">
+                  <div className="w-full md:w-1/4">
                     <ListDensidadSuelo analisisSuelo={analisisSuelo} />
                   </div>
                 </div>
