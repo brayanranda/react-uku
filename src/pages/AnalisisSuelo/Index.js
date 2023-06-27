@@ -237,10 +237,8 @@ const Index = () => {
     setShowErrors(true)
     const validate = isvalidateInput()
     if (!validate) return
-    console.log("Pase1");
     const validateCollection = validateArray()
     if (!validateCollection) return
-    console.log("Pase2");
 
     await postData(elementoData);
 
