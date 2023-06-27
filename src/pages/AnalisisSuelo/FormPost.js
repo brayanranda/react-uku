@@ -10,9 +10,11 @@ import ModalAyuda from "../../UI/organism/ModalAyuda";
 const FormPost = ({
   data,
   setData,
+  showMsj,
   onSubmit,
   showErros,
   isFormPost,
+  setShowMsj,
   profundidad,
   inputsStates,
   setIsFormPost,
@@ -22,7 +24,6 @@ const FormPost = ({
 }) => {
   let { idLote } = useParams()
   const [modalHelp, setModalHelp ] = useState(false)
-  const [showMsj, setShowMsj ] = useState(true)
 
   const { getSuelos, suelos } = useContext(SuelosContext)
   const textoForm = [
@@ -371,10 +372,10 @@ const FormPost = ({
                 showMsj &&
                   <div
                     onClick={() => { setShowMsj(false) }}
-                    className="bg-gray-100 rounded-md p-2 flex items-center justify-center cursor-pointer hover:bg-gray-200 duration-300 gap-2"
+                    className="bg-red-50 rounded-md p-2 flex items-center justify-center cursor-pointer hover:bg-red-100 duration-300 gap-2"
                   >
                       <FontAwesomeIcon icon={faEyeSlash} />
-                      <p className="text-sm text-center">La suma total de los 3 porcentajes debe estar entre 0 a 100.</p>
+                      <p className="text-sm text-center">La suma total de los 3 porcentajes debe menor o igual 100.</p>
                   </div>
               }
 
