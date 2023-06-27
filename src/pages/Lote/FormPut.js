@@ -48,7 +48,7 @@ const FormPut = ({
                   />
                 </div>
               </div>
-              <div className="flex items-center gap-1 mt-2 w-2/3">
+              <div className="flex items-center gap-1 mt-2 md:w-2/3">
                 <button onClick={() => { handlePut() }} type="button" className="btn bg-green-700 text-white hover:bg-green-800 w-full" >
                   <FontAwesomeIcon icon={faFloppyDisk} className="me-2" /> Guardar
                 </button>
