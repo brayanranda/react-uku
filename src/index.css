@@ -80,6 +80,33 @@ th:first-child,
 td:first-child {
   padding-left: 2rem !important;
 }
+
+@media (max-width:768px) {
+  th:first-child,
+  td:first-child {
+    padding-left: 0.4rem !important;
+  }
+}
+
+/* Responsive tabla */
+@media (min-width: 640px) {
+  table {
+    display: inline-table !important;
+  }
+
+  thead tr:not(:first-child) {
+    display: none;
+  }
+}
+
+td:not(:last-child) {
+  border-bottom: 0;
+}
+
+th:not(:last-child) {
+  border-bottom: 2px solid rgba(0, 0, 0, .1);
+}
+
 th:last-child,
 td:last-child {
   padding-right: 2rem !important;

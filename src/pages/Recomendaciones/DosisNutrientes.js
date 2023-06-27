@@ -15,36 +15,36 @@ const DosisNutrientes = ({analisisSuelo}) => {
                                     analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities &&
                                     analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.length > 0 &&
                                     analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.map((element, index) => 
-                                        <th>{element?.elemento?.nombre}</th>
+                                        <th key={index}>{element?.elemento?.nombre}</th>
                                     )
                                 }
                                 </tr>
-                                <tr>
-                                    <th>Unidad</th>
-                                    {
-                                        analisisSuelo && analisisSuelo.recomendacionCollection && 
-                                        analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities &&
-                                        analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.length > 0 &&
-                                        analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.map((element, index) => 
-                                            <th>{element?.elemento?.unidad}</th>
-                                        )
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th>Dosis (kg/ha)</th>
-                                    {
-                                        analisisSuelo && analisisSuelo.recomendacionCollection && 
-                                        analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities &&
-                                        analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.length > 0 &&
-                                        analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.map((element, index) => 
-                                            <td>{element.dosis}</td>
-                                        )
-                                    }
-                                </tr>
-                            </tbody>
-                        </table>
+                            <tr>
+                                <th>Unidad</th>
+                                {
+                                    analisisSuelo && analisisSuelo.recomendacionCollection && 
+                                    analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities &&
+                                    analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.length > 0 &&
+                                    analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.map((element, index) => 
+                                        <th key={index}>{element?.elemento?.unidad}</th>
+                                    )
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Dosis (kg/ha)</th>
+                                {
+                                    analisisSuelo && analisisSuelo.recomendacionCollection && 
+                                    analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities &&
+                                    analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.length > 0 &&
+                                    analisisSuelo.recomendacionCollection[0].abonoQuimicoRecomendacionEntities.map((element, index) => 
+                                        <td key={index}>{element.dosis}</td>
+                                    )
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </>

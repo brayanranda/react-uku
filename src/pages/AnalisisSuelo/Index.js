@@ -264,21 +264,6 @@ const Index = () => {
     if (!validatePorc) return
 
     await postData(elementoData);
-
-    // clearForm();
-    // setIsFormPost(!isFormPost);
-    // setShowErrors(false)
-    // setInputsStates({
-    //   descripcion: false,
-    //   plantasPorHectarea: false,
-    //   idDistanciaSiembra: false,
-    //   idEtapaFenologica: false,
-    //   idFinca: false,
-    //   idTopografia: false,
-    //   idVariedad: false,
-    //   rendimiento: false,
-    //   idSuelo: false,
-    // })
   }
 
   const onSearchChange = ({ target }) => {
