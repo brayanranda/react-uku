@@ -35,14 +35,12 @@ const Index = () => {
   }, [id])
 
   return (
-    <div className="col-12 col-lg-10 fixed top-0 right-0 p-4 overflow-y-scroll max-h-screen">
+    <div className="col-12 col-lg-10 fixed top-0 right-0 md:p-4 overflow-y-scroll max-h-screen">
       <div className="w-100 mt-16">
         <Row>
            <Col>
-            <div className="flex items-center mb-4 justify-between w-100 mt-3">
+            <div className="flex gap-3 items-center mb-6 justify-between w-100 mt-10 md:mt-6">
               <div className="flex items-center">
-                
-                
                 <p className="text-2xl ml-2 text-green-700">Recomendación</p>
               </div>
               <button onClick={generarPDF} className="btn bg-green-700 rounded-md text-white hover:bg-green-800 flex items-center gap-2 font-sm">
@@ -51,14 +49,15 @@ const Index = () => {
             </div>
             <div id="tabla">
               <div className="bg-white p-3 mb-2 rounded-md space-y-5">
-                <div className="flex items-center justify-between">
-                  <img className="w-52" src={logo} />
-                  <img className="w-60" src={logoUfps} />
+                <div className="flex flex-col sm:flex-row items-center justify-center md:justify-between">
+                  <img className="w-36 md:w-52 mb-4 md:mb-0" src={logo} />
+                  <img className="w-36 md:w-60" src={logoUfps} />
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between flex-col md:flex-row">
                   <div>
                     <p><b>Nombre: </b> {analisisSuelo.idSuelo?.idLote?.idFinca?.nombre}.</p>
-                    <p><b>Lote: </b>  {analisisSuelo.idSuelo?.descripcion}.  |  <b>Suelo: </b> {analisisSuelo.idSuelo?.idLote?.descripcion}.</p>
+                    <p><b>Lote: </b>  {analisisSuelo.idSuelo?.descripcion}.</p>
+                    <p><b>Suelo: </b> {analisisSuelo.idSuelo?.idLote?.descripcion}.</p>
                   </div>
                   <div>
                     <p><b>Fecha: </b>{new Date().toLocaleDateString()}</p>
@@ -67,20 +66,20 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="p-3 pb-0 space-y-8">
+              <div className="md:p-3 pb-0 space-y-8">
                 <div className="bg-white">
                   <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
                   <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
                     Nota: Seleccione a su consideración una de las siguientes recomendaciones.
                   </p>
 
-                  <div className="w-100 flex gap-4 p-4">
+                  <div className="w-100 md:flex gap-4 p-4">
                     {
                       analisisSuelo && analisisSuelo.recomendacionCollection && 
                       analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection &&
                       analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection.length > 0 ?
                         analisisSuelo.recomendacionCollection[0].enmiendaRecomendacionEntityCollection.map((element, index) => 
-                          <div key={index} className="w-1/4 border-r-2 border-none-last">
+                          <div key={index} className="md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-none-last py-3 md:py-0">
                             <p className="font-bold">{element?.enmienda?.nombre}</p>
                             <p>{element.valor}</p>
                           </div>
@@ -96,13 +95,13 @@ const Index = () => {
                       <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
                         Nota: Seleccione a su consideración una de las siguientes recomendaciones.
                       </p>
-                      <div className="w-100 flex gap-4 p-4">
+                      <div className="w-100 md:flex gap-4 p-4">
                         {
                           analisisSuelo && analisisSuelo.recomendacionCollection && 
                           analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection &&
                           analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.length > 0 &&
                             analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.map((element, index) => 
-                              <div key={index} className="w-1/4 border-r-2 border-none-last">
+                              <div key={index} className="md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-none-last py-3 md:py-0">
                                 <p className="font-bold">{element?.idAbonoOrganico?.descripcion} (Kg/Ha)</p>
                                 <p>{element.cantidad}</p>
                               </div>
@@ -114,7 +113,7 @@ const Index = () => {
                   <Col md={6}>
                     <div className="bg-white">
                       <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Recomendación de aplicación de materia orgánica (M.O.)</p>
-                      <div className="bg-white flex gap-4 p-4">
+                      <div className="bg-white md:flex gap-4 p-4">
                         <p className="font-bold">Materia orgánica (kg /ha): </p>
                         {
                           analisisSuelo && analisisSuelo.recomendacionCollection && analisisSuelo.recomendacionCollection.length > 0 && 

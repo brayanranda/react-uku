@@ -28,7 +28,6 @@ export const ForgotPasswordPage = () => {
     if (!validate.email) return;
     await forgotPassword(email);
     if (ok === true) {
-      console.log("entre");
       navigate("/login", {
         replace: true,
       });
