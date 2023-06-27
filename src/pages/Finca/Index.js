@@ -100,8 +100,8 @@ const Index = () => {
   }, [])
 
   useEffect(() => {
-    // console.log(fincaData);
     if(fincaData && Object.entries(fincaData).length !== 0 && fincaData.idMunicipio.idMunicipio) {
+      console.log("entre");
       getCorregimientos(fincaData.idMunicipio.idMunicipio);
     }
   }, [fincaData])
@@ -244,6 +244,7 @@ const Index = () => {
                 handleModalHelp={handleModalHelp}
                 setInputsStates={setInputsStates}
                 handleModalMapa={handleModalMapa}
+                getCorregimientos={getCorregimientos}
               />
             </Col>
           </Row>
