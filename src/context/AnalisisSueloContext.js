@@ -24,24 +24,25 @@ const AnalisisSueloProvider = ({ children }) => {
       const res = await api.get(url + `/${id}`);
       setAnalisisSuelo(res);
     }
-  };
+  }
 
   const getAnalisisSuelos = async (idLote) => {
     setIsLoading(true);
     const res = await api.get(`${url}/${idLote}/analisisLotes`);
     setAnalisisSuelos(res);
     setIsLoading(false);
-  };
+  }
 
   const getClaseTextural = async () => {
     const res = await api.get(urlClase);
     setClaseTextural(res);
-  };
+  }
 
   const getProfundidad = async () => {
     const res = await api.get(urlProfundidad);
     setProfundidad(res);
-  };
+  }
+
   const postData = async (data) => {
     setIsLoading(true);
     let newData = data;
@@ -50,6 +51,7 @@ const AnalisisSueloProvider = ({ children }) => {
       headers: { "content-type": "application/json" },
     };
     const res = await api.post(url, options)
+    console.log(res);
     if (!res.err) {
       setIsLoading(false);
       if(res && Object.entries(res).length !== 0 && res.idAnalisisSuelo !== "") {
@@ -57,11 +59,12 @@ const AnalisisSueloProvider = ({ children }) => {
       }
       toast.success("Análisis de suelo registrado.")
     } else {
-      toast.error("Error")
+      console.log(res.statusText.mensaje);
+      toast.error(`Error, ${res.statusText.mensaje}`)
       setIsLoading(false);
       return res.err
     }
-  };
+  }
 
   const putData = async (data) => {
     let newData = data;
@@ -78,7 +81,7 @@ const AnalisisSueloProvider = ({ children }) => {
       setIsLoading(false);
       return res.err
     }
-  };
+  }
 
   const data = {
     putData,

@@ -97,7 +97,7 @@ const Index = ({
                     <p><b>Lote: </b> {elemento.idSuelo?.idLote?.descripcion}</p>
                     <p><b>Suelo: </b> {elemento.idSuelo?.descripcion}</p>
                     <p><b>Fecha: </b> {elemento.fecha}</p>
-                    <div className="bg-gray-100 p-2 rounded-full flex items-center gap-2 mt-3">
+                    <div className="flex flex-wrap items-center gap-2 mt-3">
                       <Link
                         to={`/results/${elemento.idAnalisisSuelo}`}
                         className="cursor-pointer hover:bg-yellow-300 flex items-center gap-2 px-3 py-1 bg-yellow-400 rounded-full duration-300 w-fit"

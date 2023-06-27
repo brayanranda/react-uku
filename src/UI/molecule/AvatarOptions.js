@@ -68,13 +68,13 @@ const AvatarOptions = () => {
         <FontAwesomeIcon icon={faWheatAwn} />
         Cultivo
       </Link>
-      <li
+      {/* <li
         onClick={() => { toggleFormPost() }}
         className="py-2 px-3 hover:bg-gray-100 flex gap-4 items-center"
       >
         <FontAwesomeIcon icon={faKey} />
         Cambiar contraseña
-      </li>
+      </li> */}
       <li
         onClick={() => { logout() }}
         className="py-2 px-3 hover:bg-red-50 flex gap-4 items-center"

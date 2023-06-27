@@ -21,15 +21,14 @@ const Index = () => {
     getAnalisisSuelos,
   } = useContext(AnalisisSueloContext);
   const [modalHelpList, setModalHelpList ] = useState(false);
-  const [modalHelpPost, setModalHelpPost ] = useState(false);
 
   const { getCultivosBySuelo, cultivosBySuelo } = useContext(CultivoContext);
   const { getDensidades, densidades } = useContext(DensidadContext);
+  
+  const [showErros, setShowErrors] = useState(false);
   const [isFormPost, setIsFormPost] = useState(false);
-  const [updateOrAdd, setUpdateOrAdd] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
-  const [inputsStates, setInputsStates] = useState({});
   const [elementoData, setElementoData] = useState({
     fecha: "",
     idCultivo: { idCultivo: "" },
@@ -46,56 +45,56 @@ const Index = () => {
     materiaOrganica: "",
     analisisElementoCollection: [
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 2,
           nombre: "FÓSFORO (P)",
         },
       },
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 3,
           nombre: "POTASIO (K)",
         },
       },
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 5,
           nombre: "MAGNESIO (Mg)",
         },
       },
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 4,
           nombre: "CALCIO (Ca)",
         },
       },
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 6,
           nombre: "AZUFRE (S)",
         },
       },
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 8,
           nombre: "SODIO (Na)",
         },
       },
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 14,
           nombre: "BORO (B)",
         },
       },
       {
-        valor: 0.1,
+        valor: "",
         idElemento: {
           id: 13,
           nombre: "COBRE (Cu)",
@@ -104,6 +103,105 @@ const Index = () => {
     ],
   });
 
+  const [inputsStates, setInputsStates] = useState({
+    fecha: false,
+    idCultivo: false,
+    idSuelo: false,
+    idProfundidad: false,
+    porcentArcilla: false,
+    porcentArena: false,
+    porcentLimos: false,
+    phSuelo: false,
+    conductividadElectrica: false,
+    intercambioCationico: false,
+    aluminioIntercambiable: false,
+    materiaOrganica: false,
+    fosforo: false,
+    potasio: false,
+    magnesio: false,
+    calcio: false,
+    azufre: false,
+    sodio: false,
+    boro: false,
+    cobre: false,
+  })
+
+  const clearForm = () => {
+    setElementoData({
+      fecha: "",
+      idCultivo: { idCultivo: "" },
+      idSuelo: { id: "" },
+      idProfundidad: { idProfundidadMuestra: "" },
+      idDensidad: "",
+      porcentArcilla: "",
+      porcentArena: "",
+      porcentLimos: "",
+      phSuelo: "",
+      conductividadElectrica: "",
+      intercambioCationico: "",
+      aluminioIntercambiable: "",
+      materiaOrganica: "",
+      analisisElementoCollection: [
+        {
+          valor: "",
+          idElemento: {
+            id: 2,
+            nombre: "FÓSFORO (P)",
+          },
+        },
+        {
+          valor: "",
+          idElemento: {
+            id: 3,
+            nombre: "POTASIO (K)",
+          },
+        },
+        {
+          valor: "",
+          idElemento: {
+            id: 5,
+            nombre: "MAGNESIO (Mg)",
+          },
+        },
+        {
+          valor: "",
+          idElemento: {
+            id: 4,
+            nombre: "CALCIO (Ca)",
+          },
+        },
+        {
+          valor: "",
+          idElemento: {
+            id: 6,
+            nombre: "AZUFRE (S)",
+          },
+        },
+        {
+          valor: "",
+          idElemento: {
+            id: 8,
+            nombre: "SODIO (Na)",
+          },
+        },
+        {
+          valor: "",
+          idElemento: {
+            id: 14,
+            nombre: "BORO (B)",
+          },
+        },
+        {
+          valor: "",
+          idElemento: {
+            id: 13,
+            nombre: "COBRE (Cu)",
+          },
+        },
+      ],
+    });
+  }
+  
   useEffect(() => {
     getDensidades();
     getClaseTextural();
@@ -120,21 +218,44 @@ const Index = () => {
     }
   }, [elementoData])
 
-  const validateInput = () => {
-    const arrInputs = Object.keys(inputsStates).map((key) => inputsStates[key]);
-    const validateFirstInputs = arrInputs.every((key) => key);
-    return validateFirstInputs;
-  };
+  const isvalidateInput = () => {
+    const arrInputsStates = Object.keys(inputsStates).map(key => inputsStates[key])
+    const validateSecondInputs = arrInputsStates.every(key => key)
+    return validateSecondInputs
+  }
+
+  const validateArray = () => {
+    elementoData.analisisElementoCollection.forEach((elemento) => {
+      if (elemento.valor === "" && elemento.valor <= 0) {
+        return false
+      }
+    })
+    return true
+  }
 
   const handleSave = async () => {
-    const validate = validateInput();
-    if (validate === false) {
-      return;
-    }
+    setShowErrors(true)
+    const validate = isvalidateInput()
+    if (!validate) return
+    const validateCollection = validateArray()
+    if (!validateCollection) return
+
     await postData(elementoData);
-    setIsFormPost(!isFormPost);
-    setInputsStates({});
-    setUpdateOrAdd(true);
+
+    // clearForm();
+    // setIsFormPost(!isFormPost);
+    // setShowErrors(false)
+    // setInputsStates({
+    //   descripcion: false,
+    //   plantasPorHectarea: false,
+    //   idDistanciaSiembra: false,
+    //   idEtapaFenologica: false,
+    //   idFinca: false,
+    //   idTopografia: false,
+    //   idVariedad: false,
+    //   rendimiento: false,
+    //   idSuelo: false,
+    // })
   }
 
   const onSearchChange = ({ target }) => {
@@ -156,14 +277,16 @@ const Index = () => {
             <SuelosProvider>
               <FormPost
                 data={elementoData}
-                cultivosBySuelo={cultivosBySuelo}
+                showErros={showErros}
                 onSubmit={handleSave}
                 isFormPost={isFormPost}
                 densidades={densidades}
                 setData={setElementoData}
                 profundidad={profundidad}
                 inputsStates={inputsStates}
+                setShowErrors={setShowErrors}
                 setIsFormPost={setIsFormPost}
+                cultivosBySuelo={cultivosBySuelo}
                 setInputsStates={setInputsStates}
               />
             </SuelosProvider>
@@ -172,7 +295,7 @@ const Index = () => {
              <Col>
               <div className="md:flex gap-3 items-center mb-6 justify-between w-100 mt-3">
                 <div className="flex items-center gap-2">
-                  <div className="text-2xl flex items-center gap-2">
+                  <div className="text-2xl flex flex-wrap items-center gap-2">
                     <p className="text-green-700">Lista Análisis Suelos</p>
                     <p className="font-light text-black">
                       {
@@ -215,7 +338,6 @@ const Index = () => {
               <ListAnalisisSuelo
                 search={search}
                 isLoading={isLoading}
-                updateOrAdd={updateOrAdd}
                 modalHelpList={modalHelpList}
                 currentPage={currentPage}
                 analisisSuelos={analisisSuelos}

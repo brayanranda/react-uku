@@ -200,7 +200,7 @@ const FormPost = ({
                           corregimientos.map((corregimiento, index) => (
                             <option key={index} value={corregimiento.idCorregimiento}>{corregimiento.nombre}</option>
                           ))
-                        : <option disabled="true">No se encontraron veredas.</option>
+                        : <option disabled={true}>No se encontraron veredas.</option>
                     }
                   </Input>
                 </Col>
