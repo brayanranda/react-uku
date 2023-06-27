@@ -63,6 +63,13 @@ const FormPost = ({
     setModalHelp(!modalHelp)
   }
 
+  useEffect(() => {
+    if(data) {
+      console.log("sss");
+      console.log(data);
+    }
+  }, [data])
+
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
     if (name === "idCultivo") {
@@ -87,6 +94,16 @@ const FormPost = ({
     if (name === "idSuelo") {
       setData({ ...data, [name]: { id: Number(value) } });
       setInputsStates({ ...inputsStates, [name]: isValid });
+      return;
+    }
+    if (name === "phSuelo") {
+      if(Number(value) > 0 && Number(value) <= 14) {
+        setData({ ...data, [name]: Number(value) });
+        setInputsStates({ ...inputsStates, [name]: isValid });
+        return;
+      }
+      toast.error("pH suelo debe ser mayor a 0 y menor a 15.")
+      setData({ ...data, [name]: "" });
       return;
     }
     setData({ ...data, [name]: Number(value) });
@@ -372,7 +389,7 @@ const FormPost = ({
                       name="phSuelo"
                       className="form-control"
                       valid={showErros && inputsStates?.phSuelo === true}
-                      invalid={ showErros && (inputsStates?.phSuelo === false || !data?.phSuelo || !(data.phSuelo >= 0 && data.phSuelo <= 14))}
+                      invalid={ showErros && (inputsStates?.phSuelo === false || !data?.phSuelo || (data.phSuelo < 0 && data.phSuelo > 14))}
                       onChange={(e) =>
                         handleChange(
                           e.target.value.match(/^[0-9]*\.?[0-9]+$/) !== null &&
@@ -382,8 +399,8 @@ const FormPost = ({
                       }
                     />
                     {
-                      showErros && !(data.phSuelo >= 0 && data.phSuelo <= 14)
-                        ? <span className="text-danger text-small d-block pt-1">pH suelo debe estar entre 0 a 14.</span>
+                      showErros && (data.phSuelo < 0 && data.phSuelo > 14)
+                        ? <span className="text-danger text-small d-block pt-1">pH suelo debe ser mayor a 0 y menor a 15.</span>
                         : showErros && (inputsStates?.phSuelo === false || !data?.phSuelo) 
                           ? <span className="text-danger text-small d-block pt-1">Necesitas este campo.</span>
                           : null
