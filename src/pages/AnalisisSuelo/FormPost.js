@@ -375,7 +375,7 @@ const FormPost = ({
                     className="bg-red-50 rounded-md p-2 flex items-center justify-center cursor-pointer hover:bg-red-100 duration-300 gap-2"
                   >
                       <FontAwesomeIcon icon={faEyeSlash} />
-                      <p className="text-sm text-center">La suma total de los 3 porcentajes debe menor o igual 100.</p>
+                      <p className="text-sm text-center">La suma de los 3 porcentajes debe ser igual a 100.</p>
                   </div>
               }
 

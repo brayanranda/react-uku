@@ -243,9 +243,10 @@ const Index = () => {
 
   const validatePorcentajes = () => {
     let total = elementoData.porcentArcilla + elementoData.porcentArena + elementoData.porcentLimos
-    if(total > 100 || total < 0) {
+    // if(total > 100 || total < 0) {
+    if(total !== 100) {
       setShowMsj(true)
-      toast.error("La suma de los porcentajes es menor a 0 o mayor a 100.")
+      toast.error("La suma de los porcentajes debe ser igual a 100")
       return false
     }
     return true
