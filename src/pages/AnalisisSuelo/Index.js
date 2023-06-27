@@ -7,7 +7,7 @@ import CultivoContext from "../../context/CultivoContext";
 import DensidadContext from "../../context/DensidadContext";
 import FormPost from "./FormPost";
 import ListAnalisisSuelo from "./List";
-import { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import { SuelosProvider } from "../../context/SuelosContext";
 
 const Index = () => {
@@ -24,6 +24,7 @@ const Index = () => {
 
   const { getCultivosBySuelo, cultivosBySuelo } = useContext(CultivoContext);
   const { getDensidades, densidades } = useContext(DensidadContext);
+  const [showMsj, setShowMsj ] = useState(true)
   
   const [showErros, setShowErrors] = useState(false);
   const [isFormPost, setIsFormPost] = useState(false);
@@ -240,6 +241,16 @@ const Index = () => {
     return true
   }
 
+  const validatePorcentajes = () => {
+    let total = elementoData.porcentArcilla + elementoData.porcentArena + elementoData.porcentLimos
+    if(total > 100 || total < 0) {
+      setShowMsj(true)
+      toast.error("La suma de los porcentajes es menor a 0 o mayor a 100.")
+      return false
+    }
+    return true
+  }
+
   const handleSave = async () => {
     setShowErrors(true)
     const validate = isvalidateInput()
@@ -248,6 +259,8 @@ const Index = () => {
     if (!validateCollection) return
     const validatePh = validatePhSuelo()
     if (!validatePh) return
+    const validatePorc = validatePorcentajes()
+    if (!validatePorc) return
 
     await postData(elementoData);
 
@@ -285,9 +298,11 @@ const Index = () => {
           {isFormPost &&
             <SuelosProvider>
               <FormPost
+                showMsj={showMsj}
                 data={elementoData}
                 showErros={showErros}
                 onSubmit={handleSave}
+                setShowMsj={setShowMsj}
                 isFormPost={isFormPost}
                 densidades={densidades}
                 setData={setElementoData}
