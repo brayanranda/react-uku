@@ -22,14 +22,14 @@ const FormPost = ({
 
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
-    if (name === "idCorregimiento") {
-      setData({ ...data, [name]: { idCorregimiento: value } });
-      setInputsStates({ ...inputsStates, [name]: { idCorregimiento: isValid } })
-      return;
-    }
     if (name === "idMunicipio") {
       setData({ ...data, [name]: { idMunicipio: value } });
       setInputsStates({ ...inputsStates, [name]: { idMunicipio: isValid } })
+      return;
+    }
+    if (name === "idCorregimiento") {
+      setData({ ...data, [name]: { idCorregimiento: value } });
+      setInputsStates({ ...inputsStates, [name]: { idCorregimiento: isValid } })
       return;
     }
     setData({ ...data, [name]: value });

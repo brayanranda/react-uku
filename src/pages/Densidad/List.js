@@ -135,17 +135,19 @@ const Index = ({
           </table>
         </div>
       </div>
-      <div className="flex mt-3">
+      <div className="flex mt-3 gap-2">
         <div
-          className="mr-2 w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
+          className="gap-2 btn bg-gray-700 rounded-md text-white hover:bg-gray-900 cursor-pointer flex items-center justify-center"
           onClick={prevPage}
         >
           <FontAwesomeIcon icon={faChevronLeft} />
+          Anterior
         </div>
         <div
-          className="w-7 h-7 bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
+          className="gap-2 btn bg-green-700 rounded-md text-white hover:bg-green-900 cursor-pointer flex items-center justify-center"
           onClick={nextPage}
         >
+          Siguiente
           <FontAwesomeIcon icon={faChevronRight} />
         </div>
       </div>

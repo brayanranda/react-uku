@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Label, Input, Col, CardBody, Modal, Row, Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faQuestion, faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -17,6 +17,7 @@ const FormPut = ({
   setInputsStates,
   handleModalMapa,
   handleModalHelp,
+  getCorregimientos,
 }) => {
   const toggleFormPut = () => {
     setInputsStates({})
@@ -45,19 +46,25 @@ const FormPut = ({
 
   const handleChange = (isValid, e) => {
     const { name, value } = e.target;
-    if (name === "idCorregimiento") {
-      setData({ ...data, [name]: getCorregimiento(Number(value)) });
-      setInputsStates({ ...inputsStates, [name]: { idCorregimiento: isValid } })
-      return;
-    }
     if (name === "idMunicipio") {
       setData({ ...data, [name]: getMunicipio(Number(value)) });
       setInputsStates({ ...inputsStates, [name]: { idMunicipio: isValid } })
       return;
     }
+    if (name === "idCorregimiento") {
+      setData({ ...data, [name]: getCorregimiento(Number(value)) });
+      setInputsStates({ ...inputsStates, [name]: { idCorregimiento: isValid } })
+      return;
+    }
     setData({ ...data, [name]: value });
     setInputsStates({ ...inputsStates, [name]: isValid })
   }
+
+  useEffect(() => {
+    if(data) {
+      getCorregimientos(data.idMunicipio.idMunicipio);
+    }
+  }, [data])
 
   return (
     <React.Fragment>
