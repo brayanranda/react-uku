@@ -132,7 +132,7 @@ const Index = ({
               </div>
             </div>
       }
-      <div className="flex mt-3 gap-2">
+      <div className="flex mt-3 gap-2 mb-8 md:mb-0">
         <div
           className="gap-2 btn bg-gray-700 rounded-md text-white hover:bg-gray-900 cursor-pointer flex items-center justify-center"
           onClick={prevPage}
