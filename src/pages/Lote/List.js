@@ -94,6 +94,18 @@ const Index = ({
               {
                 filteredLotes().map((lote, x) => 
                   <div key={x} className="bg-white shadow-md p-4 rounded-md">
+                    <div className="flex justify-end gap-2">
+                      <FontAwesomeIcon
+                          icon={faEdit}
+                          onClick={() => { toggleFormPut(lote); setIdLote(lote.id) }}
+                          className="btn cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
+                      />
+                      <FontAwesomeIcon
+                          icon={faTrash}
+                          onClick={() => { toggleModalDelete(); setIdLote(lote.id) }}
+                          className="btn cursor-pointer duration-300 transform rounded-md bg-red-200 hover:text-red-800 p-2.5"
+                      />
+                    </div>
                     <p><b>Identificador: </b> {lote.id}</p>
                     <p><b>Descripción del lote: </b> {lote.descripcion}</p>
                     <div className="bg-gray-100 p-2 rounded-md flex items-center gap-2 mt-3 flex-wrap">
@@ -109,16 +121,6 @@ const Index = ({
                       >
                           <FontAwesomeIcon icon={faTableList} /> Análisis de suelo
                       </Link>
-                      <FontAwesomeIcon
-                          icon={faEdit}
-                          onClick={() => { toggleFormPut(lote); setIdLote(lote.id) }}
-                          className="btn cursor-pointer duration-300 transform rounded-md bg-green-200 hover:text-green-800 p-2.5"
-                      />
-                      <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={() => { toggleModalDelete(); setIdLote(lote.id) }}
-                          className="btn cursor-pointer duration-300 transform rounded-md bg-red-200 hover:text-red-800 p-2.5"
-                      />
                     </div>
                   </div>
                 )
