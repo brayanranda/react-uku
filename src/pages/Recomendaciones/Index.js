@@ -208,7 +208,7 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <img className="w-full lg:w-2/3" src={imgTabla} alt="" />
+                <img className="mb-14 md:mb-0 w-full lg:w-2/3" src={imgTabla} alt="" />
               </div>
             </div>
           </Col>

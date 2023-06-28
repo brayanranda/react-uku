@@ -118,7 +118,7 @@ const Index = () => {
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Disponibilidad de nutrientes en el suelo</p>
                   <InterpretacionDisponibilidadNutrientes analisisSuelo={analisisSuelo} />
                 </div>
-                <div>
+                <div className="mb-14 md:mb-0">
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Interpretación de las Relaciones de Bases del Suelo</p>
                   <InterpretacionRelacionesBasesSuelo analisisSuelo={analisisSuelo} />
                 </div>
