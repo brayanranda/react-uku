@@ -59,7 +59,7 @@ const Index = ({analisisSuelo}) => {
                   analisisSuelo && analisisSuelo.analisisElementoCollection && analisisSuelo.analisisElementoCollection.lenght !== 0 &&
                     analisisSuelo.analisisElementoCollection.map((element, index) => 
                       <td key={index} className="text-center">
-                        <p className="mx-auto flex items-center gap-2 justify-center bg-slate-200 rounded-full w-fit px-2 py-1">
+                        <p className="mx-auto flex flex-wrap items-center gap-2 justify-center bg-slate-200 rounded-md sm:rounded-full w-fit px-2 py-1">
                           <span className={`flex w-5 h-5 rounded-full ${color(element?.idAnalisisElementoInterpretacion?.interpretacion)}`}></span>
                           {element?.idAnalisisElementoInterpretacion?.interpretacion}s
                         </p>
