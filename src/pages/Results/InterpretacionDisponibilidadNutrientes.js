@@ -25,7 +25,7 @@ const Index = ({analisisSuelo}) => {
                     <th className="text-center">Calcio (Ca)</th>
                     <th className="text-center">Magnesio (Mg)</th>
                     <th className="text-center">Sodio (Na)</th>
-                    <th className="text-center">Asufre (S)</th>
+                    <th className="text-center">Azufre (S)</th>
                     <th className="text-center">Boro (B)</th>
                     <th className="text-center">Cobre (Cu)</th>
                 </tr>
