@@ -11,7 +11,7 @@ const Index = ({analisisSuelo}) => {
               <tr>
                 <th>Determinación</th>
                 <th>Unidad</th>
-                <th>Resultado</th>
+                <th className="text-center">Resultado</th>
                 <th>Interpretación</th>
               </tr>
             </thead>
@@ -19,31 +19,31 @@ const Index = ({analisisSuelo}) => {
               <tr>
                 <th>pH</th>
                 <th></th>
-                <td>{analisisSuelo?.phSuelo}</td>
+                <td className="text-center">{analisisSuelo?.phSuelo}</td>
                 <td>{analisisSuelo?.idPhSuelo?.interpretacion}</td>
               </tr>
               <tr>
                 <th>Aluminio Intercambiable</th>
                 <th>cmol / kg</th>
-                <td>{analisisSuelo?.aluminioIntercambiable}</td>
+                <td className="text-center">{analisisSuelo?.aluminioIntercambiable}</td>
                 <td>{analisisSuelo?.idAluminioIntercambiable?.interpretacion}</td>
               </tr>
               <tr>
                 <th>Conductividad Eléctrica (CE)</th>
                 <th>dS / m</th>
-                <td>{analisisSuelo?.conductividadElectrica}</td>
+                <td className="text-center">{analisisSuelo?.conductividadElectrica}</td>
                 <td>{analisisSuelo?.idConductividadElectrica?.interpretacion}</td>
               </tr>
               <tr>
                 <th>Capacidad de Intercambio Catiónico (CIC)</th>
                 <th>cmol / kg</th>
-                <td>{analisisSuelo?.intercambioCationico}</td>
+                <td className="text-center">{analisisSuelo?.intercambioCationico}</td>
                 <td>{analisisSuelo?.idIntercambioCationico?.interpretacion}</td>
               </tr>
               <tr>
                 <th>Materia Orgánica (M.O.)</th>
                 <th>%</th>
-                <td>{analisisSuelo?.materiaOrganica}</td>
+                <td className="text-center">{analisisSuelo?.materiaOrganica}</td>
                 <td>{analisisSuelo?.idMateriaOrganica?.interpretacion}</td>
               </tr>
             </tbody>
