@@ -99,7 +99,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="md:p-3 pb-0 space-y-8">
+              <div className="md:p-3 pb-0 space-y-8 mb-10">
                 <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Reporte del análisis de suelo</p>
                 <div className="w-100 md:flex gap-4 items-end">
                   <div className="w-full md:w-3/4">
@@ -118,7 +118,7 @@ const Index = () => {
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Disponibilidad de nutrientes en el suelo</p>
                   <InterpretacionDisponibilidadNutrientes analisisSuelo={analisisSuelo} />
                 </div>
-                <div className="mb-14 md:mb-0">
+                <div>
                   <p className="w-100 bg-gray-300 p-3 font-medium text-lg">Interpretación de las Relaciones de Bases del Suelo</p>
                   <InterpretacionRelacionesBasesSuelo analisisSuelo={analisisSuelo} />
                 </div>

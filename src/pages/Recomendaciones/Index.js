@@ -91,7 +91,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="md:p-3 pb-0 space-y-8">
+              <div className="md:p-3 pb-0 space-y-8 mb-10">
                 <div className="bg-white">
                   <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de cal (Encalado del suelo)</p>
                   <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
@@ -209,7 +209,7 @@ const Index = () => {
                   </div>
                 </div>
                 
-                <img className="mb-14 md:mb-0 w-full lg:w-2/3" src={imgTabla} alt="" />
+                <img className="w-full lg:w-2/3" src={imgTabla} alt="" />
               </div>
             </div>
           </Col>
