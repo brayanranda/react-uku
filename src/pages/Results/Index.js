@@ -57,7 +57,7 @@ const Index = () => {
 
   return (
     <div className="col-12 col-lg-10 fixed top-0 right-0 md:p-4 overflow-y-scroll max-h-screen">
-      <div className="w-100 mt-16">
+      <div className="w-100 mt-16 mb-8 md:mb-4">
         <Row>
            <Col>
             <div className="flex gap-3 items-center mb-6 justify-between w-100 mt-10 md:mt-6">
