@@ -116,7 +116,7 @@ const Index = () => {
                 <Row>
                   <Col md={6}>
                     <div className="bg-white">
-                      <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de abono orgánico (Encalado del suelo)</p>
+                      <p className="w-100 bg-gray-300 px-3 pt-3 font-medium text-lg">Recomendación de aplicación de abono orgánico.</p>
                       <p className="w-100 bg-gray-300 px-3 pb-3 text-md">
                         Nota: Seleccione a su consideración una de las siguientes recomendaciones.
                       </p>
@@ -124,13 +124,14 @@ const Index = () => {
                         {
                           analisisSuelo && analisisSuelo.recomendacionCollection && 
                           analisisSuelo.recomendacionCollection.length !== 0 && analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection &&
-                          analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.length > 0 &&
+                          analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.length > 0 ?
                             analisisSuelo.recomendacionCollection[0].abonoOrganicoRecomendacionCollection.map((element, index) => 
                               <div key={index} className="md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-none-last py-3 md:py-0">
                                 <p className="font-bold">{element?.idAbonoOrganico?.descripcion} (Kg/Ha)</p>
                                 <p>{element.cantidad}</p>
                               </div>
                             )
+                            : <p>(No se recomienda.)</p>
                         }
                       </div>
                     </div>
