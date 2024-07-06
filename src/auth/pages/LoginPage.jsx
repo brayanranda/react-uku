@@ -81,12 +81,12 @@ export const LoginPage = () => {
             Ingresar
           </Button>
 
-          {/* <Link
+          <Link
             className="flex justify-center font-medium"
             to="/forgot-password"
           >
             ¿Olvidaste la contraseña?
-          </Link> */}
+          </Link>
           <p className=" text-center">
             ¿No tienes cuenta?
             <Link className="font-medium ml-2" to="/register">
