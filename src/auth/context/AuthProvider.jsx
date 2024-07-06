@@ -3,11 +3,9 @@ import { AuthContext } from "./AuthContext";
 import { authReducer } from "./authReducer";
 import { helpHttp } from "../../helpers/helpHttp";
 import toast from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 
 import { types } from "../types/types";
-// const initialState = {
-//     logged: false,
-// }
 
 const init = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -21,6 +19,7 @@ const init = () => {
 };
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [authState, dispatch] = useReducer(authReducer, {}, init);
   const api = helpHttp();
   const { REACT_APP_API_URL } = process.env;
@@ -55,9 +54,9 @@ export const AuthProvider = ({ children }) => {
     };
     try {
       const res = await api.post(`${authURL}recuperar/${token}`, options);
-      console.log(res);
       if (!res.err) {
-        console.log("contraseña actualizada");
+        toast.success(res.mensaje)
+        navigate('/login');
       }
     } catch (error) {
       console.log(error);

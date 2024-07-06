@@ -23,7 +23,6 @@ export const ChangePasswordPage = () => {
   };
   const onLogin = async (event) => {
     event.preventDefault();
-    console.log(token);
     const validate = validateInputs();
     if (!validate.password) return;
     const user = { confirmPassword, password };
@@ -46,9 +45,8 @@ export const ChangePasswordPage = () => {
         className="bg-white p-3 p-md-5 rounded-3"
       >
         <Image src={logo} width={120} className="mx-auto logo-lr" alt="" />
-        <h4 className=" text-center mt-3 mb-4 text-2xl font-medium">
-          Cambiar contraseña
-        </h4>
+        <h4 className=" text-center mt-3 mb-4 text-2xl font-medium">Cambiar contraseña</h4>
+
         <form onSubmit={onLogin}>
           <label className="d-block  mb-3" htmlFor="email">
             <p className="font-bold">Contraseña</p>
@@ -79,9 +77,7 @@ export const ChangePasswordPage = () => {
             Continuar
           </Button>
           <p className=" text-center">
-            <Link className="font-medium ml-2" to="/login">
-              Iniciar sesión
-            </Link>
+            <Link className="font-medium ml-2" to="/login">Iniciar sesión</Link>
           </p>
         </form>
       </Col>
