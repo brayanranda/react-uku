@@ -5,9 +5,11 @@ import { Button, Col, Row } from "reactstrap";
 import { Image } from "react-bootstrap";
 import { useForm } from "../../hooks/useForm";
 import logo from "../../assets/images/logo-vertical.png";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+
 export const RegisterPage = () => {
   const { createUser, isLogged } = useContext(AuthContext);
+
   const { formState, onInputChange, onResetForm } = useForm({
     nombres: "",
     apellidos: "",
@@ -20,9 +22,29 @@ export const RegisterPage = () => {
     fechaNacimiento: "",
     telefono: "",
   });
+
   const navigate = useNavigate();
+
+  function esMayorDeEdad(fechaNacimientoStr) {
+    const fechaNacimiento = new Date(fechaNacimientoStr);
+    const fechaActual = new Date();
+    
+    let edad = fechaActual.getFullYear() - fechaNacimiento.getFullYear();
+    const mes = fechaActual.getMonth() - fechaNacimiento.getMonth();
+    if (mes < 0 || (mes === 0 && fechaActual.getDate() < fechaNacimiento.getDate())) {
+        edad--;
+    }
+    
+    return edad >= 18;
+  }
+
   const onRegister = async (event) => {
     event.preventDefault();
+    if(!esMayorDeEdad(formState.fechaNacimiento)) {
+      toast.error("Debes ser mayor de edad.");
+      return
+    } 
+
     const data = {
       ...formState,
       identificacion: Number(formState.identificacion),
@@ -34,6 +56,7 @@ export const RegisterPage = () => {
       estado: false,
       confirmationToken: "",
     };
+
     await createUser(data);
     if (isLogged) {
       navigate("/finca", {
@@ -43,6 +66,7 @@ export const RegisterPage = () => {
       onResetForm();
     }
   };
+
   return (
     <Row className="d-flex align-items-center justify-content-center w-100 min-h-screen px-6 mx-0 bg-image-uku">
       <div>
@@ -135,7 +159,7 @@ export const RegisterPage = () => {
                   className="form-select"
                   required
                 >
-                  <option value="">Seleccionar...</option>
+                  <option value="" hidden>Seleccionar...</option>
                   <option value="1">Cédula de Ciudadanía</option>
                 </select>
               </label>
